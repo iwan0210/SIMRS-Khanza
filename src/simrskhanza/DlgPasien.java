@@ -9694,8 +9694,8 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         nmsukubangsa.setText("");
         kdbahasa.setText("");
         nmbahasa.setText("");
-        kdperusahaan.setText("");
-        nmperusahaan.setText("");
+        kdperusahaan.setText("1");
+        nmperusahaan.setText("-");
         kdgolongantni.setText("");
         nmgolongantni.setText("");
         kdsatuantni.setText("");
