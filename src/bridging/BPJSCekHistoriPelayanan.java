@@ -27,8 +27,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.Calendar;
 import java.util.Date;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -113,9 +113,7 @@ public final class BPJSCekHistoriPelayanan extends javax.swing.JDialog {
         }
         
         
-        Calendar cal = Calendar.getInstance();
-        cal.set(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH)-2,1); // to get previous year add -1
-        Date Year = cal.getTime();
+        Date Year = java.sql.Date.valueOf(LocalDate.now().minusDays(89));
         DTPCari1.setDate(Year);
     }
     

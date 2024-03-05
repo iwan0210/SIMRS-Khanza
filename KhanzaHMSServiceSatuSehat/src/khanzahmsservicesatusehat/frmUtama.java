@@ -220,11 +220,11 @@ public class frmUtama extends javax.swing.JFrame {
                 if((nilai_jam%4==0)&&(detik.equals("01")&&menit.equals("01"))){
                     encounter();
                     observationTTV();
-                    vaksin();
                     prosedur();
                     condition();
                     clinicalimpression();
                     dietgizi();
+                    vaksin();
                     medicationrequest();
                     medicationdispense();
                     medicationstatement();

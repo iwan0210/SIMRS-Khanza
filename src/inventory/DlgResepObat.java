@@ -1248,7 +1248,8 @@ public final class DlgResepObat extends javax.swing.JDialog {
             if(Sequel.menyimpantf("resep_obat","?,?,?,?,?,?,?,?,?,?","Nomer Resep",10,new String[]{
                     NoResep.getText(),Valid.SetTgl(DTPBeri.getSelectedItem()+""),
                     cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
-                    TNoRw.getText(),KdDokter.getText(),"0000-00-00","00:00:00",status,"0000-00-00","00:00:00"
+                    TNoRw.getText(),KdDokter.getText(),Valid.SetTgl(DTPBeri.getSelectedItem()+""),
+                    cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),status,"0000-00-00","00:00:00"
                 })==true){
                 tampil();
                 if(lembarobat.equals("yes")){

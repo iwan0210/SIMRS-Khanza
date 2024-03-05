@@ -589,7 +589,7 @@ public class frmUtama extends javax.swing.JFrame {
                                     }
                                 }
                                 
-                                datajam=Sequel.cariIsi("select concat(resep_obat.tgl_penyerahan,' ',resep_obat.jam_penyerahan) from resep_obat where resep_obat.status='ralan' and resep_obat.no_rawat=? and concat(resep_obat.tgl_penyerahan,' ',resep_obat.jam_penyerahan)<>'0000-00-00 00:00:00'",rs.getString("no_rawat"));
+                                datajam=Sequel.cariIsi("select concat(resep_obat.tgl_peresepan,' ',resep_obat.jam_peresepan) from resep_obat where resep_obat.status='ralan' and resep_obat.no_rawat=? and concat(resep_obat.tgl_peresepan,' ',resep_obat.jam_peresepan)<>'0000-00-00 00:00:00'",rs.getString("no_rawat"));
                                 if(!datajam.equals("")){
                                     if(Sequel.menyimpantf2("referensi_mobilejkn_bpjs_taskid","?,?,?","task id",3,new String[]{rs.getString("no_rawat"),"7",datajam})==true){
                                         parsedDate = dateFormat.parse(datajam);
@@ -675,7 +675,7 @@ public class frmUtama extends javax.swing.JFrame {
                         ps=koneksi.prepareStatement(
                                 "select reg_periksa.no_reg,reg_periksa.no_rawat,reg_periksa.tgl_registrasi,reg_periksa.kd_dokter,dokter.nm_dokter,reg_periksa.kd_poli,poliklinik.nm_poli,reg_periksa.stts_daftar,reg_periksa.no_rkm_medis,reg_periksa.kd_pj "+
                                 "from reg_periksa inner join dokter on reg_periksa.kd_dokter=dokter.kd_dokter inner join poliklinik on reg_periksa.kd_poli=poliklinik.kd_poli where reg_periksa.tgl_registrasi between '"+Tanggal1.getText()+"' and '"+Tanggal2.getText()+"' "+
-                                "and reg_periksa.no_rawat not in (select referensi_mobilejkn_bpjs.no_rawat from referensi_mobilejkn_bpjs where referensi_mobilejkn_bpjs.tanggalperiksa between '"+Tanggal1.getText()+"' and '"+Tanggal2.getText()+"') "+
+                                "and reg_periksa.kd_poli in ('U0001', 'U0002', 'U0003', 'U0004', 'U0021') and reg_periksa.no_rawat not in (select referensi_mobilejkn_bpjs.no_rawat from referensi_mobilejkn_bpjs where referensi_mobilejkn_bpjs.tanggalperiksa between '"+Tanggal1.getText()+"' and '"+Tanggal2.getText()+"') "+
                                 "order by concat(reg_periksa.tgl_registrasi,' ',reg_periksa.jam_reg)");
                         try {
                             rs=ps.executeQuery();
@@ -909,7 +909,7 @@ public class frmUtama extends javax.swing.JFrame {
                                                 }
                                             }
 
-                                            datajam=Sequel.cariIsi("select concat(resep_obat.tgl_penyerahan,' ',resep_obat.jam_penyerahan) from resep_obat where resep_obat.status='ralan' and resep_obat.no_rawat=? and concat(resep_obat.tgl_penyerahan,' ',resep_obat.jam_penyerahan)<>'0000-00-00 00:00:00'",rs.getString("no_rawat"));
+                                            datajam=Sequel.cariIsi("select concat(resep_obat.tgl_peresepan,' ',resep_obat.jam_peresepan) from resep_obat where resep_obat.status='ralan' and resep_obat.no_rawat=? and concat(resep_obat.tgl_peresepan,' ',resep_obat.jam_peresepan)<>'0000-00-00 00:00:00'",rs.getString("no_rawat"));
                                             if(!datajam.equals("")){
                                                 if(Sequel.menyimpantf2("referensi_mobilejkn_bpjs_taskid","?,?,?","task id",3,new String[]{rs.getString("no_rawat"),"7",datajam})==true){
                                                     parsedDate = dateFormat.parse(datajam);
