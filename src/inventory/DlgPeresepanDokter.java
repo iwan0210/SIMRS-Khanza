@@ -372,7 +372,6 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         jLabel3 = new widget.Label();
         jLabel13 = new widget.Label();
         btnDokter = new widget.Button();
-        jLabel11 = new widget.Label();
         NoResep = new widget.TextBox();
         jLabel8 = new widget.Label();
         DTPBeri = new widget.Tanggal();
@@ -385,6 +384,9 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         LTotal = new widget.Label();
         jLabel7 = new widget.Label();
         LTotalTagihan = new widget.Label();
+        jLabel12 = new widget.Label();
+        jLabel14 = new widget.Label();
+        NmTemplate = new widget.TextBox();
         TabRawat = new javax.swing.JTabbedPane();
         Scroll = new widget.ScrollPane();
         tbResep = new widget.Table();
@@ -635,13 +637,13 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
             }
         });
         FormInput.add(KdDokter);
-        KdDokter.setBounds(75, 72, 120, 23);
+        KdDokter.setBounds(75, 72, 100, 23);
 
         NmDokter.setEditable(false);
         NmDokter.setHighlighter(null);
         NmDokter.setName("NmDokter"); // NOI18N
         FormInput.add(NmDokter);
-        NmDokter.setBounds(196, 72, 230, 23);
+        NmDokter.setBounds(180, 72, 200, 23);
 
         jLabel3.setText("No.Rawat :");
         jLabel3.setName("jLabel3"); // NOI18N
@@ -668,12 +670,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
             }
         });
         FormInput.add(btnDokter);
-        btnDokter.setBounds(428, 72, 28, 23);
-
-        jLabel11.setText("No.Resep :");
-        jLabel11.setName("jLabel11"); // NOI18N
-        FormInput.add(jLabel11);
-        jLabel11.setBounds(455, 72, 70, 23);
+        btnDokter.setBounds(380, 72, 28, 23);
 
         NoResep.setHighlighter(null);
         NoResep.setName("NoResep"); // NOI18N
@@ -683,7 +680,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
             }
         });
         FormInput.add(NoResep);
-        NoResep.setBounds(528, 72, 130, 23);
+        NoResep.setBounds(480, 72, 130, 23);
 
         jLabel8.setText("Tgl.Resep :");
         jLabel8.setName("jLabel8"); // NOI18N
@@ -691,7 +688,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         jLabel8.setBounds(0, 42, 72, 23);
 
         DTPBeri.setForeground(new java.awt.Color(50, 70, 50));
-        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-02-2025" }));
+        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2023" }));
         DTPBeri.setDisplayFormat("dd-MM-yyyy");
         DTPBeri.setName("DTPBeri"); // NOI18N
         DTPBeri.setOpaque(false);
@@ -750,8 +747,13 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
                 ChkRMItemStateChanged(evt);
             }
         });
+        ChkRM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChkRMActionPerformed(evt);
+            }
+        });
         FormInput.add(ChkRM);
-        ChkRM.setBounds(660, 72, 23, 23);
+        ChkRM.setBounds(610, 72, 23, 23);
 
         ChkJln.setBorder(null);
         ChkJln.setSelected(true);
@@ -795,6 +797,27 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         LTotalTagihan.setPreferredSize(new java.awt.Dimension(80, 23));
         FormInput.add(LTotalTagihan);
         LTotalTagihan.setBounds(588, 42, 95, 23);
+
+        jLabel12.setText("Jadikan Template :");
+        jLabel12.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel12.setName("jLabel12"); // NOI18N
+        FormInput.add(jLabel12);
+        jLabel12.setBounds(640, 72, 100, 23);
+
+        jLabel14.setText("No.Resep :");
+        jLabel14.setName("jLabel14"); // NOI18N
+        FormInput.add(jLabel14);
+        jLabel14.setBounds(410, 72, 60, 23);
+
+        NmTemplate.setHighlighter(null);
+        NmTemplate.setName("NmTemplate"); // NOI18N
+        NmTemplate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NmTemplateKeyPressed(evt);
+            }
+        });
+        FormInput.add(NmTemplate);
+        NmTemplate.setBounds(750, 72, 160, 24);
 
         internalFrame1.add(FormInput, java.awt.BorderLayout.PAGE_START);
 
@@ -1079,6 +1102,12 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                                 sukses=false;
                             }
                         }
+                    }
+                    
+                    if (!NmTemplate.getText().trim().isEmpty()) {
+                        Sequel.menyimpantf2("template_resep", "?,?", "Nomor Resep", 2, new String[]{
+                            NoResep.getText(),NmTemplate.getText().trim() 
+                        });
                     }
                 }else if(ubah==true){
                     Sequel.meghapus("resep_dokter","no_resep",NoResep.getText());
@@ -1519,6 +1548,14 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             
     }//GEN-LAST:event_DTPBeriItemStateChanged
 
+    private void NmTemplateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmTemplateKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NmTemplateKeyPressed
+
+    private void ChkRMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkRMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChkRMActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1555,6 +1592,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.Label LTotal;
     private widget.Label LTotalTagihan;
     private widget.TextBox NmDokter;
+    private widget.TextBox NmTemplate;
     private widget.TextBox NoResep;
     private javax.swing.JPopupMenu Popup;
     private widget.ScrollPane Scroll;
@@ -1569,8 +1607,9 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.ComboBox cmbJam;
     private widget.ComboBox cmbMnt;
     private widget.InternalFrame internalFrame1;
-    private widget.Label jLabel11;
+    private widget.Label jLabel12;
     private widget.Label jLabel13;
+    private widget.Label jLabel14;
     private widget.Label jLabel3;
     private widget.Label jLabel5;
     private widget.Label jLabel6;

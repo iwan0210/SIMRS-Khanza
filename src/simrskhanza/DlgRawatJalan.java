@@ -25,6 +25,7 @@ import fungsi.akses;
 import inventory.DlgCariObat;
 import inventory.DlgCopyResep;
 import inventory.DlgPeresepanDokter;
+import inventory.DlgTemplateResep;
 import inventory.InventoryResepLuar;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -1535,6 +1536,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         BtnRiwayat = new widget.Button();
         BtnResepObat = new widget.Button();
         BtnCopyResep = new widget.Button();
+        BtnTemplateResep = new widget.Button();
         BtnResepLuar = new widget.Button();
         BtnInputObat = new widget.Button();
         BtnObatBhp = new widget.Button();
@@ -3677,6 +3679,22 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         BtnCopyResep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnCopyResepActionPerformed(evt);
+            }
+        });
+        
+        BtnTemplateResep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/item.png"))); 
+        BtnTemplateResep.setText("Data Template Resep");
+        BtnTemplateResep.setFocusPainted(false);
+        BtnTemplateResep.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        BtnTemplateResep.setGlassColor(new java.awt.Color(255, 255, 255));
+        BtnTemplateResep.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnTemplateResep.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        BtnTemplateResep.setName("BtnTemplateResep"); 
+        BtnTemplateResep.setPreferredSize(new java.awt.Dimension(190, 23));
+        BtnTemplateResep.setRoundRect(false);
+        BtnTemplateResep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTemplateResepActionPerformed(evt);
             }
         });
 
@@ -7429,6 +7447,23 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             this.setCursor(Cursor.getDefaultCursor());
         } 
     }//GEN-LAST:event_BtnCopyResepActionPerformed
+    
+    private void BtnTemplateResepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTemplateResepActionPerformed
+        if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            TCari.requestFocus();
+        }else{ 
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            DlgTemplateResep daftar=new DlgTemplateResep(null,false);
+            daftar.isCek();
+            daftar.setRM(TNoRw.getText(),TNoRM.getText(),KdDok.getText(),kd_pj,"ralan");
+            daftar.tampil();
+            daftar.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+            daftar.setLocationRelativeTo(internalFrame1);
+            daftar.setVisible(true);
+            this.setCursor(Cursor.getDefaultCursor());
+        } 
+    }//GEN-LAST:event_BtnTemplateResepActionPerformed
 
     private void ChkAccorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkAccorActionPerformed
         isMenu();
@@ -10193,6 +10228,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Button BtnChecklistPostOperasi;
     private widget.Button BtnChecklistPreOperasi;
     private widget.Button BtnCopyResep;
+    private widget.Button BtnTemplateResep;
     private widget.Button BtnDokumentasiESWL;
     private widget.Button BtnEdit;
     private widget.Button BtnEdukasiPasienKeluarga;
@@ -10800,6 +10836,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         BtnTambahTindakan.setEnabled(akses.gettarif_ralan());    
         BtnResepObat.setVisible(akses.getresep_dokter());
         BtnCopyResep.setVisible(akses.getresep_dokter());
+        BtnTemplateResep.setVisible(akses.getresep_dokter());
         BtnTemplatePemeriksaan.setEnabled(akses.gettemplate_pemeriksaan());
         if(akses.getresep_dokter()==true){
             tinggi=tinggi+48;
@@ -13342,6 +13379,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         FormMenu.add(BtnRiwayat);
         FormMenu.add(BtnResepObat);
         FormMenu.add(BtnCopyResep);
+        FormMenu.add(BtnTemplateResep);
         FormMenu.add(BtnResepLuar);
         FormMenu.add(BtnInputObat);
         FormMenu.add(BtnObatBhp);
