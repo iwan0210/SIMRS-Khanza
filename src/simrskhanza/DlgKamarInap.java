@@ -11653,7 +11653,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     } 
                 }else{
                     try {
-                        ps=koneksi.prepareStatement("select * from bridging_sep where bridging_sep.no_rawat=? order by bridging_sep.tglsep desc limit 1");
+                        ps=koneksi.prepareStatement("select * from bridging_sep where bridging_sep.jnspelayanan=1 and bridging_sep.no_rawat=? order by bridging_sep.tglsep desc limit 1");
                         try {
                             ps.setString(1,norawat.getText());
                             rs=ps.executeQuery();

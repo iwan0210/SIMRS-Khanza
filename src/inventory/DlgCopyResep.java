@@ -479,7 +479,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                     " and reg_periksa.no_rkm_medis=pasien.no_rkm_medis and resep_obat.kd_dokter=dokter.kd_dokter where "+
                     " resep_obat.tgl_peresepan<>'0000-00-00' and pasien.no_rkm_medis=? "+
                     (TAMPILKANCOPYRESEPDOKTERLAIN.equals("no")?"and resep_obat.kd_dokter=?":"")+
-                    " order by resep_obat.tgl_perawatan,resep_obat.jam desc");
+                    " order by resep_obat.tgl_perawatan,resep_obat.jam desc limit 5");
             }
             try{
                 if(ChkTanggal.isSelected()==true){
