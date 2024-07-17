@@ -13,6 +13,9 @@
 package simrskhanza;
 import bridging.BPJSCekDataIndukKecelakaan;
 import bridging.BPJSCekSuplesiJasaRaharja;
+import bridging.ApiBPJS;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import rekammedis.RMRiwayatPerawatan;
 import permintaan.DlgBookingOperasi;
 import inventory.DlgResepObat;
@@ -57,6 +60,9 @@ import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,6 +79,10 @@ import laporan.DlgBerkasRawat;
 import laporan.DlgDataInsidenKeselamatan;
 import laporan.DlgDataKlasifikasiPasienRanap;
 import permintaan.DlgPermintaanKonsultasiMedik;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import permintaan.DlgPermintaanLaboratorium;
 import permintaan.DlgPermintaanPelayananInformasiObat;
 import permintaan.DlgPermintaanRadiologi;
@@ -200,13 +210,19 @@ public class DlgKamarInap extends javax.swing.JDialog {
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     private Date date = new Date();
     private String now=dateFormat.format(date),kmr="",key="",tglmasuk,jammasuk,kd_pj,KUNCIDOKTERRANAP="",
-            hariawal="",aktifkan_hapus_data_salah="",terbitsep="",namadokter="";
+            hariawal="",pilihancetak="",aktifkan_hapus_data_salah="",terbitsep="",namadokter="",requestJson,URL="",query="",utc="",link="",user="";
     private PreparedStatement ps,pssetjam,pscaripiutang,psdiagnosa,psibu,psanak,pstarif,psdpjp,pscariumur;
     private ResultSet rs,rs2,rssetjam;
     private int i,row=0;
     private double lama=0,persenbayi=0,hargakamar=0;
     private String gabungkan="",norawatgabung="",kamaryangdigabung="",dokterranap="",bangsal="",diagnosa_akhir="",namakamar="",umur="0",sttsumur="Th",order="order by bangsal.nm_bangsal,kamar_inap.tgl_masuk,kamar_inap.jam_masuk";
-
+    private ApiBPJS api= new ApiBPJS();
+    private HttpHeaders headers;
+    private HttpEntity requestEntity;
+    private ObjectMapper mapper = new ObjectMapper();
+    private JsonNode root;
+    private JsonNode nameNode;
+    private JsonNode response;
     /** Creates new form DlgKamarInap
      * @param parent
        @param modal */
@@ -677,6 +693,18 @@ public class DlgKamarInap extends javax.swing.JDialog {
             KUNCIDOKTERRANAP=koneksiDB.KUNCIDOKTERRANAP();
         } catch (Exception e) {
             KUNCIDOKTERRANAP="no";
+		}
+
+		try {
+            user=akses.getkode().replace(" ","").substring(0,9);
+        } catch (Exception e) {
+            user=akses.getkode();
+        }
+        
+        try {
+            link=koneksiDB.URLAPIBPJS();
+        } catch (Exception e) {
+            System.out.println("E : "+e);
         }
     }
 
@@ -16110,6 +16138,175 @@ public class DlgKamarInap extends javax.swing.JDialog {
         tampil();
     } 
     
+    private void MnPulangSEPAPDActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+        }else{
+            if(tbKamIn.getSelectedRow()>-1){
+               if(!TNoRwCari.getText().trim().equals("")){
+                   this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                   try {
+                        psanak=koneksi.prepareStatement(
+                            "select no_sep, tglpulang from bridging_sep where no_rawat=? and jnspelayanan='1'");
+                        try {
+                            psanak.setString(1,TNoRwCari.getText().trim());
+                            rs2=psanak.executeQuery();
+                            if(rs2.next()) {
+                                if (rs2.getString("tglpulang") == null || rs2.getString("tglpulang").equals("0000-00-00 00:00:00")) {
+                                    try {
+                                        headers = new HttpHeaders();
+                                        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+                                        headers.add("X-Cons-ID",koneksiDB.CONSIDAPIBPJS());
+                                        utc=String.valueOf(api.GetUTCdatetimeAsString());
+                                        headers.add("X-Timestamp",utc);
+                                        headers.add("X-Signature",api.getHmac(utc));
+                                        headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
+                                        URL = link+"/SEP/2.0/updtglplg";
+                                        requestJson ="{" +
+                                                    "\"request\":" +
+                                                       "{" +
+                                                          "\"t_sep\":" +
+                                                             "{" +
+                                                              "\"noSep\":\""+rs2.getString("no_sep")+"\"," +
+                                                              "\"statusPulang\":\"1\"," +
+                                                              "\"noSuratMeninggal\":\"\"," +
+                                                              "\"tglMeninggal\":\"\"," +
+                                                              "\"tglPulang\":\""+LocalDate.now()+"\"," +
+                                                              "\"noLPManual\":\"\"," +
+                                                              "\"user\":\"RSKH-"+user+"\"" +                                            
+                                                             "}" +
+                                                       "}" +
+                                                   "}";
+                                        System.out.println("JSON : "+requestJson);
+                                        requestEntity = new HttpEntity(requestJson,headers);
+                                        root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.PUT, requestEntity, String.class).getBody());
+                                        nameNode = root.path("metaData");
+                                        System.out.println("code : "+nameNode.path("code").asText());
+                                        System.out.println("message : "+nameNode.path("message").asText());
+                                        if(nameNode.path("code").asText().equals("200")){
+                                            Sequel.mengedit("bridging_sep","no_sep=?","tglpulang=?",2,new String[]{                             
+                                                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                                                rs2.getString("no_sep")
+                                            });
+                                            JOptionPane.showMessageDialog(null,"Sukses");
+                                        }else{
+                                            JOptionPane.showMessageDialog(null,nameNode.path("message").asText());
+                                        }
+                                    } catch (Exception ex) {
+                                        System.out.println("Notifikasi Bridging Simpan : "+ex);
+                                        if(ex.toString().contains("UnknownHostException")){
+                                            JOptionPane.showMessageDialog(null,"Koneksi ke server BPJS terputus...!");
+                                        }
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null,"SEP Sudah update pulang");
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null,"Belum Terbit SEP Inap");
+                            }
+                        } catch(Exception ex){
+                            System.out.println("Notifikasi : "+ex);
+                        } finally{
+                            if(rs2 != null){
+                                rs2.close();
+                            }
+                            if(psanak != null){
+                                psanak.close();
+                            }
+                        }
+                   } catch (Exception e) {
+                        System.out.println(e);
+                   }
+                   this.setCursor(Cursor.getDefaultCursor());
+               }
+           }
+        }
+    }
+    
+    private void MnPulangSEPAPSActionPerformed(java.awt.event.ActionEvent evt) {
+       if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+        }else{
+            if(tbKamIn.getSelectedRow()>-1){
+               if(!TNoRwCari.getText().trim().equals("")){
+                   this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                   try {
+                        psanak=koneksi.prepareStatement(
+                            "select no_sep, tglpulang from bridging_sep where no_rawat=? and jnspelayanan='1'");
+                        try {
+                            psanak.setString(1,TNoRwCari.getText().trim());
+                            rs2=psanak.executeQuery();
+                            if(rs2.next()) {
+                                if (rs2.getString("tglpulang") == null || rs2.getString("tglpulang").equals("0000-00-00 00:00:00")) {
+                                    try {
+                                        headers = new HttpHeaders();
+                                        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+                                        headers.add("X-Cons-ID",koneksiDB.CONSIDAPIBPJS());
+                                        utc=String.valueOf(api.GetUTCdatetimeAsString());
+                                        headers.add("X-Timestamp",utc);
+                                        headers.add("X-Signature",api.getHmac(utc));
+                                        headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
+                                        URL = link+"/SEP/2.0/updtglplg";
+                                        requestJson ="{" +
+                                                    "\"request\":" +
+                                                       "{" +
+                                                          "\"t_sep\":" +
+                                                             "{" +
+                                                              "\"noSep\":\""+rs2.getString("no_sep")+"\"," +
+                                                              "\"statusPulang\":\"3\"," +
+                                                              "\"noSuratMeninggal\":\"\"," +
+                                                              "\"tglMeninggal\":\"\"," +
+                                                              "\"tglPulang\":\""+LocalDate.now()+"\"," +
+                                                              "\"noLPManual\":\"\"," +
+                                                              "\"user\":\"RSKH-"+user+"\"" +                                            
+                                                             "}" +
+                                                       "}" +
+                                                   "}";
+                                        System.out.println("JSON : "+requestJson);
+                                        requestEntity = new HttpEntity(requestJson,headers);
+                                        root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.PUT, requestEntity, String.class).getBody());
+                                        nameNode = root.path("metaData");
+                                        System.out.println("code : "+nameNode.path("code").asText());
+                                        System.out.println("message : "+nameNode.path("message").asText());
+                                        if(nameNode.path("code").asText().equals("200")){
+                                            Sequel.mengedit("bridging_sep","no_sep=?","tglpulang=?",2,new String[]{                             
+                                                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                                                rs2.getString("no_sep")
+                                           });
+                                        }else{
+                                            JOptionPane.showMessageDialog(null,nameNode.path("message").asText());
+                                        }
+                                    } catch (Exception ex) {
+                                        System.out.println("Notifikasi Bridging Simpan : "+ex);
+                                        if(ex.toString().contains("UnknownHostException")){
+                                            JOptionPane.showMessageDialog(null,"Koneksi ke server BPJS terputus...!");
+                                        }
+                                    }
+                                } else {
+                                    JOptionPane.showMessageDialog(null,"SEP Sudah update pulang");
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null,"Belum Terbit SEP Inap");
+                            }
+                        } catch(Exception ex){
+                            System.out.println("Notifikasi : "+ex);
+                        } finally{
+                            if(rs2 != null){
+                                rs2.close();
+                            }
+                            if(psanak != null){
+                                psanak.close();
+                            }
+                        }
+                   } catch (Exception e) {
+                        System.out.println(e);
+                   }
+                   this.setCursor(Cursor.getDefaultCursor());
+               }
+           }
+        }
+    }
+    
     private void MnHasilPemeriksaanUSGNeonatusActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         if(tabMode.getRowCount()==0){
             JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
@@ -18200,7 +18397,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
     private javax.swing.JMenuItem MnSkorBromagePascaAnestesi,MnPenilaianPreInduksi,MnHasilPemeriksaanUSGUrologi,MnHasilPemeriksaanUSGGynecologi,MnHasilPemeriksaanEKG,MnBelumTerbitSEP,MnSudahTerbitSEP,MnHasilPemeriksaanUSGNeonatus,MnHasilEndoskopiFaringLaring,
                                   MnHasilEndoskopiHidung,MnHasilEndoskopiTelinga,MnPenilaianAwalKeperawatanRanapNeonatus,MnPenilaianPasienImunitasRendah,MnCatatanKeseimbanganCairan,MnCatatanObservasiCHBP,MnCatatanObservasiInduksiPersalinan,MnPermintaanKonsultasiMedik,
                                   MnDataOperasi,MnPenilaianAwalKeperawatanRanapBayiAnak,MnCatatanObservasiRestrainNonFarmakologi,MnCatatanObservasiVentilator,MnCatatanAnastesiSedasi,MnChecklistPemberianFibrinolitik,MnPenilaianPsikologKlinis,MnPenilaianAwalMedisNeonatus,
-                                  MnPenilaianDerajatDehidrasi,MnHasilPemeriksaanECHO,MnPenilaianBayiBaruLahir,MnLaporanTindakan,MnPelaksanaanInformasiEdukasi,MnCatatanObservasiHemodialisa,MnCatatanCairanHemodialisa,MnCatatanPengkajianPaskaOperasi,MnCatatanObservasiBayi;
+                                  MnPenilaianDerajatDehidrasi,MnHasilPemeriksaanECHO,MnPenilaianBayiBaruLahir,MnLaporanTindakan,MnPelaksanaanInformasiEdukasi,MnCatatanObservasiHemodialisa,MnCatatanCairanHemodialisa,MnCatatanPengkajianPaskaOperasi,MnCatatanObservasiBayi,MnPulangSEPAPD,MnPulangSEPAPS;
     private javax.swing.JMenu MnHasilUSG,MnHasilEndoskopi,MnCatatanObservasi,MnEdukasi;
     
     private void tampil() {
@@ -18748,6 +18945,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnLaporanTindakan.setEnabled(akses.getlaporan_tindakan());
         MnPelaksanaanInformasiEdukasi.setEnabled(akses.getpelaksanaan_informasi_edukasi());
         MnCatatanPengkajianPaskaOperasi.setEnabled(akses.getcatatan_pengkajian_paska_operasi());
+        MnPulangSEPAPD.setEnabled(akses.getbpjs_sep());
+        MnPulangSEPAPS.setEnabled(akses.getbpjs_sep());
         
         if(akses.getkode().equals("Admin Utama")){
             MnFilterDPJP.setEnabled(true);
@@ -18914,7 +19113,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnSudahTerbitSEP.setName("MnSudahTerbitSEP"); 
         MnSudahTerbitSEP.setPreferredSize(new java.awt.Dimension(320, 26));
         MnSudahTerbitSEP.addActionListener(this::MnSudahTerbitSEPActionPerformed);
-        
+
         MnDataOperasi = new javax.swing.JMenuItem();
         MnDataOperasi.setBackground(new java.awt.Color(255, 255, 254));
         MnDataOperasi.setFont(new java.awt.Font("Tahoma", 0, 11)); 
@@ -18926,6 +19125,41 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnDataOperasi.setName("MnDataOperasi"); 
         MnDataOperasi.setPreferredSize(new java.awt.Dimension(320, 26));
         MnDataOperasi.addActionListener(this::MnDataOperasiActionPerformed);
+
+        MnPulangSEPAPD = new javax.swing.JMenuItem();
+        MnPulangSEPAPD.setBackground(new java.awt.Color(255, 255, 254));
+        MnPulangSEPAPD.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        MnPulangSEPAPD.setForeground(new java.awt.Color(50, 50, 50));
+        MnPulangSEPAPD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png")));
+        MnPulangSEPAPD.setText("Update Pulang SEP Pertetujuan Dokter");
+        MnPulangSEPAPD.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnPulangSEPAPD.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnPulangSEPAPD.setName("MnPulangSEPAPD"); 
+        MnPulangSEPAPD.setPreferredSize(new java.awt.Dimension(320, 26));
+        MnPulangSEPAPD.addActionListener(this::MnPulangSEPAPDActionPerformed);
+        
+        MnPulangSEPAPS = new javax.swing.JMenuItem();
+        MnPulangSEPAPS.setBackground(new java.awt.Color(255, 255, 254));
+        MnPulangSEPAPS.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        MnPulangSEPAPS.setForeground(new java.awt.Color(50, 50, 50));
+        MnPulangSEPAPS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png")));
+        MnPulangSEPAPS.setText("Update Pulang SEP APS");
+        MnPulangSEPAPS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnPulangSEPAPS.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnPulangSEPAPS.setName("MnPulangSEPAPS"); 
+        MnPulangSEPAPS.setPreferredSize(new java.awt.Dimension(320, 26));
+        MnPulangSEPAPS.addActionListener(this::MnPulangSEPAPSActionPerformed);
+        
+        MnHasilUSG = new javax.swing.JMenu();
+        MnHasilUSG.setBackground(new java.awt.Color(255, 255, 254));
+        MnHasilUSG.setForeground(new java.awt.Color(50, 50, 50));
+        MnHasilUSG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); 
+        MnHasilUSG.setText("Hasil USG");
+        MnHasilUSG.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        MnHasilUSG.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnHasilUSG.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnHasilUSG.setName("MnHasilUSG"); 
+        MnHasilUSG.setPreferredSize(new java.awt.Dimension(230, 26));
         
         MnHasilPemeriksaanUSGNeonatus = new javax.swing.JMenuItem();
         MnHasilPemeriksaanUSGNeonatus.setBackground(new java.awt.Color(255, 255, 254));
@@ -19343,6 +19577,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MenuBPJS.add(ppDataIndukKecelakaan);
         MenuBPJS.add(MnBelumTerbitSEP);
         MenuBPJS.add(MnSudahTerbitSEP);
+        MenuBPJS.add(MnPulangSEPAPD);
+        MenuBPJS.add(MnPulangSEPAPS);
         MenuBPJS.add(MnRujukSisrute);
         MenuBPJS.add(ppPasienCorona);
         MenuBPJS.add(ppPerawatanCorona);

@@ -1049,6 +1049,38 @@ public final class sekuel {
         return dicari;
     }
     
+    public String cariIsi3(String sql,int i,String[] a) {
+        dicari = "";
+        try {
+            ps=connect.prepareStatement(sql);
+            try {
+                for(angka=1;angka<=i;angka++){
+                    ps.setString(angka,a[angka-1]);
+                }
+                rs=ps.executeQuery();
+                if(rs.next()){
+                    dicari=rs.getString(1);
+                }else{
+                    dicari="";
+                }  
+            } catch(Exception e){
+                dicari="";
+                System.out.println("Notifikasi : "+e);
+            }finally{
+                if(rs != null){
+                    rs.close();
+                }
+                
+                if(ps != null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notifikasi : "+e);
+        }
+        return dicari;
+    }
+    
     public ByteArrayInputStream cariGambar(String sql){
         ByteArrayInputStream inputStream=null;
         try {
