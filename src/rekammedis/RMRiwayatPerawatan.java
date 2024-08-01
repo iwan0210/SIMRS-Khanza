@@ -5336,7 +5336,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                          "<tr height='").append(internalFrame2.getHeight()).append("px'>").append(
                                             "<td valign='top' align='center'>").append(w).append("</td>").append(
                                             "<td valign='top'>").append(rs2.getString("tgl_periksa")).append(" ").append(rs2.getString("jam")).append("</td>").append(
-                                            "<td valign='top' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/radiologi/").append(rs2.getString("lokasi_gambar")).append("'><img alt='Gambar Radiologi' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/radiologi/").append(rs2.getString("lokasi_gambar")).append("' width='450' height='450'/></a></td>").append(
+                                            "<td valign='top' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/radiologi/").append(rs2.getString("lokasi_gambar")).append("'><img alt='Gambar Radiologi' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/radiologi/").append(rs2.getString("lokasi_gambar")).append("' width='450' height='450'/></a></td>").append(
                                          "</tr>"); 
                                     w++;
                                 }while(rs2.next());
@@ -5617,7 +5617,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                                     "<tr>").append(
                                                         "<td valign='top' align='center'></td>").append(
                                                         "<td valign='top'></td>").append(
-                                                        "<td valign='top' colspan='5' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/labpa/").append(file).append("'><img alt='Gambar PA' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/labpa/").append(file).append("' width='450' height='450'/></a></td>").append(
+                                                        "<td valign='top' colspan='5' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/labpa/").append(file).append("'><img alt='Gambar PA' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/labpa/").append(file).append("' width='450' height='450'/></a></td>").append(
                                                     "</tr>"
                                                 );
                                             }
@@ -6156,7 +6156,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                     if(R4.isSelected()==true){
                         if((esign==false)&&(sertisign==false)){
                             if(rs.getString("status_lanjut").equals("Ralan")){
-                                get = new GetMethod("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+rs.getString("kd_dokter").replace(" ","_"));
+                                get = new GetMethod("https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+rs.getString("kd_dokter").replace(" ","_"));
                                 http.executeMethod(get);
 
                                 htmlContent.append(
@@ -6164,7 +6164,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                        "<td valign='top' width='2%'></td>").append(        
                                        "<td valign='middle' width='18%'>Tanda Tangan/Verifikasi</td>").append(
                                        "<td valign='middle' width='1%' align='center'>:</td>").append(
-                                       "<td valign='middle' width='79%' align='center'>Dokter Poli<br><img width='90' height='90' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/penggajian/temp/").append(rs.getString("kd_dokter")).append(".png'/><br>").append(rs.getString("nm_dokter")).append("</td>").append(
+                                       "<td valign='middle' width='79%' align='center'>Dokter Poli<br><img width='90' height='90' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/penggajian/temp/").append(rs.getString("kd_dokter")).append(".png'/><br>").append(rs.getString("nm_dokter")).append("</td>").append(
                                     "</tr>"
                                 );
                             }else if(rs.getString("status_lanjut").equals("Ranap")){
@@ -6183,9 +6183,9 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                           );
                                           urutdpjp=1;
                                           do{
-                                              get = new GetMethod("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+rs3.getString("kd_dokter").replace(" ","_"));
+                                              get = new GetMethod("https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+rs3.getString("kd_dokter").replace(" ","_"));
                                               http.executeMethod(get);
-                                              htmlContent.append("<td border='0' align='center'>Dokter DPJP ").append(urutdpjp).append("<br><img width='90' height='90' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/penggajian/temp/").append(rs3.getString("kd_dokter")).append(".png'/><br>").append(rs3.getString("nm_dokter")).append("</td>");
+                                              htmlContent.append("<td border='0' align='center'>Dokter DPJP ").append(urutdpjp).append("<br><img width='90' height='90' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/penggajian/temp/").append(rs3.getString("kd_dokter")).append(".png'/><br>").append(rs3.getString("nm_dokter")).append("</td>");
                                               urutdpjp++;
                                           }while(rs3.next());
                                           htmlContent.append(
@@ -6195,7 +6195,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                             "</tr>"
                                           );    
                                     }else{
-                                        get = new GetMethod("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+rs.getString("kd_dokter").replace(" ","_"));
+                                        get = new GetMethod("https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+rs.getString("kd_dokter").replace(" ","_"));
                                         http.executeMethod(get);
 
                                         htmlContent.append(
@@ -6203,7 +6203,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                                "<td valign='top' width='2%'></td>").append(        
                                                "<td valign='middle' width='18%'>Tanda Tangan/Verifikasi</td>").append(
                                                "<td valign='middle' width='1%' align='center'>:</td>").append(
-                                               "<td valign='middle' width='79%' align='center'>Dokter DPJP<br><img width='90' height='90' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/penggajian/temp/").append(rs.getString("kd_dokter")).append(".png'/><br>").append(rs.getString("nm_dokter")).append("</td>").append(
+                                               "<td valign='middle' width='79%' align='center'>Dokter DPJP<br><img width='90' height='90' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/penggajian/temp/").append(rs.getString("kd_dokter")).append(".png'/><br>").append(rs.getString("nm_dokter")).append("</td>").append(
                                             "</tr>"
                                         );
                                     }
@@ -6253,9 +6253,9 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                                 htmlContent.append("<td border='0' align='center'>Dokter DPJP ").append(urutdpjp).append("<br><br><br><br><br><br>#<br><br><br><br><br><br>").append(rs3.getString("nm_dokter")).append("</td>"); 
                                                 esign=true;
                                             }else{
-                                                get = new GetMethod("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+rs3.getString("kd_dokter").replace(" ","_"));
+                                                get = new GetMethod("https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+rs3.getString("kd_dokter").replace(" ","_"));
                                                 http.executeMethod(get);
-                                                htmlContent.append("<td border='0' align='center'>Dokter DPJP ").append(urutdpjp).append("<br><img width='90' height='90' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/penggajian/temp/").append(rs3.getString("kd_dokter")).append(".png'/><br>").append(rs3.getString("nm_dokter")).append("</td>");
+                                                htmlContent.append("<td border='0' align='center'>Dokter DPJP ").append(urutdpjp).append("<br><img width='90' height='90' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/penggajian/temp/").append(rs3.getString("kd_dokter")).append(".png'/><br>").append(rs3.getString("nm_dokter")).append("</td>");
                                             }
                                                     
                                             urutdpjp++;
@@ -6329,9 +6329,9 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                                 htmlContent.append("<td border='0' align='center'>Dokter DPJP ").append(urutdpjp).append("<br><br><br><br><br><br>#1A<br><br><br><br><br><br>").append(rs3.getString("nm_dokter")).append("</td>"); 
                                                 sertisign=true;
                                             }else{
-                                                get = new GetMethod("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+rs3.getString("kd_dokter").replace(" ","_"));
+                                                get = new GetMethod("https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/generateqrcode.php?kodedokter="+rs3.getString("kd_dokter").replace(" ","_"));
                                                 http.executeMethod(get);
-                                                htmlContent.append("<td border='0' align='center'>Dokter DPJP ").append(urutdpjp).append("<br><img width='90' height='90' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/penggajian/temp/").append(rs3.getString("kd_dokter")).append(".png'/><br>").append(rs3.getString("nm_dokter")).append("</td>");
+                                                htmlContent.append("<td border='0' align='center'>Dokter DPJP ").append(urutdpjp).append("<br><img width='90' height='90' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/penggajian/temp/").append(rs3.getString("kd_dokter")).append(".png'/><br>").append(rs3.getString("nm_dokter")).append("</td>");
                                             }
                                                     
                                             urutdpjp++;
@@ -6957,7 +6957,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                              "<tr class='isi'>").append(
                                 "<td valign='top' align='center'>").append(w).append("</td>").append(
                                 "<td valign='top'>").append(rs3.getString("tgl_retensi")).append("</td>").append(
-                                "<td valign='top' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/medrec/").append(rs3.getString("lokasi_pdf")).append("'><img alt='Gambar Retensi' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/medrec/").append(rs3.getString("lokasi_pdf")).append("' width='").append((TabRawat.getWidth()-550)).append("' height='").append((TabRawat.getWidth()-550)).append("'/></a></td>").append(
+                                "<td valign='top' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/medrec/").append(rs3.getString("lokasi_pdf")).append("'><img alt='Gambar Retensi' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/medrec/").append(rs3.getString("lokasi_pdf")).append("' width='").append((TabRawat.getWidth()-550)).append("' height='").append((TabRawat.getWidth()-550)).append("'/></a></td>").append(
                              "</tr>"); 
                         w++;
                     }while(rs3.next());
@@ -14802,7 +14802,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                            "PHOTO USG").append(  
                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                               "<tr>").append(
-                                                  "<td valign='top' border='0' width='100%' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusg/").append(file).append("'><img alt='Gambar USG' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusg/").append(file).append("' width='450' height='450'/></a></td>").append(
+                                                  "<td valign='top' border='0' width='100%' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusg/").append(file).append("'><img alt='Gambar USG' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusg/").append(file).append("' width='450' height='450'/></a></td>").append(
                                               "</tr>").append(
                                            "</table>").append(
                                         "</td>").append(
@@ -17511,13 +17511,13 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                 htmlContent.append(
                                      "<tr>").append(
                                         "<td valign='top' align='center'>").append(w).append("</td>").append(
-                                        "<td valign='top' align='center'>").append(rs2.getString("nama")).append("<br><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/berkasrawat/").append(rs2.getString("lokasi_file")).append("'><img alt='Berkas Digital' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/berkasrawat/").append(rs2.getString("lokasi_file")).append("' width='450' height='450'/></a></td>").append(
+                                        "<td valign='top' align='center'>").append(rs2.getString("nama")).append("<br><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/berkasrawat/").append(rs2.getString("lokasi_file")).append("'><img alt='Berkas Digital' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/berkasrawat/").append(rs2.getString("lokasi_file")).append("' width='450' height='450'/></a></td>").append(
                                      "</tr>"); 
                             }else{
                                 htmlContent.append(
                                      "<tr>").append(
                                         "<td valign='top' align='center'>").append(w).append("</td>").append(
-                                        "<td valign='top'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/berkasrawat/").append(rs2.getString("lokasi_file")).append("'>").append(rs2.getString("nama")).append("_").append(rs2.getString("lokasi_file").replaceAll("pages/upload/","")).append("</a></td>").append(
+                                        "<td valign='top'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/berkasrawat/").append(rs2.getString("lokasi_file")).append("'>").append(rs2.getString("nama")).append("_").append(rs2.getString("lokasi_file").replaceAll("pages/upload/","")).append("</a></td>").append(
                                      "</tr>"); 
                             }
                             w++;
@@ -25303,7 +25303,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                            "PHOTO USG").append(  
                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                               "<tr>").append(
-                                                  "<td valign='top' border='0' width='100%' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusgurologi/").append(file).append("'><img alt='Gambar USG' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusgurologi/").append(file).append("' width='450' height='450'/></a></td>").append(
+                                                  "<td valign='top' border='0' width='100%' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusgurologi/").append(file).append("'><img alt='Gambar USG' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusgurologi/").append(file).append("' width='450' height='450'/></a></td>").append(
                                               "</tr>").append(
                                            "</table>").append(
                                         "</td>").append(
@@ -25398,7 +25398,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                            "PHOTO USG").append(  
                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                               "<tr>").append(
-                                                  "<td valign='top' border='0' width='100%' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusggynecologi/").append(file).append("'><img alt='Gambar USG' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusggynecologi/").append(file).append("' width='450' height='450'/></a></td>").append(
+                                                  "<td valign='top' border='0' width='100%' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusggynecologi/").append(file).append("'><img alt='Gambar USG' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusggynecologi/").append(file).append("' width='450' height='450'/></a></td>").append(
                                               "</tr>").append(
                                            "</table>").append(
                                         "</td>").append(
@@ -25495,7 +25495,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                            "PHOTO EKG").append(  
                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                               "<tr>").append(
-                                                  "<td valign='top' border='0' width='100%' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanekg/").append(file).append("'><img alt='Gambar EKG' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanekg/").append(file).append("' width='450' height='450'/></a></td>").append(
+                                                  "<td valign='top' border='0' width='100%' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanekg/").append(file).append("'><img alt='Gambar EKG' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanekg/").append(file).append("' width='450' height='450'/></a></td>").append(
                                               "</tr>").append(
                                            "</table>").append(
                                         "</td>").append(
@@ -25710,7 +25710,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                            "PHOTO USG").append(  
                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                               "<tr>").append(
-                                                  "<td valign='top' border='0' width='100%' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusgneonatus/").append(file).append("'><img alt='Gambar USG' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusgneonatus/").append(file).append("' width='450' height='450'/></a></td>").append(
+                                                  "<td valign='top' border='0' width='100%' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusgneonatus/").append(file).append("'><img alt='Gambar USG' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanusgneonatus/").append(file).append("' width='450' height='450'/></a></td>").append(
                                               "</tr>").append(
                                            "</table>").append(
                                         "</td>").append(
@@ -25809,7 +25809,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                            "PHOTO ENDOSKOPI").append(  
                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                               "<tr>").append(
-                                                  "<td valign='top' border='0' width='100%' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopifaringlaring/").append(file).append("'><img alt='Gambar Endoskopi' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopifaringlaring/").append(file).append("' width='450' height='450'/></a></td>").append(
+                                                  "<td valign='top' border='0' width='100%' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopifaringlaring/").append(file).append("'><img alt='Gambar Endoskopi' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopifaringlaring/").append(file).append("' width='450' height='450'/></a></td>").append(
                                               "</tr>").append(
                                            "</table>").append(
                                         "</td>").append(
@@ -25959,7 +25959,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                            "PHOTO ENDOSKOPI").append(  
                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                               "<tr>").append(
-                                                  "<td valign='top' border='0' width='100%' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopihidung/").append(file).append("'><img alt='Gambar Endoskopi' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopihidung/").append(file).append("' width='450' height='450'/></a></td>").append(
+                                                  "<td valign='top' border='0' width='100%' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopihidung/").append(file).append("'><img alt='Gambar Endoskopi' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopihidung/").append(file).append("' width='450' height='450'/></a></td>").append(
                                               "</tr>").append(
                                            "</table>").append(
                                         "</td>").append(
@@ -26101,7 +26101,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                            "PHOTO ENDOSKOPI").append(  
                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                               "<tr>").append(
-                                                  "<td valign='top' border='0' width='100%' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopitelinga/").append(file).append("'><img alt='Gambar Endoskopi' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopitelinga/").append(file).append("' width='450' height='450'/></a></td>").append(
+                                                  "<td valign='top' border='0' width='100%' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopitelinga/").append(file).append("'><img alt='Gambar Endoskopi' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanendoskopitelinga/").append(file).append("' width='450' height='450'/></a></td>").append(
                                               "</tr>").append(
                                            "</table>").append(
                                         "</td>").append(
@@ -31278,7 +31278,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                            "PHOTO ECHO").append(  
                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                               "<tr>").append(
-                                                  "<td valign='top' border='0' width='100%' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanecho/").append(file).append("'><img alt='Gambar EKG' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanecho/").append(file).append("' width='450' height='450'/></a></td>").append(
+                                                  "<td valign='top' border='0' width='100%' align='center'><a href='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanecho/").append(file).append("'><img alt='Gambar EKG' src='https://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/hasilpemeriksaanecho/").append(file).append("' width='450' height='450'/></a></td>").append(
                                               "</tr>").append(
                                            "</table>").append(
                                         "</td>").append(

@@ -298,12 +298,12 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                     public void changed(ObservableValue ov, Worker.State oldState, Worker.State newState) {
                         if (newState == Worker.State.SUCCEEDED) {
                             try {
-                                if(engine.getLocation().replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/","").contains("penggajian/pages")){
+                                if(engine.getLocation().replaceAll("https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/","").contains("penggajian/pages")){
                                     setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                                    Valid.panggilUrl(engine.getLocation().replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/","").replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+"/"+koneksiDB.HYBRIDWEB()+"/",""));
+                                    Valid.panggilUrl(engine.getLocation().replaceAll("https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/","").replaceAll("https://"+koneksiDB.HOSTHYBRIDWEB()+"/"+koneksiDB.HYBRIDWEB()+"/",""));
                                     engine.executeScript("history.back()");
                                     setCursor(Cursor.getDefaultCursor());
-                                }else if(engine.getLocation().replaceAll("http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/","").contains("Keluar")){
+                                }else if(engine.getLocation().replaceAll("https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/","").contains("Keluar")){
                                     dispose();    
                                 }
                             } catch (Exception ex) {
@@ -1073,7 +1073,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                                 "<tr class='isi'>"+
                                     "<td valign='middle' align='center'>"+i2+"</td>"+
                                     "<td valign='middle' align='center'>"+rs2.getString("tgl_uploud")+"</td>"+
-                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
+                                    "<td valign='middle'><a href='https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
                                 "</tr>");
                             i2++;
                         }
@@ -1191,7 +1191,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                                 "<tr class='isi'>"+
                                     "<td valign='middle' align='center'>"+i2+"</td>"+
                                     "<td valign='middle' align='center'>"+rs2.getString("tgl_uploud")+"</td>"+
-                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
+                                    "<td valign='middle'><a href='https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
                                 "</tr>");
                             i2++;
                         }
@@ -1309,7 +1309,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                                 "<tr class='isi'>"+
                                     "<td valign='middle' align='center'>"+i2+"</td>"+
                                     "<td valign='middle' align='center'>"+rs2.getString("tgl_uploud")+"</td>"+
-                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
+                                    "<td valign='middle'><a href='https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
                                 "</tr>");
                             i2++;
                         }
@@ -1427,7 +1427,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                                 "<tr class='isi'>"+
                                     "<td valign='middle' align='center'>"+i2+"</td>"+
                                     "<td valign='middle' align='center'>"+rs2.getString("tgl_uploud")+"</td>"+
-                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
+                                    "<td valign='middle'><a href='https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
                                 "</tr>");
                             i2++;
                         }
@@ -1545,7 +1545,7 @@ public final class DlgBerkasKepegawaian extends javax.swing.JDialog {
                                 "<tr class='isi'>"+
                                     "<td valign='middle' align='center'>"+i2+"</td>"+
                                     "<td valign='middle' align='center'>"+rs2.getString("tgl_uploud")+"</td>"+
-                                    "<td valign='middle'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
+                                    "<td valign='middle'><a href='https://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/penggajian/"+rs2.getString("berkas")+"'>"+rs2.getString("nama_berkas")+"</a></td>"+
                                 "</tr>");
                             i2++;
                         }
