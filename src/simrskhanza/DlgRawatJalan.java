@@ -12,6 +12,7 @@
 
 package simrskhanza;
 
+import bridging.BPJSSuratKontrol;
 import surat.SuratKontrol;
 import kepegawaian.DlgCariDokter;
 import kepegawaian.DlgCariPetugas;
@@ -1545,6 +1546,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         BtnPermintaanRad = new widget.Button();
         BtnJadwalOperasi = new widget.Button();
         BtnSKDP = new widget.Button();
+        BtnSuratKontrolBPJS = new widget.Button();
         BtnKamar = new widget.Button();
         BtnTriaseIGD = new widget.Button();
         BtnRujukInternal = new widget.Button();
@@ -3823,6 +3825,22 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         BtnSKDP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnSKDPActionPerformed(evt);
+            }
+        });
+        
+        BtnSuratKontrolBPJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/item.png"))); 
+        BtnSuratKontrolBPJS.setText("Surat Kontrol BPJS");
+        BtnSuratKontrolBPJS.setFocusPainted(false);
+        BtnSuratKontrolBPJS.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        BtnSuratKontrolBPJS.setGlassColor(new java.awt.Color(255, 255, 255));
+        BtnSuratKontrolBPJS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnSuratKontrolBPJS.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        BtnSuratKontrolBPJS.setName("BtnSuratKontrolBPJS"); 
+        BtnSuratKontrolBPJS.setPreferredSize(new java.awt.Dimension(190, 23));
+        BtnSuratKontrolBPJS.setRoundRect(false);
+        BtnSuratKontrolBPJS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSuratKontrolBPJSActionPerformed(evt);
             }
         });
 
@@ -7464,6 +7482,45 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             this.setCursor(Cursor.getDefaultCursor());
         } 
     }//GEN-LAST:event_BtnTemplateResepActionPerformed
+    
+    private void BtnSuratKontrolBPJSActionPerformed(java.awt.event.ActionEvent evt) {
+        if(TNoRw.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            TCari.requestFocus();
+        } else {
+            try {
+                ps=koneksi.prepareStatement("select bridging_sep.no_sep,bridging_sep.no_kartu,bridging_sep.tanggal_lahir,bridging_sep.jkel,bridging_sep.nmdiagnosaawal from bridging_sep where bridging_sep.no_rawat=?");
+                try {
+                    ps.setString(1,TNoRw.getText());
+                    rs=ps.executeQuery();
+                    if(rs.next()){
+                        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                        BPJSSuratKontrol form=new BPJSSuratKontrol(null,false);
+                        form.setNoRm(TNoRw.getText(),rs.getString("no_sep"),rs.getString("no_kartu"),TNoRM.getText(),TPasien.getText(),rs.getString("tanggal_lahir"),rs.getString("jkel"),rs.getString("nmdiagnosaawal"));
+                        form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                        form.setLocationRelativeTo(internalFrame1);
+                        form.setVisible(true);
+                        this.setCursor(Cursor.getDefaultCursor());
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Pasien tersebut belum terbit SEP, silahkan hubungi bagian terkait..!!");
+                        TCari.requestFocus();
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notif : "+e);
+                } finally{
+                    if(rs!=null){
+                        rs.close();
+                    }
+                    if(ps!=null){
+                        ps.close();
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            }
+            
+        }
+    }
 
     private void ChkAccorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkAccorActionPerformed
         isMenu();
@@ -10293,6 +10350,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Button BtnSkriningNutrisiAnak;
     private widget.Button BtnSkriningNutrisiDewasa;
     private widget.Button BtnSkriningNutrisiLansia;
+    private widget.Button BtnSuratKontrolBPJS;
     private widget.Button BtnTambahTindakan;
     private widget.Button BtnTemplatePemeriksaan;
     private widget.Button BtnTimeOutSebelumInsisi;
@@ -10837,6 +10895,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         BtnResepObat.setVisible(akses.getresep_dokter());
         BtnCopyResep.setVisible(akses.getresep_dokter());
         BtnTemplateResep.setVisible(akses.getresep_dokter());
+        BtnSuratKontrolBPJS.setVisible(akses.getskdp_bpjs());
         BtnTemplatePemeriksaan.setEnabled(akses.gettemplate_pemeriksaan());
         if(akses.getresep_dokter()==true){
             tinggi=tinggi+48;
@@ -13389,6 +13448,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         FormMenu.add(BtnPermintaanKonsultasiMedik);
         FormMenu.add(BtnJadwalOperasi);
         FormMenu.add(BtnSKDP);
+        FormMenu.add(BtnSuratKontrolBPJS);
         FormMenu.add(BtnKamar);
         FormMenu.add(BtnTriaseIGD);
         FormMenu.add(BtnRujukInternal);

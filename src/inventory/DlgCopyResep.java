@@ -56,8 +56,7 @@ public class DlgCopyResep extends javax.swing.JDialog {
             }else if(i==5){
                 column.setPreferredWidth(300);
             }else if(i==6){
-                column.setMinWidth(0);
-                column.setMaxWidth(0);
+                column.setPreferredWidth(170);
             }else if(i==7){
                 column.setMinWidth(0);
                 column.setMaxWidth(0);
@@ -380,15 +379,19 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
                 if(aktifkanparsial.equals("yes")){
                     jmlparsial=Sequel.cariInteger("select count(set_input_parsial.kd_pj) from set_input_parsial where set_input_parsial.kd_pj=?",kode_pj);
                 }
-                if(jmlparsial>0){
-                    panggilform2();
-                }else{
-                    if(Sequel.cariRegistrasi(tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),3).toString())>0){
-                        JOptionPane.showMessageDialog(rootPane,"Data billing sudah terverifikasi ..!!");
-                    }else{ 
-                        panggilform2();                             
+                if (!tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),7).toString().equals(kddokter)) {
+                    JOptionPane.showMessageDialog(rootPane,"Hanya dokter peresep yang bisa mengubah");
+                } else {
+                    if(jmlparsial>0){
+                        panggilform2();
+                    }else{
+                        if(Sequel.cariRegistrasi(tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),3).toString())>0){
+                            JOptionPane.showMessageDialog(rootPane,"Data billing sudah terverifikasi ..!!");
+                        }else{ 
+                            panggilform2();                             
+                        }
                     }
-                }                
+                }             
             }
         }
     }//GEN-LAST:event_BtnEditActionPerformed
@@ -412,8 +415,13 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
             }else if(tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),8).toString().equals("Sudah Terlayani")){
                 JOptionPane.showMessageDialog(rootPane,"Resep sudah terlayani, silahkan konfirmasi bagian farmasi ..!!");
             }else {
-                Sequel.meghapus("resep_obat","no_resep",tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),0).toString()); 
-                tampil();               
+                
+                if (!tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),7).toString().equals(kddokter)) {
+                    JOptionPane.showMessageDialog(rootPane,"Hanya dokter peresep yang bisa menghapus");
+                } else {
+                    Sequel.meghapus("resep_obat","no_resep",tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),0).toString()); 
+                    tampil(); 
+                }           
             }
         }
     }//GEN-LAST:event_BtnHapusActionPerformed
@@ -603,8 +611,8 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
         DlgPeresepanDokter resep=new DlgPeresepanDokter(null,false);
         resep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         resep.setLocationRelativeTo(internalFrame1);
-        resep.setNoRm(norawat,tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),7).toString(),
-                tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),6).toString(), 
+        String nmdokter = Sequel.cariIsi("select nm_dokter from dokter where kd_dokter = ?", kddokter);
+        resep.setNoRm(norawat,kddokter,nmdokter, 
                 tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),4).toString()+" "+
                 tbPemisahan.getValueAt(tbPemisahan.getSelectedRow(),5).toString(), 
                 kode_pj,status);
