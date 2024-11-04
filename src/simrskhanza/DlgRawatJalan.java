@@ -10895,9 +10895,12 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         BtnResepObat.setVisible(akses.getresep_dokter());
         BtnCopyResep.setVisible(akses.getresep_dokter());
         BtnTemplateResep.setVisible(akses.getresep_dokter());
-        BtnSuratKontrolBPJS.setVisible(akses.getskdp_bpjs());
+        BtnSuratKontrolBPJS.setVisible(akses.getbpjs_surat_kontrol());
         BtnTemplatePemeriksaan.setEnabled(akses.gettemplate_pemeriksaan());
         if(akses.getresep_dokter()==true){
+            tinggi=tinggi+48;
+        }
+        if(akses.getbpjs_surat_kontrol()==true){
             tinggi=tinggi+48;
         }
         BtnObatBhp.setVisible(akses.getberi_obat());  

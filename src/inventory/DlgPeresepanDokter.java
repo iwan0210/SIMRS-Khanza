@@ -1626,7 +1626,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.Table tbResep;
     // End of variables declaration//GEN-END:variables
 
-    public void tampilobat() {        
+    public void tampilobat() {   
         buatcacheresep();
         tampilcacheresep();           
     }

@@ -352,7 +352,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     }//GEN-LAST:event_BtnCariActionPerformed
 
     private void NmTemplateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmTemplateKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
             tampil();
         }else{
             Valid.pindah(evt, BtnKeluar,BtnCari);

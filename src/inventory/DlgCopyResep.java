@@ -470,39 +470,42 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     public void tampil() {
         Valid.tabelKosong(tabMode);
         try{  
-            if(ChkTanggal.isSelected()==true){
-                ps=koneksi.prepareStatement("select resep_obat.no_resep,resep_obat.tgl_peresepan,resep_obat.jam_peresepan,"+
-                    " resep_obat.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,resep_obat.kd_dokter,dokter.nm_dokter, "+
-                    " if(resep_obat.tgl_perawatan='0000-00-00','Belum Terlayani','Sudah Terlayani') as status,resep_obat.status as status_asal "+
-                    " from resep_obat inner join reg_periksa inner join pasien inner join dokter on resep_obat.no_rawat=reg_periksa.no_rawat  "+
-                    " and reg_periksa.no_rkm_medis=pasien.no_rkm_medis and resep_obat.kd_dokter=dokter.kd_dokter where "+
-                    " resep_obat.tgl_peresepan<>'0000-00-00' and resep_obat.tgl_peresepan between ? and ? and pasien.no_rkm_medis=? "+
-                    (TAMPILKANCOPYRESEPDOKTERLAIN.equals("no")?"and resep_obat.kd_dokter=?":"")+
-                    " order by resep_obat.tgl_perawatan,resep_obat.jam desc");
-            }else{
-                ps=koneksi.prepareStatement("select resep_obat.no_resep,resep_obat.tgl_peresepan,resep_obat.jam_peresepan,"+
-                    " resep_obat.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,resep_obat.kd_dokter,dokter.nm_dokter, "+
-                    " if(resep_obat.tgl_perawatan='0000-00-00','Belum Terlayani','Sudah Terlayani') as status,resep_obat.status as status_asal "+
-                    " from resep_obat inner join reg_periksa inner join pasien inner join dokter on resep_obat.no_rawat=reg_periksa.no_rawat  "+
-                    " and reg_periksa.no_rkm_medis=pasien.no_rkm_medis and resep_obat.kd_dokter=dokter.kd_dokter where "+
-                    " resep_obat.tgl_peresepan<>'0000-00-00' and pasien.no_rkm_medis=? "+
-                    (TAMPILKANCOPYRESEPDOKTERLAIN.equals("no")?"and resep_obat.kd_dokter=?":"")+
-                    " order by resep_obat.tgl_perawatan,resep_obat.jam desc limit 5");
-            }
+            String query = "select resep_obat.no_resep, resep_obat.tgl_peresepan, resep_obat.jam_peresepan," +
+            " resep_obat.no_rawat, pasien.no_rkm_medis, pasien.nm_pasien, resep_obat.kd_dokter, dokter.nm_dokter, " +
+            " if(resep_obat.tgl_perawatan='0000-00-00','Belum Terlayani','Sudah Terlayani') as status, resep_obat.status as status_asal " +
+            " from resep_obat " +
+            " inner join reg_periksa on resep_obat.no_rawat = reg_periksa.no_rawat " +
+            " inner join pasien on reg_periksa.no_rkm_medis = pasien.no_rkm_medis " +
+            " inner join dokter on resep_obat.kd_dokter = dokter.kd_dokter " +
+            " where resep_obat.tgl_peresepan <> '0000-00-00'" +
+            " and (exists (select 1 from resep_dokter where resep_dokter.no_resep = resep_obat.no_resep)" +
+            " or exists (select 1 from resep_dokter_racikan where resep_dokter_racikan.no_resep = resep_obat.no_resep))";
+
+			if (ChkTanggal.isSelected()) {
+				query += " and resep_obat.tgl_peresepan between ? and ?";
+			}
+
+			query += " and pasien.no_rkm_medis = ?";
+
+			if (TAMPILKANCOPYRESEPDOKTERLAIN.equals("no") || !akses.getkode().equals("3003")) {
+				query += " and resep_obat.kd_dokter = ?";
+			}
+
+			query += " order by resep_obat.tgl_perawatan desc, resep_obat.jam desc";
+
+			ps = koneksi.prepareStatement(query);
             try{
-                if(ChkTanggal.isSelected()==true){
-                    ps.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+""));
-                    ps.setString(2,Valid.SetTgl(DTPCari2.getSelectedItem()+""));
-                    ps.setString(3,norm);
-                    if(TAMPILKANCOPYRESEPDOKTERLAIN.equals("no")){
-                        ps.setString(4,kddokter);
-                    }
-                }else{
-                    ps.setString(1,norm);
-                    if(TAMPILKANCOPYRESEPDOKTERLAIN.equals("no")){
-                        ps.setString(2,kddokter);
-                    }
-                }                
+                int paramIndex = 1;
+				if (ChkTanggal.isSelected()) {
+					ps.setString(paramIndex++, Valid.SetTgl(DTPCari1.getSelectedItem() + ""));
+					ps.setString(paramIndex++, Valid.SetTgl(DTPCari2.getSelectedItem() + ""));
+				}
+
+				ps.setString(paramIndex++, norm);
+
+				if (TAMPILKANCOPYRESEPDOKTERLAIN.equals("no") || !akses.getkode().equals("3003")) {
+					ps.setString(paramIndex++, kddokter);
+				}                
                 rs=ps.executeQuery();
                 while(rs.next()){
                     tabMode.addRow(new Object[]{

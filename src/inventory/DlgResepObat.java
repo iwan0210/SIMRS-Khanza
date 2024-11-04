@@ -1923,6 +1923,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             param.put("norawat",TNoRw.getText());
             param.put("pasien",TPasien.getText());
             param.put("norm",TNoRm.getText());
+            param.put("tgllahir", Sequel.cariIsi("SELECT tgl_lahir from pasien where no_rkm_medis = ?", TNoRm.getText()));
             param.put("peresep",NmDokter.getText());
             param.put("noresep",NoResep.getText());
             param.put("alamat", Sequel.cariIsi("SELECT CONCAT(pasien.alamat, ', ', kelurahan.nm_kel, ', ', kecamatan.nm_kec, ',  ', kabupaten.nm_kab) FROM pasien JOIN kelurahan ON kelurahan.kd_kel =  pasien.kd_kel join kecamatan on kecamatan.kd_kec = pasien.kd_kec join kabupaten on kabupaten.kd_kab = pasien.kd_kab WHERE pasien.no_rkm_medis = ?", TNoRm.getText()));
