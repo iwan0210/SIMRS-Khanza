@@ -384,7 +384,7 @@ public class DlgRiwayatNaikGaji extends javax.swing.JDialog {
     private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
         try {
             if(engine.getLocation().contains("ListRiwayatGaji")){
-                loadURL("http://" +koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/"+"penggajian/index.php?act=ListRiwayatGaji&action=LIHAT&keyword="+TCari.getText().replaceAll(" ","_"));
+                loadURL("https://" +koneksiDB.HOSTHYBRIDWEB()+":"+prop.getProperty("PORTWEB")+"/"+prop.getProperty("HYBRIDWEB")+"/"+"penggajian/index.php?act=ListRiwayatGaji&action=LIHAT&keyword="+TCari.getText().replaceAll(" ","_"));
             }                
         } catch (Exception ex) {
             System.out.println("Notifikasi : "+ex);

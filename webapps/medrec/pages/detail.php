@@ -114,7 +114,10 @@
                     $id                 = validTeks4(trim($_POST['id']),15);
                     $terakhir_daftar    = validTeks4(trim($_POST['ThnTerakhir'])."-".trim($_POST['BlnTerakhir'])."-".trim($_POST['TglTerakhir']),20);
                     $tgl_retensi        = validTeks4(trim($_POST['ThnRetensi'])."-".trim($_POST['BlnRetensi'])."-".trim($_POST['TglRetensi']),20);
-                    $dokumen            = validTeks(str_replace(" ","_","pages/upload/".$_FILES['dokumen']['name']));
+                    $ext				= validTeks(end((explode(".", $_FILES['dokumen']['name']))));
+					$timestamp			= time();
+					$hashed				= md5($timestamp);
+                    $dokumen    		= validTeks(str_replace(" ","_","pages/upload/".$hashed.".".$ext));
                     if((strtolower(substr($dokumen,-4))==".jpg")||(strtolower(substr($dokumen,-4))==".pdf")||(strtolower(substr($dokumen,-5))==".jpeg")){
                         if(($_FILES['dokumen']['type'] == 'application/pdf')||($_FILES['dokumen']['type'] == 'image/jpeg')||($_FILES['dokumen']['type'] == 'image/jpg')){
                             if((@mime_content_type($_FILES['dokumen']['tmp_name'])== 'application/pdf')||(@mime_content_type($_FILES['dokumen']['tmp_name'])== 'image/jpeg')||(@mime_content_type($_FILES['dokumen']['tmp_name'])== 'image/jpg')){

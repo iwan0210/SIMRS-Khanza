@@ -51,7 +51,10 @@
                     $no_rawat    = validTeks(trim($_POST['no_rawat']));
                     $tanggal     = validTeks(trim($_POST['tanggal']));
                     $jam         = validTeks(trim($_POST['jam']));
-                    $gambar     = validTeks(str_replace(" ","_","pages/upload/".$_FILES['gambar']['name']));
+                    $ext		= validTeks(end((explode(".", $_FILES['gambar']['name']))));
+					$timestamp	= time();
+					$hashed		= md5($timestamp);
+                    $gambar     = validTeks(str_replace(" ","_","pages/upload/".$hashed.".".$ext));
                     if((strtolower(substr($gambar,-4))==".jpg")||(strtolower(substr($gambar,-5))==".jpeg")){
                         if(($_FILES['gambar']['type'] == 'image/jpeg')||($_FILES['gambar']['type'] == 'image/jpg')){
                             if((@mime_content_type($_FILES['gambar']['tmp_name'])== 'image/jpeg')||(@mime_content_type($_FILES['gambar']['tmp_name'])== 'image/jpg')){

@@ -20,6 +20,7 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/kepegawaian/DlgRiwayatPendidikan.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMHasilPemeriksaanEKG.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMHasilEndoskopiHidung.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMHasilPemeriksaanUSGNeonatus.java</file>
@@ -29,12 +30,16 @@
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMHasilPemeriksaanUSG.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgCariPeriksaLabPA.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgReg.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/kepegawaian/DlgRiwayatPenelitian.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/perpustakaan/PerpustakaanCariEbook.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/fungsi/akses.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/BPJSDataSEP.java</file>
-            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/inventory/DlgResepObat.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/kepegawaian/DlgRiwayatJabatan.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/BPJSSuratKontrol.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMRiwayatPerawatan.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/kepegawaian/DlgRiwayatPenghargaan.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/inventory/DlgTemplateResep.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/kepegawaian/DlgRiwayatNaikGaji.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/inventory/DlgPeresepanDokter.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMHasilPemeriksaanUSGGynecologi.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgRawatJalan.java</file>
@@ -46,6 +51,7 @@
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/inventory/DlgCopyResep.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMHasilEndoskopiFaringLaring.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/kepegawaian/DlgBerkasKepegawaian.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/kepegawaian/DlgKegiatanIlmiah.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMHasilPemeriksaanUSGUrologi.java</file>
         </group>
     </open-files>

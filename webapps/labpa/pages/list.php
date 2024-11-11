@@ -59,7 +59,10 @@
                     $tanggal      = validTeks4(trim($_POST['tanggal']),14);
                     $jam          = validTeks4(trim($_POST['jam']),14);
                     $kd_jenis_prw = validTeks4(trim($_POST['kd_jenis_prw']),20);
-                    $gambar       = validTeks(str_replace(" ","_","pages/upload/".$_FILES['gambar']['name']));
+                    $ext		= validTeks(end((explode(".", $_FILES['gambar']['name']))));
+					$timestamp	= time();
+					$hashed		= md5($timestamp);
+                    $gambar     = validTeks(str_replace(" ","_","pages/upload/".$hashed.".".$ext));
                     if((strtolower(substr($gambar,-4))==".jpg")||(strtolower(substr($gambar,-5))==".jpeg")){
                         if(($_FILES['gambar']['type'] == 'image/jpeg')||($_FILES['gambar']['type'] == 'image/jpg')){
                             if((@mime_content_type($_FILES['gambar']['tmp_name'])== 'image/jpeg')||(@mime_content_type($_FILES['gambar']['tmp_name'])== 'image/jpg')){
