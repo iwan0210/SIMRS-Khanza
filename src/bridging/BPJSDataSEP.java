@@ -3159,15 +3159,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(null,"Maaf, sebelumnya sudah dilakukan 3x pembuatan SEP di jenis pelayanan yang sama..!!");
                         TCari.requestFocus();
                     }else{
-                        if(ADDANTRIANAPIMOBILEJKN.equals("yes")){
-                            if(SimpanAntrianOnSite()==true){
-                                insertSEP();
-                            }else{
-                                JOptionPane.showMessageDialog(null,"Maaf, antrian mobile JKN gagal dibuat. Silahkan cek jadwal dokter / Nomor Referensi..!!");
-                            }
-                        }else{
-                            insertSEP();
-                        }
+                        insertSEP();
                     }
                 }else if(!NmPoli.getText().toLowerCase().contains("darurat")){
                     if(Sequel.cariInteger("select count(bridging_sep.no_kartu) from bridging_sep where bridging_sep.no_kartu='"+no_peserta+"' and bridging_sep.jnspelayanan='"+JenisPelayanan.getSelectedItem().toString().substring(0,1)+"' and bridging_sep.tglsep like '%"+Valid.SetTgl(TanggalSEP.getSelectedItem()+"")+"%' and bridging_sep.nmpolitujuan='"+NmPoli.getText()+"'")>=1){
@@ -7236,7 +7228,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
     }
     
     public boolean SimpanAntrianOnSite(){
-        statusantrean=true;
+        statusantrean=false;
         if(Sequel.cariInteger("select count(referensi_mobilejkn_bpjs.no_rawat) from referensi_mobilejkn_bpjs where referensi_mobilejkn_bpjs.no_rawat=?", TNoRw.getText())==0){
             if((!NoRujukan.getText().equals(""))||(!NoSKDP.getText().equals(""))){
                 if(TujuanKunjungan.getSelectedItem().toString().trim().equals("0. Normal")&&FlagProsedur.getSelectedItem().toString().trim().equals("")&&Penunjang.getSelectedItem().toString().trim().equals("")&&AsesmenPoli.getSelectedItem().toString().trim().equals("")){
@@ -7302,11 +7294,9 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                             datajam=Sequel.cariIsi("select DATE_ADD(concat('"+Valid.SetTgl(TanggalSEP.getSelectedItem()+"")+"',' ','"+jammulai+"'),INTERVAL "+(Integer.parseInt(nomorreg)*5)+" MINUTE) ");
                             parsedDate = dateFormat.parse(datajam);
                         }else{
-                            statusantrean=false;
                             System.out.println("Jadwal tidak ditemukan...!");
                         }
                     } catch (Exception e) {
-                        statusantrean=false;
                         System.out.println("Notif : "+e);
                     } finally{
                         if(rs!=null){
@@ -7362,7 +7352,6 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                             respon=nameNode.path("code").asText();
                             System.out.println("respon WS BPJS Kirim Pakai NoRujukan : "+nameNode.path("code").asText()+" "+nameNode.path("message").asText()+"\n");
                         } catch (Exception e) {
-                            statusantrean=false;
                             System.out.println("Notif No.Rujuk : "+e);
                         }
                     }
@@ -7410,21 +7399,26 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                                 root = mapper.readTree(apiMobileJKN.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
                                 nameNode = root.path("metadata");  
                                 System.out.println("respon WS BPJS Kirim Pakai SKDP : "+nameNode.path("code").asText()+" "+nameNode.path("message").asText()+"\n");
-                                if(nameNode.path("code").asText().equals("201")){
-                                    statusantrean=false;
-                                }
                             } catch (Exception e) {
-                                statusantrean=false;
                                 System.out.println("Notif SKDP : "+e);
                             }
                         }
                     }
                 } catch (Exception e) {
-                    statusantrean=false;
                     System.out.println("Notif : "+e);
                 }
             }
+            
+            boolean isRujukanSuccess = respon.equals("200") || respon.equals("208");
+            boolean isSKDPSuccess = nameNode.path("code").asText().equals("200") || nameNode.path("code").asText().equals("208");
+
+            if (isRujukanSuccess || isSKDPSuccess) {
+                statusantrean = true;
+            }
+        } else {
+            statusantrean = true;
         }
+        
         Sequel.queryu("UPDATE referensi_mobilejkn_bpjs SET statuskirim = 'Sudah' WHERE no_rawat = '"+TNoRw.getText()+"'");
         return statusantrean;
     }

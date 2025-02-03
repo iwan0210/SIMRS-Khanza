@@ -145,32 +145,10 @@
             </table>
             <br/>
             <h7 class="text-dark">
-                Dengan ini menyatakan dengan sesungguhnya bahwa saya setuju untuk dilakukan Rawat Inap di <?=$namars;?> di ruang : <?=$ruang;?> Kelas : <?=$kelas;?> Terhadap <?=$hubungan;?>
-                <br/>
-                Hak kelas perawatan : <?=$hak_kelas;?> 
-                <br/>
-                Nama dan alamat keluarga terdekat : <?=$nama_alamat_keluarga_terdekat;?> 
-                <br/>
-                Demi kelancaran pelayanan perawatan, pengobatan dan administrasi, dengan ini juga menyatakan :
+            Setelah mendengar penjelasan dari dokter RS Karomah Holistic Pekalongan menyatakan menyetujui bahwa pasien tersebut rawat inap dan menyetujui tindakan perawatan yang berkaitan dengan penyakit tersebut.
+            <br>
+            Demikian surat pernyataan ini saya buat / tanda tangani dengan sebenar-benarnya.
             </h7>
-            <table class="default" width="97%" border="0" align="center" cellpadding="3px" cellspacing="0px">
-                <tr class="text-dark">
-                    <td width="5%" valign='top'>a.</td>
-                    <td width="95%" valign='top' align='justify'>Setuju dan memberi ijin kepada dokter yang bersangkutan untuk merawat saya/pasien tersebut diatas</td>
-                </tr>
-                <tr class="text-dark">
-                    <td width="5%" valign='top'>b.</td>
-                    <td width="95%" valign='top' align='justify'>Dengan ini menyatakan dengan sesungguhnya bahwa seluruh pembiayaan pelayanan di <?=$namars;?> akan saya bayarkan secara <?=$bayar_secara;?>, dan bersedia untuk melengkapi berkas kelengkapannya. Apabila dalam waktu 3 x 24 Jam tidak dapat menunjukkan kartu/kelengkapan lainnya, maka saya siap untuk membayarkan semua pelayanan dan tindakan di <?=$namars;?>.</td>
-                </tr>
-                <tr class="text-dark">
-                    <td width="5%" valign='top'>c.</td>
-                    <td width="95%" valign='top' align='justify'>Telah menyetujui dan bersedia mentaati segala peraturan yang berlaku di <?=$namars;?></td>
-                </tr>
-                <tr class="text-dark">
-                    <td width="5%" valign='top'>d.</td>
-                    <td width="95%" valign='top' align='justify'>Memberi kuasa kepada Dokter untuk memberikan keterangan yang diperlukan oleh pihak penanggung biaya perawatan saya / pasien tersebut diatas</td>
-                </tr>
-            </table>
             <br/>
             <br/>
             <h7 class="text-dark"><center>Yang Membuat Persetujuan</center></h7>

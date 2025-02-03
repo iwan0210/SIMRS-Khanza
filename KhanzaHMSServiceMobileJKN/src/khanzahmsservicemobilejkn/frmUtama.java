@@ -490,7 +490,7 @@ public class frmUtama extends javax.swing.JFrame {
                                     }
                                 }
                                 
-                                noresep=Sequel.cariIsi("select resep_obat.no_resep from resep_obat where resep_obat.no_rawat=?",rs.getString("no_rawat"));
+                                noresep=Sequel.cariIsi("select resep_obat.no_resep from resep_obat where resep_obat.no_rawat=? and resep_obat.status='ralan'",rs.getString("no_rawat"));
                                 if(!noresep.equals("")){
                                     try {     
                                         TeksArea.append("Menjalankan WS tambah antrian farmasi Mobile JKN Pasien BPJS\n");
@@ -813,7 +813,7 @@ public class frmUtama extends javax.swing.JFrame {
                                                 }
                                             }
 
-                                            noresep=Sequel.cariIsi("select resep_obat.no_resep from resep_obat where resep_obat.no_rawat=?",rs.getString("no_rawat"));
+                                            noresep=Sequel.cariIsi("select resep_obat.no_resep from resep_obat where resep_obat.no_rawat=? and resep_obat.status='ralan'",rs.getString("no_rawat"));
                                             if(!noresep.equals("")){
                                                 try {     
                                                     TeksArea.append("Menjalankan WS tambah antrian farmasi Mobile JKN Pasien Non BPJS/BPS Onsite\n");

@@ -2391,6 +2391,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat(); 
+        cekTTVTriase();
     }
     
     public void isCek(){
@@ -2503,6 +2504,33 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
                 });
                 LCount.setText(""+tabMode.getRowCount());
                 emptTeks();
+        }
+    }
+    
+    private void cekTTVTriase() {
+        try {
+            ps = koneksi.prepareStatement("select nadi, pernapasan, suhu, saturasi_o2 from data_triase_igd where no_rawat = ?");
+            try {
+                ps.setString(1,TNoRw.getText());
+                rs=ps.executeQuery();
+                if(rs.next()){
+                    Nadi.setText(rs.getString("nadi"));
+                    RR.setText(rs.getString("pernapasan"));
+                    Suhu.setText(rs.getString("suhu"));
+                    SPO.setText(rs.getString("saturasi_o2"));
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
         }
     }
 }
