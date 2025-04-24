@@ -385,10 +385,10 @@ public class frmUtama extends javax.swing.JFrame {
                                 
                                 //add task id 1 and 2
                                 if (rs.getString("stts_daftar").equals("Baru")) {
-                                    datajam=Sequel.cariIsi("select DATE_SUB(DATE_SUB(mutasi_berkas.dikirim, INTERVAL FLOOR(2 + (RAND() * 4)) MINUTE), INTERVAL FLOOR(RAND() * 60) SECOND) as taskid2 from mutasi_berkas where mutasi_berkas.no_rawat=? and mutasi_berkas.dikirim<>'0000-00-00 00:00:00'",rs.getString("no_rawat"));
+                                    datajam=Sequel.cariIsi("select DATE_SUB(mutasi_berkas.dikirim, INTERVAL FLOOR(15 + (RAND() * 16)) SECOND) as taskid2 from mutasi_berkas where mutasi_berkas.no_rawat=? and mutasi_berkas.dikirim<>'0000-00-00 00:00:00'",rs.getString("no_rawat"));
                                     if (!datajam.equals("")) {
                                         // taskid 1
-                                        String datajamTaskId1=Sequel.cariIsi("select DATE_SUB(DATE_SUB(?, INTERVAL FLOOR(7 + (RAND() * 4)) MINUTE), INTERVAL FLOOR(RAND() * 60) SECOND) as taskid1", datajam);
+                                        String datajamTaskId1=Sequel.cariIsi("select DATE_SUB(?, INTERVAL FLOOR(10 + (RAND() * 6)) SECOND) as taskid1", datajam);
                                         if (!datajamTaskId1.equals("")) {
                                             if (Sequel.menyimpantf2("referensi_mobilejkn_bpjs_taskid","?,?,?","task id",3,new String[]{rs.getString("no_rawat"),"1",datajamTaskId1})==true) {
                                                 parsedDate = dateFormat.parse(datajamTaskId1);
