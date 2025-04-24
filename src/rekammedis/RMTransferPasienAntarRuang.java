@@ -2514,6 +2514,7 @@ public final class RMTransferPasienAntarRuang extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat(); 
+        Valid.SetTgl2(TanggalMasuk, Sequel.cariIsi("select concat(tgl_registrasi, ' ', jam_reg) as tgl_reg from reg_periksa where no_rawat = ?", norwt));
     }
     
     public void isCek(){

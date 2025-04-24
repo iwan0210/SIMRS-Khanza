@@ -5800,7 +5800,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         kamar.isCek();
         kamar.emptTeks();
         kamar.tampil();
-        kamar.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        kamar.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         kamar.setLocationRelativeTo(internalFrame1);
         kamar.setVisible(true);
     }//GEN-LAST:event_btnKamarActionPerformed
@@ -6168,24 +6168,24 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         try {
                             if(cmbStatus.getSelectedItem().equals("Meninggal")){
                                 DlgPasienMati dlgPasienMati=new DlgPasienMati(null,false);
-                                dlgPasienMati.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                dlgPasienMati.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 dlgPasienMati.setLocationRelativeTo(internalFrame1);
                                 dlgPasienMati.emptTeks();
                                 dlgPasienMati.setNoRm(TNoRMCari.getText(),TPasienCari.getText()); 
                                 dlgPasienMati.isCek();
                                 dlgPasienMati.setVisible(true);
                             }else if(cmbStatus.getSelectedItem().equals("Rujuk")){
-                                DlgRujuk dlgrjk=new DlgRujuk(null,false);
-                                dlgrjk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                DlgRujukPasien dlgrjk=new DlgRujukPasien(null,false);
+                                dlgrjk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 dlgrjk.setLocationRelativeTo(internalFrame1);
                                 dlgrjk.emptTeks();
                                 dlgrjk.isCek();
                                 if(R1.isSelected()==true){
-                                    dlgrjk.setNoRm(norawat.getText(),new Date(),new Date()); 
+                                    dlgrjk.setNoRm2(norawat.getText(),new Date(),new Date()); 
                                 }else if(R2.isSelected()==true){
-                                    dlgrjk.setNoRm(norawat.getText(),DTPCari1.getDate(),DTPCari2.getDate()); 
+                                    dlgrjk.setNoRm2(norawat.getText(),DTPCari1.getDate(),DTPCari2.getDate()); 
                                 }else if(R3.isSelected()==true){
-                                    dlgrjk.setNoRm(norawat.getText(),DTPCari3.getDate(),DTPCari4.getDate()); 
+                                    dlgrjk.setNoRm2(norawat.getText(),DTPCari3.getDate(),DTPCari4.getDate()); 
                                 }
                                 dlgrjk.tampil();
                                 dlgrjk.setVisible(true);
@@ -6518,7 +6518,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         akses.setform("DlgKamarInap");
         kamar.bangsal.isCek();
         kamar.bangsal.emptTeks();        
-        kamar.bangsal.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        kamar.bangsal.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         kamar.bangsal.setLocationRelativeTo(internalFrame1);
         kamar.bangsal.setVisible(true);
     }//GEN-LAST:event_btnBangsalCariActionPerformed
@@ -6569,7 +6569,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                             akses.setkdbangsal(bangsal);
                                         }
                                       billing.rawatinap.isCek();
-                                      billing.rawatinap.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                      billing.rawatinap.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                       billing.rawatinap.setLocationRelativeTo(internalFrame1);  
                                       if(R1.isSelected()==true){
                                           billing.rawatinap.setNoRm(rs2.getString("no_rawat2"),new Date(),new Date());  
@@ -6612,7 +6612,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         akses.setkdbangsal(bangsal);
                     }
                     billing.rawatinap.isCek();
-                    billing.rawatinap.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    billing.rawatinap.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     billing.rawatinap.setLocationRelativeTo(internalFrame1);  
                     if(R1.isSelected()==true){
                         billing.rawatinap.setNoRm(norawat.getText(),new Date(),new Date());
@@ -6665,7 +6665,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     reseppulang.setNoRm(rs2.getString("no_rawat2"),rs2.getString("no_rkm_medis"),rs2.getString("nm_pasien"),DTPCari3.getDate(),DTPCari4.getDate());
                                 }
                                 reseppulang.tampil();
-                                reseppulang.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                reseppulang.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 reseppulang.setLocationRelativeTo(internalFrame1);
                                 reseppulang.setVisible(true);
                             }else{
@@ -6707,7 +6707,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         reseppulang.setNoRm(norawat.getText(),TNoRMCari.getText(),TPasienCari.getText(),DTPCari3.getDate(),DTPCari4.getDate());
                     }
                     reseppulang.tampil();
-                    reseppulang.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    reseppulang.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     reseppulang.setLocationRelativeTo(internalFrame1);
                     reseppulang.setVisible(true);
                 }
@@ -6729,17 +6729,17 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             psanak.setString(1,tbKamIn.getValueAt(tbKamIn.getSelectedRow()-1,0).toString());
                             rs2=psanak.executeQuery();
                             if(rs2.next()){
-                                DlgRujuk dlgrjk=new DlgRujuk(null,false);
-                                dlgrjk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                DlgRujukPasien dlgrjk=new DlgRujukPasien(null,false);
+                                dlgrjk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 dlgrjk.setLocationRelativeTo(internalFrame1);
                                 dlgrjk.emptTeks();
                                 dlgrjk.isCek();
                                 if(R1.isSelected()==true){
-                                    dlgrjk.setNoRm(rs2.getString("no_rawat2"),new Date(),new Date()); 
+                                    dlgrjk.setNoRm2(rs2.getString("no_rawat2"),new Date(),new Date()); 
                                 }else if(R2.isSelected()==true){
-                                    dlgrjk.setNoRm(rs2.getString("no_rawat2"),DTPCari1.getDate(),DTPCari2.getDate()); 
+                                    dlgrjk.setNoRm2(rs2.getString("no_rawat2"),DTPCari1.getDate(),DTPCari2.getDate()); 
                                 }else if(R3.isSelected()==true){
-                                    dlgrjk.setNoRm(rs2.getString("no_rawat2"),DTPCari3.getDate(),DTPCari4.getDate()); 
+                                    dlgrjk.setNoRm2(rs2.getString("no_rawat2"),DTPCari3.getDate(),DTPCari4.getDate()); 
                                 }
                                 dlgrjk.tampil();
                                 dlgrjk.setVisible(true);
@@ -6761,17 +6761,17 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         System.out.println(e);
                     }
                 }else{
-                    DlgRujuk dlgrjk=new DlgRujuk(null,false);
-                    dlgrjk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    DlgRujukPasien dlgrjk=new DlgRujukPasien(null,false);
+                    dlgrjk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     dlgrjk.setLocationRelativeTo(internalFrame1);
                     dlgrjk.emptTeks();
                     dlgrjk.isCek();
                     if(R1.isSelected()==true){
-                        dlgrjk.setNoRm(norawat.getText(),new Date(),new Date()); 
+                        dlgrjk.setNoRm2(norawat.getText(),new Date(),new Date()); 
                     }else if(R2.isSelected()==true){
-                        dlgrjk.setNoRm(norawat.getText(),DTPCari1.getDate(),DTPCari2.getDate()); 
+                        dlgrjk.setNoRm2(norawat.getText(),DTPCari1.getDate(),DTPCari2.getDate()); 
                     }else if(R3.isSelected()==true){
-                        dlgrjk.setNoRm(norawat.getText(),DTPCari3.getDate(),DTPCari4.getDate()); 
+                        dlgrjk.setNoRm2(norawat.getText(),DTPCari3.getDate(),DTPCari4.getDate()); 
                     }
                     dlgrjk.tampil();
                     dlgrjk.setVisible(true);
@@ -6805,7 +6805,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                   }else{
                                       akses.setkdbangsal(bangsal);
                                   }
-                                  billing.beriobat.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                  billing.beriobat.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                   billing.beriobat.setLocationRelativeTo(internalFrame1);
                                   if(R1.isSelected()==true){
                                       billing.beriobat.setNoRm(rs2.getString("no_rawat2"),new Date(),new Date(),"ranap");
@@ -6847,7 +6847,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                           akses.setkdbangsal(bangsal);
                       }
 
-                      billing.beriobat.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                      billing.beriobat.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                       billing.beriobat.setLocationRelativeTo(internalFrame1);
                       if(R1.isSelected()==true){
                           billing.beriobat.setNoRm(norawat.getText(),new Date(),new Date(),"ranap");
@@ -6886,7 +6886,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                      piutang.setNoRm(TNoRM.getText(),rs.getDate(1));
                                      piutang.tampil();
                                      piutang.isCek();
-                                     piutang.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                     piutang.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                      piutang.setLocationRelativeTo(internalFrame1);
                                      piutang.setVisible(true);
                                 }else{
@@ -6904,7 +6904,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     billing.TNoRw.setText(norawat.getText());                   
                                     billing.isCek();  
                                     billing.isRawat();          
-                                    billing.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    billing.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     billing.setLocationRelativeTo(internalFrame1);
                                     billing.setVisible(true);
                                 }
@@ -6923,7 +6923,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 billing.TNoRw.setText(norawat.getText());  
                                 billing.isCek();
                                 billing.isRawat(); 
-                                billing.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                billing.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 billing.setLocationRelativeTo(internalFrame1);
                                 billing.setVisible(true);
                             }
@@ -6961,7 +6961,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             rs2=psanak.executeQuery();
                             if(rs2.next()){
                                 DlgPemberianDiet rawatinap=new DlgPemberianDiet(null,false);
-                                rawatinap.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                rawatinap.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 rawatinap.setLocationRelativeTo(internalFrame1);
                                 rawatinap.emptTeks(); 
                                 rawatinap.isCek();
@@ -6992,7 +6992,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     } 
                 }else{
                     DlgPemberianDiet rawatinap=new DlgPemberianDiet(null,false);
-                    rawatinap.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    rawatinap.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     rawatinap.setLocationRelativeTo(internalFrame1);
                     rawatinap.emptTeks(); 
                     rawatinap.isCek();
@@ -7033,7 +7033,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 if(rs2.next()){
                                     akses.setform("DlgKamarInap");
                                     DlgPeriksaLaboratorium periksalab=new DlgPeriksaLaboratorium(null,false);
-                                    periksalab.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    periksalab.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     periksalab.setLocationRelativeTo(internalFrame1);
                                     periksalab.emptTeks();
                                     periksalab.setNoRm(rs2.getString("no_rawat2"),"Ranap");  
@@ -7060,7 +7060,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     akses.setform("DlgKamarInap");
                     DlgPeriksaLaboratorium periksalab=new DlgPeriksaLaboratorium(null,false);
-                    periksalab.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    periksalab.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     periksalab.setLocationRelativeTo(internalFrame1);
                     periksalab.emptTeks();
                     periksalab.setNoRm(norawat.getText(),"Ranap");  
@@ -7091,7 +7091,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 rs2=psanak.executeQuery();
                                 if(rs2.next()){
                                     DlgTagihanOperasi dlgro=new DlgTagihanOperasi(null,false);
-                                    dlgro.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    dlgro.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     dlgro.setLocationRelativeTo(internalFrame1);
                                     dlgro.setNoRm(rs2.getString("no_rawat2"),rs2.getString("no_rkm_medis")+", "+rs2.getString("nm_pasien"),"Ranap");  
                                     dlgro.setVisible(true);
@@ -7115,7 +7115,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     } 
                 }else{
                     DlgTagihanOperasi dlgro=new DlgTagihanOperasi(null,false);
-                    dlgro.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    dlgro.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     dlgro.setLocationRelativeTo(internalFrame1);
                     dlgro.setNoRm(norawat.getText(),TNoRM.getText()+", "+TPasien.getText(),"Ranap");  
                     dlgro.setVisible(true);
@@ -7244,7 +7244,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             if(rs2.next()){
                                 akses.setform("DlgKamarInap");
                                 DlgRujukMasuk rujukmasuk=new DlgRujukMasuk(null,false);
-                                rujukmasuk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                rujukmasuk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 rujukmasuk.setLocationRelativeTo(internalFrame1);
                                 rujukmasuk.emptTeks();
                                 rujukmasuk.isCek();
@@ -7277,7 +7277,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     akses.setform("DlgKamarInap");
                     DlgRujukMasuk rujukmasuk=new DlgRujukMasuk(null,false);
-                    rujukmasuk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    rujukmasuk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     rujukmasuk.setLocationRelativeTo(internalFrame1);
                     rujukmasuk.emptTeks();
                     rujukmasuk.isCek();
@@ -7363,7 +7363,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         kamar.isCek();
         kamar.emptTeks();
         kamar.tampil();
-        kamar.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        kamar.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         kamar.setLocationRelativeTo(internalFrame1);
         kamar.setVisible(true);
     }//GEN-LAST:event_btnKamar2ActionPerformed
@@ -7611,7 +7611,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     akses.setkdbangsal(bangsal);
                                 }
                                 DlgInputStokPasien dlgrjk=new DlgInputStokPasien(null,false);
-                                dlgrjk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                dlgrjk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 dlgrjk.setLocationRelativeTo(internalFrame1);
                                 dlgrjk.isCek();
                                 dlgrjk.setNoRm(rs2.getString("no_rawat2"),rs2.getString("no_rkm_medis")+" "+rs2.getString("nm_pasien")); 
@@ -7646,7 +7646,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         akses.setkdbangsal(bangsal);
                     }
                     DlgInputStokPasien dlgrjk=new DlgInputStokPasien(null,false);
-                    dlgrjk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    dlgrjk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     dlgrjk.setLocationRelativeTo(internalFrame1);
                     dlgrjk.isCek();
                     dlgrjk.setNoRm(norawat.getText(),TNoRM.getText()+" "+TPasien.getText()); 
@@ -7692,7 +7692,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         akses.setform("DlgKamarInap");
         billing.carabayar.emptTeks();
         billing.carabayar.isCek();
-        billing.carabayar.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        billing.carabayar.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         billing.carabayar.setLocationRelativeTo(internalFrame1);
         billing.carabayar.setVisible(true);
     }//GEN-LAST:event_btnBayarActionPerformed
@@ -7937,7 +7937,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             psanak.setString(1,tbKamIn.getValueAt(tbKamIn.getSelectedRow()-1,0).toString());
                             rs2=psanak.executeQuery();
                             if(rs2.next()){
-                                billing.deposit.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                billing.deposit.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 billing.deposit.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     billing.deposit.setNoRm(rs2.getString("no_rawat2"),new Date(),new Date());
@@ -7966,7 +7966,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         System.out.println(e);
                     }
                 }else{
-                    billing.deposit.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    billing.deposit.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     billing.deposit.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         billing.deposit.setNoRm(norawat.getText(),new Date(),new Date());
@@ -7997,7 +7997,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             rs2=psanak.executeQuery();
                             if(rs2.next()){
                                 DlgResepObat resep=new DlgResepObat(null,false);
-                                resep.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                resep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 resep.setLocationRelativeTo(internalFrame1);
                                 resep.emptTeks(); 
                                 resep.isCek();
@@ -8029,7 +8029,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     } 
                 }else{    
                     DlgResepObat resep=new DlgResepObat(null,false);
-                    resep.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resep.setLocationRelativeTo(internalFrame1);
                     resep.emptTeks(); 
                     resep.isCek();
@@ -8093,7 +8093,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     inputresep.isCek();
                                     inputresep.setNoRm(rs2.getString("no_rawat2"),rs2.getString("no_rkm_medis"),rs2.getString("nm_pasien"),"-",dateformat2.format(new Date()).toString(),Sequel.cariIsi("select current_time()"));
                                     inputresep.tampil();
-                                    inputresep.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    inputresep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     inputresep.setLocationRelativeTo(internalFrame1);
                                     inputresep.setVisible(true);
                                 }else{
@@ -8133,7 +8133,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         inputresep.isCek();
                         inputresep.setNoRm(norawat.getText(),TNoRMCari.getText(),TPasienCari.getText(),"-",dateformat2.format(new Date()).toString(),Sequel.cariIsi("select current_time()"));
                         inputresep.tampil();
-                        inputresep.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                        inputresep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                         inputresep.setLocationRelativeTo(internalFrame1);
                         inputresep.setVisible(true);
                     }
@@ -8161,7 +8161,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 rs2=psanak.executeQuery();
                                 if(rs2.next()){
                                     DlgPeriksaRadiologi periksarad=new DlgPeriksaRadiologi(null,false);
-                                    periksarad.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    periksarad.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     periksarad.setLocationRelativeTo(internalFrame1);
                                     periksarad.emptTeks();
                                     periksarad.setNoRm(rs2.getString("no_rawat2"),"Ranap");
@@ -8188,7 +8188,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     } 
                 }else{
                     DlgPeriksaRadiologi periksarad=new DlgPeriksaRadiologi(null,false);
-                    periksarad.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    periksarad.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     periksarad.setLocationRelativeTo(internalFrame1);
                     periksarad.emptTeks();
                     periksarad.setNoRm(norawat.getText(),"Ranap");
@@ -8225,7 +8225,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
             tbKamIn.requestFocus();
         }else{
                 akses.setform("DlgKamarInap");
-                diagnosa.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                diagnosa.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 diagnosa.setLocationRelativeTo(internalFrame1);
                 diagnosa.isCek();
                 if(R1.isSelected()==true){
@@ -8338,7 +8338,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         akses.setform("DlgKamarInap");
         billing.rawatinap.pasien.emptTeks();
         billing.rawatinap.pasien.isCek();
-        billing.rawatinap.pasien.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        billing.rawatinap.pasien.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         billing.rawatinap.pasien.setLocationRelativeTo(internalFrame1);
         billing.rawatinap.pasien.setVisible(true);
     }//GEN-LAST:event_btnPasienRanapGabungActionPerformed
@@ -8421,7 +8421,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             rs2=psanak.executeQuery();
                             if(rs2.next()){
                                 akses.setform("DlgKamarInap");
-                                diagnosa.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                diagnosa.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 diagnosa.setLocationRelativeTo(internalFrame1);
                                 diagnosa.isCek();
                                 try{
@@ -8457,7 +8457,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     }
                 }else{
                     akses.setform("DlgKamarInap");
-                    diagnosa.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    diagnosa.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     diagnosa.setLocationRelativeTo(internalFrame1);
                     diagnosa.isCek();
                     try{
@@ -8503,7 +8503,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             rs2=psanak.executeQuery();
                             if(rs2.next()){
                                 DlgDpjp dpjp=new DlgDpjp(null,false);
-                                dpjp.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                dpjp.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 dpjp.setLocationRelativeTo(internalFrame1);
                                 dpjp.isCek();
                                 try{
@@ -8539,7 +8539,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     } 
                 }else{
                     DlgDpjp dpjp=new DlgDpjp(null,false);
-                    dpjp.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    dpjp.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     dpjp.setLocationRelativeTo(internalFrame1);
                     dpjp.isCek();
                     try{
@@ -8566,7 +8566,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
     private void MnPenggunaanKamarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPenggunaanKamarActionPerformed
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));      
         InformasiAnalisaKamin analisakamin=new InformasiAnalisaKamin(null,false);
-        analisakamin.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        analisakamin.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         analisakamin.setLocationRelativeTo(internalFrame1);
         analisakamin.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
@@ -8606,7 +8606,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     returjual.emptTeks();
                                     returjual.isCek();
                                     returjual.setPasien(tbKamIn.getValueAt(tbKamIn.getSelectedRow(),1).toString(),rs2.getString("no_rawat2"));
-                                    returjual.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    returjual.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     returjual.setLocationRelativeTo(internalFrame1);
                                     returjual.setVisible(true);
                                 }else{
@@ -8647,7 +8647,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         returjual.emptTeks();
                         returjual.isCek();
                         returjual.setPasien(tbKamIn.getValueAt(tbKamIn.getSelectedRow(),1).toString(),norawat.getText());
-                        returjual.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                        returjual.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                         returjual.setLocationRelativeTo(internalFrame1);
                         returjual.setVisible(true);
                     }
@@ -8870,7 +8870,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 akses.setform("DlgKamarInap");
                                 BPJSDataSEP dlgki=new BPJSDataSEP(null,false);
-                                dlgki.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                dlgki.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 dlgki.setLocationRelativeTo(internalFrame1);
                                 dlgki.isCek();
                                 dlgki.setNoRm(rs2.getString("no_rawat2"),Valid.SetTgl2(tbKamIn.getValueAt(tbKamIn.getSelectedRow(),11).toString()),"1. Ranap","","");
@@ -8897,7 +8897,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     akses.setform("DlgKamarInap");
                     BPJSDataSEP dlgki=new BPJSDataSEP(null,false);
-                    dlgki.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    dlgki.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     dlgki.setLocationRelativeTo(internalFrame1);
                     dlgki.isCek();
                     dlgki.setNoRm(norawat.getText(),Valid.SetTgl2(tbKamIn.getValueAt(tbKamIn.getSelectedRow(),11).toString()),"1. Ranap","","");
@@ -8919,7 +8919,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             RMRiwayatPerawatan resume=new RMRiwayatPerawatan(null,true);
             resume.setNoRm(tbKamIn.getValueAt(tbKamIn.getSelectedRow(),1).toString(),tbKamIn.getValueAt(tbKamIn.getSelectedRow(),2).toString());
-            resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+            resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
             resume.setLocationRelativeTo(internalFrame1);
             resume.setVisible(true);
             this.setCursor(Cursor.getDefaultCursor());
@@ -8959,7 +8959,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             rs2=psanak.executeQuery();
                             if(rs2.next()){
                                 DlgDataHAIs hais=new DlgDataHAIs(null,false);
-                                hais.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                hais.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 hais.setLocationRelativeTo(internalFrame1);
                                 hais.emptTeks();
                                 hais.isCek();
@@ -8991,7 +8991,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     }
               }else{
                     DlgDataHAIs hais=new DlgDataHAIs(null,false);
-                    hais.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    hais.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     hais.setLocationRelativeTo(internalFrame1);
                     hais.emptTeks();
                     hais.isCek();
@@ -9054,7 +9054,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         
         ikb.emptTeks();
         ikb.isCek();
-        ikb.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        ikb.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         ikb.setLocationRelativeTo(internalFrame1);
         ikb.setVisible(true);
     }
@@ -9188,7 +9188,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     System.out.println("Notifikasi : "+ex);
                                 }
 
-                                berkas.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                berkas.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 berkas.setLocationRelativeTo(internalFrame1);
                                 berkas.setVisible(true);
                                 this.setCursor(Cursor.getDefaultCursor());
@@ -9223,7 +9223,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     } catch (Exception ex) {
                         System.out.println("Notifikasi : "+ex);
                     }
-                    berkas.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    berkas.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     berkas.setLocationRelativeTo(internalFrame1);
                     berkas.setVisible(true);
                     this.setCursor(Cursor.getDefaultCursor());
@@ -9379,7 +9379,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 BPJSPeserta form=new BPJSPeserta(null, true);
                 form.tampil(Sequel.cariIsi("select no_peserta from pasien where no_rkm_medis=?",TNoRM.getText()));
-                form.setSize(640,internalFrame1.getHeight()-20);
+                form.setSize(640,internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -9395,7 +9395,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 BPJSNik form=new BPJSNik(null, true);
                 form.tampil(Sequel.cariIsi("select pasien.no_ktp from pasien where pasien.no_rkm_medis=?",TNoRM.getText()));
-                form.setSize(640,internalFrame1.getHeight()-20);
+                form.setSize(640,internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -9500,7 +9500,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             if(rs2.next()){
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 DlgDataInsidenKeselamatan aplikasi=new DlgDataInsidenKeselamatan(null,false);
-                                aplikasi.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                aplikasi.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 aplikasi.setLocationRelativeTo(internalFrame1);
                                 aplikasi.isCek();
                                 if(R1.isSelected()==true){
@@ -9533,7 +9533,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     DlgDataInsidenKeselamatan aplikasi=new DlgDataInsidenKeselamatan(null,false);
-                    aplikasi.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    aplikasi.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     aplikasi.setLocationRelativeTo(internalFrame1);
                     aplikasi.isCek();
                     if(R1.isSelected()==true){
@@ -9568,7 +9568,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                               if(rs2.next()){
                                     DlgBookingOperasi form=new DlgBookingOperasi(null,false);
                                     form.isCek();
-                                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     form.setLocationRelativeTo(internalFrame1);
                                     form.setNoRm(rs2.getString("no_rawat2"),rs2.getString("no_rkm_medis"),rs2.getString("nm_pasien"),tbKamIn.getValueAt(tbKamIn.getSelectedRow(),7).toString(),"Ranap");
                                     form.setVisible(true);
@@ -9592,7 +9592,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     DlgBookingOperasi form=new DlgBookingOperasi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setNoRm(norawat.getText(),TNoRM.getText(),TPasien.getText(),tbKamIn.getValueAt(tbKamIn.getSelectedRow(),7).toString(),"Ranap");
                     form.setVisible(true);
@@ -10278,7 +10278,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                               if(rs2.next()){
                                     SuratKontrol form=new SuratKontrol(null,false);
                                     form.isCek();
-                                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     form.setLocationRelativeTo(internalFrame1);
                                     form.emptTeks();
                                     form.setNoRm(rs2.getString("no_rkm_medis"),rs2.getString("nm_pasien"));
@@ -10303,7 +10303,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     SuratKontrol form=new SuratKontrol(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.emptTeks();
                     form.setNoRm(TNoRM.getText(),TPasien.getText());
@@ -10329,7 +10329,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                               if(rs2.next()){
                                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                     DlgPermintaanLaboratorium dlgro=new DlgPermintaanLaboratorium(null,false);
-                                    dlgro.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    dlgro.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     dlgro.setLocationRelativeTo(internalFrame1);
                                     dlgro.emptTeks();
                                     dlgro.isCek();
@@ -10356,7 +10356,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     DlgPermintaanLaboratorium dlgro=new DlgPermintaanLaboratorium(null,false);
-                    dlgro.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    dlgro.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     dlgro.setLocationRelativeTo(internalFrame1);
                     dlgro.emptTeks();
                     dlgro.isCek();
@@ -10384,7 +10384,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                               if(rs2.next()){
                                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                     DlgPermintaanRadiologi dlgro=new DlgPermintaanRadiologi(null,false);
-                                    dlgro.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    dlgro.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     dlgro.setLocationRelativeTo(internalFrame1);
                                     dlgro.emptTeks();
                                     dlgro.isCek();
@@ -10411,7 +10411,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     DlgPermintaanRadiologi dlgro=new DlgPermintaanRadiologi(null,false);
-                    dlgro.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    dlgro.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     dlgro.setLocationRelativeTo(internalFrame1);
                     dlgro.emptTeks();
                     dlgro.isCek();
@@ -10451,7 +10451,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     akses.setkdbangsal(bangsal);
                                 }
                                 DlgPeresepanDokter resep=new DlgPeresepanDokter(null,false);
-                                resep.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                resep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 resep.setLocationRelativeTo(internalFrame1);
                                 resep.setNoRm(rs2.getString("no_rawat2"),new Date(),"ranap");
                                 resep.isCek();
@@ -10494,7 +10494,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     akses.setkdbangsal(bangsal);
                 }
                 DlgPeresepanDokter resep=new DlgPeresepanDokter(null,false);
-                resep.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                resep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 resep.setLocationRelativeTo(internalFrame1);
                 resep.setNoRm(norawat.getText(),new Date(),"ranap");
                 resep.isCek();
@@ -10523,7 +10523,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                     akses.setform("DlgKamarInap");
                                     SisruteRujukanKeluar dlgki=new SisruteRujukanKeluar(null,false);
-                                    dlgki.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    dlgki.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     dlgki.setLocationRelativeTo(internalFrame1);
                                     dlgki.isCek();
                                     dlgki.setPasien2(rs2.getString("no_rawat2"));
@@ -10550,7 +10550,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     akses.setform("DlgKamarInap");
                     SisruteRujukanKeluar dlgki=new SisruteRujukanKeluar(null,false);
-                    dlgki.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    dlgki.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     dlgki.setLocationRelativeTo(internalFrame1);
                     dlgki.isCek();
                     dlgki.setPasien2(norawat.getText());
@@ -10682,7 +10682,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         akses.setform("DlgKamarInap");
         billing.rawatinap.perawatan.dokter.isCek();
         billing.rawatinap.perawatan.dokter.TCari.requestFocus();
-        billing.rawatinap.perawatan.dokter.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        billing.rawatinap.perawatan.dokter.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         billing.rawatinap.perawatan.dokter.setLocationRelativeTo(internalFrame1);
         billing.rawatinap.perawatan.dokter.setVisible(true);
     }//GEN-LAST:event_BtnSeek5ActionPerformed
@@ -10703,7 +10703,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             if(rs2.next()){
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 DlgDataTB resep=new DlgDataTB(null,false);
-                                resep.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                resep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 resep.setLocationRelativeTo(internalFrame1);
                                 resep.isCek();
                                 resep.emptTeks();
@@ -10730,7 +10730,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     DlgDataTB resep=new DlgDataTB(null,false);
-                    resep.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resep.setLocationRelativeTo(internalFrame1);
                     resep.isCek();
                     resep.emptTeks();
@@ -10829,7 +10829,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         DlgPerkiraanBiayaRanap resep=new DlgPerkiraanBiayaRanap(null,false);
         resep.isCek();
         resep.tampil();
-        resep.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        resep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         resep.setLocationRelativeTo(internalFrame1);
         resep.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
@@ -10852,7 +10852,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataResumePasienRanap resume=new RMDataResumePasienRanap(null,false);
                                 resume.isCek();
-                                resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 resume.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     resume.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -10885,7 +10885,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataResumePasienRanap resume=new RMDataResumePasienRanap(null,false);
                     resume.isCek();
-                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resume.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         resume.setNoRm(norawat.getText(),new Date());
@@ -10919,7 +10919,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataAsuhanGizi form=new RMDataAsuhanGizi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -10952,7 +10952,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataAsuhanGizi form=new RMDataAsuhanGizi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
@@ -10986,7 +10986,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataMonitoringAsuhanGizi form=new RMDataMonitoringAsuhanGizi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -11019,7 +11019,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataMonitoringAsuhanGizi form=new RMDataMonitoringAsuhanGizi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
@@ -11054,7 +11054,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     DlgPenjualan penjualan=new DlgPenjualan(null,false);
                                     penjualan.isCek();
                                     penjualan.setPasien(rs2.getString("no_rkm_medis"));
-                                    penjualan.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    penjualan.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     penjualan.setLocationRelativeTo(internalFrame1);
                                     penjualan.setVisible(true);
                               }else{
@@ -11078,7 +11078,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                         DlgPenjualan penjualan=new DlgPenjualan(null,false);
                         penjualan.isCek();
                         penjualan.setPasien(TNoRMCari.getText());
-                        penjualan.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                        penjualan.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                         penjualan.setLocationRelativeTo(internalFrame1);
                         penjualan.setVisible(true);
                   }
@@ -11168,7 +11168,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
             CoronaPasien form=new CoronaPasien(null,false);
             form.setPasien(TNoRM.getText());
             form.isCek();
-            form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+            form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
             form.setLocationRelativeTo(internalFrame1);
             form.setVisible(true);
             this.setCursor(Cursor.getDefaultCursor());
@@ -11189,7 +11189,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
             form.setPasien(TNoRwCari.getText(),TNoRMCari.getText(),TPasienCari.getText());
             form.tampil();
             form.isCek();
-            form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+            form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
             form.setLocationRelativeTo(internalFrame1);
             form.setVisible(true);
             this.setCursor(Cursor.getDefaultCursor());
@@ -11208,7 +11208,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 akses.setform("DlgKamarInap");
                 PCareDataPendaftaran dlgki=new PCareDataPendaftaran(null,false);
-                dlgki.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                dlgki.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 dlgki.setLocationRelativeTo(internalFrame1);
                 dlgki.isCek();
                 dlgki.setNoRm(TNoRwCari.getText());
@@ -11254,7 +11254,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 resume.emptTeks();
                 resume.setNoRm(TNoRwCari.getText());
                 resume.isCek();
-                resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 resume.setLocationRelativeTo(internalFrame1);
                 resume.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -11291,7 +11291,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 }
                                 
                                 DlgPermintaanStokPasien dlgrjk=new DlgPermintaanStokPasien(null,false);
-                                dlgrjk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                dlgrjk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 dlgrjk.setLocationRelativeTo(internalFrame1);
                                 dlgrjk.isCek();
                                 dlgrjk.setNoRm(rs2.getString("no_rawat2"),new Date()); 
@@ -11334,7 +11334,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     akses.setkdbangsal(bangsal);
                 }
                 DlgPermintaanStokPasien dlgrjk=new DlgPermintaanStokPasien(null,false);
-                dlgrjk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                dlgrjk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 dlgrjk.setLocationRelativeTo(internalFrame1);
                 dlgrjk.isCek();
                 dlgrjk.setNoRm(norawat.getText(),new Date()); 
@@ -11360,7 +11360,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             rs2=psanak.executeQuery();
                             if(rs2.next()){
                                 DlgDataKlasifikasiPasienRanap hais=new DlgDataKlasifikasiPasienRanap(null,false);
-                                hais.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                hais.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 hais.setLocationRelativeTo(internalFrame1);
                                 hais.emptTeks();
                                 hais.isCek();
@@ -11392,7 +11392,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     }
               }else{
                     DlgDataKlasifikasiPasienRanap hais=new DlgDataKlasifikasiPasienRanap(null,false);
-                    hais.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    hais.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     hais.setLocationRelativeTo(internalFrame1);
                     hais.emptTeks();
                     hais.isCek();
@@ -11426,7 +11426,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             if(rs2.next()){
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataSkriningGiziLanjut form=new RMDataSkriningGiziLanjut(null,false);
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -11460,7 +11460,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataSkriningGiziLanjut form=new RMDataSkriningGiziLanjut(null,false);
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
@@ -11499,7 +11499,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 if(rs2.next()){
                                     akses.setform("DlgKamarInap");
                                     DlgPeriksaLaboratoriumPA periksalab=new DlgPeriksaLaboratoriumPA(null,false);
-                                    periksalab.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    periksalab.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     periksalab.setLocationRelativeTo(internalFrame1);
                                     periksalab.emptTeks();
                                     periksalab.setNoRm(rs2.getString("no_rawat2"),"Ranap");  
@@ -11526,7 +11526,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     akses.setform("DlgKamarInap");
                     DlgPeriksaLaboratoriumPA periksalab=new DlgPeriksaLaboratoriumPA(null,false);
-                    periksalab.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    periksalab.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     periksalab.setLocationRelativeTo(internalFrame1);
                     periksalab.emptTeks();
                     periksalab.setNoRm(norawat.getText(),"Ranap");  
@@ -11614,7 +11614,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else if(R3.isSelected()==true){
                     form.setNoRm(norawat.getText(),DTPCari4.getDate(),tbKamIn.getValueAt(tbKamIn.getSelectedRow(),6).toString(),TNoRMCari.getText());
                 }
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -11644,7 +11644,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                         BPJSSuratKontrol form=new BPJSSuratKontrol(null,false);
                                         form.setNoRm(rs.getString("no_rawat"),rs.getString("no_sep"),rs.getString("no_kartu"),rs.getString("nomr"),rs.getString("nama_pasien"),rs.getString("tanggal_lahir"),rs.getString("jkel"),rs.getString("nmdiagnosaawal"));
-                                        form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                        form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                         form.setLocationRelativeTo(internalFrame1);
                                         form.setVisible(true);
                                         this.setCursor(Cursor.getDefaultCursor());
@@ -11689,7 +11689,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 BPJSSuratKontrol form=new BPJSSuratKontrol(null,false);
                                 form.setNoRm(rs.getString("no_rawat"),rs.getString("no_sep"),rs.getString("no_kartu"),rs.getString("nomr"),rs.getString("nama_pasien"),rs.getString("tanggal_lahir"),rs.getString("jkel"),rs.getString("nmdiagnosaawal"));
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 this.setCursor(Cursor.getDefaultCursor());
@@ -11731,7 +11731,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                               if(rs2.next()){
                                     SuratKeteranganRawatInap form=new SuratKeteranganRawatInap(null,false);
                                     form.isCek();
-                                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     form.setLocationRelativeTo(internalFrame1);
                                     form.emptTeks();
                                     form.setNoRm(rs2.getString("no_rawat2"));
@@ -11756,7 +11756,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     SuratKeteranganRawatInap form=new SuratKeteranganRawatInap(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.emptTeks();
                     form.setNoRm(norawat.getText());
@@ -11787,7 +11787,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 BPJSSPRI form=new BPJSSPRI(null,false);
                                 form.setNoRm(TNoRwCari.getText(),rs.getString("no_peserta"),TNoRMCari.getText(),TPasienCari.getText(),rs.getString("tgl_lahir"),rs.getString("jk"),"-");
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 this.setCursor(Cursor.getDefaultCursor());
@@ -11823,7 +11823,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 SuratSakit resume=new SuratSakit(null,false);
                 resume.isCek();
                 resume.emptTeks();
-                resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 resume.setLocationRelativeTo(internalFrame1);
                 if(R1.isSelected()==true){
                     resume.setNoRm(TNoRwCari.getText(),new Date(),new Date());
@@ -11852,7 +11852,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 SuratSakitPihak2 resume=new SuratSakitPihak2(null,false);
                 resume.isCek();
                 resume.emptTeks();
-                resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 resume.setLocationRelativeTo(internalFrame1);
                 if(R1.isSelected()==true){
                     resume.setNoRm(TNoRwCari.getText(),tbKamIn.getValueAt(tbKamIn.getSelectedRow(),3).toString(),new Date(),new Date());
@@ -11885,7 +11885,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else if(R3.isSelected()==true){
                     form.setNoRm(norawat.getText(),DTPCari4.getDate());
                 }
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -11910,7 +11910,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else if(R3.isSelected()==true){
                     form.setNoRm(norawat.getText(),DTPCari4.getDate());
                 }
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -11935,7 +11935,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     form.setNoRm(norawat.getText(),DTPCari4.getDate());
                 }
                 form.emptTeks();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -12112,7 +12112,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                             BPJSCekSuplesiJasaRaharja form=new BPJSCekSuplesiJasaRaharja(null,false);
                             form.setRM(rs.getString("no_kartu"),rs.getString("nama_pasien"),rs.getDate("tglsep"));
-                            form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                            form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                             form.setLocationRelativeTo(internalFrame1);
                             form.setVisible(true);
                             this.setCursor(Cursor.getDefaultCursor());
@@ -12155,7 +12155,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                             BPJSCekDataIndukKecelakaan form=new BPJSCekDataIndukKecelakaan(null,false);
                             form.setRM(rs.getString("no_kartu"),rs.getString("nama_pasien"));
-                            form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                            form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                             form.setLocationRelativeTo(internalFrame1);
                             form.setVisible(true);
                             this.setCursor(Cursor.getDefaultCursor());
@@ -12209,7 +12209,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 }
                                 
                                 DlgPermintaanResepPulang dlgrjk=new DlgPermintaanResepPulang(null,false);
-                                dlgrjk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                dlgrjk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 dlgrjk.setLocationRelativeTo(internalFrame1);
                                 dlgrjk.isCek();
                                 dlgrjk.setNoRm(rs2.getString("no_rawat2"),new Date()); 
@@ -12251,7 +12251,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     akses.setkdbangsal(bangsal);
                 }
                 DlgPermintaanResepPulang dlgrjk=new DlgPermintaanResepPulang(null,false);
-                dlgrjk.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                dlgrjk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 dlgrjk.setLocationRelativeTo(internalFrame1);
                 dlgrjk.isCek();
                 dlgrjk.setNoRm(norawat.getText(),new Date()); 
@@ -12278,7 +12278,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataCatatanObservasiRanap form=new RMDataCatatanObservasiRanap(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -12311,7 +12311,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataCatatanObservasiRanap form=new RMDataCatatanObservasiRanap(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
@@ -12349,7 +12349,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }
                 resume.tampil();
                 resume.isCek();
-                resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 resume.setLocationRelativeTo(internalFrame1);
                 resume.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -12378,7 +12378,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }
                 resume.tampil();
                 resume.isCek();
-                resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 resume.setLocationRelativeTo(internalFrame1);
                 resume.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -12403,7 +12403,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     form.setNoRm(norawat.getText(),DTPCari4.getDate());
                 }
                 form.emptTeks();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -12428,7 +12428,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else if(R3.isSelected()==true){
                     form.setNoRm(norawat.getText(),DTPCari4.getDate(),tbKamIn.getValueAt(tbKamIn.getSelectedRow(),6).toString(),TNoRMCari.getText());
                 }
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -12454,7 +12454,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     SuratPersetujuanPenolakanTindakan resume=new SuratPersetujuanPenolakanTindakan(null,false);
                                     resume.isCek();
                                     resume.emptTeks();
-                                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     resume.setLocationRelativeTo(internalFrame1);
                                     resume.setNoRm(rs2.getString("no_rawat2"),new Date());
                                     resume.tampil();
@@ -12482,7 +12482,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     SuratPersetujuanPenolakanTindakan resume=new SuratPersetujuanPenolakanTindakan(null,false);
                     resume.isCek();
                     resume.emptTeks();
-                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resume.setLocationRelativeTo(internalFrame1);
                     resume.setNoRm(TNoRwCari.getText(),new Date());
                     resume.tampil();
@@ -12519,7 +12519,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             if(rs2.next()){
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 BPJSDataSEP dlgki=new BPJSDataSEP(null,false);
-                                dlgki.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                dlgki.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 dlgki.setLocationRelativeTo(internalFrame1);
                                 dlgki.isCek();
                                 dlgki.setNoRm3(rs2.getString("no_rawat2"),Valid.SetTgl2(tbKamIn.getValueAt(tbKamIn.getSelectedRow(),11).toString()));
@@ -12545,7 +12545,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     BPJSDataSEP dlgki=new BPJSDataSEP(null,false);
-                    dlgki.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    dlgki.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     dlgki.setLocationRelativeTo(internalFrame1);
                     dlgki.isCek();
                     dlgki.setNoRm3(norawat.getText(),Valid.SetTgl2(tbKamIn.getValueAt(tbKamIn.getSelectedRow(),11).toString()));
@@ -12573,7 +12573,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataCatatanKeperawatanRanap form=new RMDataCatatanKeperawatanRanap(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -12606,7 +12606,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataCatatanKeperawatanRanap form=new RMDataCatatanKeperawatanRanap(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
@@ -12652,7 +12652,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 }   
                                 resume.tampil();
                                 resume.isCek();
-                                resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 resume.setLocationRelativeTo(internalFrame1);
                                 resume.setVisible(true);
                                 this.setCursor(Cursor.getDefaultCursor());
@@ -12686,7 +12686,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     }   
                     resume.tampil();
                     resume.isCek();
-                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resume.setLocationRelativeTo(internalFrame1);
                     resume.setVisible(true);
                     this.setCursor(Cursor.getDefaultCursor());
@@ -12715,7 +12715,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 if(rs2.next()){
                                     akses.setform("DlgKamarInap");
                                     DlgPeriksaLaboratoriumMB periksalab=new DlgPeriksaLaboratoriumMB(null,false);
-                                    periksalab.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    periksalab.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     periksalab.setLocationRelativeTo(internalFrame1);
                                     periksalab.emptTeks();
                                     periksalab.setNoRm(rs2.getString("no_rawat2"),"Ranap");  
@@ -12742,7 +12742,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     akses.setform("DlgKamarInap");
                     DlgPeriksaLaboratoriumMB periksalab=new DlgPeriksaLaboratoriumMB(null,false);
-                    periksalab.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    periksalab.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     periksalab.setLocationRelativeTo(internalFrame1);
                     periksalab.emptTeks();
                     periksalab.setNoRm(norawat.getText(),"Ranap");  
@@ -12770,7 +12770,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianPreOperasi form=new RMPenilaianPreOperasi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -12803,7 +12803,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianPreOperasi form=new RMPenilaianPreOperasi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
@@ -12837,7 +12837,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianPreAnastesi form=new RMPenilaianPreAnastesi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -12870,7 +12870,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianPreAnastesi form=new RMPenilaianPreAnastesi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
@@ -12905,7 +12905,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     SuratPulangAtasPermintaanSendiri resume=new SuratPulangAtasPermintaanSendiri(null,false);
                                     resume.isCek();
                                     resume.emptTeks();
-                                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     resume.setLocationRelativeTo(internalFrame1);
                                     resume.setVisible(true);
                                     resume.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -12933,7 +12933,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     SuratPulangAtasPermintaanSendiri resume=new SuratPulangAtasPermintaanSendiri(null,false);
                     resume.isCek();
                     resume.emptTeks();
-                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resume.setLocationRelativeTo(internalFrame1);
                     resume.setVisible(true);
                     resume.setNoRm(TNoRwCari.getText(),new Date());
@@ -12961,7 +12961,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPerencanaanPemulangan form=new RMPerencanaanPemulangan(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -12994,7 +12994,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPerencanaanPemulangan form=new RMPerencanaanPemulangan(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -13020,7 +13020,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMPenilaianLanjutanRisikoJatuhDewasa form=new RMPenilaianLanjutanRisikoJatuhDewasa(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 if(R1.isSelected()==true){
@@ -13046,7 +13046,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMUjiFungsiKFR form=new RMUjiFungsiKFR(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 if(R1.isSelected()==true){
@@ -13080,7 +13080,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianLanjutanRisikoJatuhAnak form=new RMPenilaianLanjutanRisikoJatuhAnak(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -13114,7 +13114,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianLanjutanRisikoJatuhAnak form=new RMPenilaianLanjutanRisikoJatuhAnak(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -13141,7 +13141,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMPenilaianTambahanGeriatri form=new RMPenilaianTambahanGeriatri(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 form.emptTeks();
@@ -13166,7 +13166,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMSkriningNutrisiDewasa form=new RMSkriningNutrisiDewasa(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 if(R1.isSelected()==true){
@@ -13192,7 +13192,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMHasilPemeriksaanUSG form=new RMHasilPemeriksaanUSG(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 if(R1.isSelected()==true){
@@ -13218,7 +13218,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMSkriningNutrisiLansia form=new RMSkriningNutrisiLansia(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 if(R1.isSelected()==true){
@@ -13252,7 +13252,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMSkriningNutrisiAnak form=new RMSkriningNutrisiAnak(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -13285,7 +13285,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMSkriningNutrisiAnak form=new RMSkriningNutrisiAnak(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -13320,7 +13320,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     SuratPernyataanPasienUmum resume=new SuratPernyataanPasienUmum(null,false);
                                     resume.isCek();
                                     resume.emptTeks();
-                                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     resume.setLocationRelativeTo(internalFrame1);
                                     resume.setVisible(true);
                                     resume.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -13348,7 +13348,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     SuratPernyataanPasienUmum resume=new SuratPernyataanPasienUmum(null,false);
                     resume.isCek();
                     resume.emptTeks();
-                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resume.setLocationRelativeTo(internalFrame1);
                     resume.setVisible(true);
                     resume.setNoRm(TNoRwCari.getText(),new Date());
@@ -13376,7 +13376,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMKonselingFarmasi form=new RMKonselingFarmasi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -13409,7 +13409,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMKonselingFarmasi form=new RMKonselingFarmasi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setVisible(true);
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
@@ -13443,7 +13443,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                               if(rs2.next()){
                                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                     DlgPermintaanPelayananInformasiObat dlgro=new DlgPermintaanPelayananInformasiObat(null,false);
-                                    dlgro.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    dlgro.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     dlgro.setLocationRelativeTo(internalFrame1);
                                     dlgro.setVisible(true);
                                     dlgro.emptTeks();
@@ -13471,7 +13471,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     DlgPermintaanPelayananInformasiObat dlgro=new DlgPermintaanPelayananInformasiObat(null,false);
-                    dlgro.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    dlgro.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     dlgro.setLocationRelativeTo(internalFrame1);
                     dlgro.setVisible(true);
                     dlgro.emptTeks();
@@ -13501,7 +13501,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                     SuratPersetujuanUmum resume=new SuratPersetujuanUmum(null,false);
                                     resume.isCek();
-                                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     resume.setLocationRelativeTo(internalFrame1);
                                     resume.setVisible(true);
                                     resume.emptTeks();
@@ -13529,7 +13529,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     SuratPersetujuanUmum resume=new SuratPersetujuanUmum(null,false);
                     resume.isCek();
-                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resume.setLocationRelativeTo(internalFrame1);
                     resume.setVisible(true);
                     resume.emptTeks();
@@ -13558,7 +13558,74 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMTransferPasienAntarRuang form=new RMTransferPasienAntarRuang(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+                                form.setLocationRelativeTo(internalFrame1);
+                                form.setVisible(true);
+                                form.emptTeks();
+                                if(R1.isSelected()==true){
+                                    form.setNoRm(rs2.getString("no_rawat2"),new Date());
+                                }else if(R2.isSelected()==true){
+                                    form.setNoRm(rs2.getString("no_rawat2"),DTPCari2.getDate());
+                                }else if(R3.isSelected()==true){
+                                    form.setNoRm(rs2.getString("no_rawat2"),DTPCari4.getDate());
+                                }
+                                this.setCursor(Cursor.getDefaultCursor());
+                            }else{
+                                JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu pasien...!!!");
+                                tbKamIn.requestFocus();
+                            }
+                        } catch(Exception ex){
+                            System.out.println("Notifikasi : "+ex);
+                        }finally{
+                              if(rs2 != null){
+                                  rs2.close();
+                              }
+                              if(psanak != null){
+                                  psanak.close();
+                              }
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                }else{
+                    this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    RMTransferPasienAntarRuang form=new RMTransferPasienAntarRuang(null,false);
+                    form.isCek();
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+                    form.setLocationRelativeTo(internalFrame1);
+                    form.setVisible(true);
+                    if(R1.isSelected()==true){
+                        form.setNoRm(norawat.getText(),new Date());
+                    }else if(R2.isSelected()==true){
+                        form.setNoRm(norawat.getText(),DTPCari2.getDate());
+                    }else if(R3.isSelected()==true){
+                        form.setNoRm(norawat.getText(),DTPCari4.getDate());
+                    }   
+                    form.emptTeks();
+                    this.setCursor(Cursor.getDefaultCursor());
+                }
+            }
+        } 
+    }//GEN-LAST:event_MnTransferAntarRuangActionPerformed
+    
+    private void MnEdukasiPasienKeluargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnEdukasiPasienKeluargaActionPerformed
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+            TCari.requestFocus();
+        }else{
+            if(tbKamIn.getSelectedRow()>-1){
+                if(tbKamIn.getValueAt(tbKamIn.getSelectedRow(),0).toString().equals("")){
+                    try {
+                        psanak=koneksi.prepareStatement(
+                            "select ranap_gabung.no_rawat2 from ranap_gabung where ranap_gabung.no_rawat=?");            
+                        try {
+                            psanak.setString(1,tbKamIn.getValueAt(tbKamIn.getSelectedRow()-1,0).toString());
+                            rs2=psanak.executeQuery();
+                            if(rs2.next()){
+                                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                                RMEdukasiPasienKeluargaRawatJalan form=new RMEdukasiPasienKeluargaRawatJalan(null,false);
+                                form.isCek();
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -13589,9 +13656,9 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     }
                 }else{
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                    RMTransferPasienAntarRuang form=new RMTransferPasienAntarRuang(null,false);
+                    RMEdukasiPasienKeluargaRawatJalan form=new RMEdukasiPasienKeluargaRawatJalan(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -13606,7 +13673,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }
             }
         } 
-    }//GEN-LAST:event_MnTransferAntarRuangActionPerformed
+    }//GEN-LAST:event_MnEdukasiPasienKeluargaActionPerformed
 
     private void MnCatatanCekGDSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnCatatanCekGDSActionPerformed
         if(tabMode.getRowCount()==0){
@@ -13625,7 +13692,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataCatatanCekGDS form=new RMDataCatatanCekGDS(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -13658,7 +13725,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataCatatanCekGDS form=new RMDataCatatanCekGDS(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -13692,7 +13759,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMChecklistPreOperasi form=new RMChecklistPreOperasi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -13725,7 +13792,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMChecklistPreOperasi form=new RMChecklistPreOperasi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -13759,7 +13826,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMSignInSebelumAnastesi form=new RMSignInSebelumAnastesi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -13792,7 +13859,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMSignInSebelumAnastesi form=new RMSignInSebelumAnastesi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -13826,7 +13893,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMTimeOutSebelumInsisi form=new RMTimeOutSebelumInsisi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -13859,7 +13926,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMTimeOutSebelumInsisi form=new RMTimeOutSebelumInsisi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -13893,7 +13960,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMSignOutSebelumMenutupLuka form=new RMSignOutSebelumMenutupLuka(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -13926,7 +13993,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMSignOutSebelumMenutupLuka form=new RMSignOutSebelumMenutupLuka(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -13960,7 +14027,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMChecklistPostOperasi form=new RMChecklistPostOperasi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -13993,7 +14060,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMChecklistPostOperasi form=new RMChecklistPostOperasi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -14027,7 +14094,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMRekonsiliasiObat form=new RMRekonsiliasiObat(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 form.emptTeks();
@@ -14054,7 +14121,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMRekonsiliasiObat form=new RMRekonsiliasiObat(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setVisible(true);
                     form.setLocationRelativeTo(internalFrame1);
                     form.emptTeks();
@@ -14082,7 +14149,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianPasienTerminal form=new RMPenilaianPasienTerminal(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -14115,7 +14182,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianPasienTerminal form=new RMPenilaianPasienTerminal(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -14149,7 +14216,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataMonitoringReaksiTranfusi form=new RMDataMonitoringReaksiTranfusi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -14182,7 +14249,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataMonitoringReaksiTranfusi form=new RMDataMonitoringReaksiTranfusi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -14216,7 +14283,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianKorbanKekerasan form=new RMPenilaianKorbanKekerasan(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -14248,7 +14315,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianKorbanKekerasan form=new RMPenilaianKorbanKekerasan(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -14273,7 +14340,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMPenilaianLanjutanRisikoJatuhLansia form=new RMPenilaianLanjutanRisikoJatuhLansia(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 if(R1.isSelected()==true){
@@ -14306,7 +14373,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             if(rs2.next()){
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMSkriningMPP aplikasi=new RMSkriningMPP(null,false);
-                                aplikasi.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                aplikasi.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 aplikasi.setLocationRelativeTo(internalFrame1);
                                 aplikasi.isCek();
                                 if(R1.isSelected()==true){
@@ -14339,7 +14406,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else{
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMSkriningMPP aplikasi=new RMSkriningMPP(null,false);
-                    aplikasi.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    aplikasi.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     aplikasi.setLocationRelativeTo(internalFrame1);
                     aplikasi.isCek();
                     if(R1.isSelected()==true){
@@ -14374,7 +14441,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianPasienPenyakitMenular form=new RMPenilaianPasienPenyakitMenular(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -14406,7 +14473,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianPasienPenyakitMenular form=new RMPenilaianPasienPenyakitMenular(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -14443,7 +14510,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }   
                 resume.tampil();
                 resume.isCek();
-                resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 resume.setLocationRelativeTo(internalFrame1);
                 resume.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -14460,7 +14527,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMPenilaianTambahanBunuhDiri form=new RMPenilaianTambahanBunuhDiri(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 form.emptTeks();
@@ -14486,7 +14553,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMPenilaianTambahanPerilakuKekerasan form=new RMPenilaianTambahanPerilakuKekerasan(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 form.emptTeks();
@@ -14512,7 +14579,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMPenilaianTambahanMelarikanDiri form=new RMPenilaianTambahanMelarikanDiri(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 form.emptTeks();
@@ -14547,7 +14614,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     SuratPersetujuanPenundaanPelayanan resume=new SuratPersetujuanPenundaanPelayanan(null,false);
                                     resume.isCek();
                                     resume.emptTeks();
-                                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     resume.setLocationRelativeTo(internalFrame1);
                                     resume.setVisible(true);
                                     resume.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -14575,7 +14642,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     SuratPersetujuanPenundaanPelayanan resume=new SuratPersetujuanPenundaanPelayanan(null,false);
                     resume.isCek();
                     resume.emptTeks();
-                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resume.setLocationRelativeTo(internalFrame1);
                     resume.setVisible(true);
                     resume.setNoRm(TNoRwCari.getText(),new Date());
@@ -14607,7 +14674,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }   
                 resume.tampil();
                 resume.isCek();
-                resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 resume.setLocationRelativeTo(internalFrame1);
                 resume.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -14632,7 +14699,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMCatatanADIMEGizi form=new RMCatatanADIMEGizi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -14665,7 +14732,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMCatatanADIMEGizi form=new RMCatatanADIMEGizi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
@@ -14699,7 +14766,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMChecklistKriteriaMasukHCU form=new RMChecklistKriteriaMasukHCU(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -14732,7 +14799,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMChecklistKriteriaMasukHCU form=new RMChecklistKriteriaMasukHCU(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -14766,7 +14833,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMChecklistKriteriaKeluarHCU form=new RMChecklistKriteriaKeluarHCU(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -14799,7 +14866,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMChecklistKriteriaKeluarHCU form=new RMChecklistKriteriaKeluarHCU(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -14833,7 +14900,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianRisikoDekubitus form=new RMPenilaianRisikoDekubitus(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -14865,7 +14932,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianRisikoDekubitus form=new RMPenilaianRisikoDekubitus(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -14898,7 +14965,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                     SuratPenolakanAnjuranMedis resume=new SuratPenolakanAnjuranMedis(null,false);
                                     resume.isCek();
-                                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     resume.setLocationRelativeTo(internalFrame1);
                                     resume.setVisible(true);
                                     resume.emptTeks();
@@ -14932,7 +14999,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     SuratPenolakanAnjuranMedis resume=new SuratPenolakanAnjuranMedis(null,false);
                     resume.isCek();
-                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resume.setLocationRelativeTo(internalFrame1);
                     resume.setVisible(true);
                     resume.emptTeks();
@@ -14967,7 +15034,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                     RMHasilTindakanESWL resume=new RMHasilTindakanESWL(null,false);
                                     resume.isCek();
-                                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                     resume.setLocationRelativeTo(internalFrame1);
                                     resume.setVisible(true);
                                     resume.emptTeks();
@@ -15001,7 +15068,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMHasilTindakanESWL resume=new RMHasilTindakanESWL(null,false);
                     resume.isCek();
-                    resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     resume.setLocationRelativeTo(internalFrame1);
                     resume.setVisible(true);
                     resume.emptTeks();
@@ -15036,7 +15103,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMChecklistKriteriaMasukICU form=new RMChecklistKriteriaMasukICU(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -15069,7 +15136,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMChecklistKriteriaMasukICU form=new RMChecklistKriteriaMasukICU(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -15103,7 +15170,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMChecklistKriteriaKeluarICU form=new RMChecklistKriteriaKeluarICU(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -15136,7 +15203,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMChecklistKriteriaKeluarICU form=new RMChecklistKriteriaKeluarICU(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -15170,7 +15237,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataFollowUpDBD form=new RMDataFollowUpDBD(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -15203,7 +15270,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataFollowUpDBD form=new RMDataFollowUpDBD(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
@@ -15229,7 +15296,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMPenilaianRisikoJatuhNeonatus form=new RMPenilaianRisikoJatuhNeonatus(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 if(R1.isSelected()==true){
@@ -15255,7 +15322,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMPenilaianLanjutanRisikoJatuhGeriatri form=new RMPenilaianLanjutanRisikoJatuhGeriatri(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 if(R1.isSelected()==true){
@@ -15289,7 +15356,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPemantauanEWSNeonatus form=new RMPemantauanEWSNeonatus(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.emptTeks();
                                 if(R1.isSelected()==true){
@@ -15323,7 +15390,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPemantauanEWSNeonatus form=new RMPemantauanEWSNeonatus(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.emptTeks();
                     if(R1.isSelected()==true){
@@ -15358,7 +15425,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else if(R3.isSelected()==true){
                     form.setNoRm(norawat.getText(),DTPCari4.getDate(),tbKamIn.getValueAt(tbKamIn.getSelectedRow(),7).toString());
                 }
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 this.setCursor(Cursor.getDefaultCursor());
@@ -15383,7 +15450,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianLevelKecemasanRanapAnak form=new RMPenilaianLevelKecemasanRanapAnak(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -15416,7 +15483,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianLevelKecemasanRanapAnak form=new RMPenilaianLevelKecemasanRanapAnak(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -15442,7 +15509,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMPenilaianLanjutanRisikoJatuhPsikiatri form=new RMPenilaianLanjutanRisikoJatuhPsikiatri(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 if(R1.isSelected()==true){
@@ -15468,7 +15535,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMPenilaianLanjutanSkriningFungsional form=new RMPenilaianLanjutanSkriningFungsional(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 if(R1.isSelected()==true){
@@ -15502,7 +15569,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianUlangNyeri form=new RMPenilaianUlangNyeri(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -15535,7 +15602,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianUlangNyeri form=new RMPenilaianUlangNyeri(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -15569,7 +15636,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPengkajianRestrain form=new RMPengkajianRestrain(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
@@ -15602,7 +15669,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPengkajianRestrain form=new RMPengkajianRestrain(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
@@ -15628,7 +15695,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMCatatanPersalinan form=new RMCatatanPersalinan(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 form.emptTeks();
@@ -15662,7 +15729,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMMonitoringAldrettePascaAnestesi form=new RMMonitoringAldrettePascaAnestesi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -15696,7 +15763,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMMonitoringAldrettePascaAnestesi form=new RMMonitoringAldrettePascaAnestesi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -15731,7 +15798,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMMonitoringStewardPascaAnestesi form=new RMMonitoringStewardPascaAnestesi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -15765,7 +15832,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMMonitoringStewardPascaAnestesi form=new RMMonitoringStewardPascaAnestesi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -15800,7 +15867,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMMonitoringBromagePascaAnestesi form=new RMMonitoringBromagePascaAnestesi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -15834,7 +15901,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMMonitoringBromagePascaAnestesi form=new RMMonitoringBromagePascaAnestesi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -15869,7 +15936,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianPreInduksi form=new RMPenilaianPreInduksi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -15903,7 +15970,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianPreInduksi form=new RMPenilaianPreInduksi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -15938,7 +16005,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMHasilPemeriksaanUSGUrologi form=new RMHasilPemeriksaanUSGUrologi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -15972,7 +16039,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMHasilPemeriksaanUSGUrologi form=new RMHasilPemeriksaanUSGUrologi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16007,7 +16074,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMHasilPemeriksaanUSGGynecologi form=new RMHasilPemeriksaanUSGGynecologi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -16041,7 +16108,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMHasilPemeriksaanUSGGynecologi form=new RMHasilPemeriksaanUSGGynecologi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16076,7 +16143,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMHasilPemeriksaanEKG form=new RMHasilPemeriksaanEKG(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -16110,7 +16177,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMHasilPemeriksaanEKG form=new RMHasilPemeriksaanEKG(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16324,7 +16391,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMHasilPemeriksaanUSGNeonatus form=new RMHasilPemeriksaanUSGNeonatus(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -16358,7 +16425,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMHasilPemeriksaanUSGNeonatus form=new RMHasilPemeriksaanUSGNeonatus(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16393,7 +16460,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMHasilEndoskopiFaringLaring form=new RMHasilEndoskopiFaringLaring(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -16427,7 +16494,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMHasilEndoskopiFaringLaring form=new RMHasilEndoskopiFaringLaring(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16462,7 +16529,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMHasilEndoskopiHidung form=new RMHasilEndoskopiHidung(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -16496,7 +16563,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMHasilEndoskopiHidung form=new RMHasilEndoskopiHidung(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16531,7 +16598,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMHasilEndoskopiTelinga form=new RMHasilEndoskopiTelinga(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -16565,7 +16632,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMHasilEndoskopiTelinga form=new RMHasilEndoskopiTelinga(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16600,7 +16667,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianAwalKeperawatanRanapNeonatus form=new RMPenilaianAwalKeperawatanRanapNeonatus(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -16633,7 +16700,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianAwalKeperawatanRanapNeonatus form=new RMPenilaianAwalKeperawatanRanapNeonatus(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16654,7 +16721,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         i=2;
         akses.setform("DlgKamarInap");
         billing.rawatinap.perawatan.dokter.isCek();
-        billing.rawatinap.perawatan.dokter.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        billing.rawatinap.perawatan.dokter.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
         billing.rawatinap.perawatan.dokter.setLocationRelativeTo(internalFrame1);
         billing.rawatinap.perawatan.dokter.setVisible(true);
     }
@@ -16676,7 +16743,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianPasienImunitasRendah form=new RMPenilaianPasienImunitasRendah(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -16708,7 +16775,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianPasienImunitasRendah form=new RMPenilaianPasienImunitasRendah(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16741,7 +16808,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataCatatanKeseimbanganCairan form=new RMDataCatatanKeseimbanganCairan(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -16774,7 +16841,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataCatatanKeseimbanganCairan form=new RMDataCatatanKeseimbanganCairan(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16800,7 +16867,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMDataCatatanObservasiCHBP form=new RMDataCatatanObservasiCHBP(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 form.emptTeks();
@@ -16820,7 +16887,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMDataCatatanObservasiInduksiPersalinan form=new RMDataCatatanObservasiInduksiPersalinan(null,false);
                 form.isCek();
-                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 form.setLocationRelativeTo(internalFrame1);
                 form.setVisible(true);
                 form.emptTeks();
@@ -16848,7 +16915,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 DlgPermintaanKonsultasiMedik form=new DlgPermintaanKonsultasiMedik(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 form.emptTeks();
@@ -16876,7 +16943,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     DlgPermintaanKonsultasiMedik form=new DlgPermintaanKonsultasiMedik(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     form.emptTeks();
@@ -16905,7 +16972,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 DlgCariTagihanOperasi form=new DlgCariTagihanOperasi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
                                 if(R1.isSelected()==true){
@@ -16937,7 +17004,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     DlgCariTagihanOperasi form=new DlgCariTagihanOperasi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
                     if(R1.isSelected()==true){
@@ -16970,7 +17037,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMPenilaianAwalKeperawatanRanapBayiAnak form=new RMPenilaianAwalKeperawatanRanapBayiAnak(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.emptTeks();
                                 form.setVisible(true);
@@ -17004,7 +17071,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMPenilaianAwalKeperawatanRanapBayiAnak form=new RMPenilaianAwalKeperawatanRanapBayiAnak(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.emptTeks();
                     form.setVisible(true);
@@ -17039,7 +17106,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataCatatanObservasiRestrainNonFarmakologi form=new RMDataCatatanObservasiRestrainNonFarmakologi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.emptTeks();
                                 if(R1.isSelected()==true){
@@ -17073,7 +17140,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataCatatanObservasiRestrainNonFarmakologi form=new RMDataCatatanObservasiRestrainNonFarmakologi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.emptTeks();
                     if(R1.isSelected()==true){
@@ -17108,7 +17175,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMDataCatatanObservasiVentilator form=new RMDataCatatanObservasiVentilator(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.emptTeks();
                                 if(R1.isSelected()==true){
@@ -17142,7 +17209,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMDataCatatanObservasiVentilator form=new RMDataCatatanObservasiVentilator(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.emptTeks();
                     if(R1.isSelected()==true){
@@ -17177,7 +17244,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMCatatanAnastesiSedasi form=new RMCatatanAnastesiSedasi(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.emptTeks();
                                 if(R1.isSelected()==true){
@@ -17211,7 +17278,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMCatatanAnastesiSedasi form=new RMCatatanAnastesiSedasi(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.emptTeks();
                     if(R1.isSelected()==true){
@@ -17246,7 +17313,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMChecklistPemberianFibrinolitik form=new RMChecklistPemberianFibrinolitik(null,false);
                                 form.isCek();
-                                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.emptTeks();
                                 if(R1.isSelected()==true){
@@ -17280,7 +17347,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     RMChecklistPemberianFibrinolitik form=new RMChecklistPemberianFibrinolitik(null,false);
                     form.isCek();
-                    form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                    form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.emptTeks();
                     if(R1.isSelected()==true){
@@ -18998,11 +19065,11 @@ public class DlgKamarInap extends javax.swing.JDialog {
     private void panggilobat(String norawat) {
         if(Sequel.cariInteger("select count(stok_obat_pasien.no_rawat) from stok_obat_pasien where stok_obat_pasien.no_rawat=? ",norawat)>0){
             billing.beriobat.dlgobt2.setNoRm(norawat,TNoRMCari.getText(),TPasienCari.getText(),DTPCari1.getDate());
-            billing.beriobat.dlgobt2.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+            billing.beriobat.dlgobt2.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
             billing.beriobat.dlgobt2.setLocationRelativeTo(internalFrame1);
             billing.beriobat.dlgobt2.setVisible(true); 
         }else{
-            billing.beriobat.dlgobt.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+            billing.beriobat.dlgobt.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
             billing.beriobat.dlgobt.setLocationRelativeTo(internalFrame1);
             if(R1.isSelected()==true){
                 billing.beriobat.dlgobt.setNoRm(norawat,TNoRMCari.getText(),TPasienCari.getText(),new Date(),cmbJam.getSelectedItem().toString(),cmbMnt.getSelectedItem().toString(),cmbDtk.getSelectedItem().toString(),false);

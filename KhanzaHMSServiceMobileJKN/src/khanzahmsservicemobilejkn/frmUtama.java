@@ -367,7 +367,7 @@ public class frmUtama extends javax.swing.JFrame {
                         }
                         
                         ps=koneksi.prepareStatement(
-                                "SELECT referensi_mobilejkn_bpjs.nobooking,referensi_mobilejkn_bpjs.no_rawat,reg_periksa.no_rkm_medis,reg_periksa.kd_dokter,pasien.nm_pasien,referensi_mobilejkn_bpjs.nohp,referensi_mobilejkn_bpjs.nomorkartu,"+
+                                "SELECT referensi_mobilejkn_bpjs.nobooking,referensi_mobilejkn_bpjs.no_rawat,reg_periksa.no_rkm_medis,reg_periksa.kd_dokter,reg_periksa.stts_daftar,pasien.nm_pasien,referensi_mobilejkn_bpjs.nohp,referensi_mobilejkn_bpjs.nomorkartu,"+
                                 "referensi_mobilejkn_bpjs.nik,referensi_mobilejkn_bpjs.tanggalperiksa,poliklinik.nm_poli,dokter.nm_dokter,referensi_mobilejkn_bpjs.jampraktek,"+
                                 "referensi_mobilejkn_bpjs.jeniskunjungan,referensi_mobilejkn_bpjs.nomorreferensi,referensi_mobilejkn_bpjs.status,referensi_mobilejkn_bpjs.validasi,"+
                                 "referensi_mobilejkn_bpjs.kodepoli,referensi_mobilejkn_bpjs.pasienbaru,referensi_mobilejkn_bpjs.kodedokter,referensi_mobilejkn_bpjs.jampraktek,"+
@@ -382,6 +382,82 @@ public class frmUtama extends javax.swing.JFrame {
                         try {
                             rs=ps.executeQuery();
                             while(rs.next()){
+                                
+                                //add task id 1 and 2
+                                if (rs.getString("stts_daftar").equals("Baru")) {
+                                    datajam=Sequel.cariIsi("select DATE_SUB(DATE_SUB(mutasi_berkas.dikirim, INTERVAL FLOOR(2 + (RAND() * 4)) MINUTE), INTERVAL FLOOR(RAND() * 60) SECOND) as taskid2 from mutasi_berkas where mutasi_berkas.no_rawat=? and mutasi_berkas.dikirim<>'0000-00-00 00:00:00'",rs.getString("no_rawat"));
+                                    if (!datajam.equals("")) {
+                                        // taskid 1
+                                        String datajamTaskId1=Sequel.cariIsi("select DATE_SUB(DATE_SUB(?, INTERVAL FLOOR(7 + (RAND() * 4)) MINUTE), INTERVAL FLOOR(RAND() * 60) SECOND) as taskid1", datajam);
+                                        if (!datajamTaskId1.equals("")) {
+                                            if (Sequel.menyimpantf2("referensi_mobilejkn_bpjs_taskid","?,?,?","task id",3,new String[]{rs.getString("no_rawat"),"1",datajamTaskId1})==true) {
+                                                parsedDate = dateFormat.parse(datajamTaskId1);
+                                                try {     
+                                                    TeksArea.append("Menjalankan WS taskid mulai tunggu admisi Mobile JKN Pasien BPJS\n");
+                                                    headers = new HttpHeaders();
+                                                    headers.setContentType(MediaType.APPLICATION_JSON);
+                                                    headers.add("x-cons-id",koneksiDB.CONSIDAPIMOBILEJKN());
+                                                    utc=String.valueOf(api.GetUTCdatetimeAsString());
+                                                    headers.add("x-timestamp",utc);
+                                                    headers.add("x-signature",api.getHmac(utc));
+                                                    headers.add("user_key",koneksiDB.USERKEYAPIMOBILEJKN());
+                                                    requestJson ="{" +
+                                                                     "\"kodebooking\": \""+rs.getString("nobooking")+"\"," +
+                                                                     "\"taskid\": \"1\"," +
+                                                                     "\"waktu\": \""+parsedDate.getTime()+"\"" +
+                                                                  "}";
+                                                    TeksArea.append("JSON : "+requestJson+"\n");
+                                                    requestEntity = new HttpEntity(requestJson,headers);
+                                                    URL = link+"/antrean/updatewaktu";	
+                                                    System.out.println("URL : "+URL);
+                                                    //System.out.println(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+                                                    root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+                                                    nameNode = root.path("metadata");
+                                                    if(!nameNode.path("code").asText().equals("200")){
+                                                        Sequel.queryu2("delete from referensi_mobilejkn_bpjs_taskid where taskid='1' and no_rawat='"+rs.getString("no_rawat")+"'");
+                                                    }  
+                                                    TeksArea.append("respon WS BPJS : "+nameNode.path("code").asText()+" "+nameNode.path("message").asText()+"\n");
+                                                }catch (Exception ex) {
+                                                    System.out.println("Notifikasi Bridging : "+ex);
+                                                }
+                                            }
+                                        }
+
+                                        // taskid 2
+                                        if(Sequel.menyimpantf2("referensi_mobilejkn_bpjs_taskid","?,?,?","task id",3,new String[]{rs.getString("no_rawat"),"2",datajam})==true){
+                                            parsedDate = dateFormat.parse(datajam);
+                                            try {     
+                                                TeksArea.append("Menjalankan WS taskid mulai layanan admisi Mobile JKN Pasien BPJS\n");
+                                                headers = new HttpHeaders();
+                                                headers.setContentType(MediaType.APPLICATION_JSON);
+                                                headers.add("x-cons-id",koneksiDB.CONSIDAPIMOBILEJKN());
+                                                utc=String.valueOf(api.GetUTCdatetimeAsString());
+                                                headers.add("x-timestamp",utc);
+                                                headers.add("x-signature",api.getHmac(utc));
+                                                headers.add("user_key",koneksiDB.USERKEYAPIMOBILEJKN());
+                                                requestJson ="{" +
+                                                                 "\"kodebooking\": \""+rs.getString("nobooking")+"\"," +
+                                                                 "\"taskid\": \"2\"," +
+                                                                 "\"waktu\": \""+parsedDate.getTime()+"\"" +
+                                                              "}";
+                                                TeksArea.append("JSON : "+requestJson+"\n");
+                                                requestEntity = new HttpEntity(requestJson,headers);
+                                                URL = link+"/antrean/updatewaktu";	
+                                                System.out.println("URL : "+URL);
+                                                //System.out.println(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+                                                root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+                                                nameNode = root.path("metadata");
+                                                if(!nameNode.path("code").asText().equals("200")){
+                                                    Sequel.queryu2("delete from referensi_mobilejkn_bpjs_taskid where taskid='2' and no_rawat='"+rs.getString("no_rawat")+"'");
+                                                }  
+                                                TeksArea.append("respon WS BPJS : "+nameNode.path("code").asText()+" "+nameNode.path("message").asText()+"\n");
+                                            }catch (Exception ex) {
+                                                System.out.println("Notifikasi Bridging : "+ex);
+                                            }
+                                        }
+                                    }
+                                }
+                                
                                 datajam=Sequel.cariIsi("select mutasi_berkas.dikirim from mutasi_berkas where mutasi_berkas.no_rawat=? and mutasi_berkas.dikirim<>'0000-00-00 00:00:00'",rs.getString("no_rawat"));
                                 if(!datajam.equals("")){
                                     if(Sequel.menyimpantf2("referensi_mobilejkn_bpjs_taskid","?,?,?","task id",3,new String[]{rs.getString("no_rawat"),"3",datajam})==true){
@@ -703,6 +779,81 @@ public class frmUtama extends javax.swing.JFrame {
                                                 }
                                             }catch (Exception ex) {
                                                 System.out.println("Notifikasi Bridging : "+ex);
+                                            }
+                                            
+                                            //add task id 1 and 2
+                                            if (rs.getString("stts_daftar").equals("Baru")) {
+                                                datajam=Sequel.cariIsi("select DATE_SUB(DATE_SUB(mutasi_berkas.dikirim, INTERVAL FLOOR(2 + (RAND() * 4)) MINUTE), INTERVAL FLOOR(RAND() * 60) SECOND) as taskid2 from mutasi_berkas where mutasi_berkas.no_rawat=? and mutasi_berkas.dikirim<>'0000-00-00 00:00:00'",rs.getString("no_rawat"));
+                                                if (!datajam.equals("")) {
+                                                    // taskid 1
+                                                    String datajamTaskId1=Sequel.cariIsi("select DATE_SUB(DATE_SUB(?, INTERVAL FLOOR(7 + (RAND() * 4)) MINUTE), INTERVAL FLOOR(RAND() * 60) SECOND) as taskid1", datajam);
+                                                    if (!datajamTaskId1.equals("")) {
+                                                        if (Sequel.menyimpantf2("referensi_mobilejkn_bpjs_taskid","?,?,?","task id",3,new String[]{rs.getString("no_rawat"),"1",datajamTaskId1})==true) {
+                                                            parsedDate = dateFormat.parse(datajamTaskId1);
+                                                            try {     
+                                                                TeksArea.append("Menjalankan WS taskid mulai tunggu admisi Mobile JKN Pasien BPJS\n");
+                                                                headers = new HttpHeaders();
+                                                                headers.setContentType(MediaType.APPLICATION_JSON);
+                                                                headers.add("x-cons-id",koneksiDB.CONSIDAPIMOBILEJKN());
+                                                                utc=String.valueOf(api.GetUTCdatetimeAsString());
+                                                                headers.add("x-timestamp",utc);
+                                                                headers.add("x-signature",api.getHmac(utc));
+                                                                headers.add("user_key",koneksiDB.USERKEYAPIMOBILEJKN());
+                                                                requestJson ="{" +
+                                                                                 "\"kodebooking\": \""+rs.getString("nobooking")+"\"," +
+                                                                                 "\"taskid\": \"1\"," +
+                                                                                 "\"waktu\": \""+parsedDate.getTime()+"\"" +
+                                                                              "}";
+                                                                TeksArea.append("JSON : "+requestJson+"\n");
+                                                                requestEntity = new HttpEntity(requestJson,headers);
+                                                                URL = link+"/antrean/updatewaktu";	
+                                                                System.out.println("URL : "+URL);
+                                                                //System.out.println(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+                                                                root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+                                                                nameNode = root.path("metadata");
+                                                                if(!nameNode.path("code").asText().equals("200")){
+                                                                    Sequel.queryu2("delete from referensi_mobilejkn_bpjs_taskid where taskid='1' and no_rawat='"+rs.getString("no_rawat")+"'");
+                                                                }  
+                                                                TeksArea.append("respon WS BPJS : "+nameNode.path("code").asText()+" "+nameNode.path("message").asText()+"\n");
+                                                            }catch (Exception ex) {
+                                                                System.out.println("Notifikasi Bridging : "+ex);
+                                                            }
+                                                        }
+                                                    }
+
+                                                    // taskid 2
+                                                    if(Sequel.menyimpantf2("referensi_mobilejkn_bpjs_taskid","?,?,?","task id",3,new String[]{rs.getString("no_rawat"),"2",datajam})==true){
+                                                        parsedDate = dateFormat.parse(datajam);
+                                                        try {     
+                                                            TeksArea.append("Menjalankan WS taskid mulai layanan admisi Mobile JKN Pasien BPJS\n");
+                                                            headers = new HttpHeaders();
+                                                            headers.setContentType(MediaType.APPLICATION_JSON);
+                                                            headers.add("x-cons-id",koneksiDB.CONSIDAPIMOBILEJKN());
+                                                            utc=String.valueOf(api.GetUTCdatetimeAsString());
+                                                            headers.add("x-timestamp",utc);
+                                                            headers.add("x-signature",api.getHmac(utc));
+                                                            headers.add("user_key",koneksiDB.USERKEYAPIMOBILEJKN());
+                                                            requestJson ="{" +
+                                                                             "\"kodebooking\": \""+rs.getString("nobooking")+"\"," +
+                                                                             "\"taskid\": \"2\"," +
+                                                                             "\"waktu\": \""+parsedDate.getTime()+"\"" +
+                                                                          "}";
+                                                            TeksArea.append("JSON : "+requestJson+"\n");
+                                                            requestEntity = new HttpEntity(requestJson,headers);
+                                                            URL = link+"/antrean/updatewaktu";	
+                                                            System.out.println("URL : "+URL);
+                                                            //System.out.println(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+                                                            root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+                                                            nameNode = root.path("metadata");
+                                                            if(!nameNode.path("code").asText().equals("200")){
+                                                                Sequel.queryu2("delete from referensi_mobilejkn_bpjs_taskid where taskid='2' and no_rawat='"+rs.getString("no_rawat")+"'");
+                                                            }  
+                                                            TeksArea.append("respon WS BPJS : "+nameNode.path("code").asText()+" "+nameNode.path("message").asText()+"\n");
+                                                        }catch (Exception ex) {
+                                                            System.out.println("Notifikasi Bridging : "+ex);
+                                                        }
+                                                    }
+                                                }
                                             }
                                             
                                             datajam=Sequel.cariIsi("select mutasi_berkas.dikirim from mutasi_berkas where mutasi_berkas.no_rawat=? and mutasi_berkas.dikirim<>'0000-00-00 00:00:00'",rs.getString("no_rawat"));

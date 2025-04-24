@@ -303,7 +303,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
 
         DTPReg.setEditable(false);
         DTPReg.setForeground(new java.awt.Color(50, 70, 50));
-        DTPReg.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-01-2025" }));
+        DTPReg.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-04-2025" }));
         DTPReg.setDisplayFormat("dd-MM-yyyy");
         DTPReg.setName("DTPReg"); // NOI18N
         DTPReg.setOpaque(false);
@@ -521,7 +521,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-01-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-04-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -535,7 +535,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-01-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-04-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -746,7 +746,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         jLabel10.setBounds(10, 130, 70, 23);
 
         DTPTgl.setForeground(new java.awt.Color(50, 70, 50));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-01-2025" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-04-2025" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -831,7 +831,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         jScrollPane1.setViewportView(Tindakan);
 
         FormInput.add(jScrollPane1);
-        jScrollPane1.setBounds(490, 100, 280, 90);
+        jScrollPane1.setBounds(490, 100, 280, 120);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -1144,7 +1144,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
                 param.put("kontakrs",akses.getkontakrs());
                 param.put("emailrs",akses.getemailrs());  
                 param.put(JRParameter.REPORT_LOCALE,new Locale("id"));  
-                String dokterPerujuk = Sequel.cariIsi("select reg_periksa.kd_dokter from reg_periksa.no_rawat = ?",TNoRw.getText());
+                String dokterPerujuk = Sequel.cariIsi("select reg_periksa.kd_dokter from reg_periksa WHERE reg_periksa.no_rawat = ?",TNoRw.getText());
                 finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",dokterPerujuk);
                 finger2=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",KdPerawat.getText());
                 param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+Dokter.getText()+"\nID "+(finger.equals("")?dokterPerujuk:finger)+"\n"+DTPTgl.getSelectedItem()); 
@@ -1184,7 +1184,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
                 param.put("kontakrs",akses.getkontakrs());
                 param.put("emailrs",akses.getemailrs());  
                 param.put(JRParameter.REPORT_LOCALE,new Locale("id"));  
-                String dokterPerujuk = Sequel.cariIsi("select reg_periksa.kd_dokter from reg_periksa.no_rawat = ?",TNoRw.getText());
+                String dokterPerujuk = Sequel.cariIsi("select reg_periksa.kd_dokter from reg_periksa WHERE reg_periksa.no_rawat = ?",TNoRw.getText());
                 finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",dokterPerujuk);
                 finger2=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",KdPerawat.getText());
                 param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+Dokter.getText()+"\nID "+(finger.equals("")?dokterPerujuk:finger)+"\n"+DTPTgl.getSelectedItem()); 
@@ -1323,7 +1323,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
                         false,rs.getString("no_surat"),rs.getString("no_rawat"),rs.getString("no_rkm_medis"),
                         rs.getString("nm_pasien"),rs.getString("alamat"),rs.getString("umur"),
                         rs.getString("tanggal"),rs.getString("dokter_registrasi"),rs.getString("kd_dokter"),rs.getString("dokter_perintah_inap"),
-                        rs.getDouble("kd_perawat"),rs.getString("nm_perawat"),rs.getString("diagnosa"),rs.getString("tindakan")
+                        rs.getString("kd_perawat"),rs.getString("nm_perawat"),rs.getString("diagnosa"),rs.getString("tindakan")
                     });
                 }
             } catch (Exception e) {
@@ -1358,8 +1358,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         Tindakan.setText("");
         DTPTgl.setDate(new Date());
         NoSurat.requestFocus();
-        Valid.autoNomer6("select LPAD(COUNT(DISTINCT no_surat), 4, 0) from perintah_inap where tanggal='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"' ", tanggal, 4, NoSurat);
-        //Valid.autoNomer3("select ifnull(MAX(CONVERT(RIGHT(rujuk_masuk.no_balasan,4),signed)),0) from reg_periksa inner join rujuk_masuk on reg_periksa.no_rawat=rujuk_masuk.no_rawat where reg_periksa.tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' ","BR/"+dateformat.format(DTPReg.getDate())+"/",4,NoSurat); 
+        Valid.autoNomer6("select LPAD(COUNT(DISTINCT no_surat), 4, 0) from perintah_inap where tanggal='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"' ", tanggal, 4, NoSurat); 
     }
 
 
@@ -1414,8 +1413,8 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         DTPCari2.setDate(tgl2);
         isRawat();   
         Dokter.setText(Sequel.cariIsi("select dokter.nm_dokter from dokter join reg_periksa on dokter.kd_dokter = reg_periksa.kd_dokter where reg_periksa.no_rawat=?",norwt));
-        Diagnosa.setText(Sequel.cariIsi("Select pemeriksaan_ralan.penilaian from pemeriksaan_ralan join reg_periksa on pemeriksaan_ralan.no_rawat = reg_periksa.no_rawat and pemeriksaan_ralan.nip = reg_periksa.kd_dokter where pemeriksaan_ralan.no_rawat = ?",norwt));
-        Tindakan.setText(Sequel.cariIsi("select pemeriksaan_ralan.rtl from pemeriksaan_ralan join reg_periksa on pemeriksaan_ralan.no_rawat = reg_periksa.no_rawat and pemeriksaan_ralan.nip = reg_periksa.kd_dokter where pemeriksaan_ralan.no_rawat = ?",norwt));
+        Diagnosa.setText(Sequel.cariIsi("select diagnosis from penilaian_medis_igd where no_rawat = ?",norwt));
+        Tindakan.setText(Sequel.cariIsi("select tata from penilaian_medis_igd where no_rawat = ?",norwt));
         ChkInput.setSelected(true);
         isForm();
     }
@@ -1433,7 +1432,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
     private void isForm(){
         if(ChkInput.isSelected()==true){
             ChkInput.setVisible(false);
-            PanelInput.setPreferredSize(new Dimension(WIDTH,230));
+            PanelInput.setPreferredSize(new Dimension(WIDTH,260));
             FormInput.setVisible(true);      
             ChkInput.setVisible(true);
         }else if(ChkInput.isSelected()==false){           

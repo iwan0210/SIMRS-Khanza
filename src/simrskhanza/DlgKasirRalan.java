@@ -764,6 +764,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnPermintaanInformasiObat = new javax.swing.JMenuItem();
         ppMasukPoli = new javax.swing.JMenuItem();
         MnKamarInap = new javax.swing.JMenuItem();
+        MnBerkasDiTerima = new javax.swing.JMenuItem();
         MnTindakanRalan = new javax.swing.JMenu();
         MnDataRalan = new javax.swing.JMenuItem();
         MnPeriksaLab = new javax.swing.JMenuItem();
@@ -823,6 +824,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnCetakSuratHamil = new javax.swing.JMenuItem();
         MnCetakSuratCutiHamil = new javax.swing.JMenuItem();
         MnCetakSuratCovid = new javax.swing.JMenuItem();
+        MnSuratPerintahInap = new javax.swing.JMenuItem();
         MnPersetujuanUmum = new javax.swing.JMenuItem();
         MnPersetujuanPenolakanTindakan = new javax.swing.JMenuItem();
         MnPulangAtasPermintaanSendiri = new javax.swing.JMenuItem();
@@ -2646,6 +2648,22 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
             }
         });
         jPopupMenu1.add(MnKamarInap);
+        
+        MnBerkasDiTerima.setBackground(new java.awt.Color(255, 255, 254));
+        MnBerkasDiTerima.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnBerkasDiTerima.setForeground(new java.awt.Color(50, 50, 50));
+        MnBerkasDiTerima.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnBerkasDiTerima.setText("Berkas Diterima");
+        MnBerkasDiTerima.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnBerkasDiTerima.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnBerkasDiTerima.setName("MnBerkasDiTerima"); // NOI18N
+        MnBerkasDiTerima.setPreferredSize(new java.awt.Dimension(200, 26));
+        MnBerkasDiTerima.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnBerkasDiTerimaActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(MnBerkasDiTerima);
 
         MnTindakanRalan.setBackground(new java.awt.Color(255, 255, 254));
         MnTindakanRalan.setForeground(new java.awt.Color(50, 50, 50));
@@ -3555,6 +3573,22 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
             }
         });
         MnSuratSurat.add(MnCetakSuratCovid);
+        
+        MnSuratPerintahInap.setBackground(new java.awt.Color(255, 255, 254));
+        MnSuratPerintahInap.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnSuratPerintahInap.setForeground(new java.awt.Color(50, 50, 50));
+        MnSuratPerintahInap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnSuratPerintahInap.setText("Surat Perintah Inap");
+        MnSuratPerintahInap.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnSuratPerintahInap.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnSuratPerintahInap.setName("MnSuratPerintahInap"); // NOI18N
+        MnSuratPerintahInap.setPreferredSize(new java.awt.Dimension(250, 26));
+        MnSuratPerintahInap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnSuratPerintahInapActionPerformed(evt);
+            }
+        });
+        MnSuratSurat.add(MnSuratPerintahInap);
 
         MnPersetujuanUmum.setBackground(new java.awt.Color(255, 255, 254));
         MnPersetujuanUmum.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -8897,7 +8931,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         }else{
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"stts='Dirujuk'");
-            DlgRujuk dlgrjk=new DlgRujuk(null,false);
+            DlgRujukPasien dlgrjk=new DlgRujukPasien(null,false);
             dlgrjk.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
             dlgrjk.setLocationRelativeTo(internalFrame1);
             dlgrjk.emptTeks();
@@ -10477,13 +10511,29 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
             JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
             tbKasirRalan.requestFocus();
         }else{
-            Sequel.menyimpan("mutasi_berkas","'"+TNoRw.getText()+"','Sudah Diterima',DATE_SUB(NOW(), INTERVAL FLOOR(10 + (RAND() * 21),now(),'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00'","status='Sudah Diterima',diterima=now()","no_rawat='"+TNoRw.getText()+"'");
+            Sequel.menyimpan("mutasi_berkas","'"+TNoRw.getText()+"','Sudah Diterima',DATE_SUB(NOW(), INTERVAL FLOOR(10 + (RAND() * 21)) MINUTE),now(),'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00'","status='Sudah Diterima',diterima=now()","no_rawat='"+TNoRw.getText()+"'");
             Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"stts='Berkas Diterima'");
             if(tbKasirRalan.getSelectedRow()>-1){
                 tabModekasir.setValueAt("Berkas Diterima",tbKasirRalan.getSelectedRow(),10);
             }
         }
     }//GEN-LAST:event_ppBerkasDIterimaBtnPrintActionPerformed
+    
+    private void MnBerkasDiTerimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnBerkasDiTerimaActionPerformed
+        if(tabModekasir.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+            //TNoReg.requestFocus();
+        }else if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbKasirRalan.requestFocus();
+        }else{
+            Sequel.menyimpan("mutasi_berkas","'"+TNoRw.getText()+"','Sudah Diterima',DATE_SUB(NOW(), INTERVAL FLOOR(10 + (RAND() * 21)) MINUTE),now(),'0000-00-00 00:00:00','0000-00-00 00:00:00','0000-00-00 00:00:00'","status='Sudah Diterima',diterima=now()","no_rawat='"+TNoRw.getText()+"'");
+            Valid.editTable(tabModekasir,"reg_periksa","no_rawat",TNoRw,"stts='Berkas Diterima'");
+            if(tbKasirRalan.getSelectedRow()>-1){
+                tabModekasir.setValueAt("Berkas Diterima",tbKasirRalan.getSelectedRow(),10);
+            }
+        }
+    }//GEN-LAST:event_MnBerkasDiTerimaActionPerformed
 
     private void MnPiutangObatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPiutangObatActionPerformed
         if(tabModekasir.getRowCount()==0){
@@ -10901,7 +10951,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                 RMDataResumePasien resume=new RMDataResumePasien(null,false);
                 resume.isCek();
-                resume.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                 resume.setLocationRelativeTo(internalFrame1);
                 resume.setNoRm(TNoRw.getText(),DTPCari2.getDate());
                 resume.tampil();
@@ -11151,6 +11201,29 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
             }
         }
     }//GEN-LAST:event_MnCetakSuratCovidActionPerformed
+    
+    private void MnSuratPerintahInapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSuratPerintahInapActionPerformed
+        if(tabModekasir.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, data registrasi sudah habis...!!!!");
+            TNoRw.requestFocus();
+        }else if(TPasienCari.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu data pasien dengan menklik data pada table...!!!");
+            TCari.requestFocus();
+        }else{
+            if(tbKasirRalan.getSelectedRow()!= -1){
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                DlgPerintahInap form=new DlgPerintahInap(null,false);
+                form.isCek();
+                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setLocationRelativeTo(internalFrame1);
+                form.setVisible(true);
+                form.emptTeks();
+                form.setNoRm(TNoRw.getText(),DTPCari1.getDate(),DTPCari2.getDate());
+                form.tampil();
+                this.setCursor(Cursor.getDefaultCursor());
+            }
+        }
+    }//GEN-LAST:event_MnSuratPerintahInapActionPerformed
 
     private void MnHemodialisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnHemodialisaActionPerformed
         if(tabModekasir.getRowCount()==0){
@@ -15155,6 +15228,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnCetakBebasNarkoba;
     private javax.swing.JMenuItem MnCetakSuratBebasTBC;
     private javax.swing.JMenuItem MnCetakSuratCovid;
+    private javax.swing.JMenuItem MnSuratPerintahInap;
     private javax.swing.JMenuItem MnCetakSuratCutiHamil;
     private javax.swing.JMenuItem MnCetakSuratHamil;
     private javax.swing.JMenuItem MnCetakSuratSakit;
@@ -15231,6 +15305,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnJadwalOperasi;
     private javax.swing.JMenuItem MnJadwalOperasi1;
     private javax.swing.JMenuItem MnKamarInap;
+    private javax.swing.JMenuItem MnBerkasDiTerima;
     private javax.swing.JMenuItem MnKamarInap1;
     private javax.swing.JMenuItem MnKonselingFarmasi;
     private javax.swing.JMenuItem MnLabelTracker;
@@ -15757,6 +15832,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         MnDataSEP.setEnabled(akses.getbpjs_sep());  
         MnSJP.setEnabled(akses.getinhealth_sjp());  
         MnCetakSuratCovid.setEnabled(akses.getsurat_keterangan_covid());
+        MnSuratPerintahInap.setEnabled(akses.getpermintaan_ranap());
         MnRujukSisrute.setEnabled(akses.getsisrute_rujukan_keluar());
         MnTeridentifikasiTB.setEnabled(akses.getkemenkes_sitt());
         ppCatatanPasien.setEnabled(akses.getcatatan_pasien());

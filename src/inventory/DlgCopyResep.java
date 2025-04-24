@@ -505,7 +505,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
 
 				if (TAMPILKANCOPYRESEPDOKTERLAIN.equals("no") || !akses.getkode().equals("3003")) {
 					ps.setString(paramIndex++, kddokter);
-				}                
+				}
                 rs=ps.executeQuery();
                 while(rs.next()){
                     tabMode.addRow(new Object[]{

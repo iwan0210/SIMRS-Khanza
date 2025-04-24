@@ -34,6 +34,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -44,6 +45,7 @@ import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
 import kepegawaian.DlgCariPegawai;
+import net.sf.jasperreports.engine.JRParameter;
 
 
 /**
@@ -2393,6 +2395,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
                     param.put("kontakrs",akses.getkontakrs());
                     param.put("emailrs",akses.getemailrs());   
                     param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+                    param.put(JRParameter.REPORT_LOCALE,new Locale("id"));
                     Valid.MyReportqry("rptDataTriaseIGD.jasper","report","::[ Data Triase IGD ]::",
                         "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,data_triase_igd.tgl_kunjungan,"+
                         "data_triase_igd.cara_masuk,data_triase_igd.alat_transportasi,data_triase_igd.alasan_kedatangan,"+
@@ -3890,7 +3893,8 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
                     param.put("propinsirs",akses.getpropinsirs());
                     param.put("kontakrs",akses.getkontakrs());
                     param.put("emailrs",akses.getemailrs());   
-                    param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+                    param.put("logo",Sequel.cariGambar("select setting.logo from setting"));
+                    param.put(JRParameter.REPORT_LOCALE,new Locale("id"));
                     try {
                         ps=koneksi.prepareStatement(
                             "select data_triase_igdprimer.keluhan_utama,data_triase_igdprimer.kebutuhan_khusus,data_triase_igdprimer.catatan,"+
@@ -4012,6 +4016,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
                     param.put("kontakrs",akses.getkontakrs());
                     param.put("emailrs",akses.getemailrs());   
                     param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+                    param.put(JRParameter.REPORT_LOCALE,new Locale("id"));
                     try {
                         ps=koneksi.prepareStatement(
                             "select data_triase_igdprimer.keluhan_utama,data_triase_igdprimer.kebutuhan_khusus,data_triase_igdprimer.catatan,"+
@@ -4133,6 +4138,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
                     param.put("kontakrs",akses.getkontakrs());
                     param.put("emailrs",akses.getemailrs());   
                     param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+                    param.put(JRParameter.REPORT_LOCALE,new Locale("id"));
                     try {
                         ps=koneksi.prepareStatement(
                             "select data_triase_igdsekunder.anamnesa_singkat,data_triase_igdsekunder.catatan,"+
@@ -4253,6 +4259,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
                     param.put("kontakrs",akses.getkontakrs());
                     param.put("emailrs",akses.getemailrs());   
                     param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+                    param.put(JRParameter.REPORT_LOCALE,new Locale("id"));
                     try {
                         ps=koneksi.prepareStatement(
                             "select data_triase_igdsekunder.anamnesa_singkat,data_triase_igdsekunder.catatan,"+
@@ -4373,6 +4380,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
                     param.put("kontakrs",akses.getkontakrs());
                     param.put("emailrs",akses.getemailrs());   
                     param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+                    param.put(JRParameter.REPORT_LOCALE,new Locale("id"));
                     try {
                         ps=koneksi.prepareStatement(
                             "select data_triase_igdsekunder.anamnesa_singkat,data_triase_igdsekunder.catatan,"+
@@ -4781,6 +4789,9 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         TNoRM.setText(norm);
         TPasien.setText(namapasien);
         TCari.setText(norwt);   
+        
+        setDateFromRegister(norwt);
+        TabTriase.setSelectedIndex(1);
     }
     
     public void tampilPemeriksaan() {        
@@ -5902,6 +5913,14 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
             tampil();
             TabPilihan.setSelectedIndex(1);
         }
+    }
+    
+    private void setDateFromRegister(String norwt) {
+        String date = Sequel.cariIsi("select concat(tgl_registrasi, ' ', jam_reg) as tgl_reg from reg_periksa where no_rawat = ?", norwt);
+        
+        Valid.SetTgl2(TanggalKunjungan, date);
+        Valid.SetTgl2(PrimerTanggalTriase, date);
+        Valid.SetTgl2(SekunderTanggalTriase, date);
     }
     
 }

@@ -280,6 +280,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         DiagnosaKerja = new widget.TextBox();
         jLabel32 = new widget.Label();
         jLabel10 = new widget.Label();
+        BtnMedisIGD = new javax.swing.JButton();
         PanelAccor = new widget.PanelBiasa();
         ChkAccor = new widget.CekBox();
         ScrollMenu = new widget.ScrollPane();
@@ -367,7 +368,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         label1.setBounds(210, 20, 55, 23);
 
         TanggalJawab.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalJawab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-07-2024 17:18:46" }));
+        TanggalJawab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2025 18:39:57" }));
         TanggalJawab.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalJawab.setName("TanggalJawab"); // NOI18N
         TanggalJawab.setOpaque(false);
@@ -667,7 +668,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         R2.setPreferredSize(new java.awt.Dimension(170, 23));
         panelCari.add(R2);
 
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-07-2024" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -685,7 +686,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         jLabel25.setPreferredSize(new java.awt.Dimension(30, 23));
         panelCari.add(jLabel25);
 
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-07-2024" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -779,7 +780,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         jLabel9.setBounds(415, 40, 90, 23);
 
         TanggalPermintaan.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalPermintaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04-07-2024 17:18:46" }));
+        TanggalPermintaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2025 18:39:56" }));
         TanggalPermintaan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalPermintaan.setName("TanggalPermintaan"); // NOI18N
         TanggalPermintaan.setOpaque(false);
@@ -962,6 +963,17 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         jLabel10.setName("jLabel10"); // NOI18N
         FormInput.add(jLabel10);
         jLabel10.setBounds(16, 10, 69, 23);
+
+        BtnMedisIGD.setLabel("Ambil dari Medis IGD");
+        BtnMedisIGD.setName("BtnMedisIGD"); // NOI18N
+        BtnMedisIGD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnMedisIGDActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnMedisIGD);
+        BtnMedisIGD.setBounds(640, 210, 180, 40);
+        BtnMedisIGD.getAccessibleContext().setAccessibleName("Ambil dari Medis IGD");
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -1389,12 +1401,14 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     WindowInput.setAlwaysOnTop(false);
                     WindowInput.setVisible(true);
                     JawabanDiagnosaKerja.requestFocus();
+                    JawabanDiagnosaKerja.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
                 }else{
-                    if(KdDokterDikonsuli.getText().equals(akses.getkode())){
+                    if(!dokter.tampil3(akses.getkode()).equals("")){
                         NoPermintaanJawaban.setText(NoPermintaan.getText());
                         WindowInput.setAlwaysOnTop(false);
                         WindowInput.setVisible(true);
                         JawabanDiagnosaKerja.requestFocus();
+                        JawabanDiagnosaKerja.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
                     }else{
                         JOptionPane.showMessageDialog(null,"Maaf, hanya bisa dijawab oleh dokter yang dikonsuli...!!!!");
                     }
@@ -1598,6 +1612,68 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         Valid.pindah(evt,TanggalJawab,JawabanKonsultasi);
     }//GEN-LAST:event_JawabanDiagnosaKerjaKeyPressed
 
+    private void BtnMedisIGDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMedisIGDActionPerformed
+        if (!NoRw.getText().equals("")) {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            try {
+                ps=koneksi.prepareStatement("select * from penilaian_medis_igd where no_rawat = ?");
+                try {
+                    ps.setString(1, NoRw.getText());
+                    rs=ps.executeQuery();
+                    if (rs.next()) {
+                        String template = "";
+                        
+                        template += "keluhan utama: " + rs.getString("keluhan_utama").trim() + "\n";
+                        template += "riwayat penyakit sekarang: " + rs.getString("rps").trim() + "\n";
+                        template += "riwayat penyakit dahulu: " + rs.getString("rpd").trim() + "\n";
+                        template += "riwayat alergi: " + rs.getString("alergi").trim() + "\n";
+                        template += "riwayat penyakit keluarga: " + rs.getString("rpk").trim() + "\n";
+                        template += "riwayat penggunaan obat: " + rs.getString("rpo").trim() + "\n";
+                        template += "keadaan umum: " + rs.getString("keadaan").trim() + "\n";
+                        template += "kesadaran: " + rs.getString("kesadaran").trim() + "\n";
+                        template += "GCS: " + rs.getString("gcs").trim() + "\n";
+                        template += "TB: " + rs.getString("tb").trim() + "\n";
+                        template += "BB: " + rs.getString("bb").trim() + "\n";
+                        template += "TD: " + rs.getString("td").trim() + "\n";
+                        template += "Nadi: " + rs.getString("nadi").trim() + "\n";
+                        template += "RR: " + rs.getString("rr").trim() + "\n";
+                        template += "Suhu: " + rs.getString("suhu").trim() + "\n";
+                        template += "SpO2: " + rs.getString("spo").trim() + "\n";
+                        template += "kepala: " + rs.getString("kepala").trim() + "\n";
+                        template += "mata: " + rs.getString("mata").trim() + "\n";
+                        template += "gigi & mulut: " + rs.getString("gigi").trim() + "\n";
+                        template += "leher: " + rs.getString("leher").trim() + "\n";
+                        template += "thoraks: " + rs.getString("thoraks").trim() + "\n";
+                        template += "abdomen: " + rs.getString("abdomen").trim() + "\n";
+                        template += "genital & anus: " + rs.getString("genital").trim() + "\n";
+                        template += "ekstremitas: " + rs.getString("ekstremitas").trim() + "\n";
+                        template += "keterangan fisik: " + rs.getString("ket_fisik").trim() + "\n";
+                        template += "EKG: " + rs.getString("ekg").trim() + "\n";
+                        template += "Radiologi: " + rs.getString("rad").trim() + "\n";
+                        template += "Laborat: " + rs.getString("lab").trim() + "\n";
+                        template += "diagnosis: " + rs.getString("diagnosis").trim() + "\n";
+                        template += "tatalaksana: " + rs.getString("tata").trim();
+                        
+                        DiagnosaKerja.setText(rs.getString("diagnosis").trim());
+                        UraianKonsultasi.setText(template);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notif Kamar : "+e);
+                } finally{
+                    if(rs!=null){
+                        rs.close();
+                    }
+                    if(ps!=null){
+                        ps.close();
+                    }
+                }
+            } catch(Exception e){
+                System.out.println("Notifikasi : "+e);
+            }
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_BtnMedisIGDActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1627,6 +1703,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Button BtnHapus;
     private widget.Button BtnJawabanDikonsuli;
     private widget.Button BtnKeluar;
+    private javax.swing.JButton BtnMedisIGD;
     private widget.Button BtnPrint;
     private widget.Button BtnRiwayatPasien;
     private widget.Button BtnSimpan;
@@ -1704,7 +1781,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         try{ 
             sql="";
             if(akses.getjml2()>=1){
-                sql="(konsultasi_medik.kd_dokter='"+akses.getkode()+"' or konsultasi_medik.kd_dokter_dikonsuli='"+akses.getkode()+"') and ";
+                //sql="(konsultasi_medik.kd_dokter='"+akses.getkode()+"' or konsultasi_medik.kd_dokter_dikonsuli='"+akses.getkode()+"') and ";
             }
             
             if(R1.isSelected()==true){
