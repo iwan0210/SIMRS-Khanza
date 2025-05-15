@@ -14,7 +14,6 @@ package rekammedis;
 import fungsi.WarnaTable;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
-import fungsi.sekuel;
 import fungsi.validasi;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -30,55 +29,45 @@ import javax.swing.table.TableColumn;
  *
  * @author dosen
  */
-public final class RMCariJumlahObatResep extends javax.swing.JDialog {
+public final class RMCariTTV extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private validasi Valid=new validasi();
     private Connection koneksi=koneksiDB.condb();
-    private sekuel Sequel=new sekuel();
     private PreparedStatement ps;
     private ResultSet rs;
-    private String norawat="";
+    private String norm="";
     private int z=0;
     /** Creates new form DlgPenyakit
      * @param parent
      * @param modal */
-    public RMCariJumlahObatResep(java.awt.Frame parent, boolean modal) {
+    public RMCariTTV(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocation(10,2);
         setSize(656,250);
 
-        Object[] row={"P","Tanggal","Jam","Obat Diberikan"};
+        Object[] row={"Tanggal","Status","Paramedis","Suhu","Tensi","Nadi","Respirasi","Spo2","GCS(E,V,M)","Tinggi","Berat","Kesadaran"};
         tabMode=new DefaultTableModel(null,row){
-              @Override public boolean isCellEditable(int rowIndex, int colIndex){
-                boolean a = false;
-                if (colIndex==0) {
-                    a=true;
-                }
-                return a;
-             }
-             Class[] types = new Class[] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-             };
-             @Override
-             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-             }
+              @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
         tbKamar.setModel(tabMode);
         //tbPenyakit.setDefaultRenderer(Object.class, new WarnaTable(panelJudul.getBackground(),tbPenyakit.getBackground()));
         tbKamar.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbKamar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        for (z= 0; z < 4; z++) {
+        for (z= 0; z < 12; z++) {
             TableColumn column = tbKamar.getColumnModel().getColumn(z);
             if(z==0){
-                column.setPreferredWidth(20);
+                column.setPreferredWidth(130);
             }else if(z==1){
-                column.setPreferredWidth(65);
-            }else if(z==2){
                 column.setPreferredWidth(50);
-            }else if(z==3){
-                column.setPreferredWidth(730);
+            }else if(z==2){
+                column.setPreferredWidth(200);
+            }else if(z==8){
+                column.setPreferredWidth(80);
+            }else if(z==11){
+                column.setPreferredWidth(90);
+            }else {
+                column.setPreferredWidth(60);
             }
         }
         tbKamar.setDefaultRenderer(Object.class, new WarnaTable());
@@ -117,9 +106,6 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        ppPilihSemua = new javax.swing.JMenuItem();
-        ppBersihkan = new javax.swing.JMenuItem();
         internalFrame1 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbKamar = new widget.Table();
@@ -131,40 +117,6 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
         label10 = new widget.Label();
         LCount = new widget.Label();
         BtnKeluar = new widget.Button();
-
-        jPopupMenu1.setName("jPopupMenu1"); // NOI18N
-
-        ppPilihSemua.setBackground(new java.awt.Color(255, 255, 254));
-        ppPilihSemua.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppPilihSemua.setForeground(new java.awt.Color(50, 50, 50));
-        ppPilihSemua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        ppPilihSemua.setText("Pilih Semua");
-        ppPilihSemua.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ppPilihSemua.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        ppPilihSemua.setName("ppPilihSemua"); // NOI18N
-        ppPilihSemua.setPreferredSize(new java.awt.Dimension(170, 26));
-        ppPilihSemua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ppPilihSemuaActionPerformed(evt);
-            }
-        });
-        jPopupMenu1.add(ppPilihSemua);
-
-        ppBersihkan.setBackground(new java.awt.Color(255, 255, 254));
-        ppBersihkan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        ppBersihkan.setForeground(new java.awt.Color(50, 50, 50));
-        ppBersihkan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        ppBersihkan.setText("Hilangkan Pilihan");
-        ppBersihkan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ppBersihkan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        ppBersihkan.setName("ppBersihkan"); // NOI18N
-        ppBersihkan.setPreferredSize(new java.awt.Dimension(170, 26));
-        ppBersihkan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ppBersihkanActionPerformed(evt);
-            }
-        });
-        jPopupMenu1.add(ppBersihkan);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -178,16 +130,14 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Riwayat Obat Diberikan ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Riwayat TTV ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
-        Scroll.setComponentPopupMenu(jPopupMenu1);
         Scroll.setName("Scroll"); // NOI18N
         Scroll.setOpaque(true);
 
         tbKamar.setAutoCreateRowSorter(true);
-        tbKamar.setComponentPopupMenu(jPopupMenu1);
         tbKamar.setName("tbKamar"); // NOI18N
         tbKamar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -281,6 +231,7 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
         internalFrame1.add(panelisi3, java.awt.BorderLayout.PAGE_END);
 
         getContentPane().add(internalFrame1, java.awt.BorderLayout.CENTER);
+        internalFrame1.getAccessibleContext().setAccessibleName("::[ Riwayat TTV ]::");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -354,24 +305,12 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
         tampil();
     }//GEN-LAST:event_formWindowOpened
 
-    private void ppPilihSemuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppPilihSemuaActionPerformed
-        for(z=0;z<tbKamar.getRowCount();z++){
-            tbKamar.setValueAt(true,z,0);
-        }
-    }//GEN-LAST:event_ppPilihSemuaActionPerformed
-
-    private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppBersihkanActionPerformed
-        for(z=0;z<tbKamar.getRowCount();z++){
-            tbKamar.setValueAt(false,z,0);
-        }
-    }//GEN-LAST:event_ppBersihkanActionPerformed
-
     /**
     * @param args the command line arguments
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            RMCariJumlahObatResep dialog = new RMCariJumlahObatResep(new javax.swing.JFrame(), true);
+            RMCariTTV dialog = new RMCariTTV(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -385,17 +324,14 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private widget.Button BtnAll;
     private widget.Button BtnCari;
-    public widget.Button BtnKeluar;
+    private widget.Button BtnKeluar;
     private widget.Label LCount;
     private widget.ScrollPane Scroll;
     private widget.TextBox TCari;
     private widget.InternalFrame internalFrame1;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private widget.Label label10;
     private widget.Label label9;
     private widget.panelisi panelisi3;
-    private javax.swing.JMenuItem ppBersihkan;
-    private javax.swing.JMenuItem ppPilihSemua;
     private widget.Table tbKamar;
     // End of variables declaration//GEN-END:variables
 
@@ -403,18 +339,30 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
         Valid.tabelKosong(tabMode);
         try{
             ps=koneksi.prepareStatement(
-                    "select resep_obat.tgl_peresepan,resep_obat.jam_peresepan,databarang.nama_brng,resep_dokter.jml,databarang.kode_sat,"+
-                    "resep_dokter.aturan_pakai from resep_obat inner join resep_dokter on resep_dokter.no_resep=resep_obat.no_resep inner join databarang "+
-                    "on resep_dokter.kode_brng=databarang.kode_brng where resep_obat.no_rawat=? and "+
-                    "(resep_obat.tgl_peresepan like ? or databarang.nama_brng like ?) and databarang.kdjns != 'ALK' order by resep_obat.tgl_peresepan, resep_obat.jam_peresepan");
+                    "SELECT combined.*, pegawai.nama " +
+                    "FROM (" +
+                    "  SELECT no_rawat, tgl_perawatan, jam_rawat, suhu_tubuh, tensi, nadi, respirasi, tinggi, berat, spo2, gcs, kesadaran, nip, 'Ralan' AS status " +
+                    "  FROM pemeriksaan_ralan " +
+                    "  UNION ALL " +
+                    "  SELECT no_rawat, tgl_perawatan, jam_rawat, suhu_tubuh, tensi, nadi, respirasi, tinggi, berat, spo2, gcs, kesadaran, nip, 'Ranap' AS status " +
+                    "  FROM pemeriksaan_ranap " +
+                    ") AS combined " +
+                    "LEFT JOIN pegawai ON pegawai.nik = combined.nip " +
+                    "LEFT JOIN reg_periksa ON reg_periksa.no_rawat = combined.no_rawat " +
+                    "WHERE reg_periksa.no_rkm_medis = ? " +
+                    "AND combined.tgl_perawatan LIKE ? " +
+                    "AND combined.tensi != '' " +
+                    "ORDER BY combined.tgl_perawatan DESC, combined.jam_rawat DESC " +
+                    "LIMIT 15");
             try{
-                ps.setString(1,norawat);
+                ps.setString(1,norm);
                 ps.setString(2,"%"+TCari.getText().trim()+"%");
-                ps.setString(3,"%"+TCari.getText().trim()+"%");
                 rs=ps.executeQuery();
                 while(rs.next()){
-                    tabMode.addRow(new Object[]{
-                        false,rs.getString(1),rs.getString(2),rs.getString(3)+" : "+rs.getString(4)+" "+rs.getString(5)+" "+rs.getString(6)
+                    tabMode.addRow(new String[] {
+                        rs.getString("tgl_perawatan") + " " + rs.getString("jam_rawat"),rs.getString("status"),rs.getString("nama"),rs.getString("suhu_tubuh"),
+                        rs.getString("tensi"),rs.getString("nadi"),rs.getString("respirasi"),rs.getString("spo2"),rs.getString("gcs"),rs.getString("tinggi"),
+                        rs.getString("berat"),rs.getString("kesadaran")
                     });
                 }
             }catch(Exception ex){
@@ -437,8 +385,8 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
         TCari.requestFocus();
     }
     
-    public void setNoRawat(String norawat){
-        this.norawat=norawat;
+    public void setNoRM(String norm) {
+        this.norm = norm;
     }
 
     public JTable getTable(){

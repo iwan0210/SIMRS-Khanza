@@ -1623,6 +1623,9 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     if (rs.next()) {
                         String template = "";
                         
+                        template += "Assalamualaikum dokter, izin konsul pasien baru igd, ";
+                        template += NmPasien.getText();
+                        template += "\n\n";
                         template += "keluhan utama: " + rs.getString("keluhan_utama").trim() + "\n";
                         template += "riwayat penyakit sekarang: " + rs.getString("rps").trim() + "\n";
                         template += "riwayat penyakit dahulu: " + rs.getString("rpd").trim() + "\n";
@@ -1653,6 +1656,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         template += "Laborat: " + rs.getString("lab").trim() + "\n";
                         template += "diagnosis: " + rs.getString("diagnosis").trim() + "\n";
                         template += "tatalaksana: " + rs.getString("tata").trim();
+                        template += "\n\n";
+                        template += "mohon advis dokter. terimakasih.";
                         
                         DiagnosaKerja.setText(rs.getString("diagnosis").trim());
                         UraianKonsultasi.setText(template);
@@ -1919,6 +1924,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         TCari.setText(norwt);
         ChkInput.setSelected(true);
         isForm();
+        
+        getDPJPFromSPRI(norwt);
     }
     
     private void isForm(){
@@ -1983,4 +1990,29 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }
     
+    private void getDPJPFromSPRI(String norwt) {
+        try {
+            ps=koneksi.prepareStatement("select perintah_inap.kd_dokter, dokter.nm_dokter from perintah_inap join dokter on dokter.kd_dokter = perintah_inap.kd_dokter where perintah_inap.no_rawat = ?");
+
+            try {
+                ps.setString(1, norwt);
+                rs=ps.executeQuery();
+                if (rs.next()) {
+                    KdDokterDikonsuli.setText(rs.getString("kd_dokter"));
+                    NmDokterDikonsuli.setText(rs.getString("nm_dokter"));
+                }
+            } catch (Exception e) {
+                System.out.println("Notif Kamar : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch(Exception e){
+            System.out.println("Notifikasi : "+e);
+        }
+    }
 }

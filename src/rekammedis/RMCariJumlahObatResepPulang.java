@@ -30,19 +30,19 @@ import javax.swing.table.TableColumn;
  *
  * @author dosen
  */
-public final class RMCariJumlahObatResep extends javax.swing.JDialog {
+public final class RMCariJumlahObatResepPulang extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private validasi Valid=new validasi();
     private Connection koneksi=koneksiDB.condb();
     private sekuel Sequel=new sekuel();
     private PreparedStatement ps;
     private ResultSet rs;
-    private String norawat="";
+    private String norawat="",tglPulang="";
     private int z=0;
     /** Creates new form DlgPenyakit
      * @param parent
      * @param modal */
-    public RMCariJumlahObatResep(java.awt.Frame parent, boolean modal) {
+    public RMCariJumlahObatResepPulang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocation(10,2);
@@ -371,7 +371,7 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            RMCariJumlahObatResep dialog = new RMCariJumlahObatResep(new javax.swing.JFrame(), true);
+            RMCariJumlahObatResepPulang dialog = new RMCariJumlahObatResepPulang(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -405,12 +405,13 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
             ps=koneksi.prepareStatement(
                     "select resep_obat.tgl_peresepan,resep_obat.jam_peresepan,databarang.nama_brng,resep_dokter.jml,databarang.kode_sat,"+
                     "resep_dokter.aturan_pakai from resep_obat inner join resep_dokter on resep_dokter.no_resep=resep_obat.no_resep inner join databarang "+
-                    "on resep_dokter.kode_brng=databarang.kode_brng where resep_obat.no_rawat=? and "+
+                    "on resep_dokter.kode_brng=databarang.kode_brng where resep_obat.no_rawat=? and resep_obat.tgl_peresepan = ? and "+
                     "(resep_obat.tgl_peresepan like ? or databarang.nama_brng like ?) and databarang.kdjns != 'ALK' order by resep_obat.tgl_peresepan, resep_obat.jam_peresepan");
             try{
                 ps.setString(1,norawat);
-                ps.setString(2,"%"+TCari.getText().trim()+"%");
+                ps.setString(2,tglPulang);
                 ps.setString(3,"%"+TCari.getText().trim()+"%");
+                ps.setString(4,"%"+TCari.getText().trim()+"%");
                 rs=ps.executeQuery();
                 while(rs.next()){
                     tabMode.addRow(new Object[]{
@@ -437,8 +438,9 @@ public final class RMCariJumlahObatResep extends javax.swing.JDialog {
         TCari.requestFocus();
     }
     
-    public void setNoRawat(String norawat){
+    public void setNoRawat(String norawat, String tglPulang){
         this.norawat=norawat;
+        this.tglPulang=tglPulang;
     }
 
     public JTable getTable(){

@@ -1126,7 +1126,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
     private void DTPTglItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_DTPTglItemStateChanged
         if (kd2.getText().equals("")) {
             String tanggal = new SimpleDateFormat("ddMMyyyy").format(DTPTgl.getDate());
-            Valid.autoNomer6("select LPAD(COUNT(DISTINCT no_surat), 4, 0) from perintah_inap where tanggal='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"' ", tanggal, 4, NoSurat);
+            Valid.autoNomer6("select LPAD(COUNT(DISTINCT no_surat), 4, 0) from perintah_inap where no_surat like '%"+tanggal+"' ", tanggal, 4, NoSurat);
         }
     }//GEN-LAST:event_DTPTglItemStateChanged
 
@@ -1358,7 +1358,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         Tindakan.setText("");
         DTPTgl.setDate(new Date());
         NoSurat.requestFocus();
-        Valid.autoNomer6("select LPAD(COUNT(DISTINCT no_surat), 4, 0) from perintah_inap where tanggal='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"' ", tanggal, 4, NoSurat); 
+        Valid.autoNomer6("select LPAD(COUNT(DISTINCT no_surat), 4, 0) from perintah_inap where no_surat like '%"+tanggal+"' ", tanggal, 4, NoSurat);
     }
 
 
@@ -1418,7 +1418,19 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         ChkInput.setSelected(true);
         isForm();
     }
-      
+    
+    public void setNoRm2(String norwt) {
+        TNoRw.setText(norwt);
+        TCari.setText(norwt);
+        Valid.SetTgl(DTPCari1, Sequel.cariIsi("select tgl_registrasi from reg_periksa where no_rawat = ?", norwt));
+        DTPCari2.setDate(new Date());
+        isRawat();   
+        Dokter.setText(Sequel.cariIsi("select dokter.nm_dokter from dokter join reg_periksa on dokter.kd_dokter = reg_periksa.kd_dokter where reg_periksa.no_rawat=?",norwt));
+        Diagnosa.setText(Sequel.cariIsi("select diagnosis from penilaian_medis_igd where no_rawat = ?",norwt));
+        Tindakan.setText(Sequel.cariIsi("select tata from penilaian_medis_igd where no_rawat = ?",norwt));
+        ChkInput.setSelected(true);
+        isForm();
+    }
     
     public void isCek(){
         BtnSimpan.setEnabled(akses.getrujukan_masuk());

@@ -6743,6 +6743,11 @@ private void tbDokterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
         NoRawat.setText(pasien);
     }
  
-
+    public void setPasien2(String norm, String nama) {
+        kdmem.setText(norm);
+        nmmem.setText(nama);
+        Sequel.cariIsi("SELECT CURDATE() - INTERVAL 30 DAY", Tgl1);
+        tampil();
+    }
  
 }
