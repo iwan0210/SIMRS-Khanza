@@ -6,6 +6,7 @@ import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.akses;
+import inventory.DlgPeresepanDokter;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -22,6 +23,8 @@ import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
@@ -232,6 +235,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         BtnHapus = new widget.Button();
         BtnEdit = new widget.Button();
         BtnPrint = new widget.Button();
+        BtnResep = new widget.Button();
         BtnKeluar = new widget.Button();
         panelGlass10 = new widget.panelisi();
         jLabel6 = new widget.Label();
@@ -368,7 +372,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         label1.setBounds(210, 20, 55, 23);
 
         TanggalJawab.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalJawab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2025 18:39:57" }));
+        TanggalJawab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-05-2025 15:25:28" }));
         TanggalJawab.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalJawab.setName("TanggalJawab"); // NOI18N
         TanggalJawab.setOpaque(false);
@@ -559,6 +563,24 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnPrint);
 
+        BtnResep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Vial-Pills.png"))); // NOI18N
+        BtnResep.setMnemonic('T');
+        BtnResep.setText("Resep");
+        BtnResep.setToolTipText("Alt+T");
+        BtnResep.setName("BtnResep"); // NOI18N
+        BtnResep.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnResep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnResepActionPerformed(evt);
+            }
+        });
+        BtnResep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnResepKeyPressed(evt);
+            }
+        });
+        panelGlass8.add(BtnResep);
+
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
         BtnKeluar.setMnemonic('K');
         BtnKeluar.setText("Keluar");
@@ -668,7 +690,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         R2.setPreferredSize(new java.awt.Dimension(170, 23));
         panelCari.add(R2);
 
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-05-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -686,7 +708,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         jLabel25.setPreferredSize(new java.awt.Dimension(30, 23));
         panelCari.add(jLabel25);
 
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-05-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -780,7 +802,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         jLabel9.setBounds(415, 40, 90, 23);
 
         TanggalPermintaan.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalPermintaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2025 18:39:56" }));
+        TanggalPermintaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-05-2025 15:25:26" }));
         TanggalPermintaan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalPermintaan.setName("TanggalPermintaan"); // NOI18N
         TanggalPermintaan.setOpaque(false);
@@ -973,7 +995,6 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         });
         FormInput.add(BtnMedisIGD);
         BtnMedisIGD.setBounds(640, 210, 180, 40);
-        BtnMedisIGD.getAccessibleContext().setAccessibleName("Ambil dari Medis IGD");
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -1626,12 +1647,13 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         template += "Assalamualaikum dokter, izin konsul pasien baru igd, ";
                         template += NmPasien.getText();
                         template += "\n\n";
-                        template += "keluhan utama: " + rs.getString("keluhan_utama").trim() + "\n";
-                        template += "riwayat penyakit sekarang: " + rs.getString("rps").trim() + "\n";
-                        template += "riwayat penyakit dahulu: " + rs.getString("rpd").trim() + "\n";
-                        template += "riwayat alergi: " + rs.getString("alergi").trim() + "\n";
-                        template += "riwayat penyakit keluarga: " + rs.getString("rpk").trim() + "\n";
-                        template += "riwayat penggunaan obat: " + rs.getString("rpo").trim() + "\n";
+                        template += "keluhan utama: " + rs.getString("keluhan_utama").trim() + "\n\n";
+                        template += "riwayat penyakit sekarang: " + rs.getString("rps").trim() + "\n\n";
+                        template += "riwayat penyakit dahulu: " + rs.getString("rpd").trim() + "\n\n";
+                        template += "riwayat alergi: " + rs.getString("alergi").trim() + "\n\n";
+                        template += "riwayat penyakit keluarga: " + rs.getString("rpk").trim() + "\n\n";
+                        template += "riwayat penggunaan obat: " + rs.getString("rpo").trim() + "\n\n";
+                        template += "pemeriksaan fisik :\n";
                         template += "keadaan umum: " + rs.getString("keadaan").trim() + "\n";
                         template += "kesadaran: " + rs.getString("kesadaran").trim() + "\n";
                         template += "GCS: " + rs.getString("gcs").trim() + "\n";
@@ -1642,18 +1664,12 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         template += "RR: " + rs.getString("rr").trim() + "\n";
                         template += "Suhu: " + rs.getString("suhu").trim() + "\n";
                         template += "SpO2: " + rs.getString("spo").trim() + "\n";
-                        template += "kepala: " + rs.getString("kepala").trim() + "\n";
-                        template += "mata: " + rs.getString("mata").trim() + "\n";
-                        template += "gigi & mulut: " + rs.getString("gigi").trim() + "\n";
-                        template += "leher: " + rs.getString("leher").trim() + "\n";
-                        template += "thoraks: " + rs.getString("thoraks").trim() + "\n";
-                        template += "abdomen: " + rs.getString("abdomen").trim() + "\n";
-                        template += "genital & anus: " + rs.getString("genital").trim() + "\n";
-                        template += "ekstremitas: " + rs.getString("ekstremitas").trim() + "\n";
-                        template += "keterangan fisik: " + rs.getString("ket_fisik").trim() + "\n";
+                        template += rs.getString("ket_fisik")+"\n";
+                        template += "\n";
+                        template += "pemeriksaan penunjang : \n";
                         template += "EKG: " + rs.getString("ekg").trim() + "\n";
                         template += "Radiologi: " + rs.getString("rad").trim() + "\n";
-                        template += "Laborat: " + rs.getString("lab").trim() + "\n";
+                        template += "Laborat: " + rs.getString("lab").trim() + "\n\n";
                         template += "diagnosis: " + rs.getString("diagnosis").trim() + "\n";
                         template += "tatalaksana: " + rs.getString("tata").trim();
                         template += "\n\n";
@@ -1678,6 +1694,25 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             this.setCursor(Cursor.getDefaultCursor());
         }
     }//GEN-LAST:event_BtnMedisIGDActionPerformed
+
+    private void BtnResepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnResepActionPerformed
+        if (NoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        String date = TanggalPermintaan.getSelectedItem().toString();
+        DlgPeresepanDokter resep=new DlgPeresepanDokter(null,false);
+        resep.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+        resep.setLocationRelativeTo(internalFrame1);
+        resep.setNoRm(NoRw.getText(),new Date(),date.substring(11, 13),date.substring(14, 16),
+                date.substring(17, 19),KdDokter.getText(),NmDokter.getText(),"ralan");
+        resep.isCek();
+        resep.tampilobat();
+        resep.setVisible(true);
+    }//GEN-LAST:event_BtnResepActionPerformed
+
+    private void BtnResepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnResepKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnResepKeyPressed
 
     /**
     * @param args the command line arguments
@@ -1710,6 +1745,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Button BtnKeluar;
     private javax.swing.JButton BtnMedisIGD;
     private widget.Button BtnPrint;
+    private widget.Button BtnResep;
     private widget.Button BtnRiwayatPasien;
     private widget.Button BtnSimpan;
     private widget.Button BtnSimpanJawaban;
@@ -1949,6 +1985,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         BtnJawabanDikonsuli.setEnabled(akses.getjawaban_konsultasi_medik());
         BtnRiwayatPasien.setEnabled(akses.getresume_pasien());
         BtnEdit.setEnabled(akses.getkonsultasi_medik());   
+        BtnResep.setEnabled(akses.getresep_dokter());
         if(akses.getjml2()>=1){
             KdDokter.setEditable(false);
             BtnDokter.setEnabled(false);

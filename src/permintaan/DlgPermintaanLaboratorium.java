@@ -18,6 +18,7 @@ import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.akses;
+import rekammedis.RMTriaseIGD;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -457,6 +458,7 @@ public final class DlgPermintaanLaboratorium extends javax.swing.JDialog {
         BtnBatal = new widget.Button();
         BtnHapus = new widget.Button();
         BtnPrint = new widget.Button();
+        BtnTriase = new widget.Button();
         jLabel10 = new widget.Label();
         BtnCari = new widget.Button();
         BtnKeluar = new widget.Button();
@@ -622,7 +624,7 @@ public final class DlgPermintaanLaboratorium extends javax.swing.JDialog {
         jLabel9.setBounds(0, 40, 92, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-10-2022" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2023" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -971,7 +973,7 @@ public final class DlgPermintaanLaboratorium extends javax.swing.JDialog {
         jLabel17.setBounds(235, 10, 120, 23);
 
         TanggalPA.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalPA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-10-2022" }));
+        TanggalPA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2023" }));
         TanggalPA.setDisplayFormat("dd-MM-yyyy");
         TanggalPA.setName("TanggalPA"); // NOI18N
         TanggalPA.setOpaque(false);
@@ -1014,7 +1016,7 @@ public final class DlgPermintaanLaboratorium extends javax.swing.JDialog {
         DiagnosaPA.setBounds(432, 100, 340, 23);
 
         TanggalBahan.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalBahan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-10-2022" }));
+        TanggalBahan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2023" }));
         TanggalBahan.setDisplayFormat("dd-MM-yyyy");
         TanggalBahan.setName("TanggalBahan"); // NOI18N
         TanggalBahan.setOpaque(false);
@@ -1256,6 +1258,24 @@ public final class DlgPermintaanLaboratorium extends javax.swing.JDialog {
             }
         });
         panelGlass8.add(BtnPrint);
+
+        BtnTriase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Doctor.png"))); // NOI18N
+        BtnTriase.setMnemonic('T');
+        BtnTriase.setText("Triase");
+        BtnTriase.setToolTipText("Alt+T");
+        BtnTriase.setName("BtnTriase"); // NOI18N
+        BtnTriase.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnTriase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTriaseActionPerformed(evt);
+            }
+        });
+        BtnTriase.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnTriaseKeyPressed(evt);
+            }
+        });
+        panelGlass8.add(BtnTriase);
 
         jLabel10.setName("jLabel10"); // NOI18N
         jLabel10.setPreferredSize(new java.awt.Dimension(140, 30));
@@ -1901,6 +1921,25 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }//GEN-LAST:event_ppSemua1ActionPerformed
 
+    private void BtnTriaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTriaseActionPerformed
+        if (TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        RMTriaseIGD form=new RMTriaseIGD(null,false);
+        form.isCek();
+        form.setNoRm(TNoRw.getText(),TNoRM.getText(),TPasien.getText());
+        form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+        form.setLocationRelativeTo(internalFrame1);
+        form.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_BtnTriaseActionPerformed
+
+    private void BtnTriaseKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnTriaseKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnTriaseKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -1930,6 +1969,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private widget.Button BtnSimpan;
+    private widget.Button BtnTriase;
     private widget.CekBox ChkInput;
     private widget.CekBox ChkJln;
     private widget.ComboBox CmbDetik;
@@ -2376,6 +2416,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         BtnSimpan.setEnabled(akses.getpermintaan_lab());
         BtnPrint.setEnabled(akses.getpermintaan_lab());
         BtnHapus.setEnabled(akses.getpermintaan_lab());
+        BtnTriase.setEnabled(akses.getdata_triase_igd());
     }
     
     private void isForm(){

@@ -18,6 +18,7 @@ import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.akses;
+import rekammedis.RMPenilaianAwalMedisIGD;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -654,6 +655,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         BtnEdit = new widget.Button();
         BtnPrint = new widget.Button();
         BtnAll = new widget.Button();
+        BtnMedisIGD = new widget.Button();
         BtnKeluar = new widget.Button();
 
         LoadHTML2.setBorder(null);
@@ -906,7 +908,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel28.setBounds(362, 10, 90, 23);
 
         PrimerTanggalTriase.setForeground(new java.awt.Color(50, 70, 50));
-        PrimerTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-08-2023 11:11:45" }));
+        PrimerTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2025 18:23:04" }));
         PrimerTanggalTriase.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         PrimerTanggalTriase.setName("PrimerTanggalTriase"); // NOI18N
         PrimerTanggalTriase.setOpaque(false);
@@ -925,7 +927,6 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
 
         buttonGroup1.add(PrimerResusitasi);
         PrimerResusitasi.setForeground(new java.awt.Color(170, 0, 0));
-        PrimerResusitasi.setSelected(true);
         PrimerResusitasi.setText("Ruang Resusitasi");
         PrimerResusitasi.setName("PrimerResusitasi"); // NOI18N
         PrimerResusitasi.setPreferredSize(new java.awt.Dimension(40, 20));
@@ -1333,7 +1334,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel37.setBounds(362, 10, 90, 23);
 
         SekunderTanggalTriase.setForeground(new java.awt.Color(50, 70, 50));
-        SekunderTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-08-2023 11:11:46" }));
+        SekunderTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2025 18:23:10" }));
         SekunderTanggalTriase.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         SekunderTanggalTriase.setName("SekunderTanggalTriase"); // NOI18N
         SekunderTanggalTriase.setOpaque(false);
@@ -1352,6 +1353,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
 
         buttonGroup1.add(SekunderZonaKuning);
         SekunderZonaKuning.setForeground(new java.awt.Color(200, 200, 0));
+        SekunderZonaKuning.setSelected(true);
         SekunderZonaKuning.setText("Zona Kuning");
         SekunderZonaKuning.setName("SekunderZonaKuning"); // NOI18N
         SekunderZonaKuning.setPreferredSize(new java.awt.Dimension(40, 20));
@@ -1548,9 +1550,9 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         Scroll6.setName("Scroll6"); // NOI18N
         Scroll6.setOpaque(true);
 
-        tbSkala3.setForeground(new java.awt.Color(200, 200, 0));
+        tbSkala3.setForeground(new java.awt.Color(0, 0, 0));
         tbSkala3.setName("tbSkala3"); // NOI18N
-        tbSkala3.setSelectionForeground(new java.awt.Color(0, 255, 0));
+        tbSkala3.setSelectionForeground(new java.awt.Color(200, 200, 0));
         Scroll6.setViewportView(tbSkala3);
 
         TabSkala3dan4dan5.addTab("Skala 3", Scroll6);
@@ -1627,7 +1629,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel18.setBounds(0, 40, 89, 23);
 
         TanggalKunjungan.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-08-2023 11:11:47" }));
+        TanggalKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2025 18:23:10" }));
         TanggalKunjungan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalKunjungan.setName("TanggalKunjungan"); // NOI18N
         TanggalKunjungan.setOpaque(false);
@@ -1786,7 +1788,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-08-2023" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1800,7 +1802,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01-08-2023" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2042,6 +2044,24 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
             }
         });
         panelGlass8.add(BtnAll);
+
+        BtnMedisIGD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Surgeon.png"))); // NOI18N
+        BtnMedisIGD.setMnemonic('M');
+        BtnMedisIGD.setText("Medis IGD");
+        BtnMedisIGD.setToolTipText("Alt+M");
+        BtnMedisIGD.setName("BtnMedisIGD"); // NOI18N
+        BtnMedisIGD.setPreferredSize(new java.awt.Dimension(120, 30));
+        BtnMedisIGD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnMedisIGDActionPerformed(evt);
+            }
+        });
+        BtnMedisIGD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnMedisIGDKeyPressed(evt);
+            }
+        });
+        panelGlass8.add(BtnMedisIGD);
 
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
         BtnKeluar.setMnemonic('K');
@@ -4500,6 +4520,26 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_BtnPrint1ActionPerformed
 
+    private void BtnMedisIGDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMedisIGDActionPerformed
+        if (TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        RMPenilaianAwalMedisIGD form=new RMPenilaianAwalMedisIGD(null,false);
+        form.isCek();
+        form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+        form.setLocationRelativeTo(internalFrame1);
+        form.setVisible(true);
+        form.emptTeks();
+        form.setNoRm(TNoRw.getText(),new Date());
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_BtnMedisIGDActionPerformed
+
+    private void BtnMedisIGDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnMedisIGDKeyPressed
+        
+    }//GEN-LAST:event_BtnMedisIGDKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -4528,6 +4568,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
     private widget.Button BtnEdit;
     private widget.Button BtnHapus;
     private widget.Button BtnKeluar;
+    private widget.Button BtnMedisIGD;
     private widget.Button BtnPrint;
     private widget.Button BtnPrint1;
     private widget.Button BtnSimpan;
@@ -4747,9 +4788,6 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
     }
     
     private void emptTeks(){
-        TNoRw.setText("");
-        TPasien.setText("");
-        TNoRM.setText("");
         Transportasi.setSelectedIndex(0);
         TanggalKunjungan.setDate(new Date());
         AlasanKedatangan.setSelectedIndex(0);
@@ -4777,7 +4815,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         SekunderCatatan.setText("");
         SekunderTanggalTriase.setDate(new Date());
         TabPilihan.setSelectedIndex(0);
-        TabTriase.setSelectedIndex(0);
+        TabTriase.setSelectedIndex(1);
         Transportasi.requestFocus();
         jmlskala1=0;jmlskala2=0;jmlskala3=0;jmlskala4=0;jmlskala5=0;
         kodepetugas="";
@@ -5155,6 +5193,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         BtnTambahPemeriksaan1.setEnabled(akses.getmaster_triase_pemeriksaan());
         BtnTambahSkala1.setEnabled(akses.getmaster_triase_skala1());
         BtnTambahSkala2.setEnabled(akses.getmaster_triase_skala3());
+        BtnMedisIGD.setEnabled(akses.getpenilaian_awal_medis_igd());
         
         if(akses.getjml2()>=1){
             btnPrimerPetugas.setEnabled(false);

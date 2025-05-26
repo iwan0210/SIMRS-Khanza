@@ -7352,6 +7352,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                             respon=nameNode.path("code").asText();
                             System.out.println("respon WS BPJS Kirim Pakai NoRujukan : "+nameNode.path("code").asText()+" "+nameNode.path("message").asText()+"\n");
                         } catch (Exception e) {
+                            respon="500";
                             System.out.println("Notif No.Rujuk : "+e);
                         }
                     }

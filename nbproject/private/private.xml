@@ -23,16 +23,21 @@
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/keuangan/DlgBilingRanap.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMDataResumePasienRanap.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgRawatInap.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/permintaan/DlgPermintaanKonsultasiMedik.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMCariJumlahObat.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgCariPeriksaLab.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMTriaseIGD.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgKamarInap.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/inventory/DlgPeresepanDokter.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMCariTTV.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgRawatJalan.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/fungsi/akses.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianAwalMedisRanapDewasa.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgKasirRalan.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgPeriksaLaboratorium.java</file>
-            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/fungsi/validasi.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgPerintahInap.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgIGD.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianAwalMedisIGD.java</file>
         </group>
     </open-files>
 </project-private>

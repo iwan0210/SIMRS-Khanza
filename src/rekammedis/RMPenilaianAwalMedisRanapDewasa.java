@@ -409,6 +409,9 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         BtnRiwayatPerawatan = new javax.swing.JButton();
         BtnTTV = new javax.swing.JButton();
         BtnFotoRontgen = new javax.swing.JButton();
+        BtnDataFromIGD = new javax.swing.JButton();
+        BtnDataFromPoliPD = new javax.swing.JButton();
+        BtnDataFromPoliBDH = new javax.swing.JButton();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -1527,6 +1530,36 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         FormInput.add(BtnFotoRontgen);
         BtnFotoRontgen.setBounds(880, 210, 150, 50);
 
+        BtnDataFromIGD.setText("Ambil dari IGD");
+        BtnDataFromIGD.setName("BtnDataFromIGD"); // NOI18N
+        BtnDataFromIGD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnDataFromIGDActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnDataFromIGD);
+        BtnDataFromIGD.setBounds(880, 380, 150, 50);
+
+        BtnDataFromPoliPD.setText("Ambil dari poli PD");
+        BtnDataFromPoliPD.setName("BtnDataFromPoliPD"); // NOI18N
+        BtnDataFromPoliPD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnDataFromPoliPDActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnDataFromPoliPD);
+        BtnDataFromPoliPD.setBounds(880, 450, 150, 50);
+
+        BtnDataFromPoliBDH.setText("Ambil dari poli Bedah");
+        BtnDataFromPoliBDH.setName("BtnDataFromPoliBDH"); // NOI18N
+        BtnDataFromPoliBDH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnDataFromPoliBDHActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnDataFromPoliBDH);
+        BtnDataFromPoliBDH.setBounds(880, 520, 150, 50);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -2321,6 +2354,30 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_BtnFotoRontgenActionPerformed
 
+    private void BtnDataFromIGDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDataFromIGDActionPerformed
+        if(TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        getDataFromMedisIGD(TNoRw.getText());
+    }//GEN-LAST:event_BtnDataFromIGDActionPerformed
+
+    private void BtnDataFromPoliPDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDataFromPoliPDActionPerformed
+        if(TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        getDataFromInternis(TNoRw.getText());
+    }//GEN-LAST:event_BtnDataFromPoliPDActionPerformed
+
+    private void BtnDataFromPoliBDHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDataFromPoliBDHActionPerformed
+        if(TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        getDataFromBDH(TNoRw.getText());
+    }//GEN-LAST:event_BtnDataFromPoliBDHActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2345,6 +2402,9 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
     private widget.Button BtnAll;
     private widget.Button BtnBatal;
     private widget.Button BtnCari;
+    private javax.swing.JButton BtnDataFromIGD;
+    private javax.swing.JButton BtnDataFromPoliBDH;
+    private javax.swing.JButton BtnDataFromPoliPD;
     private widget.Button BtnDokter;
     private widget.Button BtnEdit;
     private javax.swing.JButton BtnFotoRontgen;
@@ -2688,10 +2748,6 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat(); 
-        
-        getDataFromMedisIGD(norwt);
-        
-        Tatalaksana.setText(Sequel.cariIsi("select jawaban_konsultasi_medik.uraian_jawaban from konsultasi_medik join jawaban_konsultasi_medik on jawaban_konsultasi_medik.no_permintaan = konsultasi_medik.no_permintaan where konsultasi_medik.no_rawat = ? order by konsultasi_medik.tanggal asc limit 1", norwt));
     }
     
     public void isCek(){
@@ -2781,6 +2837,121 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
                     Diagnosis.setText(rs.getString("diagnosis"));
                 }
             } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        }
+        
+        Tatalaksana.setText(Sequel.cariIsi("select jawaban_konsultasi_medik.uraian_jawaban from konsultasi_medik join jawaban_konsultasi_medik on jawaban_konsultasi_medik.no_permintaan = konsultasi_medik.no_permintaan where konsultasi_medik.no_rawat = ? order by konsultasi_medik.tanggal asc limit 1", norwt));
+    }
+    
+    private void getDataFromInternis(String norwt) {
+        try {
+            ps = koneksi.prepareStatement("select * from penilaian_medis_ralan_penyakit_dalam where no_rawat = ?");
+            try {
+                ps.setString(1, norwt);
+                rs=ps.executeQuery();
+                if(rs.next()){
+                    String ketFisik = "";
+                    Anamnesis.setSelectedItem(rs.getString("anamnesis"));
+                    Hubungan.setText(rs.getString("hubungan"));
+                    KeluhanUtama.setText(rs.getString("keluhan_utama"));
+                    RPS.setText(rs.getString("rps"));
+                    RPD.setText(rs.getString("rpd"));
+                    RPO.setText(rs.getString("rpo"));
+                    Alergi.setText(rs.getString("alergi"));
+                    ketFisik += rs.getString("kondisi")+"\n";
+                    TD.setText(rs.getString("td"));
+                    Nadi.setText(rs.getString("nadi"));
+                    RR.setText(rs.getString("rr"));
+                    Suhu.setText(rs.getString("suhu"));
+                    GCS.setText(rs.getString("gcs"));
+                    Kepala.setSelectedItem(rs.getString("kepala"));
+                    Thoraks.setSelectedItem(rs.getString("thoraks"));
+                    Abdomen.setSelectedItem(rs.getString("abdomen"));
+                    Ekstremitas.setSelectedItem(rs.getString("ekstremitas"));
+                    if (!rs.getString("keterangan_kepala").trim().isEmpty()) {
+                        ketFisik += "Kepala: "+ rs.getString("keterangan_kepala").trim()+"\n";
+                    }
+                    if (!rs.getString("keterangan_thorak").trim().isEmpty()) {
+                        ketFisik += "Thorax: "+ rs.getString("keterangan_thorak").trim()+"\n";
+                    }
+                    if (!rs.getString("keterangan_abdomen").trim().isEmpty()) {
+                        ketFisik += "Abdomen: "+ rs.getString("keterangan_abdomen").trim()+"\n";
+                    }
+                    if (!rs.getString("keterangan_ekstremitas").trim().isEmpty()) {
+                        ketFisik += "Ekstremitas: "+ rs.getString("keterangan_ekstremitas").trim()+"\n";
+                    }
+                    if (!rs.getString("lainnya").trim().isEmpty()) {
+                        ketFisik += rs.getString("lainnya").trim();
+                    }
+                    
+                    Laborat.setText(rs.getString("lab"));
+                    Radiologi.setText(rs.getString("rad"));
+                    Penunjang.setText(rs.getString("penunjanglain"));
+                    Diagnosis.setText(rs.getString("diagnosis"));
+                    Tatalaksana.setText(rs.getString("terapi"));
+                    Edukasi.setText(rs.getString("edukasi"));
+                    KetFisik.setText(ketFisik);
+                }
+            }catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        }
+    }
+    
+    private void getDataFromBDH(String norwt) {
+        try {
+            ps = koneksi.prepareStatement("select * from penilaian_medis_ralan_bedah where no_rawat = ?");
+            try {
+                ps.setString(1, norwt);
+                rs=ps.executeQuery();
+                if(rs.next()){
+                    Anamnesis.setSelectedItem(rs.getString("anamnesis"));
+                    Hubungan.setText(rs.getString("hubungan"));
+                    KeluhanUtama.setText(rs.getString("keluhan_utama"));
+                    RPS.setText(rs.getString("rps"));
+                    RPD.setText(rs.getString("rpd"));
+                    RPO.setText(rs.getString("rpo"));
+                    Alergi.setText(rs.getString("alergi"));
+                    Kesadaran.setSelectedItem(rs.getString("kesadaran"));
+                    TD.setText(rs.getString("td"));
+                    Nadi.setText(rs.getString("nadi"));
+                    RR.setText(rs.getString("rr"));
+                    Suhu.setText(rs.getString("suhu"));
+                    BB.setText(rs.getString("bb"));
+                    GCS.setText(rs.getString("gcs"));
+                    Kepala.setSelectedItem(rs.getString("kepala"));
+                    Thoraks.setSelectedItem(rs.getString("thoraks"));
+                    Abdomen.setSelectedItem(rs.getString("abdomen"));
+                    Ekstremitas.setSelectedItem(rs.getString("ekstremitas"));
+                    KetFisik.setText(rs.getString("lainnya"));
+                    KetLokalis.setText(rs.getString("ket_lokalis"));
+                    Laborat.setText(rs.getString("lab"));
+                    Radiologi.setText(rs.getString("rad"));
+                    Penunjang.setText(rs.getString("pemeriksaan"));
+                    Diagnosis.setText(rs.getString("diagnosis"));
+                    Tatalaksana.setText(rs.getString("terapi"));
+                    Edukasi.setText(rs.getString("edukasi"));
+                }
+            }catch (Exception e) {
                 System.out.println("Notif : "+e);
             } finally{
                 if(rs!=null){

@@ -6,6 +6,7 @@
 package rekammedis;
 
 import simrskhanza.DlgCariPeriksaLab;
+import simrskhanza.DlgPerintahInap;
 import fungsi.WarnaTable;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
@@ -278,6 +279,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         BtnEdit = new widget.Button();
         BtnPrint = new widget.Button();
         BtnAll = new widget.Button();
+        BtnSPO = new widget.Button();
         BtnKeluar = new widget.Button();
         TabRawat = new javax.swing.JTabbedPane();
         internalFrame2 = new widget.InternalFrame();
@@ -550,6 +552,24 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
             }
         });
         panelGlass8.add(BtnAll);
+
+        BtnSPO.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/ICO24.png"))); // NOI18N
+        BtnSPO.setMnemonic('M');
+        BtnSPO.setText("SPO");
+        BtnSPO.setToolTipText("Alt+M");
+        BtnSPO.setName("BtnSPO"); // NOI18N
+        BtnSPO.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnSPO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSPOActionPerformed(evt);
+            }
+        });
+        BtnSPO.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnSPOKeyPressed(evt);
+            }
+        });
+        panelGlass8.add(BtnSPO);
 
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
         BtnKeluar.setMnemonic('K');
@@ -1314,7 +1334,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         label11.setBounds(380, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-04-2025 18:56:53" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-04-2025 18:32:54" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -1466,7 +1486,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-04-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-04-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1480,7 +1500,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-04-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-04-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2130,6 +2150,27 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_BtnHasilLabActionPerformed
 
+    private void BtnSPOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSPOActionPerformed
+        if (TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        DlgPerintahInap form=new DlgPerintahInap(null,false);
+        form.isCek();
+        form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        form.setLocationRelativeTo(internalFrame1);
+        form.setVisible(true);
+        form.emptTeks();
+        form.setNoRm(TNoRw.getText(),DTPCari1.getDate(),DTPCari2.getDate());
+        form.tampil();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_BtnSPOActionPerformed
+
+    private void BtnSPOKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnSPOKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnSPOKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -2161,6 +2202,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private javax.swing.JButton BtnRiwayatPerawatan;
+    private widget.Button BtnSPO;
     private widget.Button BtnSimpan;
     private widget.Tanggal DTPCari1;
     private widget.Tanggal DTPCari2;
@@ -2488,6 +2530,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         BtnSimpan.setEnabled(akses.getpenilaian_awal_medis_igd());
         BtnHapus.setEnabled(akses.getpenilaian_awal_medis_igd());
         BtnEdit.setEnabled(akses.getpenilaian_awal_medis_igd());
+        BtnSPO.setEnabled(akses.getrujukan_masuk());
         if(akses.getjml2()>=1){
             KdDokter.setEditable(false);
             BtnDokter.setEnabled(false);

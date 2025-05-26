@@ -21,6 +21,7 @@ import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.akses;
+import permintaan.DlgPermintaanKonsultasiMedik;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
@@ -262,6 +263,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         BtnEdit = new widget.Button();
         BtnPrint = new widget.Button();
         BtnAll = new widget.Button();
+        BtnKonsul = new widget.Button();
         BtnKeluar = new widget.Button();
         panelGlass9 = new widget.panelisi();
         jLabel19 = new widget.Label();
@@ -303,7 +305,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
 
         DTPReg.setEditable(false);
         DTPReg.setForeground(new java.awt.Color(50, 70, 50));
-        DTPReg.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-04-2025" }));
+        DTPReg.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-05-2025" }));
         DTPReg.setDisplayFormat("dd-MM-yyyy");
         DTPReg.setName("DTPReg"); // NOI18N
         DTPReg.setOpaque(false);
@@ -491,6 +493,24 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         });
         panelGlass8.add(BtnAll);
 
+        BtnKonsul.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Create-Ticket24.png"))); // NOI18N
+        BtnKonsul.setMnemonic('M');
+        BtnKonsul.setText("Konsul");
+        BtnKonsul.setToolTipText("Alt+M");
+        BtnKonsul.setName("BtnKonsul"); // NOI18N
+        BtnKonsul.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnKonsul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnKonsulActionPerformed(evt);
+            }
+        });
+        BtnKonsul.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnKonsulKeyPressed(evt);
+            }
+        });
+        panelGlass8.add(BtnKonsul);
+
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
         BtnKeluar.setMnemonic('K');
         BtnKeluar.setText("Keluar");
@@ -521,7 +541,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-04-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-05-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -535,7 +555,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-04-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-05-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -746,7 +766,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         jLabel10.setBounds(10, 130, 70, 23);
 
         DTPTgl.setForeground(new java.awt.Color(50, 70, 50));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-04-2025" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-05-2025" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -1210,6 +1230,27 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_MnCetakSPRIGDActionPerformed
 
+    private void BtnKonsulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKonsulActionPerformed
+        if (TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            DlgPermintaanKonsultasiMedik form=new DlgPermintaanKonsultasiMedik(null,false);
+            form.isCek();
+            form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+            form.setLocationRelativeTo(internalFrame1);
+            form.setVisible(true);
+            form.emptTeks();
+            form.setNoRm(TNoRw.getText(),TNoRM.getText(),TPasien.getText());
+            form.tampil();
+            this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_BtnKonsulActionPerformed
+
+    private void BtnKonsulKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnKonsulKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnKonsulKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -1233,6 +1274,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
     private widget.Button BtnEdit;
     private widget.Button BtnHapus;
     private widget.Button BtnKeluar;
+    private widget.Button BtnKonsul;
     private widget.Button BtnPrint;
     private widget.Button BtnSimpan;
     private widget.CekBox ChkInput;
@@ -1346,9 +1388,6 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
     public void emptTeks() {
         String tanggal = new SimpleDateFormat("ddMMyyyy").format(DTPTgl.getDate());
         kd2.setText("");
-        TNoRw.setText("");
-        TNoRM.setText("");
-        TPasien.setText("");
         Diagnosa.setText("");
         KdPerawat.setText("");
         NmPerawat.setText("");
@@ -1437,7 +1476,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
         BtnHapus.setEnabled(akses.getrujukan_masuk());
         BtnPrint.setEnabled(akses.getrujukan_masuk());
         BtnEdit.setEnabled(akses.getrujukan_masuk());
-        
+        BtnKonsul.setEnabled(akses.getkonsultasi_medik());
     }
     
     
