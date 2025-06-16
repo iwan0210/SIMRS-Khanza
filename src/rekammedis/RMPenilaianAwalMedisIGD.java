@@ -1033,6 +1033,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         jLabel39.setBounds(265, 260, 70, 23);
 
         Keadaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sehat", "Sakit Ringan", "Sakit Sedang", "Sakit Berat" }));
+        Keadaan.setSelectedIndex(2);
         Keadaan.setName("Keadaan"); // NOI18N
         Keadaan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1334,7 +1335,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         label11.setBounds(380, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-04-2025 18:32:54" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-05-2025 17:50:44" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -1486,7 +1487,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-04-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-05-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1500,7 +1501,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "24-04-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-05-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1583,6 +1584,10 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
             Valid.textKosong(RPD,"Riwayat Penyakit Dahulu");
         }else if(RPO.getText().trim().equals("")){
             Valid.textKosong(RPO,"Riwayat Pengunaan obat");
+        }else if(GCS.getText().trim().equals("")){
+            Valid.textKosong(GCS,"GCS");
+        }else if(BB.getText().trim().equals("")){
+            Valid.textKosong(BB,"Berat Badan");
         }else{
             if(akses.getkode().equals("Admin Utama")){
                 simpan();
@@ -1657,6 +1662,10 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
             Valid.textKosong(RPD,"Riwayat Penyakit Dahulu");
         }else if(RPO.getText().trim().equals("")){
             Valid.textKosong(RPO,"Riwayat Pengunaan obat");
+        }else if(GCS.getText().trim().equals("")){
+            Valid.textKosong(GCS,"GCS");
+        }else if(BB.getText().trim().equals("")){
+            Valid.textKosong(BB,"Berat Badan");
         }else{
             if(tbObat.getSelectedRow()>-1){
                 if(akses.getkode().equals("Admin Utama")){
@@ -2409,7 +2418,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         RPD.setText("");
         RPO.setText("");
         Alergi.setText("");
-        Keadaan.setSelectedIndex(0);
+        Keadaan.setSelectedIndex(2);
         GCS.setText("");
         Kesadaran.setSelectedIndex(0);
         TD.setText("");

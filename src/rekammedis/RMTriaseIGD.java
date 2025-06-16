@@ -908,7 +908,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel28.setBounds(362, 10, 90, 23);
 
         PrimerTanggalTriase.setForeground(new java.awt.Color(50, 70, 50));
-        PrimerTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2025 18:23:04" }));
+        PrimerTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-05-2025 19:21:05" }));
         PrimerTanggalTriase.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         PrimerTanggalTriase.setName("PrimerTanggalTriase"); // NOI18N
         PrimerTanggalTriase.setOpaque(false);
@@ -946,6 +946,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         internalFrame8.add(label14);
         label14.setBounds(0, 10, 65, 23);
 
+        PrimerCatatan.setText("-");
         PrimerCatatan.setToolTipText("Alt+C");
         PrimerCatatan.setName("PrimerCatatan"); // NOI18N
         PrimerCatatan.setPreferredSize(new java.awt.Dimension(140, 23));
@@ -1334,7 +1335,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel37.setBounds(362, 10, 90, 23);
 
         SekunderTanggalTriase.setForeground(new java.awt.Color(50, 70, 50));
-        SekunderTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2025 18:23:10" }));
+        SekunderTanggalTriase.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-05-2025 19:21:07" }));
         SekunderTanggalTriase.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         SekunderTanggalTriase.setName("SekunderTanggalTriase"); // NOI18N
         SekunderTanggalTriase.setOpaque(false);
@@ -1629,7 +1630,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         jLabel18.setBounds(0, 40, 89, 23);
 
         TanggalKunjungan.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2025 18:23:10" }));
+        TanggalKunjungan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-05-2025 19:21:07" }));
         TanggalKunjungan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalKunjungan.setName("TanggalKunjungan"); // NOI18N
         TanggalKunjungan.setOpaque(false);
@@ -1788,7 +1789,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-05-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1802,7 +1803,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-05-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-05-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -4803,7 +4804,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         PrimerSaturasi.setText("");
         PrimerRespirasi.setText("");
         PrimerKubutuhanKusus.setSelectedIndex(0);
-        PrimerCatatan.setText("");
+        PrimerCatatan.setText("-");
         PrimerTanggalTriase.setDate(new Date());
         SekunderAnamnesa.setText("");
         SekunderSuhu.setText("");
@@ -4812,7 +4813,7 @@ public final class RMTriaseIGD extends javax.swing.JDialog {
         SekunderRespirasi.setText("");
         SekunderTensi.setText("");
         SekunderNadi.setText("");
-        SekunderCatatan.setText("");
+        SekunderCatatan.setText("-");
         SekunderTanggalTriase.setDate(new Date());
         TabPilihan.setSelectedIndex(0);
         TabTriase.setSelectedIndex(1);

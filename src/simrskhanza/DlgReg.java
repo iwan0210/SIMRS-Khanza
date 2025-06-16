@@ -2317,7 +2317,6 @@ public final class DlgReg extends javax.swing.JDialog {
                 MnPenilaianRisikoJatuhDewasaActionPerformed(evt);
             }
         });
-        MnRMRisikoJatuh.add(MnPenilaianRisikoJatuhDewasa);
 
         MnPenilaianRisikoJatuhAnak.setBackground(new java.awt.Color(255, 255, 254));
         MnPenilaianRisikoJatuhAnak.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -2333,7 +2332,6 @@ public final class DlgReg extends javax.swing.JDialog {
                 MnPenilaianRisikoJatuhAnakActionPerformed(evt);
             }
         });
-        MnRMRisikoJatuh.add(MnPenilaianRisikoJatuhAnak);
 
         MnPenilaianRisikoJatuhLansia.setBackground(new java.awt.Color(255, 255, 254));
         MnPenilaianRisikoJatuhLansia.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -2349,7 +2347,6 @@ public final class DlgReg extends javax.swing.JDialog {
                 MnPenilaianRisikoJatuhLansiaActionPerformed(evt);
             }
         });
-        MnRMRisikoJatuh.add(MnPenilaianRisikoJatuhLansia);
 
         MnPenilaianRisikoJatuhNeonatus.setBackground(new java.awt.Color(255, 255, 254));
         MnPenilaianRisikoJatuhNeonatus.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -2365,7 +2362,6 @@ public final class DlgReg extends javax.swing.JDialog {
                 MnPenilaianRisikoJatuhNeonatusActionPerformed(evt);
             }
         });
-        MnRMRisikoJatuh.add(MnPenilaianRisikoJatuhNeonatus);
 
         MnPenilaianRisikoJatuhGeriatri.setBackground(new java.awt.Color(255, 255, 254));
         MnPenilaianRisikoJatuhGeriatri.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -2381,7 +2377,6 @@ public final class DlgReg extends javax.swing.JDialog {
                 MnPenilaianRisikoJatuhGeriatriActionPerformed(evt);
             }
         });
-        MnRMRisikoJatuh.add(MnPenilaianRisikoJatuhGeriatri);
 
         MnPenilaianRisikoJatuhPsikiatri.setBackground(new java.awt.Color(255, 255, 254));
         MnPenilaianRisikoJatuhPsikiatri.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -2397,7 +2392,6 @@ public final class DlgReg extends javax.swing.JDialog {
                 MnPenilaianRisikoJatuhPsikiatriActionPerformed(evt);
             }
         });
-        MnRMRisikoJatuh.add(MnPenilaianRisikoJatuhPsikiatri);
 
         MnPenilaianLanjutanSkriningFungsional.setBackground(new java.awt.Color(255, 255, 254));
         MnPenilaianLanjutanSkriningFungsional.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -2413,7 +2407,6 @@ public final class DlgReg extends javax.swing.JDialog {
                 MnPenilaianLanjutanSkriningFungsionalActionPerformed(evt);
             }
         });
-        MnRMRisikoJatuh.add(MnPenilaianLanjutanSkriningFungsional);
 
         MnDataRM.add(MnRMRisikoJatuh);
 
@@ -10463,7 +10456,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
                 JOptionPane.showMessageDialog(null,"Maaf, Pasien sudah masuk Kamar Inap. Gunakan billing Ranap..!!!");
             }else {
                 Valid.editTable(tabMode,"reg_periksa","no_rawat",TNoRw,"stts='Meninggal'");
-                DlgPasienMati dlgPasienMati=new DlgPasienMati(null,false);
+                DlgPasienMeninggal dlgPasienMati=new DlgPasienMeninggal(null,false);
                 dlgPasienMati.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
                 dlgPasienMati.setLocationRelativeTo(internalFrame1);
                 dlgPasienMati.emptTeks();

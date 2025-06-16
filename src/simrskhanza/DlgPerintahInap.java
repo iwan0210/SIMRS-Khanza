@@ -1422,13 +1422,13 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
     private void isRawat() {
         try {
             pstampil=koneksi.prepareStatement(
-                "select reg_periksa.no_rkm_medis,pasien.nm_pasien from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis where reg_periksa.no_rawat=?");
+                "select reg_periksa.no_rkm_medis, pasien.nm_pasien, reg_periksa.umurdaftar, reg_periksa.sttsumur from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis where reg_periksa.no_rawat=?");
             try {
                 pstampil.setString(1,TNoRw.getText());
                 rs=pstampil.executeQuery();
                 if(rs.next()){
                     TNoRM.setText(rs.getString("no_rkm_medis"));
-                    TPasien.setText(rs.getString("nm_pasien"));
+                    TPasien.setText(rs.getString("nm_pasien") + " ("+rs.getString("umurdaftar")+" "+rs.getString("sttsumur")+")");
                 }
             } catch (Exception e) {
                 System.out.println("Notif : "+e);

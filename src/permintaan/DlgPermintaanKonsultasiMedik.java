@@ -1670,8 +1670,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         template += "EKG: " + rs.getString("ekg").trim() + "\n";
                         template += "Radiologi: " + rs.getString("rad").trim() + "\n";
                         template += "Laborat: " + rs.getString("lab").trim() + "\n\n";
-                        template += "diagnosis: " + rs.getString("diagnosis").trim() + "\n";
-                        template += "tatalaksana: " + rs.getString("tata").trim();
+                        template += "diagnosis: " + "\n";
+                        template += rs.getString("diagnosis").trim() + "\n\n";
+                        template += "tatalaksana: " + "\n";
+                        template += rs.getString("tata").trim();
                         template += "\n\n";
                         template += "mohon advis dokter. terimakasih.";
                         

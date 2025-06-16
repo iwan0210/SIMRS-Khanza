@@ -2515,6 +2515,8 @@ public final class RMTransferPasienAntarRuang extends javax.swing.JDialog {
         DTPCari2.setDate(tgl2);    
         isRawat(); 
         Valid.SetTgl2(TanggalMasuk, Sequel.cariIsi("select concat(tgl_registrasi, ' ', jam_reg) as tgl_reg from reg_periksa where no_rawat = ?", norwt));
+        
+        getDataFromMedisIGD(norwt);
     }
     
     public void isCek(){
@@ -2661,6 +2663,37 @@ public final class RMTransferPasienAntarRuang extends javax.swing.JDialog {
             } catch (Exception e) {
                 System.out.println("Notif : "+e);
             }
+        }
+    }
+    
+    private void getDataFromMedisIGD(String norwt) {
+        try {
+            ps=koneksi.prepareStatement("select * from penilaian_medis_igd where no_rawat = ?");
+            try {
+                ps.setString(1, norwt);
+                rs=ps.executeQuery();
+                if(rs.next()){
+                    DiagnosaUtama.setText(rs.getString("diagnosis"));
+                    ObatYangDiberikan.setText(rs.getString("tata"));
+                    KeluhanUtamaSebelumTransfer.setText(rs.getString("keluhan_utama"));
+                    KeadaanUmumSebelumTransfer.setSelectedItem(rs.getString("keadaan"));
+                    TDSebelumTransfer.setText(rs.getString("td"));
+                    NadiSebelumTransfer.setText(rs.getString("nadi"));
+                    RRSebelumTransfer.setText(rs.getString("rr"));
+                    SuhuSebelumTransfer.setText(rs.getString("suhu"));
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
         }
     }
 }

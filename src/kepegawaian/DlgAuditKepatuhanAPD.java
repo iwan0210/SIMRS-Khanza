@@ -385,7 +385,7 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-01-2022" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-06-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -399,7 +399,7 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-01-2022" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-06-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -469,7 +469,7 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
         FormInput.setLayout(null);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-01-2022" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-06-2025" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -585,7 +585,7 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
         FormInput.add(jLabel14);
         jLabel14.setBounds(114, 70, 140, 23);
 
-        Topi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak" }));
+        Topi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak", "TDD" }));
         Topi.setName("Topi"); // NOI18N
         Topi.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -601,7 +601,7 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
         FormInput.add(jLabel17);
         jLabel17.setBounds(114, 100, 140, 23);
 
-        Masker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak" }));
+        Masker.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak", "TDD" }));
         Masker.setName("Masker"); // NOI18N
         Masker.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -617,7 +617,7 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
         FormInput.add(jLabel23);
         jLabel23.setBounds(400, 70, 110, 23);
 
-        KacaMata.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak" }));
+        KacaMata.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak", "TDD" }));
         KacaMata.setName("KacaMata"); // NOI18N
         KacaMata.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -655,7 +655,7 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
         FormInput.add(jLabel25);
         jLabel25.setBounds(650, 100, 60, 23);
 
-        SarungTangan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak" }));
+        SarungTangan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak", "TDD" }));
         SarungTangan.setName("SarungTangan"); // NOI18N
         SarungTangan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -665,7 +665,7 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
         FormInput.add(SarungTangan);
         SarungTangan.setBounds(515, 100, 78, 23);
 
-        Apron.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak" }));
+        Apron.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak", "TDD" }));
         Apron.setName("Apron"); // NOI18N
         Apron.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -675,7 +675,7 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
         FormInput.add(Apron);
         Apron.setBounds(711, 70, 78, 23);
 
-        Sepatu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak" }));
+        Sepatu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak", "TDD" }));
         Sepatu.setName("Sepatu"); // NOI18N
         Sepatu.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1077,17 +1077,17 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
                 ttltopi=0;ttlmasker=0;ttlkacamata=0;ttlsarungtangan=0;ttlapron=0;ttlsepatu=0;ttlpenilaian=0;
                 i=1;
                 while(rs.next()){
-                    topi=Double.parseDouble(rs.getString("topi").replaceAll("Ya","1").replaceAll("Tidak","0"));
+                    topi=Double.parseDouble(rs.getString("topi").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
                     ttltopi=ttltopi+topi;
-                    masker=Double.parseDouble(rs.getString("masker").replaceAll("Ya","1").replaceAll("Tidak","0"));
+                    masker=Double.parseDouble(rs.getString("masker").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
                     ttlmasker=ttlmasker+masker;
-                    kacamata=Double.parseDouble(rs.getString("kacamata").replaceAll("Ya","1").replaceAll("Tidak","0"));
+                    kacamata=Double.parseDouble(rs.getString("kacamata").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
                     ttlkacamata=ttlkacamata+kacamata;
-                    sarungtangan=Double.parseDouble(rs.getString("sarungtangan").replaceAll("Ya","1").replaceAll("Tidak","0"));
+                    sarungtangan=Double.parseDouble(rs.getString("sarungtangan").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
                     ttlsarungtangan=ttlsarungtangan+sarungtangan;
-                    apron=Double.parseDouble(rs.getString("apron").replaceAll("Ya","1").replaceAll("Tidak","0"));
+                    apron=Double.parseDouble(rs.getString("apron").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
                     ttlapron=ttlapron+apron;
-                    sepatu=Double.parseDouble(rs.getString("sepatu").replaceAll("Ya","1").replaceAll("Tidak","0"));
+                    sepatu=Double.parseDouble(rs.getString("sepatu").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
                     ttlsepatu=ttlsepatu+sepatu;
                     ttlpenilaian=ttlpenilaian+(((topi+masker+kacamata+sarungtangan+apron+sepatu)/6)*100);
                     tabMode.addRow(new Object[]{

@@ -624,7 +624,7 @@ public final class DlgPermintaanLaboratorium extends javax.swing.JDialog {
         jLabel9.setBounds(0, 40, 92, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2023" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-05-2025" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -707,6 +707,8 @@ public final class DlgPermintaanLaboratorium extends javax.swing.JDialog {
         PanelInput.add(jLabel5);
         jLabel5.setBounds(400, 70, 130, 23);
 
+        InformasiTambahan.setText("-");
+        InformasiTambahan.setToolTipText("");
         InformasiTambahan.setHighlighter(null);
         InformasiTambahan.setName("InformasiTambahan"); // NOI18N
         InformasiTambahan.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -973,7 +975,7 @@ public final class DlgPermintaanLaboratorium extends javax.swing.JDialog {
         jLabel17.setBounds(235, 10, 120, 23);
 
         TanggalPA.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalPA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2023" }));
+        TanggalPA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-05-2025" }));
         TanggalPA.setDisplayFormat("dd-MM-yyyy");
         TanggalPA.setName("TanggalPA"); // NOI18N
         TanggalPA.setOpaque(false);
@@ -1016,7 +1018,7 @@ public final class DlgPermintaanLaboratorium extends javax.swing.JDialog {
         DiagnosaPA.setBounds(432, 100, 340, 23);
 
         TanggalBahan.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalBahan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-11-2023" }));
+        TanggalBahan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-05-2025" }));
         TanggalBahan.setDisplayFormat("dd-MM-yyyy");
         TanggalBahan.setName("TanggalBahan"); // NOI18N
         TanggalBahan.setOpaque(false);
@@ -2252,6 +2254,7 @@ private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         TanggalBahan.setDate(new Date());
         TanggalPA.setDate(new Date());
         DiagnosisKlinis.requestFocus();
+        InformasiTambahan.setText("-");
         autoNomor();
         autoNomor2();
         autoNomor3();

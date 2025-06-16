@@ -386,7 +386,6 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
             }
         });
         
->>>>>>> a940eafece (edit)
         ChkInput.setSelected(false);
         isForm();
       
@@ -1816,8 +1815,8 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
                 public void keyPressed(KeyEvent e) {
                     if(e.getKeyCode()==KeyEvent.VK_SPACE){
                         if(carilaborat.getTable().getSelectedRow()!= -1){
-                            HasilLaborat.append(carilaborat.getTable().getValueAt(carilaborat.getTable().getSelectedRow(),3).toString()+", ");
-                            HasilLaborat.requestFocus();
+                            PemeriksaanPenunjang.append(carilaborat.getTable().getValueAt(carilaborat.getTable().getSelectedRow(),3).toString()+", ");
+                            PemeriksaanPenunjang.requestFocus();
                         }
                     }
                 }
@@ -1830,10 +1829,10 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
                 public void actionPerformed(ActionEvent e) {
                     for (i= 0; i < carilaborat.getTable().getRowCount(); i++) {
                         if(carilaborat.getTable().getValueAt(i,0).toString().equals("true")){
-                            HasilLaborat.append(carilaborat.getTable().getValueAt(i,3).toString()+", ");
+                            PemeriksaanPenunjang.append(carilaborat.getTable().getValueAt(i,3).toString()+", ");
                         }
                     }
-                    HasilLaborat.requestFocus();
+                    PemeriksaanPenunjang.requestFocus();
                 }
             });
             carilaborat.setNoRawat(TNoRw.getText());

@@ -63,6 +63,7 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
+import javax.swing.SwingUtilities;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
 
@@ -6380,6 +6381,8 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                       "</table>"+
                     "</html>");
                 htmlContent=null;
+                
+                SwingUtilities.invokeLater(() -> LoadHTMLRiwayatPerawatan.setCaretPosition(0));
             } catch (Exception e) {
                 System.out.println("Notifikasi : "+e);
             } finally{

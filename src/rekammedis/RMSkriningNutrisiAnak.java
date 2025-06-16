@@ -1976,6 +1976,8 @@ public final class RMSkriningNutrisiAnak extends javax.swing.JDialog {
         isPsien();
         ChkInput.setSelected(true);
         isForm();
+        
+        getTTVFromTriage(norwt);
     }
     
     private void isForm(){
@@ -2106,6 +2108,34 @@ public final class RMSkriningNutrisiAnak extends javax.swing.JDialog {
                 LabelSkrining.setText("Risiko Rendah");
             }
         } catch (Exception e) {
+        }
+    }
+    
+    private void getTTVFromTriage(String norwt) {
+        try {
+            ps = koneksi.prepareStatement("select tekanan_darah, nadi, pernapasan, suhu, saturasi_o2 from data_triase_igd where no_rawat = ?");
+            try {
+                ps.setString(1, norwt);
+                rs=ps.executeQuery();
+                if(rs.next()){
+                    Suhu.setText(rs.getString("suhu"));
+                    SpO2.setText(rs.getString("saturasi_o2"));
+                    TD.setText(rs.getString("tekanan_darah"));
+                    HR.setText(rs.getString("nadi"));
+                    RR.setText(rs.getString("pernapasan"));
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
         }
     }
     

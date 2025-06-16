@@ -1390,22 +1390,23 @@ public final class sekuel {
     }
     
     public boolean cekTanggalRegistrasi(String tanggalregistrasi,String tanggalinputdata){
-        bool=false;
-        try {
-            waktumulai = formattanggal.parse(tanggalregistrasi);
-            kegiatan = formattanggal.parse(tanggalinputdata);
-            bedawaktu = (kegiatan.getTime()-waktumulai.getTime())/1000;
-            if(bedawaktu<0){
-                bool=false;
-                JOptionPane.showMessageDialog(null,"Maaf, jam input data / perubahan data minimal di jam "+tanggalregistrasi+" !");
-            }else{
-                bool=true;
-            }
-        } catch (Exception ex) {
-            bool=false;
-            System.out.println("Notif : "+ex);
-        }
-        return bool;
+//        bool=false;
+//        try {
+//            waktumulai = formattanggal.parse(tanggalregistrasi);
+//            kegiatan = formattanggal.parse(tanggalinputdata);
+//            bedawaktu = (kegiatan.getTime()-waktumulai.getTime())/1000;
+//            if(bedawaktu<0){
+//                bool=false;
+//                JOptionPane.showMessageDialog(null,"Maaf, jam input data / perubahan data minimal di jam "+tanggalregistrasi+" !");
+//            }else{
+//                bool=true;
+//            }
+//        } catch (Exception ex) {
+//            bool=false;
+//            System.out.println("Notif : "+ex);
+//        }
+//        return bool;
+        return true;
     }
     
     public boolean cekTanggal48jam(String tanggalmulai,String tanggalinputdata){
