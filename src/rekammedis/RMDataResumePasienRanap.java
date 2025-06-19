@@ -53,6 +53,7 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.sql.SQLException;
 import java.util.Base64;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
@@ -693,6 +694,7 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         BtnDokter21 = new widget.Button();
         BtnResepPulangSOAP = new javax.swing.JButton();
         BtnPanggilDataTersimpan = new javax.swing.JButton();
+        BtnSaveDiagnosa = new javax.swing.JButton();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
@@ -1084,7 +1086,7 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-05-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-06-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1098,7 +1100,7 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-05-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-06-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1883,7 +1885,7 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         KetDilanjutkan.setBounds(240, 990, 270, 23);
 
         Kontrol.setForeground(new java.awt.Color(50, 70, 50));
-        Kontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-05-2025 18:54:36" }));
+        Kontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-06-2025 18:26:44" }));
         Kontrol.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         Kontrol.setName("Kontrol"); // NOI18N
         Kontrol.setOpaque(false);
@@ -2064,6 +2066,16 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         });
         FormInput.add(BtnPanggilDataTersimpan);
         BtnPanggilDataTersimpan.setBounds(810, 130, 180, 40);
+
+        BtnSaveDiagnosa.setText("Simpan Diagnosa");
+        BtnSaveDiagnosa.setName("BtnSaveDiagnosa"); // NOI18N
+        BtnSaveDiagnosa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSaveDiagnosaActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnSaveDiagnosa);
+        BtnSaveDiagnosa.setBounds(810, 590, 160, 30);
 
         scrollInput.setViewportView(FormInput);
 
@@ -3127,6 +3139,51 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         getData();
     }//GEN-LAST:event_BtnPanggilDataTersimpanActionPerformed
 
+    private void BtnSaveDiagnosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSaveDiagnosaActionPerformed
+        if (TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        String[] icdList = {
+            KodeDiagnosaUtama.getText().trim(),
+            KodeDiagnosaSekunder1.getText().trim(),
+            KodeDiagnosaSekunder2.getText().trim(),
+            KodeDiagnosaSekunder3.getText().trim(),
+            KodeDiagnosaSekunder4.getText().trim()
+        };
+        
+        String checkPrioritySQL = "SELECT 1 FROM diagnosa_pasien WHERE no_rawat = ? AND prioritas = ? AND status='Ranap' LIMIT 1";
+        String insertSQL = "INSERT IGNORE INTO diagnosa_pasien (no_rawat, kd_penyakit, status, prioritas) VALUES (?, ?, 'Ranap', ?)";
+        
+        try (
+                PreparedStatement psCheckPriority = koneksi.prepareStatement(checkPrioritySQL);
+                PreparedStatement psInsert = koneksi.prepareStatement(insertSQL)
+        ) {
+            for (int j=0;j < icdList.length;j++) {
+                String icd = icdList[j];
+                int priority = j + 1;
+
+                if (icd.isEmpty()) continue;
+                // Check if this priority is already used
+                psCheckPriority.setString(1, TNoRw.getText());
+                psCheckPriority.setInt(2, priority);
+                ResultSet result = psCheckPriority.executeQuery();
+                boolean priorityExists = result.next();
+                result.close();
+
+                if (priorityExists) continue;
+
+                // Try inserting — will be ignored if (no_rawat, icd) already exists
+                psInsert.setString(1, TNoRw.getText());
+                psInsert.setString(2, icd);
+                psInsert.setInt(3, priority);
+                psInsert.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_BtnSaveDiagnosaActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -3169,6 +3226,7 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
     private javax.swing.JButton BtnPanggilDataTersimpan;
     private widget.Button BtnPrint;
     private javax.swing.JButton BtnResepPulangSOAP;
+    private javax.swing.JButton BtnSaveDiagnosa;
     private widget.Button BtnSimpan;
     private widget.Button BtnSimpanTandaTangan;
     private widget.TextBox CaraBayar;
@@ -3234,7 +3292,6 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
     private widget.TextBox TNoRM;
     private widget.TextBox TNoRw;
     private widget.TextBox TPasien;
-    private widget.TextArea TindakanSelamaDiRS;
     private widget.TextBox URLSertisign;
     private javax.swing.JDialog WindowPhrase;
     private javax.swing.JDialog WindowURLSertisign;

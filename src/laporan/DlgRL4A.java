@@ -535,10 +535,10 @@ private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_b
                     }
                     
                     ps3=koneksi.prepareStatement(
-                            "select count(pasien_mati.no_rkm_medis) "+
-                            "from diagnosa_pasien inner join reg_periksa inner join pasien inner join pasien_mati "+
+                            "select count(pasien_meninggal.no_rkm_medis) "+
+                            "from diagnosa_pasien inner join reg_periksa inner join pasien inner join pasien_meninggal "+
                             "on reg_periksa.no_rawat=diagnosa_pasien.no_rawat and reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
-                            "and pasien_mati.no_rkm_medis=pasien.no_rkm_medis where diagnosa_pasien.status='Ranap' "+
+                            "and pasien_meninggal.no_rkm_medis=pasien.no_rkm_medis where diagnosa_pasien.status='Ranap' "+
                             "and reg_periksa.tgl_registrasi between ? and ? and diagnosa_pasien.kd_penyakit=? "+
                             "group by diagnosa_pasien.kd_penyakit");
                     try {
@@ -791,10 +791,10 @@ private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_b
                     }
                     
                     ps3=koneksi.prepareStatement(
-                            "select count(pasien_mati.no_rkm_medis) "+
-                            "from diagnosa_pasien inner join reg_periksa inner join pasien inner join pasien_mati inner join kamar_inap "+
+                            "select count(pasien_meninggal.no_rkm_medis) "+
+                            "from diagnosa_pasien inner join reg_periksa inner join pasien inner join pasien_meninggal inner join kamar_inap "+
                             "on reg_periksa.no_rawat=diagnosa_pasien.no_rawat and reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
-                            "and pasien_mati.no_rkm_medis=pasien.no_rkm_medis where diagnosa_pasien.status='Ranap' and kamar_inap.no_rawat=reg_periksa.no_rawat "+
+                            "and pasien_meninggal.no_rkm_medis=pasien.no_rkm_medis where diagnosa_pasien.status='Ranap' and kamar_inap.no_rawat=reg_periksa.no_rawat "+
                             "and kamar_inap.tgl_keluar between ? and ? and diagnosa_pasien.kd_penyakit=? "+
                             "group by diagnosa_pasien.kd_penyakit");
                     try {

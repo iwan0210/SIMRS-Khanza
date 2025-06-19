@@ -388,7 +388,7 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                     pulang="Sudah Pulang";
                 }
                 
-                if(Sequel.cariInteger("select count(no_rkm_medis) from pasien_mati where no_rkm_medis=?",rs.getString("no_rkm_medis"))>0){
+                if(Sequel.cariInteger("select count(no_rkm_medis) from pasien_meninggal where no_rkm_medis=?",rs.getString("no_rkm_medis"))>0){
                     meninggal="Meninggal";
                     inap="";
                     pulang="";

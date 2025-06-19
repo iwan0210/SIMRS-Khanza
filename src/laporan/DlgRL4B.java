@@ -1153,10 +1153,10 @@ private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_b
                     }
                     
                     ps3=koneksi.prepareStatement(
-                            "select count(pasien_mati.no_rkm_medis) from diagnosa_pasien "+
+                            "select count(pasien_meninggal.no_rkm_medis) from diagnosa_pasien "+
                             "inner join reg_periksa on reg_periksa.no_rawat=diagnosa_pasien.no_rawat "+
                             "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
-                            "inner join pasien_mati on pasien_mati.no_rkm_medis=pasien.no_rkm_medis "+
+                            "inner join pasien_meninggal on pasien_meninggal.no_rkm_medis=pasien.no_rkm_medis "+
                             "inner join dokter on reg_periksa.kd_dokter=dokter.kd_dokter "+
                             "inner join poliklinik on reg_periksa.kd_poli=poliklinik.kd_poli "+
                             "inner join penjab on reg_periksa.kd_pj=penjab.kd_pj "+

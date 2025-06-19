@@ -21080,6 +21080,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         aplikasi.isCek();
         aplikasi.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
         aplikasi.setLocationRelativeTo(PanelUtama);
+        aplikasi.emptTeks();
         aplikasi.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
     }

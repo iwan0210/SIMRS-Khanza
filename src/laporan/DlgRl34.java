@@ -101,16 +101,16 @@ public final class DlgRl34 extends javax.swing.JDialog {
                     "where operasi.kode_paket=? and operasi.tgl_operasi between ? and ? ");
             psrujukanmati=koneksi.prepareStatement(
                     "select count(operasi.kode_paket) from operasi inner join rujuk_masuk "+
-                    "inner join reg_periksa inner join pasien_mati on rujuk_masuk.no_rawat=operasi.no_rawat "+
-                    "and rujuk_masuk.no_rawat=reg_periksa.no_rawat and reg_periksa.no_rkm_medis=pasien_mati.no_rkm_medis "+
+                    "inner join reg_periksa inner join pasien_meninggal on rujuk_masuk.no_rawat=operasi.no_rawat "+
+                    "and rujuk_masuk.no_rawat=reg_periksa.no_rawat and reg_periksa.no_rkm_medis=pasien_meninggal.no_rkm_medis "+
                     "where operasi.kode_paket=? and operasi.tgl_operasi between ? and ?");
             psnonrujuktotal=koneksi.prepareStatement(
                     "select count(operasi.kode_paket) from operasi where operasi.no_rawat not in(select rujuk_masuk.no_rawat from rujuk_masuk) "+
                     "and operasi.kode_paket=? and operasi.tgl_operasi between ? and ? ");
             psnonrujukmati=koneksi.prepareStatement(
-                    "select count(operasi.kode_paket) from operasi,reg_periksa,pasien_mati "+
+                    "select count(operasi.kode_paket) from operasi,reg_periksa,pasien_meninggal "+
                     "where operasi.no_rawat not in(select rujuk_masuk.no_rawat from rujuk_masuk) "+
-                    "and reg_periksa.no_rkm_medis=pasien_mati.no_rkm_medis "+
+                    "and reg_periksa.no_rkm_medis=pasien_meninggal.no_rkm_medis "+
                     "and operasi.kode_paket=? and operasi.tgl_operasi between ? and ? ");
             psdirujuk=koneksi.prepareStatement(
                     "select count(operasi.kode_paket) from operasi inner join rujuk on rujuk.no_rawat=operasi.no_rawat "+

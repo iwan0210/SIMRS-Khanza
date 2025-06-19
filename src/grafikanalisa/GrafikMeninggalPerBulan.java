@@ -283,8 +283,8 @@ public class GrafikMeninggalPerBulan extends javax.swing.JDialog {
     private void BtnPrint3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrint3ActionPerformed
         DefaultCategoryDataset dcd = new DefaultCategoryDataset();
         try {                
-            rs = koneksi.prepareStatement("select DATE_FORMAT(pasien_mati.tanggal, '%Y-%m'),count(DATE_FORMAT(pasien_mati.tanggal, '%Y-%m')) as jumlah "+
-                "from pasien_mati where tanggal between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(pasien_mati.tanggal, '%Y-%m')").executeQuery();
+            rs = koneksi.prepareStatement("select DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m'),count(DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m')) as jumlah "+
+                "from pasien_meninggal where tanggal between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m')").executeQuery();
             while(rs.next()) {
                 dcd.setValue(rs.getDouble(2),rs.getString(1)+"("+rs.getString(2)+")",rs.getString(1));
             }
@@ -319,9 +319,9 @@ public class GrafikMeninggalPerBulan extends javax.swing.JDialog {
 
     private void BtnPrint4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrint4ActionPerformed
        grafiksql2 kas=new grafiksql2("Grafik Pasien Meninggal Per Bulan Periode "+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+" s.d. "+Valid.SetTgl(Tanggal2.getSelectedItem()+""),
-               "select DATE_FORMAT(pasien_mati.tanggal, '%Y-%m'),count(DATE_FORMAT(pasien_mati.tanggal, '%Y-%m')) as jumlah from pasien_mati "+
+               "select DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m'),count(DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m')) as jumlah from pasien_meninggal "+
                "where tanggal between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' "+
-               "group by DATE_FORMAT(pasien_mati.tanggal, '%Y-%m')","Bulan");
+               "group by DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m')","Bulan");
        kas.setSize(Scroll.getWidth(),Scroll.getHeight());  
        kas.setModal(true);
        kas.setAlwaysOnTop(true);
@@ -336,8 +336,8 @@ public class GrafikMeninggalPerBulan extends javax.swing.JDialog {
     private void BtnPrint5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrint5ActionPerformed
         DefaultPieDataset dpd = new DefaultPieDataset();
         try {                
-            rs = koneksi.prepareStatement("select DATE_FORMAT(pasien_mati.tanggal, '%Y-%m'),count(DATE_FORMAT(pasien_mati.tanggal, '%Y-%m')) as jumlah "+
-                "from pasien_mati where tanggal between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(pasien_mati.tanggal, '%Y-%m')").executeQuery();
+            rs = koneksi.prepareStatement("select DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m'),count(DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m')) as jumlah "+
+                "from pasien_meninggal where tanggal between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m')").executeQuery();
             while(rs.next()) {
                 dpd.setValue(rs.getString(1)+"("+rs.getString(2)+")",rs.getDouble(2));
             }
@@ -433,8 +433,8 @@ public class GrafikMeninggalPerBulan extends javax.swing.JDialog {
     private void tampil() {
         Valid.tabelKosong(tabMode);
         try{
-            ps=koneksi.prepareStatement("select DATE_FORMAT(pasien_mati.tanggal, '%Y-%m'),count(DATE_FORMAT(pasien_mati.tanggal, '%Y-%m')) as jumlah "+
-                "from pasien_mati where tanggal between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(pasien_mati.tanggal, '%Y-%m')");
+            ps=koneksi.prepareStatement("select DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m'),count(DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m')) as jumlah "+
+                "from pasien_meninggal where tanggal between '"+Valid.SetTgl(Tanggal1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tanggal2.getSelectedItem()+"")+"' group by DATE_FORMAT(pasien_meninggal.tanggal, '%Y-%m')");
             try {
                 rs=ps.executeQuery();
                 total=0;

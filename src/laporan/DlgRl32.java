@@ -430,8 +430,8 @@ private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                         "where reg_periksa.kd_poli='"+rs.getString("kd_poli")+"' and reg_periksa.tgl_registrasi between '"+Valid.SetTgl(Tgl1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tgl2.getSelectedItem()+"")+"'");
                 ttldirujuk=ttldirujuk+dirujuk;
                 
-                meninggal=Sequel.cariInteger("select count(reg_periksa.no_rkm_medis) from pasien_mati inner join reg_periksa "+
-                        "on reg_periksa.no_rkm_medis=pasien_mati.no_rkm_medis  where kd_poli='"+rs.getString("kd_poli")+"' and "+
+                meninggal=Sequel.cariInteger("select count(reg_periksa.no_rkm_medis) from pasien_meninggal inner join reg_periksa "+
+                        "on reg_periksa.no_rkm_medis=pasien_meninggal.no_rkm_medis  where kd_poli='"+rs.getString("kd_poli")+"' and "+
                         "reg_periksa.tgl_registrasi between '"+Valid.SetTgl(Tgl1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tgl2.getSelectedItem()+"")+"'");
                 ttlmeninggal=ttlmeninggal+meninggal;
                 

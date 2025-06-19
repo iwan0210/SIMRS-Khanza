@@ -521,12 +521,12 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                         while(rs2.next()){   
                             switch (rs2.getString("jk")) {
                                 case "L":
-                                    matil=matil+Sequel.cariInteger("select ifnull(count(pasien_mati.no_rkm_medis),0) from pasien_mati where pasien_mati.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
-                                    tmatil=tmatil+Sequel.cariInteger("select ifnull(count(pasien_mati.no_rkm_medis),0) from pasien_mati where pasien_mati.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
+                                    matil=matil+Sequel.cariInteger("select ifnull(count(pasien_meninggal.no_rkm_medis),0) from pasien_meninggal where pasien_meninggal.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
+                                    tmatil=tmatil+Sequel.cariInteger("select ifnull(count(pasien_meninggal.no_rkm_medis),0) from pasien_meninggal where pasien_meninggal.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
                                     break;
                                 case "P": 
-                                    matip=matip+Sequel.cariInteger("select ifnull(count(pasien_mati.no_rkm_medis),0) from pasien_mati where pasien_mati.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
-                                    tmatip=tmatip+Sequel.cariInteger("select ifnull(count(pasien_mati.no_rkm_medis),0) from pasien_mati where pasien_mati.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
+                                    matip=matip+Sequel.cariInteger("select ifnull(count(pasien_meninggal.no_rkm_medis),0) from pasien_meninggal where pasien_meninggal.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
+                                    tmatip=tmatip+Sequel.cariInteger("select ifnull(count(pasien_meninggal.no_rkm_medis),0) from pasien_meninggal where pasien_meninggal.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
                                     break;
                             }
 
@@ -674,12 +674,12 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                         while(rs2.next()){   
                             switch (rs2.getString("jk")) {
                                 case "L":
-                                    matil=matil+Sequel.cariInteger("select ifnull(count(pasien_mati.no_rkm_medis),0) from pasien_mati where pasien_mati.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
-                                    tmatil=tmatil+Sequel.cariInteger("select ifnull(count(pasien_mati.no_rkm_medis),0) from pasien_mati where pasien_mati.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
+                                    matil=matil+Sequel.cariInteger("select ifnull(count(pasien_meninggal.no_rkm_medis),0) from pasien_meninggal where pasien_meninggal.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
+                                    tmatil=tmatil+Sequel.cariInteger("select ifnull(count(pasien_meninggal.no_rkm_medis),0) from pasien_meninggal where pasien_meninggal.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
                                     break;
                                 case "P": 
-                                    matip=matip+Sequel.cariInteger("select ifnull(count(pasien_mati.no_rkm_medis),0) from pasien_mati where pasien_mati.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
-                                    tmatip=tmatip+Sequel.cariInteger("select ifnull(count(pasien_mati.no_rkm_medis),0) from pasien_mati where pasien_mati.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
+                                    matip=matip+Sequel.cariInteger("select ifnull(count(pasien_meninggal.no_rkm_medis),0) from pasien_meninggal where pasien_meninggal.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
+                                    tmatip=tmatip+Sequel.cariInteger("select ifnull(count(pasien_meninggal.no_rkm_medis),0) from pasien_meninggal where pasien_meninggal.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
                                     break;
                             }
 

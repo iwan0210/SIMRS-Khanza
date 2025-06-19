@@ -478,6 +478,7 @@ public final class MobileJKNReferensiPendaftaran extends javax.swing.JDialog {
                     tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),1).toString(),tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),0).toString(), 
                     tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),11).toString(),"Dibatalkan Oleh Admin","Belum",tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),14).toString()
                 });
+                Sequel.mengedit("reg_periksa", "no_rawat=?", "stts='Batal',biaya_reg='0'", 1, new String[] { tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(),1).toString() });
                 tampil();
             }
         }else{

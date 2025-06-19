@@ -715,7 +715,7 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                     status="Sembuh";
                     if(Sequel.cariInteger("select count(no_rawat) from rujuk where no_rawat=?",rs.getString("no_rawat"))>0){
                         status="Dirujuk";
-                    }else if(Sequel.cariInteger("select count(no_rkm_medis) from pasien_mati where no_rkm_medis=?",rs.getString("no_rkm_medis"))>0){
+                    }else if(Sequel.cariInteger("select count(no_rkm_medis) from pasien_meninggal where no_rkm_medis=?",rs.getString("no_rkm_medis"))>0){
                         status="Meninggal";
                     }
                     

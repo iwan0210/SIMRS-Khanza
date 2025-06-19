@@ -1137,19 +1137,19 @@ public final class SatuSehatMapingObatAlkes extends javax.swing.JDialog {
 
     public void emptTeks() {
         KFACode.setText("");
-        KFASystem.setText("");
+        KFASystem.setText("http://sys-ids.kemkes.go.id/kfa");
         KodeBarang.setText("");
         NamaBarang.setText("");
         KFADisplay.setText("");
         FormCode.setText("");
-        FormSystem.setText("");
+        FormSystem.setText("http://terminology.kemkes.go.id/CodeSystem/medication-form");
         FormDisplay.setText("");
         NumoratorCode.setText("");
-        NemeratorSystem.setText("");
+        NemeratorSystem.setText("http://unitsofmeasure.org");
         DenominatorCode.setText("");
-        DenominatorSystem.setText("");
+        DenominatorSystem.setText("http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm");
         RouteCode.setText("");
-        RouteSystem.setText("");
+        RouteSystem.setText("http://www.whocc.no/atc");
         RouteDisplay.setText("");
         ChkInput.setSelected(true);
         isForm();

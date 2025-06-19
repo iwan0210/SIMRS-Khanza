@@ -601,7 +601,7 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                         ps2.setString(3,rs.getString("kd_penyakit"));
                         rs2=ps2.executeQuery();
                         while(rs2.next()){       
-                            meninggal=meninggal+Sequel.cariInteger("select ifnull(count(pasien_mati.no_rkm_medis),0) from pasien_mati where pasien_mati.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
+                            meninggal=meninggal+Sequel.cariInteger("select ifnull(count(pasien_meninggal.no_rkm_medis),0) from pasien_meninggal where pasien_meninggal.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
                             ttl=ttl+1;
                             jmltotal=jmltotal+1;
                             if(Sequel.cariInteger("select count(diagnosa_pasien.no_rawat) from reg_periksa inner join diagnosa_pasien "+
@@ -707,7 +707,7 @@ private void BtnCari1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
                         ps4.setString(3,rs.getString("kd_penyakit"));
                         rs2=ps4.executeQuery();
                         while(rs2.next()){       
-                            meninggal=meninggal+Sequel.cariInteger("select ifnull(count(pasien_mati.no_rkm_medis),0) from pasien_mati where pasien_mati.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
+                            meninggal=meninggal+Sequel.cariInteger("select ifnull(count(pasien_meninggal.no_rkm_medis),0) from pasien_meninggal where pasien_meninggal.no_rkm_medis=?",rs2.getString("no_rkm_medis"));
                             ttl=ttl+1;
                             jmltotal=jmltotal+1;
                             if(Sequel.cariInteger("select count(diagnosa_pasien.no_rawat) from reg_periksa inner join diagnosa_pasien inner join kamar_inap "+

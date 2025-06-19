@@ -46,7 +46,7 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
     private ResultSet rs;
     private int i=0;    
     private DlgCariPegawai petugas=new DlgCariPegawai(null,false);
-    private double topi=0,masker=0,kacamata=0,sarungtangan=0,apron=0,sepatu=0,ttltopi=0,ttlmasker=0,ttlkacamata=0,ttlsarungtangan=0,ttlapron=0,ttlsepatu=0,ttlpenilaian=0;
+    private double topi=0,masker=0,kacamata=0,sarungtangan=0,apron=0,sepatu=0,ttltopi=0,ttlmasker=0,ttlkacamata=0,ttlsarungtangan=0,ttlapron=0,ttlsepatu=0,ttlpenilaian=0,tddtopi = 0, tddmasker = 0, tddkacamata = 0, tddsarungtangan = 0, tddapron = 0, tddsepatu = 0,cntTopi = 0, cntMasker = 0, cntKacamata = 0, cntSarungTangan = 0, cntApron = 0, cntSepatu = 0;
     
     /** Creates new form DlgRujuk
      * @param parent
@@ -1074,42 +1074,176 @@ public final class DlgAuditKepatuhanAPD extends javax.swing.JDialog {
                 }
                     
                 rs=ps.executeQuery();
-                ttltopi=0;ttlmasker=0;ttlkacamata=0;ttlsarungtangan=0;ttlapron=0;ttlsepatu=0;ttlpenilaian=0;
+                ttltopi=0;ttlmasker=0;ttlkacamata=0;ttlsarungtangan=0;ttlapron=0;ttlsepatu=0;ttlpenilaian=0;tddtopi = 0;tddmasker = 0;tddkacamata = 0;tddsarungtangan = 0;tddapron = 0;tddsepatu = 0;
+                cntTopi = 0;cntMasker = 0;cntKacamata = 0;cntSarungTangan = 0;cntApron = 0;cntSepatu = 0;
                 i=1;
-                while(rs.next()){
-                    topi=Double.parseDouble(rs.getString("topi").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
-                    ttltopi=ttltopi+topi;
-                    masker=Double.parseDouble(rs.getString("masker").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
-                    ttlmasker=ttlmasker+masker;
-                    kacamata=Double.parseDouble(rs.getString("kacamata").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
-                    ttlkacamata=ttlkacamata+kacamata;
-                    sarungtangan=Double.parseDouble(rs.getString("sarungtangan").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
-                    ttlsarungtangan=ttlsarungtangan+sarungtangan;
-                    apron=Double.parseDouble(rs.getString("apron").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
-                    ttlapron=ttlapron+apron;
-                    sepatu=Double.parseDouble(rs.getString("sepatu").replaceAll("Ya","1").replaceAll("Tidak","0").replaceAll("TDD","1"));
-                    ttlsepatu=ttlsepatu+sepatu;
-                    ttlpenilaian=ttlpenilaian+(((topi+masker+kacamata+sarungtangan+apron+sepatu)/6)*100);
+                while (rs.next()) {
+                    // Ambil nilai string
+                    String valTopi = rs.getString("topi");
+                    String valMasker = rs.getString("masker");
+                    String valKacamata = rs.getString("kacamata");
+                    String valSarungTangan = rs.getString("sarungtangan");
+                    String valApron = rs.getString("apron");
+                    String valSepatu = rs.getString("sepatu");
+
+                    // Proses dan hitung topi
+                    double topi = 0;
+                    if (valTopi.equals("Ya")) {
+                        topi = 1;
+                        cntTopi++;
+                        ttltopi += topi;
+                    } else if (valTopi.equals("Tidak")) {
+                        cntTopi++;
+                    } else if (valTopi.equals("TDD")) {
+                        tddtopi++;
+                    }
+
+                    // masker
+                    double masker = 0;
+                    if (valMasker.equals("Ya")) {
+                        masker = 1;
+                        cntMasker++;
+                        ttlmasker += masker;
+                    } else if (valMasker.equals("Tidak")) {
+                        cntMasker++;
+                    } else if (valMasker.equals("TDD")) {
+                        tddmasker++;
+                    }
+
+                    // kacamata
+                    double kacamata = 0;
+                    if (valKacamata.equals("Ya")) {
+                        kacamata = 1;
+                        cntKacamata++;
+                        ttlkacamata += kacamata;
+                    } else if (valKacamata.equals("Tidak")) {
+                        cntKacamata++;
+                    } else if (valKacamata.equals("TDD")) {
+                        tddkacamata++;
+                    }
+
+                    // sarung tangan
+                    double sarungtangan = 0;
+                    if (valSarungTangan.equals("Ya")) {
+                        sarungtangan = 1;
+                        cntSarungTangan++;
+                        ttlsarungtangan += sarungtangan;
+                    } else if (valSarungTangan.equals("Tidak")) {
+                        cntSarungTangan++;
+                    } else if (valSarungTangan.equals("TDD")) {
+                        tddsarungtangan++;
+                    }
+
+                    // apron
+                    double apron = 0;
+                    if (valApron.equals("Ya")) {
+                        apron = 1;
+                        cntApron++;
+                        ttlapron += apron;
+                    } else if (valApron.equals("Tidak")) {
+                        cntApron++;
+                    } else if (valApron.equals("TDD")) {
+                        tddapron++;
+                    }
+
+                    // sepatu
+                    double sepatu = 0;
+                    if (valSepatu.equals("Ya")) {
+                        sepatu = 1;
+                        cntSepatu++;
+                        ttlsepatu += sepatu;
+                    } else if (valSepatu.equals("Tidak")) {
+                        cntSepatu++;
+                    } else if (valSepatu.equals("TDD")) {
+                        tddsepatu++;
+                    }
+
+                    // Rata-rata hanya dari item yang bukan TDD
+                    int validItems = 0;
+                    double sum = 0;
+
+                    if (!valTopi.equals("TDD")) {
+                        sum += topi;
+                        validItems++;
+                    }
+                    if (!valMasker.equals("TDD")) {
+                        sum += masker;
+                        validItems++;
+                    }
+                    if (!valKacamata.equals("TDD")) {
+                        sum += kacamata;
+                        validItems++;
+                    }
+                    if (!valSarungTangan.equals("TDD")) {
+                        sum += sarungtangan;
+                        validItems++;
+                    }
+                    if (!valApron.equals("TDD")) {
+                        sum += apron;
+                        validItems++;
+                    }
+                    if (!valSepatu.equals("TDD")) {
+                        sum += sepatu;
+                        validItems++;
+                    }
+
+                    double nilai = validItems > 0 ? (sum / validItems) * 100 : 0;
+                    ttlpenilaian += nilai;
+
                     tabMode.addRow(new Object[]{
-                        rs.getString("tanggal"),rs.getString("tindakan"),rs.getString("nik"),rs.getString("nama"),rs.getString("jbtn"),rs.getString("topi"),
-                        rs.getString("masker"),rs.getString("kacamata"),rs.getString("sarungtangan"),rs.getString("apron"),rs.getString("sepatu"),
-                        Math.round(((topi+masker+kacamata+sarungtangan+apron+sepatu)/6)*100)+" %"
+                        rs.getString("tanggal"), rs.getString("tindakan"), rs.getString("nik"), rs.getString("nama"), rs.getString("jbtn"),
+                        valTopi, valMasker, valKacamata, valSarungTangan, valApron, valSepatu,
+                        Math.round(nilai) + " %"
                     });
+
                     i++;
                 }
-                i=i-1;
-                if(i>0){
+
+                i = i - 1;
+
+                if (i > 0) {
+                    // Tambah baris rekap Ya
                     tabMode.addRow(new Object[]{
-                        "","Ya",":","","",""+ttltopi,""+ttlmasker,""+ttlkacamata,""+ttlsarungtangan,""+ttlapron,""+ttlsepatu,
-                        ""+(ttltopi+ttlmasker+ttlkacamata+ttlsarungtangan+ttlapron+ttlsepatu)
+                        "", "Ya", ":", "", "",
+                        (int) ttltopi, (int) ttlmasker, (int) ttlkacamata, (int) ttlsarungtangan, (int) ttlapron, (int) ttlsepatu,
+                        (int) (ttltopi + ttlmasker + ttlkacamata + ttlsarungtangan + ttlapron + ttlsepatu)
                     });
+
+                    // Tambah baris rekap Tidak
                     tabMode.addRow(new Object[]{
-                        "","Tidak",":","","",""+(i-ttltopi),""+(i-ttlmasker),""+(i-ttlkacamata),""+(i-ttlsarungtangan),""+(i-ttlapron),""+(i-ttlsepatu),
-                        ""+((i-ttltopi)+(i-ttlmasker)+(i-ttlkacamata)+(i-ttlsarungtangan)+(i-ttlapron)+(i-ttlsepatu))
+                        "", "Tidak", ":", "", "",
+                        (int)(cntTopi - ttltopi),
+                        (int)(cntMasker - ttlmasker),
+                        (int)(cntKacamata - ttlkacamata),
+                        (int)(cntSarungTangan - ttlsarungtangan),
+                        (int)(cntApron - ttlapron),
+                        (int)(cntSepatu - ttlsepatu),
+                        (int)((cntTopi - ttltopi) + (cntMasker - ttlmasker) + (cntKacamata - ttlkacamata) +
+                              (cntSarungTangan - ttlsarungtangan) + (cntApron - ttlapron) + (cntSepatu - ttlsepatu))
                     });
+
+                    // Tambah baris rekap TDD
                     tabMode.addRow(new Object[]{
-                        "","Rata-rata",":","","",Math.round((ttltopi/i)*100)+" %",Math.round((ttlmasker/i)*100)+" %",Math.round((ttlkacamata/i)*100)+" %",
-                        Math.round((ttlsarungtangan/i)*100)+" %",Math.round((ttlapron/i)*100)+" %",Math.round((ttlsepatu/i)*100)+" %",Math.round(ttlpenilaian/i)+" %"
+                        "", "TDD", ":", "", "",
+                        (int) tddtopi,
+                        (int) tddmasker,
+                        (int) tddkacamata,
+                        (int) tddsarungtangan,
+                        (int) tddapron,
+                        (int) tddsepatu,
+                        (int)(tddtopi + tddmasker + tddkacamata + tddsarungtangan + tddapron + tddsepatu)
+                    });
+
+                    // Tambah baris rata-rata
+                    tabMode.addRow(new Object[]{
+                        "", "Rata-rata", ":", "", "",
+                        cntTopi > 0 ? Math.round((ttltopi / cntTopi) * 100) + " %" : "0 %",
+                        cntMasker > 0 ? Math.round((ttlmasker / cntMasker) * 100) + " %" : "0 %",
+                        cntKacamata > 0 ? Math.round((ttlkacamata / cntKacamata) * 100) + " %" : "0 %",
+                        cntSarungTangan > 0 ? Math.round((ttlsarungtangan / cntSarungTangan) * 100) + " %" : "0 %",
+                        cntApron > 0 ? Math.round((ttlapron / cntApron) * 100) + " %" : "0 %",
+                        cntSepatu > 0 ? Math.round((ttlsepatu / cntSepatu) * 100) + " %" : "0 %",
+                        Math.round(ttlpenilaian / i) + " %"
                     });
                 }
             } catch (Exception e) {
