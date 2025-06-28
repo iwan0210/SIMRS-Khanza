@@ -8,6 +8,15 @@
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="localhost"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="diagnosa" class="java.lang.String"/>
 	<parameter name="namars" class="java.lang.String"/>
 	<parameter name="alamatrs" class="java.lang.String"/>
@@ -25,6 +34,12 @@ penilaian_dehidrasi.penilaian3,penilaian_dehidrasi.penilaian_nilai3,
 penilaian_dehidrasi.penilaian4,penilaian_dehidrasi.penilaian_nilai4,
 penilaian_dehidrasi.penilaian5,penilaian_dehidrasi.penilaian_nilai5,
 penilaian_dehidrasi.penilaian6,penilaian_dehidrasi.penilaian_nilai6,
+penilaian_dehidrasi.penilaian7,penilaian_dehidrasi.penilaian_nilai7,
+penilaian_dehidrasi.penilaian8,penilaian_dehidrasi.penilaian_nilai8,
+penilaian_dehidrasi.penilaian9,penilaian_dehidrasi.penilaian_nilai9,
+penilaian_dehidrasi.penilaian10,penilaian_dehidrasi.penilaian_nilai10,
+penilaian_dehidrasi.penilaian11,penilaian_dehidrasi.penilaian_nilai11,
+penilaian_dehidrasi.penilaian12,penilaian_dehidrasi.penilaian_nilai12,
 penilaian_dehidrasi.penilaian_totalnilai,penilaian_dehidrasi.hasil_penilaian,
 penilaian_dehidrasi.kd_dokter,dokter.nm_dokter 
 from penilaian_dehidrasi inner join reg_periksa on penilaian_dehidrasi.no_rawat=reg_periksa.no_rawat 
@@ -133,6 +148,18 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 		<property name="com.jaspersoft.studio.field.tree.path" value="penilaian_lanjutan_resiko_jatuh_anak"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="penilaian7" class="java.lang.String"/>
+	<field name="penilaian_nilai7" class="java.lang.Integer"/>
+	<field name="penilaian8" class="java.lang.String"/>
+	<field name="penilaian_nilai8" class="java.lang.Integer"/>
+	<field name="penilaian9" class="java.lang.String"/>
+	<field name="penilaian_nilai9" class="java.lang.Integer"/>
+	<field name="penilaian10" class="java.lang.String"/>
+	<field name="penilaian_nilai10" class="java.lang.Integer"/>
+	<field name="penilaian11" class="java.lang.String"/>
+	<field name="penilaian_nilai11" class="java.lang.Integer"/>
+	<field name="penilaian12" class="java.lang.String"/>
+	<field name="penilaian_nilai12" class="java.lang.Integer"/>
 	<field name="penilaian_totalnilai" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="penilaian_humptydumpty_totalnilai"/>
 		<property name="com.jaspersoft.studio.field.label" value="penilaian_humptydumpty_totalnilai"/>
@@ -406,9 +433,9 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="148" splitType="Stretch">
+		<band height="192" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="85" y="90" width="467" height="11" forecolor="#000000" backcolor="#F0F0DC" uuid="39d654c1-a0e6-4081-be04-e48415c7a484"/>
+				<reportElement positionType="Float" mode="Opaque" x="85" y="156" width="467" height="11" forecolor="#000000" backcolor="#F0F0DC" uuid="39d654c1-a0e6-4081-be04-e48415c7a484"/>
 				<box>
 					<topPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -446,7 +473,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 				<textFieldExpression><![CDATA[$F{penilaian_nilai1}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="Float" x="84" y="0" width="1" height="147" uuid="fe0debe5-13d1-441c-89e8-ed19c7eeecaa">
+				<reportElement positionType="Float" x="84" y="0" width="1" height="191" uuid="fe0debe5-13d1-441c-89e8-ed19c7eeecaa">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -455,7 +482,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="0" y="0" width="1" height="147" uuid="bee9aaaa-199f-42e0-8828-3cbdf5a8e539">
+				<reportElement positionType="Float" x="0" y="0" width="1" height="192" uuid="bee9aaaa-199f-42e0-8828-3cbdf5a8e539">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -464,7 +491,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="551" y="0" width="1" height="147" uuid="556b7791-1090-4673-94d9-efe13381d163">
+				<reportElement positionType="Float" x="551" y="0" width="1" height="191" uuid="556b7791-1090-4673-94d9-efe13381d163">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -473,7 +500,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="509" y="0" width="1" height="101" uuid="29bdadbc-2fcb-4469-9fe9-12267a833a8b">
+				<reportElement positionType="Float" x="509" y="0" width="1" height="156" uuid="29bdadbc-2fcb-4469-9fe9-12267a833a8b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<graphicElement>
@@ -518,7 +545,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[1. Keadaan Umum]]></text>
+				<text><![CDATA[1. Status mental]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="86" y="13" width="130" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="421c623f-2dff-4c6b-8412-c4b1cb447e3b"/>
@@ -526,7 +553,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[2. Mata]]></text>
+				<text><![CDATA[2. Rasa haus]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="86" y="26" width="130" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="f16ef8e0-a7ac-4407-924f-b1e5aae40d20"/>
@@ -534,10 +561,10 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[3. Mulut]]></text>
+				<text><![CDATA[3. Nadi]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="514" y="91" width="34" height="10" uuid="1ae01361-7587-4c10-82f1-2106d9bbf4a1"/>
+				<reportElement positionType="Float" x="514" y="157" width="34" height="10" uuid="1ae01361-7587-4c10-82f1-2106d9bbf4a1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Tahoma" size="7"/>
 					<paragraph lineSpacing="Single"/>
@@ -545,7 +572,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 				<textFieldExpression><![CDATA[$F{penilaian_totalnilai}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="Float" x="0" y="147" width="552" height="1" uuid="3ff6d89e-2612-4e8a-9df4-2fd636eff662">
+				<reportElement positionType="Float" x="1" y="191" width="551" height="1" uuid="3ff6d89e-2612-4e8a-9df4-2fd636eff662">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<graphicElement>
@@ -558,7 +585,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[4. Pernapasan]]></text>
+				<text><![CDATA[4. Kualitas denyut nadi]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="86" y="52" width="130" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="38b0c83a-fe47-4fd5-ba31-c7a3c38a8bcf"/>
@@ -566,7 +593,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[5. Tugor]]></text>
+				<text><![CDATA[5. Pernapasan]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="86" y="65" width="130" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="39b6bffa-118c-4267-a47b-115eb3ca8bc7"/>
@@ -574,7 +601,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[6. Nadi]]></text>
+				<text><![CDATA[6. Mata]]></text>
 			</staticText>
 			<textField>
 				<reportElement positionType="Float" x="218" y="39" width="291" height="10" uuid="fdf601c4-38c6-4269-9870-de4e8925dd1b"/>
@@ -625,7 +652,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 				<textFieldExpression><![CDATA[$F{penilaian_nilai4}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="Float" x="88" y="103" width="460" height="20" uuid="68809d68-0de2-4433-a202-9715d92be571"/>
+				<reportElement positionType="Float" x="88" y="169" width="460" height="20" uuid="68809d68-0de2-4433-a202-9715d92be571"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="Tahoma" size="7"/>
 					<paragraph lineSpacing="Single"/>
@@ -679,6 +706,198 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="218" y="78" width="291" height="10" uuid="78964a13-caa1-4df4-b1b1-7c8815c00764"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian7}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="211" y="78" width="5" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="9980d6b7-c124-416b-a5c2-3fc810b605ea"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="514" y="78" width="34" height="10" uuid="f23bb7c8-e80f-449f-b5b4-822d8192224f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian_nilai7}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="86" y="78" width="130" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="e66a65c8-2bcd-45ed-81ab-969f2cf0e9ee"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[7. Air mata]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="218" y="91" width="291" height="10" uuid="5757e8cc-80c3-4610-b449-9542ab02825f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian8}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="211" y="91" width="5" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="c370be23-f5e9-4746-9aa5-b3f52030188f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="86" y="91" width="130" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="81efb06c-d3b8-40f3-8055-0b1e107d4c35"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[8. Mulut dan lidah]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="218" y="104" width="291" height="10" uuid="9ce2eca8-e49a-49e5-91a5-6b5a7fb4b9a5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian9}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="211" y="104" width="5" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="8e4b6454-5748-4df7-9597-707668c9caa4"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="86" y="104" width="130" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="eb43d637-a35d-4ace-bcaa-91a48248cc6a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[9. Turgor kulit]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="514" y="91" width="34" height="10" uuid="753ab338-6fbd-4e75-acd8-b3d0b15e0997"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian_nilai8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="514" y="104" width="34" height="10" uuid="38149809-5201-48c1-8fd3-7d4917298f95"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian_nilai9}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="514" y="117" width="34" height="10" uuid="68bbb234-1e30-478d-b0b0-3bb4d0907534"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian_nilai10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="514" y="130" width="34" height="10" uuid="3376ab5a-c313-4e2b-89d9-59abf48adf7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian_nilai11}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="514" y="143" width="34" height="10" uuid="f4d08812-029a-4dfc-a2b9-2d390c1522e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian_nilai12}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="218" y="117" width="291" height="10" uuid="b4d1f877-406b-48e3-9c54-a4ee2fe8520c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian10}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="211" y="117" width="5" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="50c204be-e089-4c07-9995-d507aed20df8"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="86" y="117" width="130" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="e03788d7-8268-429a-8d78-7edbcb827bf8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[10. Isian kapiler]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="218" y="130" width="291" height="10" uuid="34239e84-fbbf-4d99-8a7a-aff82b1d72fa"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian11}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="211" y="130" width="5" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="0d5d7773-f3dc-40aa-962c-c77a5dcee6aa"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="86" y="130" width="130" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="3ded2f69-7e35-4a80-9670-c9c3e96d8968"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[11. Ekstremitas]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="218" y="143" width="291" height="10" uuid="923d72bb-4273-40fa-86e1-5bdcdecfbae2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penilaian12}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="211" y="143" width="5" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="0465c6d8-e8fb-47fe-a18f-5f31c180f8d7"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="86" y="143" width="130" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="0ff00f34-b4a4-4dc0-980b-486425392ba0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[12. Output urin]]></text>
 			</staticText>
 		</band>
 	</detail>
@@ -738,7 +957,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Skor 6]]></text>
+				<text><![CDATA[Skor 12]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="48" y="22" width="52" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="e40d6323-226f-4160-a115-3ab9af6f1a01">
@@ -748,7 +967,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Skor 7-12]]></text>
+				<text><![CDATA[Skor 13-24]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="102" y="10" width="268" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="243641fe-d7b6-4fd4-9c91-5f3ebc7f7ef9">
@@ -778,7 +997,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Skor >=13]]></text>
+				<text><![CDATA[Skor >=25]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="102" y="35" width="268" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="b9564c51-70aa-4cb7-bb65-7c7816b99100">

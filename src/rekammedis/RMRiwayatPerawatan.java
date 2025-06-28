@@ -31160,7 +31160,11 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                     rs2=koneksi.prepareStatement(
                             "select penilaian_dehidrasi.tanggal,penilaian_dehidrasi.penilaian1,penilaian_dehidrasi.penilaian_nilai1,penilaian_dehidrasi.penilaian2,penilaian_dehidrasi.penilaian_nilai2,"+
                             "penilaian_dehidrasi.penilaian3,penilaian_dehidrasi.penilaian_nilai3,penilaian_dehidrasi.penilaian4,penilaian_dehidrasi.penilaian_nilai4,penilaian_dehidrasi.penilaian5,"+
-                            "penilaian_dehidrasi.penilaian_nilai5,penilaian_dehidrasi.penilaian6,penilaian_dehidrasi.penilaian_nilai6,penilaian_dehidrasi.penilaian_totalnilai,penilaian_dehidrasi.hasil_penilaian,"+
+                            "penilaian_dehidrasi.penilaian_nilai5,penilaian_dehidrasi.penilaian6,penilaian_dehidrasi.penilaian_nilai6,"+
+                            "penilaian_dehidrasi.penilaian7,penilaian_dehidrasi.penilaian_nilai7,penilaian_dehidrasi.penilaian8,penilaian_dehidrasi.penilaian_nilai8,"+
+                            "penilaian_dehidrasi.penilaian9,penilaian_dehidrasi.penilaian_nilai9,penilaian_dehidrasi.penilaian10,penilaian_dehidrasi.penilaian_nilai10,"+
+                            "penilaian_dehidrasi.penilaian11,penilaian_dehidrasi.penilaian_nilai11,penilaian_dehidrasi.penilaian12,penilaian_dehidrasi.penilaian_nilai12,"+
+                            "penilaian_dehidrasi.penilaian_totalnilai,penilaian_dehidrasi.hasil_penilaian,"+
                             "penilaian_dehidrasi.kd_dokter,dokter.nm_dokter from penilaian_dehidrasi inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter where "+
                             "penilaian_dehidrasi.no_rawat='"+norawat+"'").executeQuery();
                     if(rs2.next()){
@@ -31184,37 +31188,67 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                         do{
                             htmlContent.append(
                                  "<tr>").append(
-                                    "<td valign='top' align='center' valign='middle' rowspan='7'>").append(w).append("</td>").append(
-                                    "<td valign='top' align='center' valign='middle' rowspan='7'>").append(rs2.getString("tanggal")).append("<br>").append(rs2.getString("kd_dokter")).append(" ").append(rs2.getString("nm_dokter")).append("</td>").append(
-                                    "<td valign='top' align='justify' valign='middle'>1. Keadaan Umum</td>").append(
+                                    "<td valign='top' align='center' valign='middle' rowspan='13'>").append(w).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle' rowspan='13'>").append(rs2.getString("tanggal")).append("<br>").append(rs2.getString("kd_dokter")).append(" ").append(rs2.getString("nm_dokter")).append("</td>").append(
+                                    "<td valign='top' align='justify' valign='middle'>1. Status mental</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian1")).append("</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai1")).append("</td>").append(
-                                    "<td valign='top' align='center' valign='middle' rowspan='7'>").append(rs2.getString("hasil_penilaian").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle' rowspan='13'>").append(rs2.getString("hasil_penilaian").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").append(
                                  "</tr>").append(
                                  "<tr>").append(
-                                    "<td valign='top' align='justify' valign='middle'>2. Mata</td>").append(
+                                    "<td valign='top' align='justify' valign='middle'>2. Rasa haus</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian2")).append("</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai2")).append("</td>").append(
                                  "</tr>").append(
                                  "<tr>").append(
-                                    "<td valign='top' align='justify' valign='middle'>3. Mulut</td>").append(
+                                    "<td valign='top' align='justify' valign='middle'>3. Nadi</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian3")).append("</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai3")).append("</td>").append(
                                  "</tr>").append(
                                  "<tr>").append(
-                                    "<td valign='top' align='justify' valign='middle'>4. Pernafasan</td>").append(
+                                    "<td valign='top' align='justify' valign='middle'>4. Kualitas denyut nadi</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian4")).append("</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai4")).append("</td>").append(
                                  "</tr>").append(
                                  "<tr>").append(
-                                    "<td valign='top' align='justify' valign='middle'>5. Tugor</td>").append(
+                                    "<td valign='top' align='justify' valign='middle'>5. Pernapasan</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian5")).append("</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai5")).append("</td>").append(
                                  "</tr>").append(
                                  "<tr>").append(
-                                    "<td valign='top' align='justify' valign='middle'>6. Nadi</td>").append(
+                                    "<td valign='top' align='justify' valign='middle'>6. Mata</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian6")).append("</td>").append(
                                     "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai6")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='justify' valign='middle'>7. Air mata</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian7")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai7")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='justify' valign='middle'>8. Mulut dan lidah</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian8")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai8")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='justify' valign='middle'>9. Turgor kulit</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian9")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai9")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='justify' valign='middle'>10. Isian kapiler</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian10")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai10")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='justify' valign='middle'>11. Ekstremitas</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian11")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai11")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='justify' valign='middle'>12. Output urin</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian12")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai12")).append("</td>").append(
                                  "</tr>").append(
                                  "<tr>").append(
                                     "<td valign='top' align='center' valign='middle' colspan='2'>TOTAL</td>").append(
