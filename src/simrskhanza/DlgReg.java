@@ -7301,6 +7301,10 @@ public final class DlgReg extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null,"Pasien sedang dalam masa perawatan di kamar inap..!!");
             TNoRM.requestFocus();
         }else{
+            if (Sequel.cariInteger("select count(no_rawat) from reg_periksa where no_rkm_medis ='"+TNoRM.getText()+"' and kd_dokter ='"+KdDokter.getText()+"' and tgl_registrasi='"+Valid.SetTgl(DTPReg.getSelectedItem()+"")+"' and stts!='Batal'")>0) {
+                JOptionPane.showMessageDialog(null,"Pasien tersebut sudah terdaftar");
+                return;
+            }
             if(akses.getkode().equals("Admin Utama")){
                 isRegistrasi();
             }else{

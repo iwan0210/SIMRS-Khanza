@@ -977,7 +977,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[: Tanpa Dehidrasi]]></text>
+				<text><![CDATA[: Dehidrasi Minimal]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="102" y="22" width="268" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="3b312c46-c290-4978-b609-1e589102414c">
@@ -987,7 +987,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 					<font fontName="Tahoma" size="7" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[: Dehidrasi Ringan-Sedang]]></text>
+				<text><![CDATA[: Dehidrasi Sedang]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="Float" mode="Transparent" x="48" y="35" width="52" height="10" forecolor="#000000" backcolor="#F0F0DC" uuid="aafd0e39-97c4-4886-81a0-c25984a984fd">

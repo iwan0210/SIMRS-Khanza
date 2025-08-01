@@ -1881,32 +1881,32 @@ public final class RMPenilaianDerajatDehidrasi extends javax.swing.JDialog {
     
     public void emptTeks() {
         Tanggal.setDate(new Date());
-        Skala1.setSelectedIndex(0);
-        Nilai1.setText("1");
-        Skala2.setSelectedIndex(0);
-        Nilai2.setText("1");
-        Skala3.setSelectedIndex(0);
-        Nilai3.setText("1");
-        Skala4.setSelectedIndex(0);
-        Nilai4.setText("1");
-        Skala5.setSelectedIndex(0);
-        Nilai5.setText("1");
-        Skala6.setSelectedIndex(0);
-        Nilai6.setText("1");
-        Skala7.setSelectedIndex(0);
-        Nilai7.setText("1");
-        Skala8.setSelectedIndex(0);
-        Nilai8.setText("1");
-        Skala9.setSelectedIndex(0);
-        Nilai9.setText("1");
-        Skala10.setSelectedIndex(0);
-        Nilai10.setText("1");
-        Skala11.setSelectedIndex(0);
-        Nilai11.setText("1");
-        Skala12.setSelectedIndex(0);
-        Nilai12.setText("1");
-        NilaiTotal.setText("12");
-        HasilPenilaian.setText("Interpretasi : Tanpa Dehidrasi");
+        Skala1.setSelectedIndex(1);
+        Nilai1.setText("2");
+        Skala2.setSelectedIndex(1);
+        Nilai2.setText("2");
+        Skala3.setSelectedIndex(1);
+        Nilai3.setText("2");
+        Skala4.setSelectedIndex(1);
+        Nilai4.setText("2");
+        Skala5.setSelectedIndex(1);
+        Nilai5.setText("2");
+        Skala6.setSelectedIndex(1);
+        Nilai6.setText("2");
+        Skala7.setSelectedIndex(1);
+        Nilai7.setText("2");
+        Skala8.setSelectedIndex(1);
+        Nilai8.setText("2");
+        Skala9.setSelectedIndex(1);
+        Nilai9.setText("2");
+        Skala10.setSelectedIndex(1);
+        Nilai10.setText("2");
+        Skala11.setSelectedIndex(1);
+        Nilai11.setText("2");
+        Skala12.setSelectedIndex(1);
+        Nilai12.setText("2");
+        NilaiTotal.setText("24");
+        HasilPenilaian.setText("Interpretasi : Dehidrasi Sedang");
         Skala1.requestFocus();
     } 
 
@@ -2165,13 +2165,13 @@ public final class RMPenilaianDerajatDehidrasi extends javax.swing.JDialog {
             if (i >= 25) {
                 HasilPenilaian.setText("Interpretasi : Dehidrasi Berat");
             } else if (i >= 13 && i <= 24) {
-                HasilPenilaian.setText("Interpretasi : Dehidrasi Ringan-Sedang");
+                HasilPenilaian.setText("Interpretasi : Dehidrasi Sedang");
             } else if (i < 13) {
-                HasilPenilaian.setText("Interpretasi : Tanpa Dehidrasi");
+                HasilPenilaian.setText("Interpretasi : Minimal");
             }
         } catch (NumberFormatException e) {
             NilaiTotal.setText("12");
-            HasilPenilaian.setText("Interpretasi : Tanpa Dehidrasi");
+            HasilPenilaian.setText("Interpretasi : Minimal");
         }
     }
 

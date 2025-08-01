@@ -387,6 +387,8 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         jLabel12 = new widget.Label();
         jLabel14 = new widget.Label();
         NmTemplate = new widget.TextBox();
+        jLabel15 = new widget.Label();
+        bb = new widget.TextBox();
         TabRawat = new javax.swing.JTabbedPane();
         Scroll = new widget.ScrollPane();
         tbResep = new widget.Table();
@@ -688,7 +690,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         jLabel8.setBounds(0, 42, 72, 23);
 
         DTPBeri.setForeground(new java.awt.Color(50, 70, 50));
-        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-04-2024" }));
+        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-07-2025" }));
         DTPBeri.setDisplayFormat("dd-MM-yyyy");
         DTPBeri.setName("DTPBeri"); // NOI18N
         DTPBeri.setOpaque(false);
@@ -818,6 +820,22 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         });
         FormInput.add(NmTemplate);
         NmTemplate.setBounds(750, 72, 160, 24);
+
+        jLabel15.setText("Berat (kg) :");
+        jLabel15.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jLabel15.setName("jLabel15"); // NOI18N
+        FormInput.add(jLabel15);
+        jLabel15.setBounds(700, 12, 70, 23);
+
+        bb.setHighlighter(null);
+        bb.setName("bb"); // NOI18N
+        bb.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                bbKeyPressed(evt);
+            }
+        });
+        FormInput.add(bb);
+        bb.setBounds(780, 12, 100, 24);
 
         internalFrame1.add(FormInput, java.awt.BorderLayout.PAGE_START);
 
@@ -1109,12 +1127,18 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                             NoResep.getText(),NmTemplate.getText().trim() 
                         });
                     }
+                    
+                    if (!NoResep.getText().trim().isEmpty()) {
+                        simpanBBResep();
+                    }
                 }else if(ubah==true){
                     Sequel.meghapus("resep_dokter","no_resep",NoResep.getText());
                     Sequel.meghapus("resep_dokter_racikan","no_resep",NoResep.getText());
                     Sequel.meghapus("resep_dokter_racikan_detail","no_resep",NoResep.getText());
+                    Sequel.meghapus("bb_resep","no_resep", NoResep.getText());
                     ubah=false;
                     simpandata();
+                    simpanBBResep();
                 }                                                      
                 
                 if(sukses==true){
@@ -1556,6 +1580,10 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         // TODO add your handling code here:
     }//GEN-LAST:event_ChkRMActionPerformed
 
+    private void bbKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bbKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bbKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -1602,6 +1630,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.TextBox TNoRw;
     private widget.TextBox TPasien;
     private javax.swing.JTabbedPane TabRawat;
+    private widget.TextBox bb;
     private widget.Button btnDokter;
     private widget.ComboBox cmbDtk;
     private widget.ComboBox cmbJam;
@@ -1610,6 +1639,7 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private widget.Label jLabel12;
     private widget.Label jLabel13;
     private widget.Label jLabel14;
+    private widget.Label jLabel15;
     private widget.Label jLabel3;
     private widget.Label jLabel5;
     private widget.Label jLabel6;
@@ -2073,6 +2103,8 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         SetHarga();
         ubah=false;
         copy=false;
+        
+        autoFillBB(norwt, status);
     }
     
     public void setNoRm(String norwt,String KodeDokter,String NamaDokter,String Pasien,String kodepj,String status) {        
@@ -2086,6 +2118,8 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         SetHarga();
         ubah=false;
         copy=false;
+        
+        autoFillBB(norwt, status);
     }
     
     public void setNoRm(String norwt,Date tanggal,String status) {        
@@ -2106,6 +2140,8 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         SetHarga();
         ubah=false;
         copy=false;
+        
+        autoFillBB(norwt, status);
     }
     
     private void jam(){
@@ -4206,5 +4242,21 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 }
             }
         }               
+    }
+    
+    private void simpanBBResep() {
+        if (!bb.getText().trim().isEmpty()) {
+            Sequel.menyimpantf2("bb_resep", "?,?", "Nomor Resep", 2, new String[] {
+                NoResep.getText(), bb.getText()
+            });
+        }
+    }
+    
+    private void autoFillBB(String norawat,String status) {
+        if (status.equals("ranap")) {
+            bb.setText(Sequel.cariIsi("select berat from pemeriksaan_ranap where no_rawat = ? and berat != '' order by tgl_perawatan desc, jam_rawat desc limit 1", norawat));
+        } else {
+            bb.setText(Sequel.cariIsi("select berat from pemeriksaan_ralan where no_rawat = ? and berat != '' order by tgl_perawatan desc, jam_rawat desc limit 1", norawat));
+        }
     }
 }

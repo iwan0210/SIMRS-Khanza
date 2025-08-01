@@ -6885,7 +6885,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             DlgCariPeriksaLab hasilLab = new DlgCariPeriksaLab(null, true);
             hasilLab.isCek();
-            hasilLab.SetNoRw(TNoRw.getText());
+            hasilLab.setPasien2(TNoRM.getText(), TPasien.getText());
             hasilLab.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
             hasilLab.setLocationRelativeTo(internalFrame1);
             hasilLab.setVisible(true);

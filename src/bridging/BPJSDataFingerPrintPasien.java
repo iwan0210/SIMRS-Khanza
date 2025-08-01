@@ -110,6 +110,7 @@ public final class BPJSDataFingerPrintPasien extends javax.swing.JDialog {
         DTPTanggal = new widget.Tanggal();
         BtnCari = new widget.Button();
         jLabel17 = new widget.Label();
+        BtnSimpan = new widget.Button();
         BtnPrint = new widget.Button();
         BtnKeluar = new widget.Button();
 
@@ -142,7 +143,7 @@ public final class BPJSDataFingerPrintPasien extends javax.swing.JDialog {
         jLabel18.setPreferredSize(new java.awt.Dimension(60, 23));
         panelGlass6.add(jLabel18);
 
-        DTPTanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-11-2021" }));
+        DTPTanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-07-2025" }));
         DTPTanggal.setDisplayFormat("dd-MM-yyyy");
         DTPTanggal.setName("DTPTanggal"); // NOI18N
         DTPTanggal.setOpaque(false);
@@ -170,6 +171,19 @@ public final class BPJSDataFingerPrintPasien extends javax.swing.JDialog {
         jLabel17.setName("jLabel17"); // NOI18N
         jLabel17.setPreferredSize(new java.awt.Dimension(30, 23));
         panelGlass6.add(jLabel17);
+
+        BtnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16i.png"))); // NOI18N
+        BtnSimpan.setMnemonic('S');
+        BtnSimpan.setText("Simpan");
+        BtnSimpan.setToolTipText("Alt+S");
+        BtnSimpan.setName("BtnSimpan"); // NOI18N
+        BtnSimpan.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSimpanActionPerformed(evt);
+            }
+        });
+        panelGlass6.add(BtnSimpan);
 
         BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
         BtnPrint.setMnemonic('T');
@@ -262,6 +276,31 @@ public final class BPJSDataFingerPrintPasien extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_BtnCariKeyPressed
 
+    private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
+        if (tabMode.getRowCount() < 1) {
+            JOptionPane.showMessageDialog(null, "Maaf, Tidak ada Data!!!!");
+            return;
+        }
+        
+        if (!Sequel.meghapustf("bpjs_finger", "tanggal", Valid.SetTgl(DTPTanggal.getSelectedItem()+""))) {
+            return;
+        }
+        
+        try {
+            for (i=0;i<tabMode.getRowCount();i++) {
+                if (!Sequel.menyimpantf2("bpjs_finger", "?,?,?", 3, new String[] {
+                    Valid.SetTgl(DTPTanggal.getSelectedItem()+""),
+                    tabMode.getValueAt(i, 1).toString(), tabMode.getValueAt(i, 2).toString()
+                })) {
+                    System.out.println(" Gagal Input Data ke " + i);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : " + e);
+            JOptionPane.showMessageDialog(null, "Notif: " + e);
+        }
+    }//GEN-LAST:event_BtnSimpanActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -282,6 +321,7 @@ public final class BPJSDataFingerPrintPasien extends javax.swing.JDialog {
     private widget.Button BtnCari;
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
+    private widget.Button BtnSimpan;
     private widget.Tanggal DTPTanggal;
     private widget.ScrollPane Scroll;
     private widget.InternalFrame internalFrame1;

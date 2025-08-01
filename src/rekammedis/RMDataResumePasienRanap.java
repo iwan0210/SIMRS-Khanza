@@ -2122,6 +2122,7 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
                     Keadaan.getSelectedItem().toString(),KetKeadaanPulang.getText(),DIlanjutkan.getSelectedItem().toString(),KetDilanjutkan.getText(),
                     Valid.SetTgl(Kontrol.getSelectedItem()+"")+" "+Kontrol.getSelectedItem().toString().substring(11,19),ObatPulang.getText()
                 })==true){
+                    simpanDiagnosa(TNoRw.getText());
                     tabMode.addRow(new Object[]{
                         TNoRw.getText(),TNoRM.getText(),TPasien.getText(),KodeDokter.getText(),NamaDokter.getText(),KodeDokterPengirim.getText(),NamaDokterPengirim.getText(),
                         KdRuang.getText(),NmRuang.getText(),Masuk.getText(),JamMasuk.getText(),Keluar.getText(),JamKeluar.getText(),DiagnosaAwal.getText(),
@@ -3756,6 +3757,7 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
                 Valid.SetTgl(Kontrol.getSelectedItem()+"")+" "+Kontrol.getSelectedItem().toString().substring(11,19),ObatPulang.getText(),
                 tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()
                 })==true){
+                   simpanDiagnosa(TNoRw.getText());
                    tbObat.setValueAt(TNoRw.getText(),tbObat.getSelectedRow(),0);
                    tbObat.setValueAt(TNoRM.getText(),tbObat.getSelectedRow(),1);
                    tbObat.setValueAt(TPasien.getText(),tbObat.getSelectedRow(),2);
@@ -3882,5 +3884,32 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         DiagnosaSekunder2.setText(getOrDefault(diagnosa, 2, ""));
         DiagnosaSekunder3.setText(getOrDefault(diagnosa, 3, ""));
         DiagnosaSekunder4.setText(getOrDefault(diagnosa, 4, ""));
+    }
+    
+    private void simpanDiagnosa(String norwt) {
+        String[] icdList = {
+            KodeDiagnosaUtama.getText().trim(),
+            KodeDiagnosaSekunder1.getText().trim(),
+            KodeDiagnosaSekunder2.getText().trim(),
+            KodeDiagnosaSekunder3.getText().trim(),
+            KodeDiagnosaSekunder4.getText().trim()
+        };
+        
+        Sequel.meghapus("diagnosa_pasien", "no_rawat", "status", norwt, "Ranap");
+        
+        String insertSQL = "INSERT INTO diagnosa_pasien (no_rawat, kd_penyakit, status, prioritas) VALUES (?, ?, 'Ranap', ?)";
+        try (PreparedStatement psInsert = koneksi.prepareStatement(insertSQL)) {
+            for (int j=0;j < icdList.length;j++) {
+                String icd = icdList[j];
+                if (icd.isEmpty()) continue;
+                int priority = j + 1;
+                psInsert.setString(1, norwt);
+                psInsert.setString(2, icd);
+                psInsert.setInt(3, priority);
+                psInsert.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

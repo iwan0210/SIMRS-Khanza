@@ -2531,7 +2531,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         DTPCari2.setDate(tgl2);    
         isRawat(); 
         cekTTVTriase();
-        KeluhanUtama.setText(Sequel.cariIsi("SELECT keluhan_utama FROM (SELECT no_rawat, keluhan_utama FROM data_triase_igdprimer UNION ALL SELECT no_rawat, anamnesa_singkat AS keluhan_utama FROM data_triase_igdsekunder WHERE no_rawat NOT IN (SELECT no_rawat FROM data_triase_igdprimer)) AS combined WHERE no_rawat = ?", norwt));
+        RPS.setText(Sequel.cariIsi("SELECT keluhan_utama FROM (SELECT no_rawat, keluhan_utama FROM data_triase_igdprimer UNION ALL SELECT no_rawat, anamnesa_singkat AS keluhan_utama FROM data_triase_igdsekunder WHERE no_rawat NOT IN (SELECT no_rawat FROM data_triase_igdprimer)) AS combined WHERE no_rawat = ?", norwt));
         getPemeriksaanFisikFromTriase(norwt);
     }
     
