@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.0.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="557" leftMargin="19" rightMargin="19" topMargin="19" bottomMargin="19" uuid="34c13d5a-cd6b-451e-8001-9fd298d2274a">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
@@ -38,7 +38,8 @@
                 penilaian_pre_induksi.lain_lain_tatalaksana,penilaian_pre_induksi.intubasi_sesudah_tidur,penilaian_pre_induksi.intubasi_oral,penilaian_pre_induksi.intubasi_tracheostomi,
                 penilaian_pre_induksi.intubasi_keterangan,penilaian_pre_induksi.sulit_ventilasi,penilaian_pre_induksi.sulit_intubasi,penilaian_pre_induksi.ventilasi,penilaian_pre_induksi.teknik_regional_jenis,
                 penilaian_pre_induksi.teknik_regional_lokasi,penilaian_pre_induksi.teknik_regional_jenis_jarum,penilaian_pre_induksi.teknik_regional_kateter,penilaian_pre_induksi.teknik_regional_kateter_viksasi,
-                penilaian_pre_induksi.teknik_regional_obat_obatan,penilaian_pre_induksi.teknik_regional_komplikasi,penilaian_pre_induksi.teknik_regional_hasil,dokter.nm_dokter 
+                penilaian_pre_induksi.teknik_regional_obat_obatan,penilaian_pre_induksi.teknik_regional_komplikasi,penilaian_pre_induksi.teknik_regional_hasil,penilaian_pre_induksi.klasifikasi_asa,
+                penilaian_pre_induksi.pscanestesi,penilaian_pre_induksi.keadaan_umum,penilaian_pre_induksi.monitoring,dokter.nm_dokter 
                 from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis 
                 inner join penilaian_pre_induksi on reg_periksa.no_rawat=penilaian_pre_induksi.no_rawat 
                 inner join dokter on penilaian_pre_induksi.kd_dokter=dokter.kd_dokter]]>
@@ -332,6 +333,27 @@
 		<property name="com.jaspersoft.studio.field.tree.path" value="dokter"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="klasifikasi_asa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="klasifikasi_asa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="penilaian_pre_induksi"/>
+		<property name="com.jaspersoft.studio.field.name" value="klasifikasi_asa"/>
+	</field>
+	<field name="pscanestesi" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pscanestesi"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="penilaian_pre_induksi"/>
+		<property name="com.jaspersoft.studio.field.label" value="pscanestesi"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="keadaan_umum" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="keadaan_umum"/>
+		<property name="com.jaspersoft.studio.field.label" value="keadaan_umum"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="penilaian_pre_induksi"/>
+	</field>
+	<field name="monitoring" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="monitoring"/>
+		<property name="com.jaspersoft.studio.field.label" value="monitoring"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="penilaian_pre_induksi"/>
+	</field>
 	<title>
 		<band height="58">
 			<textField>
@@ -379,9 +401,9 @@
 		</band>
 	</title>
 	<detail>
-		<band height="460">
+		<band height="496">
 			<rectangle>
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="6" width="557" height="454" isPrintWhenDetailOverflows="true" uuid="d90e1219-0ed3-4ce2-84f3-6983a4d4076c"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="6" width="557" height="490" isPrintWhenDetailOverflows="true" uuid="d90e1219-0ed3-4ce2-84f3-6983a4d4076c"/>
 				<graphicElement>
 					<pen lineWidth="0.75"/>
 				</graphicElement>
@@ -631,7 +653,7 @@
 				<textFieldExpression><![CDATA["EKG : "+$F{ekg}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="3" y="90" width="551" height="11" uuid="b831d42f-89b7-49f2-a92c-597091d794cf">
+				<reportElement positionType="Float" x="3" y="90" width="185" height="11" uuid="b831d42f-89b7-49f2-a92c-597091d794cf">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -642,7 +664,7 @@
 				<textFieldExpression><![CDATA["Lain-lain : "+$F{lain_lain}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="3" y="103" width="551" height="11" uuid="fb504c17-ebdf-495a-9e7c-3114bebd471c">
+				<reportElement positionType="Float" x="3" y="103" width="185" height="11" uuid="fb504c17-ebdf-495a-9e7c-3114bebd471c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -860,7 +882,7 @@
 				<textFieldExpression><![CDATA["Lain-lain : "+$F{lain_lain}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="10" y="294" width="148" height="11" uuid="0e09371d-1a25-4a0a-bfd2-279213908e64">
+				<reportElement positionType="Float" x="10" y="310" width="148" height="11" uuid="0e09371d-1a25-4a0a-bfd2-279213908e64">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -870,7 +892,7 @@
 				<text><![CDATA[Intubasi :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="152" y="305" width="214" height="11" uuid="6b452164-e4c6-4cda-aaf1-6c5464a2ff40">
+				<reportElement positionType="Float" x="152" y="321" width="214" height="11" uuid="6b452164-e4c6-4cda-aaf1-6c5464a2ff40">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -881,7 +903,7 @@
 				<textFieldExpression><![CDATA["Oral : "+$F{intubasi_oral}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="18" y="305" width="133" height="11" uuid="ba82d58c-1262-4530-8857-8e4667dcf6b2">
+				<reportElement positionType="Float" x="18" y="321" width="133" height="11" uuid="ba82d58c-1262-4530-8857-8e4667dcf6b2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -892,7 +914,7 @@
 				<textFieldExpression><![CDATA["Sesudah Tidur : "+$F{intubasi_sesudah_tidur}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="367" y="305" width="187" height="11" uuid="e7d6ea8e-10b2-4642-8380-5c053b086f1a">
+				<reportElement positionType="Float" x="367" y="321" width="187" height="11" uuid="e7d6ea8e-10b2-4642-8380-5c053b086f1a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -903,7 +925,7 @@
 				<textFieldExpression><![CDATA["Tracheostomi : "+$F{intubasi_tracheostomi}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="18" y="318" width="536" height="11" uuid="d10a1ad6-52ec-48b6-8381-533f53da5281">
+				<reportElement positionType="Float" x="18" y="334" width="536" height="11" uuid="d10a1ad6-52ec-48b6-8381-533f53da5281">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -914,7 +936,7 @@
 				<textFieldExpression><![CDATA["Keterangan : "+$F{intubasi_keterangan}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="18" y="331" width="536" height="11" uuid="33b31e01-b0e8-4289-9eef-f777a77a758b">
+				<reportElement positionType="Float" x="18" y="347" width="536" height="11" uuid="33b31e01-b0e8-4289-9eef-f777a77a758b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -925,7 +947,7 @@
 				<textFieldExpression><![CDATA["Sulit Ventilasi : "+$F{sulit_ventilasi}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="18" y="344" width="536" height="11" uuid="29325e11-cf40-4ec5-912d-a712548edd69">
+				<reportElement positionType="Float" x="18" y="360" width="536" height="11" uuid="29325e11-cf40-4ec5-912d-a712548edd69">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -936,7 +958,7 @@
 				<textFieldExpression><![CDATA["Sulit Intubasi : "+$F{sulit_intubasi}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="10" y="357" width="544" height="11" uuid="e5d54b60-1e4f-45ad-b6d9-b1d816b9fff4">
+				<reportElement positionType="Float" x="10" y="373" width="544" height="11" uuid="e5d54b60-1e4f-45ad-b6d9-b1d816b9fff4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -947,7 +969,7 @@
 				<textFieldExpression><![CDATA["Ventilasi : "+$F{ventilasi}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="10" y="370" width="148" height="11" uuid="d0b7c280-bfa5-424d-8ac3-cea313a824a5">
+				<reportElement positionType="Float" x="10" y="386" width="148" height="11" uuid="d0b7c280-bfa5-424d-8ac3-cea313a824a5">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -957,7 +979,7 @@
 				<text><![CDATA[Teknik Regional/Block Perifier :]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="18" y="381" width="536" height="11" uuid="65ec69a4-5893-4c16-beed-ab990196581a">
+				<reportElement positionType="Float" x="187" y="116" width="536" height="11" uuid="65ec69a4-5893-4c16-beed-ab990196581a">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -965,10 +987,10 @@
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Jenis : "+$F{teknik_regional_lokasi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Perawatan Pasca Anestesi : "+$F{pscanestesi}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="18" y="394" width="272" height="11" uuid="8cac1f46-b6b3-4656-9e2c-3dcccddf3c4e">
+				<reportElement positionType="Float" x="17" y="424" width="272" height="11" uuid="8cac1f46-b6b3-4656-9e2c-3dcccddf3c4e">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -979,7 +1001,7 @@
 				<textFieldExpression><![CDATA["Lokasi : "+$F{teknik_regional_lokasi}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="290" y="394" width="264" height="11" uuid="789ea9b3-e16d-4e46-a8a4-61493240ba25">
+				<reportElement positionType="Float" x="289" y="424" width="264" height="11" uuid="789ea9b3-e16d-4e46-a8a4-61493240ba25">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -990,7 +1012,7 @@
 				<textFieldExpression><![CDATA["Jenis Jarum / No : "+$F{teknik_regional_jenis_jarum}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="18" y="407" width="152" height="11" uuid="e7a91f10-1ddf-484a-930c-1e53768a6e4d">
+				<reportElement positionType="Float" x="17" y="437" width="152" height="11" uuid="e7a91f10-1ddf-484a-930c-1e53768a6e4d">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1001,7 +1023,7 @@
 				<textFieldExpression><![CDATA["Keteter : "+$F{teknik_regional_kateter}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="172" y="407" width="382" height="11" uuid="c56cd1db-772a-49bd-84f7-d7bd899ff1f2">
+				<reportElement positionType="Float" x="171" y="437" width="382" height="11" uuid="c56cd1db-772a-49bd-84f7-d7bd899ff1f2">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1012,7 +1034,7 @@
 				<textFieldExpression><![CDATA["Fiksasi : "+$F{teknik_regional_kateter_viksasi}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="18" y="420" width="536" height="11" uuid="9521366d-78cb-487a-a7aa-bbb4586e6a15">
+				<reportElement positionType="Float" x="17" y="450" width="536" height="11" uuid="9521366d-78cb-487a-a7aa-bbb4586e6a15">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1023,7 +1045,7 @@
 				<textFieldExpression><![CDATA["Obat-obatan : "+$F{teknik_regional_obat_obatan}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="18" y="433" width="536" height="11" uuid="51f274f8-1339-45ea-9596-0e8d4af28809">
+				<reportElement positionType="Float" x="17" y="463" width="536" height="11" uuid="51f274f8-1339-45ea-9596-0e8d4af28809">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1034,7 +1056,7 @@
 				<textFieldExpression><![CDATA["Komplikasi : "+$F{teknik_regional_komplikasi}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="18" y="446" width="536" height="11" uuid="d9f64773-6012-486c-bced-93298d09982f">
+				<reportElement positionType="Float" x="17" y="476" width="536" height="11" uuid="d9f64773-6012-486c-bced-93298d09982f">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1043,6 +1065,50 @@
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Hasil : "+$F{teknik_regional_hasil}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="190" y="92" width="362" height="11" uuid="2284dbae-23a0-483e-936f-6411919ca37c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Keadaan Umum : "+$F{keadaan_umum}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="19" y="293" width="536" height="11" uuid="65acb057-dba8-4c22-ac94-3a7785c81670">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Klasifikasi Asa : "+$F{klasifikasi_asa}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="18" y="410" width="536" height="11" uuid="87646aa9-6b37-4d68-b4cc-b5a510b54ca4">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Jenis : "+$F{teknik_regional_lokasi}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="360" y="-179" width="362" height="11" uuid="b3b4f2ef-ae14-4d8e-8633-97272fac62b1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Top">
+					<font fontName="Tahoma" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Monitoring : "+$F{monitoring}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -1055,7 +1121,7 @@
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement positionType="Float" x="273" y="19" width="285" height="11" uuid="b09bfcf7-d5d4-409c-9644-3da1c3641d1a">
+				<reportElement positionType="Float" x="273" y="14" width="285" height="11" uuid="b09bfcf7-d5d4-409c-9644-3da1c3641d1a">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -1066,7 +1132,7 @@
 				<text><![CDATA[Dokter Anestesi]]></text>
 			</staticText>
 			<textField pattern="MMM, dd/MM/yyyy hh:mm:ss z">
-				<reportElement positionType="Float" mode="Transparent" x="273" y="6" width="285" height="13" uuid="593e77a4-f017-42fd-b651-e68e007a0d02">
+				<reportElement positionType="Float" mode="Transparent" x="273" y="0" width="285" height="13" uuid="593e77a4-f017-42fd-b651-e68e007a0d02">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
@@ -1076,7 +1142,7 @@
 				<textFieldExpression><![CDATA[$F{tanggal}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement positionType="Float" x="275" y="34" width="282" height="115" isRemoveLineWhenBlank="true" uuid="bf87bbd7-5075-434c-bb00-cbb9f1a25fe1">
+				<reportElement positionType="Float" x="281" y="29" width="269" height="120" isRemoveLineWhenBlank="true" uuid="bf87bbd7-5075-434c-bb00-cbb9f1a25fe1">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" errorCorrectionLevel="H">
