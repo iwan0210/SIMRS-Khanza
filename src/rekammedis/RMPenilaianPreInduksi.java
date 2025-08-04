@@ -1938,8 +1938,6 @@ public final class RMPenilaianPreInduksi extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-<<<<<<< HEAD
-
         if (TNoRM.getText().trim().equals("")) {
             Valid.textKosong(TNoRw, "Nama Pasien");
         } else if (NmDokter.getText().trim().equals("")) {
@@ -1978,43 +1976,6 @@ public final class RMPenilaianPreInduksi extends javax.swing.JDialog {
                 });
                 emptTeks();
                 LCount.setText("" + tabMode.getRowCount());
-=======
-        if(TNoRM.getText().trim().equals("")){
-            Valid.textKosong(TNoRw,"Nama Pasien");
-        }else if(NmDokter.getText().trim().equals("")){
-            Valid.textKosong(BtnDokter,"Dokter Anastesi");
-        }else if(Perencanaan.getText().trim().equals("")){
-            Valid.textKosong(Perencanaan,"Perencanaan");
-        }else if(InfusPerifier.getText().trim().equals("")){
-            Valid.textKosong(InfusPerifier,"Infus Perifier, Tempat & Ukuran");
-        }else if(TeknikRegionalObatobatan.getText().trim().equals("")){
-            Valid.textKosong(TeknikRegionalObatobatan,"Obat-obatan");
-        }else if(TeknikRegionalHasil.getText().trim().equals("")){
-            Valid.textKosong(TeknikRegionalHasil,"Hasil");
-        }else{
-            if(Sequel.menyimpantf("penilaian_pre_induksi","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat, Tanggal & Jam",44,new String[]{
-                    TNoRw.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19),KdDokter.getText(),
-                    TD.getText(),Nadi.getText(),RR.getText(),Suhu.getText(),EKG.getText(),Lainlain.getText(),Asesmen.getSelectedItem().toString(),Perencanaan.getText(),
-                    InfusPerifier.getText(),CVC.getText(),PosisiInfus.getSelectedItem().toString(),Premedikasi.getSelectedItem().toString(),KeteranganPremedikasi.getText(),
-                    InfusInduksi.getSelectedItem().toString(),KeteranganInfusInduksi.getText(),FaceMaskNo.getText(),NasopharingNo.getText(),ETTNo.getText(),ETTJenis.getText(),
-                    ETTFiksasi.getText(),LMANo.getText(),LMAJenis.getText(),Tracheostomi.getText(),BronchoscopiFiberoptik.getText(),Glidescopi.getText(),TatalaksanaLainlain.getText(),
-                    IntubasiSesudahTidur.getSelectedItem().toString(),IntubasiOral.getSelectedItem().toString(),IntubasiTracheostomi.getSelectedItem().toString(),
-                    KeteranganIntubasi.getText(),IntubasiSulitVentilasi.getText(),IntubasiSulitIntubasi.getText(),Ventilasi.getText(),TeknikRegionalJenis.getText(),
-                    TeknikRegionalLokasi.getText(),TeknikRegionalJenisJarum.getText(),TeknikRegionalKateter.getSelectedItem().toString(),TeknikRegionalKateterFiksasi.getText(),
-                    TeknikRegionalObatobatan.getText(),TeknikRegionalKomplikasi.getText(),TeknikRegionalHasil.getText()
-                })==true){
-                    tabMode.addRow(new Object[]{
-                        TNoRw.getText(),TNoRM.getText(),TPasien.getText(),TglLahir.getText(),Jk.getText(),KdDokter.getText(),NmDokter.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19),
-                        TD.getText(),Nadi.getText(),RR.getText(),Suhu.getText(),EKG.getText(),Lainlain.getText(),Asesmen.getSelectedItem().toString(),Perencanaan.getText(),InfusPerifier.getText(),CVC.getText(),PosisiInfus.getSelectedItem().toString(),
-                        Premedikasi.getSelectedItem().toString(),KeteranganPremedikasi.getText(),InfusInduksi.getSelectedItem().toString(),KeteranganInfusInduksi.getText(),FaceMaskNo.getText(),NasopharingNo.getText(),ETTNo.getText(),ETTJenis.getText(),
-                        ETTFiksasi.getText(),LMANo.getText(),LMAJenis.getText(),Tracheostomi.getText(),BronchoscopiFiberoptik.getText(),Glidescopi.getText(),TatalaksanaLainlain.getText(),IntubasiSesudahTidur.getSelectedItem().toString(),
-                        IntubasiOral.getSelectedItem().toString(),IntubasiTracheostomi.getSelectedItem().toString(),KeteranganIntubasi.getText(),IntubasiSulitVentilasi.getText(),IntubasiSulitIntubasi.getText(),Ventilasi.getText(),TeknikRegionalJenis.getText(),
-                        TeknikRegionalLokasi.getText(),TeknikRegionalJenisJarum.getText(),TeknikRegionalKateter.getSelectedItem().toString(),TeknikRegionalKateterFiksasi.getText(),TeknikRegionalObatobatan.getText(),TeknikRegionalKomplikasi.getText(),
-                        TeknikRegionalHasil.getText()
-                    });
-                    emptTeks();
-                    LCount.setText(""+tabMode.getRowCount());
->>>>>>> 5ea75f6b9cc63ff8343d7b0562476c8b8b7f8dae
             }
         }
 
@@ -2770,7 +2731,6 @@ public final class RMPenilaianPreInduksi extends javax.swing.JDialog {
             }
 
             try {
-<<<<<<< HEAD
                 if (TCari.getText().trim().equals("")) {
                     ps.setString(1, Valid.SetTgl(DTPCari1.getSelectedItem() + "") + " 00:00:00");
                     ps.setString(2, Valid.SetTgl(DTPCari2.getSelectedItem() + "") + " 23:59:59");
@@ -2795,30 +2755,6 @@ public final class RMPenilaianPreInduksi extends javax.swing.JDialog {
                         rs.getString("teknik_regional_kateter"), rs.getString("teknik_regional_kateter_viksasi"), rs.getString("teknik_regional_obat_obatan"), rs.getString("teknik_regional_komplikasi"), rs.getString("teknik_regional_hasil"),
                         rs.getString("klasifikasi_asa"), rs.getString("pscanestesi"), rs.getString("keadaan_umum"), rs.getString("monitoring")
 
-=======
-                if(TCari.getText().trim().equals("")){
-                    ps.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+"")+" 00:00:00");
-                    ps.setString(2,Valid.SetTgl(DTPCari2.getSelectedItem()+"")+" 23:59:59");
-                }else{
-                    ps.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+"")+" 00:00:00");
-                    ps.setString(2,Valid.SetTgl(DTPCari2.getSelectedItem()+"")+" 23:59:59");
-                    ps.setString(3,"%"+TCari.getText()+"%");
-                    ps.setString(4,"%"+TCari.getText()+"%");
-                    ps.setString(5,"%"+TCari.getText()+"%");
-                    ps.setString(6,"%"+TCari.getText()+"%");
-                    ps.setString(7,"%"+TCari.getText()+"%");
-                }   
-                rs=ps.executeQuery();
-                while(rs.next()){
-                    tabMode.addRow(new Object[]{
-                        rs.getString("no_rawat"),rs.getString("no_rkm_medis"),rs.getString("nm_pasien"),rs.getDate("tgl_lahir"),rs.getString("jk"),rs.getString("kd_dokter"),rs.getString("nm_dokter"),rs.getString("tanggal"),
-                        rs.getString("tensi"),rs.getString("nadi"),rs.getString("rr"),rs.getString("suhu"),rs.getString("ekg"),rs.getString("lain_lain"),rs.getString("asesmen"),rs.getString("perencanaan"),rs.getString("infus_perifier"),
-                        rs.getString("cvc"),rs.getString("posisi"),rs.getString("premedikasi"),rs.getString("premedikasi_keterangan"),rs.getString("induksi"),rs.getString("induksi_keterangan"),rs.getString("face_mask_no"),
-                        rs.getString("nasopharing_no"),rs.getString("ett_no"),rs.getString("ett_jenis"),rs.getString("ett_viksasi"),rs.getString("lma_no"),rs.getString("lma_jenis"),rs.getString("tracheostomi"),rs.getString("bronchoscopi_fiberoptik"),
-                        rs.getString("glidescopi"),rs.getString("lain_lain_tatalaksana"),rs.getString("intubasi_sesudah_tidur"),rs.getString("intubasi_oral"),rs.getString("intubasi_tracheostomi"),rs.getString("intubasi_keterangan"),
-                        rs.getString("sulit_ventilasi"),rs.getString("sulit_intubasi"),rs.getString("ventilasi"),rs.getString("teknik_regional_jenis"),rs.getString("teknik_regional_lokasi"),rs.getString("teknik_regional_jenis_jarum"),
-                        rs.getString("teknik_regional_kateter"),rs.getString("teknik_regional_kateter_viksasi"),rs.getString("teknik_regional_obat_obatan"),rs.getString("teknik_regional_komplikasi"),rs.getString("teknik_regional_hasil")
->>>>>>> 5ea75f6b9cc63ff8343d7b0562476c8b8b7f8dae
                     });
                 }
             } catch (Exception e) {
