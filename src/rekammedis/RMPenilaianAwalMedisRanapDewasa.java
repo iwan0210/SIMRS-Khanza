@@ -1706,12 +1706,15 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
                     Thoraks.getSelectedItem().toString(),Jantung.getSelectedItem().toString(),Paru.getSelectedItem().toString(),Abdomen.getSelectedItem().toString(),Genital.getSelectedItem().toString(),Ekstremitas.getSelectedItem().toString(),
                     Kulit.getSelectedItem().toString(),KetFisik.getText(),KetLokalis.getText(),Laborat.getText(),Radiologi.getText(),Penunjang.getText(),Diagnosis.getText(),Tatalaksana.getText(),Edukasi.getText()
                 })==true){
-                Sequel.menyimpantf("pemeriksaan_ranap","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat",20,new String[]{
+                if (Sequel.menyimpantf("pemeriksaan_ranap","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat",20,new String[]{
                     TNoRw.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+""),TglAsuhan.getSelectedItem().toString().substring(11,19),
                     Suhu.getText(),TD.getText(),Nadi.getText(),RR.getText(),TB.getText(),BB.getText(),SPO.getText(),GCS.getText(),
                     Kesadaran.getSelectedItem().toString(),KeluhanUtama.getText(),KetFisik.getText(),Alergi.getText(),
                     Diagnosis.getText(),Tatalaksana.getText(),"","",KdDokter.getText()
-                });
+                }) == false) {
+                    System.out.println("Simpan SOAP dari medis inap gagal no_rawat = " + TNoRw.getText());
+                    JOptionPane.showMessageDialog(null,"Maaf SOAP tidak tersimpan");
+                };
                     emptTeks();
             }
         }

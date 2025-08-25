@@ -2702,6 +2702,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
                     Kesadaran.getSelectedItem().toString(),RPS.getText(),KetFisik.getText(),Alergi.getText(),"",Tatalaksana.getText(),
                     Diagnosis.getText(),"","",KdDokter.getText()
                 }) == false) {
+                    System.out.println("Simpan SOAP dari medis igd gagal no_rawat = " + TNoRw.getText());
                     JOptionPane.showMessageDialog(null,"Maaf SOAP tidak tersimpan");
                 };
                 LCount.setText(""+tabMode.getRowCount());

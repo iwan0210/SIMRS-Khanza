@@ -1339,6 +1339,18 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
         }else if(DiagnosaUtama.getText().equals("")){
             Valid.textKosong(DiagnosaUtama,"Diagnosa Utama");
         }else{
+            if(tbObat.getSelectedRow()>-1){
+                if(akses.getkode().equals("Admin Utama")){
+                    ganti();
+                }else{
+                    if(KodeDokter.getText().equals(tbObat.getValueAt(tbObat.getSelectedRow(),3).toString())){
+                        ganti();
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Hanya bisa diganti oleh dokter yang bersangkutan..!!");
+                    }
+                }
+                return;
+            }
             if(Sequel.menyimpantf("resume_pasien","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat",26,new String[]{
                     TNoRw.getText(),KodeDokter.getText(),Keluhan.getText(),"",PemeriksaanPenunjang.getText(),"", 
                     DiagnosaUtama.getText(),KodeDiagnosaUtama.getText(),DiagnosaSekunder1.getText(),KodeDiagnosaSekunder1.getText(),DiagnosaSekunder2.getText(), 
@@ -1347,16 +1359,8 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
                     KodeProsedurSekunder2.getText(),ProsedurSekunder3.getText(),KodeProsedurSekunder3.getText(),Kondisi.getSelectedItem().toString(),Obat2an.getText()
                 })==true){
                 simpanDiagnosa(TNoRw.getText());
-                tabMode.addRow(new Object[]{
-                    Tanggal.getText(),TNoRw.getText(),TNoRM.getText(),TPasien.getText(),KodeDokter.getText(),NamaDokter.getText(),Kondisi.getSelectedItem().toString(),
-                    Keluhan.getText(),PemeriksaanPenunjang.getText(),DiagnosaUtama.getText(),KodeDiagnosaUtama.getText(),
-                    DiagnosaSekunder1.getText(),KodeDiagnosaSekunder1.getText(),DiagnosaSekunder2.getText(),KodeDiagnosaSekunder2.getText(),DiagnosaSekunder3.getText(),
-                    KodeDiagnosaSekunder3.getText(),DiagnosaSekunder4.getText(),KodeDiagnosaSekunder4.getText(),ProsedurUtama.getText(),KodeProsedurUtama.getText(),
-                    ProsedurSekunder1.getText(),KodeProsedurSekunder1.getText(),ProsedurSekunder2.getText(),KodeProsedurSekunder2.getText(),ProsedurSekunder3.getText(),
-                    KodeProsedurSekunder3.getText(),Obat2an.getText()
-                });
-                LCount.setText(""+tabMode.getRowCount());
-                emptTeks();
+                tampil();
+                JOptionPane.showMessageDialog(null,"Data Berhasil Disimpan");
             }
         }
 }//GEN-LAST:event_BtnSimpanActionPerformed
@@ -2261,6 +2265,8 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
             System.out.println("Notifikasi : "+e);
         }
         LCount.setText(""+tabMode.getRowCount());
+        
+        selectRecentData();
     }
 
     public void emptTeks() {
@@ -2509,35 +2515,8 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
                 tbObat.getValueAt(tbObat.getSelectedRow(),1).toString()
             })==true){
             simpanDiagnosa(TNoRw.getText());
-            tbObat.setValueAt(Tanggal.getText(),tbObat.getSelectedRow(),0);
-            tbObat.setValueAt(TNoRw.getText(),tbObat.getSelectedRow(),1);
-            tbObat.setValueAt(TNoRM.getText(),tbObat.getSelectedRow(),2);
-            tbObat.setValueAt(TPasien.getText(),tbObat.getSelectedRow(),3);
-            tbObat.setValueAt(KodeDokter.getText(),tbObat.getSelectedRow(),4);
-            tbObat.setValueAt(NamaDokter.getText(),tbObat.getSelectedRow(),5);
-            tbObat.setValueAt(Kondisi.getSelectedItem().toString(),tbObat.getSelectedRow(),6);
-            tbObat.setValueAt(Keluhan.getText(),tbObat.getSelectedRow(),7);
-            tbObat.setValueAt(PemeriksaanPenunjang.getText(),tbObat.getSelectedRow(),8);
-            tbObat.setValueAt(DiagnosaUtama.getText(),tbObat.getSelectedRow(),9);
-            tbObat.setValueAt(KodeDiagnosaUtama.getText(),tbObat.getSelectedRow(),10);
-            tbObat.setValueAt(DiagnosaSekunder1.getText(),tbObat.getSelectedRow(),11);
-            tbObat.setValueAt(KodeDiagnosaSekunder1.getText(),tbObat.getSelectedRow(),12);
-            tbObat.setValueAt(DiagnosaSekunder2.getText(),tbObat.getSelectedRow(),13);
-            tbObat.setValueAt(KodeDiagnosaSekunder2.getText(),tbObat.getSelectedRow(),14);
-            tbObat.setValueAt(DiagnosaSekunder3.getText(),tbObat.getSelectedRow(),15);
-            tbObat.setValueAt(KodeDiagnosaSekunder3.getText(),tbObat.getSelectedRow(),16);
-            tbObat.setValueAt(DiagnosaSekunder4.getText(),tbObat.getSelectedRow(),17);
-            tbObat.setValueAt(KodeDiagnosaSekunder4.getText(),tbObat.getSelectedRow(),18);
-            tbObat.setValueAt(ProsedurUtama.getText(),tbObat.getSelectedRow(),19);
-            tbObat.setValueAt(KodeProsedurUtama.getText(),tbObat.getSelectedRow(),20);
-            tbObat.setValueAt(ProsedurSekunder1.getText(),tbObat.getSelectedRow(),21);
-            tbObat.setValueAt(KodeProsedurSekunder1.getText(),tbObat.getSelectedRow(),22);
-            tbObat.setValueAt(ProsedurSekunder2.getText(),tbObat.getSelectedRow(),23);
-            tbObat.setValueAt(KodeProsedurSekunder2.getText(),tbObat.getSelectedRow(),24);
-            tbObat.setValueAt(ProsedurSekunder3.getText(),tbObat.getSelectedRow(),25);
-            tbObat.setValueAt(KodeProsedurSekunder3.getText(),tbObat.getSelectedRow(),26);
-            tbObat.setValueAt(Obat2an.getText(),tbObat.getSelectedRow(),27);
-            emptTeks();
+            tampil();
+            JOptionPane.showMessageDialog(null,"Data Berhasil Diubah");
         }
     }
 
@@ -2577,6 +2556,14 @@ public final class RMDataResumePasien extends javax.swing.JDialog {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    
+    private void selectRecentData() {
+        if (tabMode.getRowCount() > 0) {
+            tbObat.setRowSelectionInterval(0, 0);
+            getData();
+            return;
         }
     }
 }

@@ -2579,7 +2579,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         panelGlass12.add(jLabel29);
         jLabel29.setBounds(234, 220, 70, 23);
 
-        cmbKesadaran.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Compos Mentis", "Somnolence", "Sopor", "Coma","Apatis","Delirium"}));
+        cmbKesadaran.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Compos Mentis", "Somnolen", "Sopor", "Koma","Apatis","Delirium"}));
         cmbKesadaran.setName("cmbKesadaran"); 
         cmbKesadaran.setPreferredSize(new java.awt.Dimension(62, 28));
         cmbKesadaran.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -6536,6 +6536,7 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                         TPemeriksaan.setText("");TAlergi.setText("");LingkarPerut.setText("");
                                         TindakLanjut.setText("");TPenilaian.setText("");TInstruksi.setText("");
                                         SpO2.setText("");TEvaluasi.setText("");
+                                        JOptionPane.showMessageDialog(rootPane,"Data berhasil diubah");
                                 }   
                             }else{
                                 if(akses.getkode().equals(tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(),23).toString())){
@@ -6587,6 +6588,7 @@ private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                                                     TPemeriksaan.setText("");TAlergi.setText("");LingkarPerut.setText("");
                                                     TindakLanjut.setText("");TPenilaian.setText("");TInstruksi.setText("");
                                                     SpO2.setText("");TEvaluasi.setText("");
+                                                    JOptionPane.showMessageDialog(rootPane,"Data berhasil diubah");
                                             }
                                         }
                                     }   
