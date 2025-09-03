@@ -468,13 +468,27 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
         label12 = new widget.Label();
         tgl2 = new widget.Tanggal();
         jLabel6 = new widget.Label();
-        PreOp = new widget.TextBox();
-        PostOp = new widget.TextBox();
         jLabel7 = new widget.Label();
         jLabel8 = new widget.Label();
         Jaringan = new widget.TextBox();
         DikirimPA = new widget.ComboBox();
         jLabel9 = new widget.Label();
+        Sifat = new widget.ComboBox();
+        jLabel5 = new widget.Label();
+        Penyulit = new widget.ComboBox();
+        jLabel14 = new widget.Label();
+        KehilanganDarah = new widget.TextBox();
+        jLabel13 = new widget.Label();
+        jLabel10 = new widget.Label();
+        Komplikasi = new widget.TextBox();
+        jLabel11 = new widget.Label();
+        scrollPane5 = new widget.ScrollPane();
+        MacamOperasi = new widget.TextArea();
+        scrollPane3 = new widget.ScrollPane();
+        PreOp = new widget.TextArea();
+        scrollPane4 = new widget.ScrollPane();
+        PostOp = new widget.TextArea();
+        jLabel12 = new widget.Label();
         internalFrame1 = new widget.InternalFrame();
         scrollPane1 = new widget.ScrollPane();
         tbDokter = new widget.Table();
@@ -1534,7 +1548,7 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
         internalFrame6.add(Scroll3, java.awt.BorderLayout.CENTER);
 
         panelGlass7.setName("panelGlass7"); // NOI18N
-        panelGlass7.setPreferredSize(new java.awt.Dimension(300, 55));
+        panelGlass7.setPreferredSize(new java.awt.Dimension(650, 55));
         panelGlass7.setLayout(null);
 
         label12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -1555,37 +1569,17 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
         panelGlass7.add(jLabel6);
         jLabel6.setBounds(10, 65, 200, 23);
 
-        PreOp.setHighlighter(null);
-        PreOp.setName("PreOp"); // NOI18N
-        PreOp.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                PreOpKeyPressed(evt);
-            }
-        });
-        panelGlass7.add(PreOp);
-        PreOp.setBounds(30, 90, 256, 23);
-
-        PostOp.setHighlighter(null);
-        PostOp.setName("PostOp"); // NOI18N
-        PostOp.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                PostOpKeyPressed(evt);
-            }
-        });
-        panelGlass7.add(PostOp);
-        PostOp.setBounds(30, 145, 256, 23);
-
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Diagnosis Post-operatif :");
         jLabel7.setName("jLabel7"); // NOI18N
         panelGlass7.add(jLabel7);
-        jLabel7.setBounds(10, 120, 200, 23);
+        jLabel7.setBounds(320, 66, 200, 23);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("Jaringan di-Eksisi / -Insisi :");
         jLabel8.setName("jLabel8"); // NOI18N
         panelGlass7.add(jLabel8);
-        jLabel8.setBounds(10, 175, 200, 23);
+        jLabel8.setBounds(10, 180, 200, 23);
 
         Jaringan.setHighlighter(null);
         Jaringan.setName("Jaringan"); // NOI18N
@@ -1595,23 +1589,148 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
             }
         });
         panelGlass7.add(Jaringan);
-        Jaringan.setBounds(30, 200, 256, 23);
+        Jaringan.setBounds(30, 210, 570, 23);
 
         DikirimPA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ya", "Tidak" }));
         DikirimPA.setName("DikirimPA"); // NOI18N
+        DikirimPA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DikirimPAActionPerformed(evt);
+            }
+        });
         DikirimPA.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 DikirimPAKeyPressed(evt);
             }
         });
         panelGlass7.add(DikirimPA);
-        DikirimPA.setBounds(30, 255, 130, 23);
+        DikirimPA.setBounds(30, 280, 130, 23);
 
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("Dikirim Pemeriksaan PA :");
         jLabel9.setName("jLabel9"); // NOI18N
         panelGlass7.add(jLabel9);
-        jLabel9.setBounds(10, 230, 200, 23);
+        jLabel9.setBounds(10, 250, 200, 23);
+
+        Sifat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elektif", "Cito" }));
+        Sifat.setName("Sifat"); // NOI18N
+        Sifat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SifatActionPerformed(evt);
+            }
+        });
+        Sifat.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                SifatKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(Sifat);
+        Sifat.setBounds(250, 30, 80, 23);
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel5.setText("Penyulit");
+        jLabel5.setName("jLabel5"); // NOI18N
+        panelGlass7.add(jLabel5);
+        jLabel5.setBounds(340, 10, 81, 23);
+
+        Penyulit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tanpa penyulit", "Dengan penyulit" }));
+        Penyulit.setName("Penyulit"); // NOI18N
+        Penyulit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PenyulitActionPerformed(evt);
+            }
+        });
+        Penyulit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PenyulitKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(Penyulit);
+        Penyulit.setBounds(350, 30, 122, 23);
+
+        jLabel14.setText("Kehilangan Darah :");
+        jLabel14.setName("jLabel14"); // NOI18N
+        panelGlass7.add(jLabel14);
+        jLabel14.setBounds(200, 250, 100, 23);
+
+        KehilanganDarah.setHighlighter(null);
+        KehilanganDarah.setName("KehilanganDarah"); // NOI18N
+        KehilanganDarah.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                KehilanganDarahKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(KehilanganDarah);
+        KehilanganDarah.setBounds(250, 280, 80, 23);
+
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel13.setText("cc");
+        jLabel13.setName("jLabel13"); // NOI18N
+        panelGlass7.add(jLabel13);
+        jLabel13.setBounds(340, 280, 30, 23);
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel10.setText("Komplikasi :");
+        jLabel10.setName("jLabel10"); // NOI18N
+        panelGlass7.add(jLabel10);
+        jLabel10.setBounds(10, 320, 70, 23);
+
+        Komplikasi.setHighlighter(null);
+        Komplikasi.setName("Komplikasi"); // NOI18N
+        Komplikasi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                KomplikasiKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(Komplikasi);
+        Komplikasi.setBounds(30, 350, 570, 23);
+
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel11.setText("Macam Operasi :");
+        jLabel11.setName("jLabel11"); // NOI18N
+        panelGlass7.add(jLabel11);
+        jLabel11.setBounds(10, 380, 145, 23);
+
+        scrollPane5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPane5.setName("scrollPane5"); // NOI18N
+
+        MacamOperasi.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        MacamOperasi.setColumns(20);
+        MacamOperasi.setRows(5);
+        MacamOperasi.setName("MacamOperasi"); // NOI18N
+        scrollPane5.setViewportView(MacamOperasi);
+
+        panelGlass7.add(scrollPane5);
+        scrollPane5.setBounds(30, 410, 470, 110);
+
+        scrollPane3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPane3.setName("scrollPane3"); // NOI18N
+
+        PreOp.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        PreOp.setColumns(20);
+        PreOp.setRows(5);
+        PreOp.setName("PreOp"); // NOI18N
+        scrollPane3.setViewportView(PreOp);
+
+        panelGlass7.add(scrollPane3);
+        scrollPane3.setBounds(30, 90, 260, 74);
+
+        scrollPane4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPane4.setName("scrollPane4"); // NOI18N
+
+        PostOp.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        PostOp.setColumns(20);
+        PostOp.setRows(5);
+        PostOp.setName("PostOp"); // NOI18N
+        scrollPane4.setViewportView(PostOp);
+
+        panelGlass7.add(scrollPane4);
+        scrollPane4.setBounds(340, 90, 260, 74);
+
+        jLabel12.setText("Sifat Tindakan :");
+        jLabel12.setName("jLabel12"); // NOI18N
+        panelGlass7.add(jLabel12);
+        jLabel12.setBounds(210, 10, 81, 23);
 
         internalFrame6.add(panelGlass7, java.awt.BorderLayout.WEST);
 
@@ -2963,102 +3082,7 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
                 kodeoperator=Sequel.cariIsi("select operasi.operator1 from operasi where operasi.no_rawat='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),1).toString()+"' and tgl_operasi='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString()+"'");
                 finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",kodeoperator);
                 param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+tbDokter.getValueAt(tbDokter.getSelectedRow()+1,5).toString()+"\nID "+(finger.equals("")?kodeoperator:finger)+"\n"+Valid.SetTgl3(tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString()));  
-                finger="";
-                try {
-                    try{
-                        rs=koneksi.prepareStatement(
-                                "select paket_operasi.nm_perawatan from operasi inner join paket_operasi on paket_operasi.kode_paket=operasi.kode_paket where "+
-                                "operasi.no_rawat='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),1).toString()+"' and operasi.tgl_operasi='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString()+"' ").executeQuery();
-                        while(rs.next()){
-                            finger=rs.getString("nm_perawatan")+", "+finger;
-                        }
-                    }catch (Exception e) {
-                        System.out.println("Notif : "+e);
-                    } finally{
-                        if(rs!=null){
-                            rs.close();
-                        }
-                    }
-                } catch (Exception e) {
-                    System.out.println("Notif : "+e);
-                }
-                finger=finger.substring(0,finger.length()-2);
-                param.put("tindakan",finger);  
-                if(Sequel.cariIsi("select reg_periksa.status_lanjut from reg_periksa where reg_periksa.no_rawat=?",tbDokter.getValueAt(tbDokter.getSelectedRow(),1).toString()).equals("Ralan")){
-                    try {
-                        try {
-                            rs=koneksi.prepareStatement(
-                                "select pemeriksaan_ralan.no_rawat,pemeriksaan_ralan.tgl_perawatan,pemeriksaan_ralan.jam_rawat,pemeriksaan_ralan.suhu_tubuh,"+
-                                "pemeriksaan_ralan.tensi,pemeriksaan_ralan.nadi,pemeriksaan_ralan.respirasi,pemeriksaan_ralan.tinggi,pemeriksaan_ralan.berat,"+
-                                "pemeriksaan_ralan.gcs,pemeriksaan_ralan.keluhan,pemeriksaan_ralan.pemeriksaan,pemeriksaan_ralan.alergi,pemeriksaan_ralan.rtl,"+
-                                "pemeriksaan_ralan.penilaian from pemeriksaan_ralan where pemeriksaan_ralan.no_rawat='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),1).toString()+"' "+
-                                "and concat(pemeriksaan_ralan.tgl_perawatan,' ',pemeriksaan_ralan.jam_rawat) <= '"+tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString()+"' "+
-                                "order by pemeriksaan_ralan.tgl_perawatan desc,pemeriksaan_ralan.jam_rawat desc limit 1").executeQuery();
-                            if(rs.next()){
-                                param.put("tgl_perawatan",rs.getDate("tgl_perawatan"));
-                                param.put("jam_rawat",rs.getString("jam_rawat"));
-                                param.put("alergi",rs.getString("alergi"));
-                                param.put("keluhan",rs.getString("keluhan"));
-                                param.put("pemeriksaan",rs.getString("pemeriksaan"));
-                                param.put("penilaian",rs.getString("penilaian"));
-                                param.put("rtl",rs.getString("rtl"));
-                                param.put("ruang",Sequel.cariIsi("select poliklinik.nm_poli from poliklinik inner join reg_periksa on reg_periksa.kd_poli=poliklinik.kd_poli where reg_periksa.no_rawat=?",rs.getString("no_rawat")));
-                                param.put("suhu_tubuh",rs.getString("suhu_tubuh"));
-                                param.put("tensi",rs.getString("tensi"));
-                                param.put("tinggi",rs.getString("tinggi"));
-                                param.put("berat",rs.getString("berat"));
-                                param.put("nadi",rs.getString("nadi"));
-                                param.put("respirasi",rs.getString("respirasi"));
-                                param.put("gcs",rs.getString("gcs"));
-                            }
-                        } catch (Exception e) {
-                            System.out.println("Notif : "+e);
-                        } finally{
-                            if(rs!=null){
-                                rs.close();
-                            }
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Notif : "+e);
-                    }
-                }else{
-                    try {
-                        try {
-                            rs=koneksi.prepareStatement(
-                                "select pemeriksaan_ranap.no_rawat,pemeriksaan_ranap.tgl_perawatan,pemeriksaan_ranap.jam_rawat,pemeriksaan_ranap.suhu_tubuh,"+
-                                "pemeriksaan_ranap.tensi,pemeriksaan_ranap.nadi,pemeriksaan_ranap.respirasi,pemeriksaan_ranap.tinggi,pemeriksaan_ranap.berat,"+
-                                "pemeriksaan_ranap.gcs,pemeriksaan_ranap.keluhan,pemeriksaan_ranap.pemeriksaan,pemeriksaan_ranap.alergi,pemeriksaan_ranap.rtl,"+
-                                "pemeriksaan_ranap.penilaian from pemeriksaan_ranap where pemeriksaan_ranap.no_rawat='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),1).toString()+"' "+
-                                "and concat(pemeriksaan_ranap.tgl_perawatan,' ',pemeriksaan_ranap.jam_rawat) <= '"+tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString()+"' "+
-                                "order by pemeriksaan_ranap.tgl_perawatan desc,pemeriksaan_ranap.jam_rawat desc limit 1").executeQuery();
-                            if(rs.next()){
-                                param.put("tgl_perawatan",rs.getDate("tgl_perawatan"));
-                                param.put("jam_rawat",rs.getString("jam_rawat"));
-                                param.put("alergi",rs.getString("alergi"));
-                                param.put("keluhan",rs.getString("keluhan"));
-                                param.put("pemeriksaan",rs.getString("pemeriksaan"));
-                                param.put("penilaian",rs.getString("penilaian"));
-                                param.put("rtl",rs.getString("rtl"));
-                                param.put("ruang",Sequel.cariIsi("select nm_bangsal from bangsal inner join kamar inner join kamar_inap on bangsal.kd_bangsal=kamar.kd_bangsal and kamar_inap.kd_kamar=kamar.kd_kamar where no_rawat=? order by tgl_masuk desc limit 1 ",rs.getString("no_rawat")));
-                                param.put("suhu_tubuh",rs.getString("suhu_tubuh"));
-                                param.put("tensi",rs.getString("tensi"));
-                                param.put("tinggi",rs.getString("tinggi"));
-                                param.put("berat",rs.getString("berat"));
-                                param.put("nadi",rs.getString("nadi"));
-                                param.put("respirasi",rs.getString("respirasi"));
-                                param.put("gcs",rs.getString("gcs"));
-                            }
-                        } catch (Exception e) {
-                            System.out.println("Notif : "+e);
-                        } finally{
-                            if(rs!=null){
-                                rs.close();
-                            }
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Notif : "+e);
-                    }
-                }
+               
                 Valid.MyReport("rptLaporanOperasi.jasper","report","::[ Laporan Operasi ]::",param);
             }else{
                 JOptionPane.showMessageDialog(rootPane,"Silahkan pilih data, klik pada No.Rawat ..!!");
@@ -3072,15 +3096,21 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
                 try {
                     rs2=koneksi.prepareStatement(
                         "select laporan_operasi.diagnosa_preop,laporan_operasi.diagnosa_postop,laporan_operasi.jaringan_dieksekusi,laporan_operasi.selesaioperasi,laporan_operasi.permintaan_pa,"+
-                        "laporan_operasi.laporan_operasi from laporan_operasi where laporan_operasi.no_rawat='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),1)+"' and "+
+                        "laporan_operasi.laporan_operasi,laporan_operasi.sifat_tindakan,laporan_operasi.penyulit,laporan_operasi.kehilangan_darah,laporan_operasi.komplikasi,laporan_operasi.macam_operasi "+
+                        "from laporan_operasi where laporan_operasi.no_rawat='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),1)+"' and "+
                         "laporan_operasi.tanggal='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),0)+"'").executeQuery();
                     if(rs2.next()){
                         PreOp.setText(rs2.getString("diagnosa_preop"));
                         PostOp.setText(rs2.getString("diagnosa_postop"));
                         Jaringan.setText(rs2.getString("jaringan_dieksekusi"));
-                        tgl2.setDate(rs2.getDate("selesaioperasi"));
+                        Valid.SetTgl2(tgl2, rs2.getString("selesaioperasi"));
                         DikirimPA.setSelectedItem(rs2.getString("permintaan_pa"));
                         Laporan.setText(rs2.getString("laporan_operasi"));
+                        Sifat.setSelectedItem(rs2.getString("sifat_tindakan"));
+                        Penyulit.setSelectedItem(rs2.getString("penyulit"));
+                        KehilanganDarah.setText(rs2.getString("kehilangan_darah"));
+                        Komplikasi.setText(rs2.getString("komplikasi"));
+                        MacamOperasi.setText(rs2.getString("macam_operasi"));
                     }
                     if(rs2!=null){
                         rs2.close();
@@ -3100,10 +3130,11 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
     private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
         if(!Laporan.getText().equals("")){
             Sequel.queryu("delete from laporan_operasi where no_rawat='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),1)+"' and tanggal='"+tbDokter.getValueAt(tbDokter.getSelectedRow(),0) +"'");
-            Sequel.menyimpan("laporan_operasi","?,?,?,?,?,?,?,?","laporan operasi",8,new String[]{
+            Sequel.menyimpan("laporan_operasi","?,?,?,?,?,?,?,?,?,?,?,?,?","laporan operasi",13,new String[]{
                 tbDokter.getValueAt(tbDokter.getSelectedRow(),1).toString(),tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString(),PreOp.getText(),
                 PostOp.getText(),Jaringan.getText(),Valid.SetTgl(tgl2.getSelectedItem()+"")+" "+tgl2.getSelectedItem().toString().substring(11,19),
-                DikirimPA.getSelectedItem().toString(),Laporan.getText()
+                DikirimPA.getSelectedItem().toString(),Laporan.getText(),Sifat.getSelectedItem().toString(),Penyulit.getSelectedItem().toString(),
+                KehilanganDarah.getText(),Komplikasi.getText(),MacamOperasi.getText()
             });
             JOptionPane.showMessageDialog(null,"Proses update selesai...!!!!");
         }
@@ -3130,14 +3161,6 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
     private void BtnCloseIn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCloseIn5ActionPerformed
         WindowLaporan.dispose();
     }//GEN-LAST:event_BtnCloseIn5ActionPerformed
-
-    private void PreOpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PreOpKeyPressed
-        Valid.pindah(evt,tgl2,PostOp);
-    }//GEN-LAST:event_PreOpKeyPressed
-
-    private void PostOpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PostOpKeyPressed
-        Valid.pindah(evt,PreOp,Jaringan);
-    }//GEN-LAST:event_PostOpKeyPressed
 
     private void JaringanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JaringanKeyPressed
         Valid.pindah(evt,PostOp,DikirimPA);
@@ -3212,6 +3235,34 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
         template.setVisible(true);
     }//GEN-LAST:event_btnAmbilPhoto1ActionPerformed
 
+    private void SifatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SifatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SifatActionPerformed
+
+    private void SifatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_SifatKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SifatKeyPressed
+
+    private void PenyulitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PenyulitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PenyulitActionPerformed
+
+    private void PenyulitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PenyulitKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PenyulitKeyPressed
+
+    private void KehilanganDarahKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_KehilanganDarahKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_KehilanganDarahKeyPressed
+
+    private void KomplikasiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_KomplikasiKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_KomplikasiKeyPressed
+
+    private void DikirimPAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DikirimPAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DikirimPAActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -3248,17 +3299,22 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
     private widget.panelisi FormInput;
     private widget.TextBox Jaringan;
     private widget.TextBox Kd2;
+    private widget.TextBox KehilanganDarah;
+    private widget.TextBox Komplikasi;
     private widget.Label LTotal;
     private widget.TextArea Laporan;
+    private widget.TextArea MacamOperasi;
     private javax.swing.JMenuItem MnHapusObatOperasi;
     private javax.swing.JMenuItem MnHapusTagihanOperasi;
     private javax.swing.JMenuItem MnLaporanOperasi;
     private javax.swing.JMenuItem MnUbahLaporan;
     private javax.swing.JMenuItem MnUbahOperatorPetugas;
     private widget.TextBox NoRawat;
-    private widget.TextBox PostOp;
-    private widget.TextBox PreOp;
+    private widget.ComboBox Penyulit;
+    private widget.TextArea PostOp;
+    private widget.TextArea PreOp;
     private widget.ScrollPane Scroll3;
+    private widget.ComboBox Sifat;
     private widget.TextBox TCari;
     private widget.Tanggal Tgl1;
     private widget.Tanggal Tgl2;
@@ -3286,6 +3342,12 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
     private widget.InternalFrame internalFrame1;
     private widget.InternalFrame internalFrame5;
     private widget.InternalFrame internalFrame6;
+    private widget.Label jLabel10;
+    private widget.Label jLabel11;
+    private widget.Label jLabel12;
+    private widget.Label jLabel13;
+    private widget.Label jLabel14;
+    private widget.Label jLabel5;
     private widget.Label jLabel6;
     private widget.Label jLabel7;
     private widget.Label jLabel8;
@@ -3376,6 +3438,9 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JMenuItem ppBerkasDigital;
     private widget.ScrollPane scrollPane1;
     private widget.ScrollPane scrollPane2;
+    private widget.ScrollPane scrollPane3;
+    private widget.ScrollPane scrollPane4;
+    private widget.ScrollPane scrollPane5;
     private widget.Table tbDokter;
     private widget.Tanggal tgl2;
     // End of variables declaration//GEN-END:variables

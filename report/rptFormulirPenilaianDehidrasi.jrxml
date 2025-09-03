@@ -915,14 +915,6 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 				</textElement>
 				<text><![CDATA[Dokter]]></text>
 			</staticText>
-			<textField pattern="dd MMMM, yyyy">
-				<reportElement x="397" y="10" width="143" height="11" uuid="9f783fb7-7368-4d30-8670-cf350efa3902"/>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="Tahoma" size="9"/>
-					<paragraph lineSpacing="Single"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{kotars}+", "+new SimpleDateFormat("dd MMMM yyyy", new java.util.Locale("id")).format(new Date())]]></textFieldExpression>
-			</textField>
 			<componentElement>
 				<reportElement x="397" y="37" width="144" height="45" isRemoveLineWhenBlank="true" uuid="2e125df9-83d7-4563-b5cf-20b2194a8e5c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>

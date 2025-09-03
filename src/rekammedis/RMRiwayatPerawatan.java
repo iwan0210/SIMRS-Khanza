@@ -360,6 +360,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         chkSkorAldrettePascaAnestesi = new widget.CekBox();
         chkSkorStewardPascaAnestesi = new widget.CekBox();
         chkSkorBromagePascaAnestesi = new widget.CekBox();
+        chkSkorPostAnesthesiaDischargeScoringSystem = new widget.CekBox();
         chkCatatanPengkajianPaskaOperasi = new widget.CekBox();
         chkChecklistKriteriaMasukHCU = new widget.CekBox();
         chkChecklistKriteriaKeluarHCU = new widget.CekBox();
@@ -612,7 +613,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         WindowPhrase.getContentPane().add(internalFrame8, java.awt.BorderLayout.CENTER);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-05-2025 11:00:50" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-09-2025 18:07:08" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -921,7 +922,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         FormMenu.setBackground(new java.awt.Color(255, 255, 255));
         FormMenu.setBorder(null);
         FormMenu.setName("FormMenu"); // NOI18N
-        FormMenu.setPreferredSize(new java.awt.Dimension(255, 4150));
+        FormMenu.setPreferredSize(new java.awt.Dimension(255, 4172));
         FormMenu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 1, 1));
 
         chkSemua.setSelected(true);
@@ -1632,6 +1633,14 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         chkSkorBromagePascaAnestesi.setOpaque(false);
         chkSkorBromagePascaAnestesi.setPreferredSize(new java.awt.Dimension(245, 22));
         FormMenu.add(chkSkorBromagePascaAnestesi);
+
+        chkSkorPostAnesthesiaDischargeScoringSystem.setSelected(true);
+        chkSkorPostAnesthesiaDischargeScoringSystem.setText("Post Anesthesia Discharge Scoring System");
+        chkSkorPostAnesthesiaDischargeScoringSystem.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        chkSkorPostAnesthesiaDischargeScoringSystem.setName("chkSkorPostAnesthesiaDischargeScoringSystem"); // NOI18N
+        chkSkorPostAnesthesiaDischargeScoringSystem.setOpaque(false);
+        chkSkorPostAnesthesiaDischargeScoringSystem.setPreferredSize(new java.awt.Dimension(245, 22));
+        FormMenu.add(chkSkorPostAnesthesiaDischargeScoringSystem);
 
         chkCatatanPengkajianPaskaOperasi.setSelected(true);
         chkCatatanPengkajianPaskaOperasi.setText("Catatan Pengkajian Paska Operasi");
@@ -2931,6 +2940,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             chkSkorAldrettePascaAnestesi.setSelected(true);
             chkSkorStewardPascaAnestesi.setSelected(true);
             chkSkorBromagePascaAnestesi.setSelected(true);
+            chkSkorPostAnesthesiaDischargeScoringSystem.setSelected(true);
             chkAsuhanPreInduksi.setSelected(true);
             chkHasilPemeriksaanUSGUrologi.setSelected(true);
             chkHasilPemeriksaanUSGGynecologi.setSelected(true);
@@ -3111,6 +3121,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             chkSkorAldrettePascaAnestesi.setSelected(false);
             chkSkorStewardPascaAnestesi.setSelected(false);
             chkSkorBromagePascaAnestesi.setSelected(false);
+            chkSkorPostAnesthesiaDischargeScoringSystem.setSelected(false);
             chkAsuhanPreInduksi.setSelected(false);
             chkHasilPemeriksaanUSGUrologi.setSelected(false);
             chkHasilPemeriksaanUSGGynecologi.setSelected(false);
@@ -3918,6 +3929,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
     private widget.CekBox chkSignOutSebelumMenutupLuka;
     private widget.CekBox chkSkorAldrettePascaAnestesi;
     private widget.CekBox chkSkorBromagePascaAnestesi;
+    private widget.CekBox chkSkorPostAnesthesiaDischargeScoringSystem;
     private widget.CekBox chkSkorStewardPascaAnestesi;
     private widget.CekBox chkSkriningAdiksiNikotin;
     private widget.CekBox chkSkriningAnemia;
@@ -4529,6 +4541,8 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                     menampilkanSkorStewardPascaAnestesi(rs.getString("no_rawat"));
                     //menampilkan Skor Bromage Pasca Anestes
                     menampilkanSkorBromagePascaAnestesi(rs.getString("no_rawat"));
+                    //menampilkan PADSS
+                    menampilkanSkorMonitoringDischargeScoringSystemPascaAnestesi(rs.getString("no_rawat"));
                     //catatan Pengkajian Paska Operasi
                     menampilkanCatatanPengkajianPaskaOperasi(rs.getString("no_rawat"));
                     //menampilkan checklist kriteria masuk HCU
@@ -5169,7 +5183,8 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                        
                         try{
                             rs2=koneksi.prepareStatement(
-                                    "select tanggal, diagnosa_preop, diagnosa_postop, jaringan_dieksekusi, selesaioperasi, permintaan_pa, laporan_operasi "+
+                                    "select tanggal, diagnosa_preop, diagnosa_postop, jaringan_dieksekusi, selesaioperasi, permintaan_pa, laporan_operasi, "+
+                                    "sifat_tindakan, penyulit, kehilangan_darah, komplikasi, macam_operasi " + 
                                     "from laporan_operasi where no_rawat='"+rs.getString("no_rawat")+"' group by no_rawat,tanggal order by tanggal").executeQuery();
                             if(rs2.next()){                                    
                                 htmlContent.append(  
@@ -5186,7 +5201,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                          "<tr>").append(
                                             "<td valign='top' width='4%' align='center'></td>").append(
                                             "<td valign='top' width='21%'>Diagnosa Pre-operatif</td>").append(
-                                            "<td valign='top' width='75%'>:&nbsp;").append(rs2.getString("diagnosa_preop")).append("</td>").append(
+                                            "<td valign='top' width='75%'>:&nbsp;").append(rs2.getString("diagnosa_preop").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").append(
                                          "</tr>").append(
                                          "<tr>").append(
                                             "<td valign='top' width='4%' align='center'></td>").append(
@@ -5196,7 +5211,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                          "<tr>").append(
                                             "<td valign='top' width='4%' align='center'></td>").append(
                                             "<td valign='top' width='21%'>Diagnosa Post-operatif</td>").append(
-                                            "<td valign='top' width='75%'>:&nbsp;").append(rs2.getString("diagnosa_postop")).append("</td>").append(
+                                            "<td valign='top' width='75%'>:&nbsp;").append(rs2.getString("diagnosa_postop").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").append(
                                          "</tr>").append(
                                          "<tr>").append(
                                             "<td valign='top' width='4%' align='center'></td>").append(
@@ -5207,6 +5222,31 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                             "<td valign='top' width='4%' align='center'></td>").append(
                                             "<td valign='top' width='21%'>Dikirim Untuk Pemeriksaan PA</td>").append(
                                             "<td valign='top' width='75%'>:&nbsp;").append(rs2.getString("permintaan_pa")).append("</td>").append(
+                                         "</tr>").append(
+                                         "<tr>").append(
+                                            "<td valign='top' width='4%' align='center'></td>").append(
+                                            "<td valign='top' width='21%'>Sifat Tindakan</td>").append(
+                                            "<td valign='top' width='75%'>:&nbsp;").append(rs2.getString("sifat_tindakan").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").append(
+                                         "</tr>").append(
+                                         "<tr>").append(
+                                            "<td valign='top' width='4%' align='center'></td>").append(
+                                            "<td valign='top' width='21%'>Penyulit</td>").append(
+                                            "<td valign='top' width='75%'>:&nbsp;").append(rs2.getString("penyulit").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").append(
+                                         "</tr>").append(
+                                         "<tr>").append(
+                                            "<td valign='top' width='4%' align='center'></td>").append(
+                                            "<td valign='top' width='21%'>Kehilangan Darah</td>").append(
+                                            "<td valign='top' width='75%'>:&nbsp;").append(rs2.getString("kehilangan_darah").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append(" cc</td>").append(
+                                         "</tr>").append(
+                                         "<tr>").append(
+                                            "<td valign='top' width='4%' align='center'></td>").append(
+                                            "<td valign='top' width='21%'>Komplikasi</td>").append(
+                                            "<td valign='top' width='75%'>:&nbsp;").append(rs2.getString("komplikasi").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").append(
+                                         "</tr>").append(
+                                         "<tr>").append(
+                                            "<td valign='top' width='4%' align='center'></td>").append(
+                                            "<td valign='top' width='21%'>Macam Operasi</td>").append(
+                                            "<td valign='top' width='75%'>:&nbsp;").append(rs2.getString("macam_operasi").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").append(
                                          "</tr>").append(
                                          "<tr>").append(
                                             "<td valign='top' width='4%' align='center'></td>").append(
@@ -25074,6 +25114,98 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
             }
         } catch (Exception e) {
             System.out.println("Notif Skor Bromage Pasca Anestesi : "+e);
+        }
+    }
+    
+    private void menampilkanSkorMonitoringDischargeScoringSystemPascaAnestesi(String norawat) {
+        try {
+            if(chkSkorPostAnesthesiaDischargeScoringSystem.isSelected()==true){
+                try {
+                    rs2=koneksi.prepareStatement(
+                            "select post_anesthesia_discharge_scoring_system.tanggal,post_anesthesia_discharge_scoring_system.penilaian_skala1,post_anesthesia_discharge_scoring_system.penilaian_nilai1,"+
+                            "post_anesthesia_discharge_scoring_system.penilaian_skala2,post_anesthesia_discharge_scoring_system.penilaian_nilai2,post_anesthesia_discharge_scoring_system.penilaian_skala3,"+
+                            "post_anesthesia_discharge_scoring_system.penilaian_nilai3,post_anesthesia_discharge_scoring_system.penilaian_skala4,post_anesthesia_discharge_scoring_system.penilaian_nilai4,"+
+                            "post_anesthesia_discharge_scoring_system.penilaian_skala5,post_anesthesia_discharge_scoring_system.penilaian_nilai5,post_anesthesia_discharge_scoring_system.penilaian_totalnilai,"+
+                            "post_anesthesia_discharge_scoring_system.keluar,post_anesthesia_discharge_scoring_system.instruksi,post_anesthesia_discharge_scoring_system.kd_dokter,dokter.nm_dokter,"+
+                            "post_anesthesia_discharge_scoring_system.nip,petugas.nama from post_anesthesia_discharge_scoring_system inner join dokter on post_anesthesia_discharge_scoring_system.kd_dokter=dokter.kd_dokter "+
+                            "inner join petugas on post_anesthesia_discharge_scoring_system.nip=petugas.nip where post_anesthesia_discharge_scoring_system.no_rawat='"+norawat+"'").executeQuery();
+                    if(rs2.next()){
+                        htmlContent.append(
+                          "<tr class='isi'>").append( 
+                            "<td valign='top' width='2%'></td>").append(        
+                            "<td valign='top' width='18%'>Post Anesthesia Discharge Scoring System (PADSS)</td>").append(
+                            "<td valign='top' width='1%' align='center'>:</td>").append(
+                            "<td valign='top' width='79%'>").append(
+                              "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>").append(
+                                 "<tr align='center'>").append(
+                                    "<td valign='top' width='4%' bgcolor='#FFFAF8'>No.</td>").append(
+                                    "<td valign='top' width='15%' bgcolor='#FFFAF8'>Tanggal & Petugas</td>").append(
+                                    "<td valign='top' width='16%' bgcolor='#FFFAF8'>Parameter</td>").append(
+                                    "<td valign='top' width='26%' bgcolor='#FFFAF8'>Kriteria</td>").append(
+                                    "<td valign='top' width='5%' bgcolor='#FFFAF8'>Skor</td>").append(
+                                    "<td valign='top' width='17%' bgcolor='#FFFAF8'>Keluar</td>").append(
+                                    "<td valign='top' width='17%' bgcolor='#FFFAF8'>Instruksi/Tindakan</td>").append(
+                                 "</tr>"
+                        );
+                        w=1;
+                        do{
+                            htmlContent.append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='center' valign='middle' rowspan='6'>").append(w).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle' rowspan='6'>").append(rs2.getString("tanggal")).append("<br>").append(rs2.getString("nip")).append(" ").append(rs2.getString("nama")).append("</td>").append(
+                                    "<td valign='top' align='justify' valign='middle'>1. Tanda-tanda vital</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_skala1")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai1")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle' rowspan='6'>").append(rs2.getString("keluar").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle' rowspan='6'>").append(rs2.getString("instruksi").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='justify' valign='middle'>2. Tingkat aktivitas</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_skala2")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai2")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='justify' valign='middle'>3. Nyeri, mual, dan muntah</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_skala3")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai3")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='justify' valign='middle'>4. Pendarahan bedan</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_skala4")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai4")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='justify' valign='middle'>5. Intake dan output</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_skala5")).append("</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_nilai5")).append("</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='center' valign='middle' colspan='2'>TOTAL</td>").append(
+                                    "<td valign='top' align='center' valign='middle'>").append(rs2.getString("penilaian_totalnilai")).append("</td>").append(
+                                 "</tr>"
+                            );                                     
+                            w++;
+                        }while(rs2.next());
+                        htmlContent.append(
+                                 "<tr>").append(
+                                    "<td valign='top' align='left' colspan='7'>").append(
+                                        "Pasien Bisa Dipindahkan Ke Ruang Perawatan Bila Skor Minimal 9").append(
+                                    "</td>").append(
+                                 "</tr>").append(
+                              "</table>").append(
+                            "</td>").append(
+                          "</tr>");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notifikasi : "+e);
+                } finally{
+                    if(rs2!=null){
+                        rs2.close();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif Post Anesthesia Discharge Scoring System : "+e);
         }
     }
     

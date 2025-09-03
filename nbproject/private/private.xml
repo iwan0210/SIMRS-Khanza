@@ -43,9 +43,11 @@
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMDataResumePasienRanap.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMRiwayatPerawatan.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgPasienMeninggal.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgCariTagihanOperasi.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMCariJumlahObat.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgRawatJalan.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/ApiBPJS.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMMonitoringDischargeScoringSystemPascaAnestesi.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/BPJSDataFingerPrintPasien.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianAwalMedisRanapDewasa.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgKasirRalan.java</file>
@@ -54,6 +56,7 @@
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgPasien.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/ApiBPJSAplicare.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianPreAnastesi.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgTagihanOperasi.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMDataResumePasien.java</file>
         </group>
     </open-files>
