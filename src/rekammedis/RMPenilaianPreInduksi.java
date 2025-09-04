@@ -521,7 +521,7 @@ public final class RMPenilaianPreInduksi extends javax.swing.JDialog {
         MnPenilaianMedis.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnPenilaianMedis.setForeground(new java.awt.Color(50, 50, 50));
         MnPenilaianMedis.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnPenilaianMedis.setText("Laporan Penilaian Pre Induksi");
+        MnPenilaianMedis.setText("Laporan Pengkajian Pre Induksi");
         MnPenilaianMedis.setName("MnPenilaianMedis"); // NOI18N
         MnPenilaianMedis.setPreferredSize(new java.awt.Dimension(220, 26));
         MnPenilaianMedis.addActionListener(new java.awt.event.ActionListener() {
@@ -535,7 +535,7 @@ public final class RMPenilaianPreInduksi extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Penilaian Pre Induksi ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pengkajian Pre Induksi ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setPreferredSize(new java.awt.Dimension(467, 500));
@@ -1826,7 +1826,7 @@ public final class RMPenilaianPreInduksi extends javax.swing.JDialog {
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
 
-        TabRawat.addTab("Input Penilaian", internalFrame2);
+        TabRawat.addTab("Input Pengkajian", internalFrame2);
 
         internalFrame3.setBorder(null);
         internalFrame3.setName("internalFrame3"); // NOI18N
@@ -1928,7 +1928,7 @@ public final class RMPenilaianPreInduksi extends javax.swing.JDialog {
 
         internalFrame3.add(panelGlass9, java.awt.BorderLayout.PAGE_END);
 
-        TabRawat.addTab("Data Penilaian", internalFrame3);
+        TabRawat.addTab("Data Pengkajian", internalFrame3);
 
         internalFrame1.add(TabRawat, java.awt.BorderLayout.CENTER);
 
@@ -2139,21 +2139,20 @@ public final class RMPenilaianPreInduksi extends javax.swing.JDialog {
                 );
                 bg.close();
 
-                // Tulis file HTML
-                File f = new File("DataPenilaianPreInduksi.html");
-                BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-                bw.write(LoadHTML.getText().replaceAll("<head>", "<head>"
-                        + "<link href=\"file2.css\" rel=\"stylesheet\" type=\"text/css\" />"
-                        + "<table width='4600px' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"
-                        + "<tr class='isi2'>"
-                        + "<td valign='top' align='center'>"
-                        + "<font size='4' face='Tahoma'>" + akses.getnamars() + "</font><br>"
-                        + akses.getalamatrs() + ", " + akses.getkabupatenrs() + ", " + akses.getpropinsirs() + "<br>"
-                        + akses.getkontakrs() + ", E-mail : " + akses.getemailrs() + "<br><br>"
-                        + "<font size='2' face='Tahoma'>DATA PENILAIAN PRE INDUKSI<br><br></font>"
-                        + "</td>"
-                        + "</tr>"
-                        + "</table>")
+                File f = new File("DataPenilaianPreInduksi.html");            
+                BufferedWriter bw = new BufferedWriter(new FileWriter(f));            
+                bw.write(LoadHTML.getText().replaceAll("<head>","<head>"+
+                            "<link href=\"file2.css\" rel=\"stylesheet\" type=\"text/css\" />"+
+                            "<table width='4600px' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                "<tr class='isi2'>"+
+                                    "<td valign='top' align='center'>"+
+                                        "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
+                                        akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
+                                        akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
+                                        "<font size='2' face='Tahoma'>DATA PENGKAJIAN PRE INDUKSI<br><br></font>"+        
+                                    "</td>"+
+                               "</tr>"+
+                            "</table>")
                 );
                 bw.close();
 

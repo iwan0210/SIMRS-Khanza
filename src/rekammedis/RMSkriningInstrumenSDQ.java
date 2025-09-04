@@ -728,7 +728,7 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-11-2024" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-11-2024" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -742,7 +742,7 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-11-2024" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-11-2024" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -864,7 +864,7 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         TPasien.setBounds(336, 10, 285, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-11-2024" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-11-2024" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -1789,7 +1789,7 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         NilaiSDQ25.setBounds(749, 810, 40, 23);
 
         jLabel272.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel272.setText("F. Penilaian Skor Kesulitan ");
+        jLabel272.setText("F. Pengkajian Skor Kesulitan ");
         jLabel272.setName("jLabel272"); // NOI18N
         FormInput.add(jLabel272);
         jLabel272.setBounds(44, 1040, 160, 23);
@@ -1798,7 +1798,7 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         KesimpulanKesulitan.setFocusTraversalPolicyProvider(true);
         KesimpulanKesulitan.setName("KesimpulanKesulitan"); // NOI18N
         FormInput.add(KesimpulanKesulitan);
-        KesimpulanKesulitan.setBounds(210, 1040, 240, 23);
+        KesimpulanKesulitan.setBounds(218, 1040, 240, 23);
 
         jLabel273.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel273.setText("rumah sampai selesai.");
@@ -1890,7 +1890,7 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         NilaiKesimpulanKesulitan.setBounds(749, 1040, 40, 23);
 
         jLabel288.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel288.setText("A. Penilaian Gejala Emosional (E)");
+        jLabel288.setText("A. Pengkajian Gejala Emosional (E)");
         jLabel288.setName("jLabel288"); // NOI18N
         FormInput.add(jLabel288);
         jLabel288.setBounds(44, 890, 170, 23);
@@ -1899,7 +1899,7 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         KesimpulanSkorE.setFocusTraversalPolicyProvider(true);
         KesimpulanSkorE.setName("KesimpulanSkorE"); // NOI18N
         FormInput.add(KesimpulanSkorE);
-        KesimpulanSkorE.setBounds(210, 890, 240, 23);
+        KesimpulanSkorE.setBounds(218, 890, 240, 23);
 
         jLabel59.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel59.setText("II. INTEPRETASI DAN KESIMPULAN HASIL PEMERIKSAAN (SDQ) :");
@@ -1908,7 +1908,7 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         jLabel59.setBounds(11, 873, 550, 23);
 
         jLabel291.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel291.setText("B. Penilaian Masalah Perilaku (C)");
+        jLabel291.setText("B. Pengkajian Masalah Perilaku (C)");
         jLabel291.setName("jLabel291"); // NOI18N
         FormInput.add(jLabel291);
         jLabel291.setBounds(44, 920, 170, 23);
@@ -1917,10 +1917,10 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         KesimpulanSkorC.setFocusTraversalPolicyProvider(true);
         KesimpulanSkorC.setName("KesimpulanSkorC"); // NOI18N
         FormInput.add(KesimpulanSkorC);
-        KesimpulanSkorC.setBounds(210, 920, 240, 23);
+        KesimpulanSkorC.setBounds(218, 920, 240, 23);
 
         jLabel293.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel293.setText("C. Penilaian Hiperaktivitas (H)");
+        jLabel293.setText("C. Pengkajian Hiperaktivitas (H)");
         jLabel293.setName("jLabel293"); // NOI18N
         FormInput.add(jLabel293);
         jLabel293.setBounds(44, 950, 170, 23);
@@ -1929,7 +1929,7 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         KesimpulanSkorH.setFocusTraversalPolicyProvider(true);
         KesimpulanSkorH.setName("KesimpulanSkorH"); // NOI18N
         FormInput.add(KesimpulanSkorH);
-        KesimpulanSkorH.setBounds(210, 950, 240, 23);
+        KesimpulanSkorH.setBounds(218, 950, 240, 23);
 
         jLabel295.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel295.setText("D. Masalah Teman Sebaya (P)");
@@ -1941,10 +1941,10 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         KesimpulanSkorP.setFocusTraversalPolicyProvider(true);
         KesimpulanSkorP.setName("KesimpulanSkorP"); // NOI18N
         FormInput.add(KesimpulanSkorP);
-        KesimpulanSkorP.setBounds(210, 980, 240, 23);
+        KesimpulanSkorP.setBounds(218, 980, 240, 23);
 
         jLabel297.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel297.setText("E. Penilaian Skor Kekuatan (Pr)");
+        jLabel297.setText("E. Pengkajian Skor Kekuatan (Pr)");
         jLabel297.setName("jLabel297"); // NOI18N
         FormInput.add(jLabel297);
         jLabel297.setBounds(44, 1010, 170, 23);
@@ -1953,7 +1953,7 @@ public final class RMSkriningInstrumenSDQ extends javax.swing.JDialog {
         KesimpulanSkorPr.setFocusTraversalPolicyProvider(true);
         KesimpulanSkorPr.setName("KesimpulanSkorPr"); // NOI18N
         FormInput.add(KesimpulanSkorPr);
-        KesimpulanSkorPr.setBounds(210, 1010, 240, 23);
+        KesimpulanSkorPr.setBounds(218, 1010, 240, 23);
 
         jLabel299.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel299.setText("Banyak yang Saya takuti, Saya mudah menjadi takut.");
