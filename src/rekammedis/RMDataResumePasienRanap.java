@@ -693,6 +693,8 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         BtnDokter6 = new widget.Button();
         BtnDokter21 = new widget.Button();
         BtnResepPulangSOAP = new javax.swing.JButton();
+        BtnFotoRontgen = new javax.swing.JButton();
+        BtnRiwayatPerawatan = new javax.swing.JButton();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
@@ -1084,7 +1086,7 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-08-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-09-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1098,7 +1100,7 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-08-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-09-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1883,7 +1885,7 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         KetDilanjutkan.setBounds(240, 990, 270, 23);
 
         Kontrol.setForeground(new java.awt.Color(50, 70, 50));
-        Kontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-08-2025 18:05:33" }));
+        Kontrol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-09-2025 00:08:54" }));
         Kontrol.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         Kontrol.setName("Kontrol"); // NOI18N
         Kontrol.setOpaque(false);
@@ -2054,6 +2056,26 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         });
         FormInput.add(BtnResepPulangSOAP);
         BtnResepPulangSOAP.setBounds(800, 1030, 160, 30);
+
+        BtnFotoRontgen.setText("Foto Rontgen");
+        BtnFotoRontgen.setName("BtnFotoRontgen"); // NOI18N
+        BtnFotoRontgen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnFotoRontgenActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnFotoRontgen);
+        BtnFotoRontgen.setBounds(810, 220, 160, 30);
+
+        BtnRiwayatPerawatan.setText("Riwayat Perawatan");
+        BtnRiwayatPerawatan.setName("BtnRiwayatPerawatan"); // NOI18N
+        BtnRiwayatPerawatan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRiwayatPerawatanActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnRiwayatPerawatan);
+        BtnRiwayatPerawatan.setBounds(810, 170, 160, 30);
 
         scrollInput.setViewportView(FormInput);
 
@@ -3109,6 +3131,36 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_BtnResepPulangSOAPActionPerformed
 
+    private void BtnRiwayatPerawatanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRiwayatPerawatanActionPerformed
+        if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, No Rawat Kosong");
+            TCari.requestFocus();
+        }else{
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            RMRiwayatPerawatan resume=new RMRiwayatPerawatan(null,true);
+            resume.setNoRm(TNoRM.getText(),TPasien.getText());
+            resume.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+            resume.setLocationRelativeTo(internalFrame1);
+            resume.setVisible(true);
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_BtnRiwayatPerawatanActionPerformed
+
+    private void BtnFotoRontgenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnFotoRontgenActionPerformed
+        if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, No Rawat Kosong");
+            TCari.requestFocus();
+        } else {
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            RMCariHasilGambarRadiologi ttv = new RMCariHasilGambarRadiologi(null, true);
+            ttv.setNoRM(TNoRM.getText());
+            ttv.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+            ttv.setLocationRelativeTo(internalFrame1);
+            ttv.setVisible(true);
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_BtnFotoRontgenActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -3146,10 +3198,12 @@ public final class RMDataResumePasienRanap extends javax.swing.JDialog {
     private widget.Button BtnDownloadBukaFile;
     private widget.Button BtnDownloadFile;
     private widget.Button BtnEdit;
+    private javax.swing.JButton BtnFotoRontgen;
     private widget.Button BtnHapus;
     private widget.Button BtnKeluar;
     private widget.Button BtnPrint;
     private javax.swing.JButton BtnResepPulangSOAP;
+    private javax.swing.JButton BtnRiwayatPerawatan;
     private widget.Button BtnSimpan;
     private widget.Button BtnSimpanTandaTangan;
     private widget.TextBox CaraBayar;

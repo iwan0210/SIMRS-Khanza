@@ -6345,7 +6345,48 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 i=tbKamIn.getSelectedColumn();
                 if(i==0){
                     if(akses.gettindakan_ranap()==true){
-                        MnRawatInapActionPerformed(null);
+                        if (akses.getjml2() < 1) {
+                            MnRawatInapActionPerformed(null);
+                            return;
+                        }
+
+                        int cariDokter = Sequel.cariInteger(
+                            "SELECT COUNT(kd_dokter) FROM dokter WHERE kd_dokter = ?",
+                            akses.getkode()
+                        );
+
+                        if (cariDokter < 1) {
+                            MnRawatInapActionPerformed(null);
+                            return;
+                        }
+
+                        if ("3019".equals(akses.getkode())) {
+                            int cariMedisKandungan = Sequel.cariInteger(
+                                "SELECT COUNT(no_rawat) FROM penilaian_medis_ranap_kandungan WHERE no_rawat = ?",
+                                norawat.getText()
+                            );
+
+                            if (cariMedisKandungan >= 1) {
+                                MnRawatInapActionPerformed(null);
+                                return;
+                            }
+
+                            MnPenilaianAwalMedisKandunganActionPerformed(null);
+                            return;
+                        }
+
+                        // dokter umum
+                        int cariMedisUmum = Sequel.cariInteger(
+                            "SELECT COUNT(no_rawat) FROM penilaian_medis_ranap WHERE no_rawat = ?",
+                            norawat.getText()
+                        );
+
+                        if (cariMedisUmum >= 1) {
+                            MnRawatInapActionPerformed(null);
+                            return;
+                        }
+
+                        MnPenilaianAwalMedisRanapActionPerformed(null);
                     }                    
                 }else if(i==1){
                      if(akses.getberi_obat()==true){
@@ -19210,7 +19251,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                   MnDataOperasi,MnPenilaianAwalKeperawatanRanapBayiAnak,MnCatatanObservasiRestrainNonFarmakologi,MnCatatanObservasiVentilator,MnCatatanAnastesiSedasi,MnChecklistPemberianFibrinolitik,MnPenilaianPsikologKlinis,MnPenilaianAwalMedisNeonatus,
                                   MnPenilaianDerajatDehidrasi,MnHasilPemeriksaanECHO,MnPenilaianBayiBaruLahir,MnLaporanTindakan,MnPelaksanaanInformasiEdukasi,MnCatatanObservasiHemodialisa,MnCatatanCairanHemodialisa,MnCatatanPengkajianPaskaOperasi,MnCatatanObservasiBayi,
                                   MnCheckListKesiapanAnestesi,MnHasilPemeriksaanSlitLamp,MnHasilPemeriksaanOCT,MnPersetujuanPemeriksaanHIV,MnSuratPernyataanMemilihDPJP,MnCheckListKriteriaMasukNICU,MnCheckListKriteriaKeluarNICU,MnPenilaianAwalMedisPsikiatri,
-                                  MnCheckListKriteriaMasukPICU,MnCheckListKriteriaKeluarPICU,MnPulangSEPAPD,MnPulangSEPAPS,MnPostAnesthesiaDischargeScoringSystem;
+                                  MnCheckListKriteriaMasukPICU,MnCheckListKriteriaKeluarPICU,MnPulangSEPAPD,MnPulangSEPAPS,MnPostAnesthesiaDischargeScoringSystem,MnEdukasiPasienKeluarga;
     private javax.swing.JMenu MnHasilUSG,MnHasilEndoskopi,MnCatatanObservasi,MnEdukasi,MnSuratPersetujuan;
     
     private synchronized void tampil() {
