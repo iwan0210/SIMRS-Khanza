@@ -19587,6 +19587,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     JamMasuk.setText("");
                     TOut.setText("");
                     ttlbiaya.setText("0");
+                    String diagnosaMasuk = Sequel.cariIsi("SELECT CASE WHEN CHAR_LENGTH(REPLACE(REPLACE(diagnosis, '\\r\\n', ', '), '\\n', ', ')) > 100 THEN CONCAT(LEFT(REPLACE(REPLACE(diagnosis, '\\r\\n', ', '), '\\n', ', '), 97), '...') ELSE REPLACE(REPLACE(diagnosis, '\\r\\n', ', '), '\\n', ', ') END AS diagnosis_ringkas FROM penilaian_medis_igd WHERE no_rawat = ?",norwt);
+                    diagnosaawal.setText(diagnosaMasuk);
                     jLabel23.setVisible(false);                
                     cmbStatus.setVisible(false);
                     jLabel26.setVisible(false);

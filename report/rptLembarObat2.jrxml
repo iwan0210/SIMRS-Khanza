@@ -29,6 +29,7 @@
 	<parameter name="alamat" class="java.lang.String"/>
 	<parameter name="tgllahir" class="java.lang.String"/>
 	<parameter name="berat" class="java.lang.String"/>
+	<parameter name="status" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select * from temporary_resep]]>
 	</queryString>
@@ -454,6 +455,13 @@
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{berat} + " kg"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="54" width="56" height="9" uuid="e82a2af2-0ee1-433e-b452-2df449732c7b"/>
+				<textElement textAlignment="Right">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{status}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>

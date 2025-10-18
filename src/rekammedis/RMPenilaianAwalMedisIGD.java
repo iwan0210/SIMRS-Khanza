@@ -270,6 +270,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         LoadHTML = new widget.editorpane();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         MnPenilaianMedis = new javax.swing.JMenuItem();
+        MnSimpanSOAPRalan = new javax.swing.JMenuItem();
         TanggalRegistrasi = new widget.TextBox();
         internalFrame1 = new widget.InternalFrame();
         panelGlass8 = new widget.panelisi();
@@ -428,6 +429,21 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
             }
         });
         jPopupMenu1.add(MnPenilaianMedis);
+
+        MnSimpanSOAPRalan.setBackground(new java.awt.Color(255, 255, 254));
+        MnSimpanSOAPRalan.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnSimpanSOAPRalan.setForeground(new java.awt.Color(50, 50, 50));
+        MnSimpanSOAPRalan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnSimpanSOAPRalan.setLabel("Simpan SOAP Ralan");
+        MnSimpanSOAPRalan.setName("MnSimpanSOAPRalan"); // NOI18N
+        MnSimpanSOAPRalan.setPreferredSize(new java.awt.Dimension(220, 26));
+        MnSimpanSOAPRalan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnSimpanSOAPRalanActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(MnSimpanSOAPRalan);
+        MnSimpanSOAPRalan.getAccessibleContext().setAccessibleName("Simpan SOAP Ralan");
 
         TanggalRegistrasi.setHighlighter(null);
         TanggalRegistrasi.setName("TanggalRegistrasi"); // NOI18N
@@ -1335,7 +1351,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         label11.setBounds(380, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-05-2025 17:50:44" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-10-2025 17:19:34" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -1487,7 +1503,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-05-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-10-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1501,7 +1517,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-05-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-10-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2180,6 +2196,31 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnSPOKeyPressed
 
+    private void MnSimpanSOAPRalanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSimpanSOAPRalanActionPerformed
+        if(tabMode.getRowCount()<=0){
+            return;
+        }
+        if(tbObat.getSelectedRow()!= -1){
+            if (Sequel.menyimpantf("pemeriksaan_ralan", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "Data", 21, new String[] {
+                TNoRw.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+""),TglAsuhan.getSelectedItem().toString().substring(11,19),
+                Suhu.getText(),TD.getText(),Nadi.getText(),RR.getText(),TB.getText(),BB.getText(),SPO.getText(),GCS.getText(),
+                Kesadaran.getSelectedItem().toString(),RPS.getText(),KetFisik.getText(),Alergi.getText(),"",Tatalaksana.getText(),
+                Diagnosis.getText(),"","",KdDokter.getText()
+            }) == false) {
+                System.out.println("Simpan SOAP dari medis igd gagal no_rawat = " + TNoRw.getText());
+                JOptionPane.showMessageDialog(null,"Maaf SOAP tidak tersimpan");
+                
+                return;
+            };
+            
+            JOptionPane.showMessageDialog(null,"SOAP berhasil disimpan");
+            
+            return;
+        }
+        
+        JOptionPane.showMessageDialog(null,"Silahkan pilih data terlebih dahulu ");
+    }//GEN-LAST:event_MnSimpanSOAPRalanActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2237,6 +2278,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
     private widget.editorpane LoadHTML;
     private widget.ComboBox Mata;
     private javax.swing.JMenuItem MnPenilaianMedis;
+    private javax.swing.JMenuItem MnSimpanSOAPRalan;
     private widget.TextBox Nadi;
     private widget.TextBox NmDokter;
     private usu.widget.glass.PanelGlass PanelWall;

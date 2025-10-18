@@ -509,6 +509,7 @@ public final class SatuSehatMapingRadiologi extends javax.swing.JDialog {
         FormInput.add(Display);
         Display.setBounds(99, 40, 625, 23);
 
+        RadiologiSystem.setText("http://loinc.org");
         RadiologiSystem.setHighlighter(null);
         RadiologiSystem.setName("RadiologiSystem"); // NOI18N
         RadiologiSystem.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -554,6 +555,7 @@ public final class SatuSehatMapingRadiologi extends javax.swing.JDialog {
         FormInput.add(jLabel5);
         jLabel5.setBounds(305, 70, 100, 23);
 
+        SampelRadiologiSystem.setText("http://snomed.info/sct");
         SampelRadiologiSystem.setHighlighter(null);
         SampelRadiologiSystem.setName("SampelRadiologiSystem"); // NOI18N
         SampelRadiologiSystem.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -904,12 +906,12 @@ public final class SatuSehatMapingRadiologi extends javax.swing.JDialog {
 
     public void emptTeks() {
         Code.setText("");
-        RadiologiSystem.setText("");
+        RadiologiSystem.setText("http://loinc.org");
         KodePemeriksaan.setText("");
         NamaPemeriksaan.setText("");
         Display.setText("");
         SampelCode.setText("");
-        SampelRadiologiSystem.setText("");
+        SampelRadiologiSystem.setText("http://snomed.info/sct");
         SampelDisplay.setText("");
         ChkInput.setSelected(true);
         isForm();

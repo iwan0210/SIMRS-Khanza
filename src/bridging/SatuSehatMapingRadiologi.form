@@ -504,6 +504,7 @@
                 </Component>
                 <Component class="widget.TextBox" name="RadiologiSystem">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="http://loinc.org"/>
                     <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="null"/>
                     </Property>
@@ -585,6 +586,7 @@
                 </Component>
                 <Component class="widget.TextBox" name="SampelRadiologiSystem">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="http://snomed.info/sct"/>
                     <Property name="highlighter" type="javax.swing.text.Highlighter" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="null"/>
                     </Property>

@@ -446,7 +446,7 @@ inner join dokter on penilaian_dehidrasi.kd_dokter=dokter.kd_dokter]]>
 				</textElement>
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
-			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy hh:mm:ss">
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm:ss">
 				<reportElement positionType="Float" x="2" y="0" width="81" height="140" uuid="e45c241b-0ddf-46c8-9c14-441abf008377">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
