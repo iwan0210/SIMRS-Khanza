@@ -1084,6 +1084,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel35.setBounds(842, 290, 30, 23);
 
         Kepala.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        Kepala.setSelectedIndex(2);
         Kepala.setName("Kepala"); // NOI18N
         Kepala.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1099,6 +1100,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel44.setBounds(0, 380, 127, 23);
 
         Gigi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        Gigi.setSelectedIndex(2);
         Gigi.setName("Gigi"); // NOI18N
         Gigi.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1114,6 +1116,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel45.setBounds(0, 410, 127, 23);
 
         THT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        THT.setSelectedIndex(2);
         THT.setName("THT"); // NOI18N
         THT.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1129,6 +1132,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel46.setBounds(0, 440, 127, 23);
 
         Thoraks.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        Thoraks.setSelectedIndex(2);
         Thoraks.setName("Thoraks"); // NOI18N
         Thoraks.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1144,6 +1148,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel49.setBounds(267, 350, 95, 23);
 
         Abdomen.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        Abdomen.setSelectedIndex(2);
         Abdomen.setName("Abdomen"); // NOI18N
         Abdomen.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1159,6 +1164,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel50.setBounds(267, 380, 95, 23);
 
         Genital.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        Genital.setSelectedIndex(2);
         Genital.setName("Genital"); // NOI18N
         Genital.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1174,6 +1180,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel51.setBounds(267, 410, 95, 23);
 
         Ekstremitas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        Ekstremitas.setSelectedIndex(2);
         Ekstremitas.setName("Ekstremitas"); // NOI18N
         Ekstremitas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1189,6 +1196,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel52.setBounds(267, 440, 95, 23);
 
         Kulit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        Kulit.setSelectedIndex(2);
         Kulit.setName("Kulit"); // NOI18N
         Kulit.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1397,6 +1405,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel42.setBounds(0, 350, 127, 23);
 
         Mata.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        Mata.setSelectedIndex(2);
         Mata.setName("Mata"); // NOI18N
         Mata.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1412,6 +1421,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel47.setBounds(0, 470, 127, 23);
 
         Jantung.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        Jantung.setSelectedIndex(2);
         Jantung.setName("Jantung"); // NOI18N
         Jantung.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1427,6 +1437,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         jLabel53.setBounds(267, 320, 95, 23);
 
         Paru.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Normal", "Abnormal", "Tidak Diperiksa" }));
+        Paru.setSelectedIndex(2);
         Paru.setName("Paru"); // NOI18N
         Paru.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -2643,17 +2654,17 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         Suhu.setText("");
         BB.setText("");
         TB.setText("");
-        Kepala.setSelectedIndex(0);
-        Mata.setSelectedIndex(0);
-        Jantung.setSelectedIndex(0);
-        Paru.setSelectedIndex(0);
-        Gigi.setSelectedIndex(0);
-        THT.setSelectedIndex(0);
-        Thoraks.setSelectedIndex(0);
-        Abdomen.setSelectedIndex(0);
-        Genital.setSelectedIndex(0);
-        Ekstremitas.setSelectedIndex(0);
-        Kulit.setSelectedIndex(0);
+        Kepala.setSelectedIndex(2);
+        Mata.setSelectedIndex(2);
+        Jantung.setSelectedIndex(2);
+        Paru.setSelectedIndex(2);
+        Gigi.setSelectedIndex(2);
+        THT.setSelectedIndex(2);
+        Thoraks.setSelectedIndex(2);
+        Abdomen.setSelectedIndex(2);
+        Genital.setSelectedIndex(2);
+        Ekstremitas.setSelectedIndex(2);
+        Kulit.setSelectedIndex(2);
         KetFisik.setText("");
         KetLokalis.setText("");
         Laborat.setText("");

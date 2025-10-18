@@ -185,7 +185,8 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         kdpjanak.setDocument(new batasInput((byte)20).getKata(kdpjanak));        
         kddrumum.setDocument(new batasInput((byte)20).getKata(kddrumum));      
         PreOp.setDocument(new batasInput((int)1000).getKata(PreOp));      
-        PostOp.setDocument(new batasInput((int)100).getKata(PostOp));      
+        PostOp.setDocument(new batasInput((int)1000).getKata(PostOp));    
+        NomorImplant.setDocument(new batasInput((int)50).getKata(NomorImplant)); 
         Jaringan.setDocument(new batasInput((int)100).getKata(Jaringan));
         Laporan.setDocument(new batasInput((int)8000).getKata(Laporan));
         
@@ -630,7 +631,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         scrollPane3 = new widget.ScrollPane();
         PreOp = new widget.TextArea();
         jenis = new widget.ComboBox();
-        jLabel11 = new widget.Label();
+        jLabel16 = new widget.Label();
         Sifat = new widget.ComboBox();
         Penyulit = new widget.ComboBox();
         Komplikasi = new widget.TextBox();
@@ -643,6 +644,8 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         scrollPane5 = new widget.ScrollPane();
         MacamOperasi = new widget.TextArea();
         jLabel15 = new widget.Label();
+        jLabel11 = new widget.Label();
+        NomorImplant = new widget.TextBox();
 
         Kd2.setName("Kd2"); // NOI18N
         Kd2.setPreferredSize(new java.awt.Dimension(207, 23));
@@ -968,7 +971,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
 
         FormInput.setBorder(null);
         FormInput.setName("FormInput"); // NOI18N
-        FormInput.setPreferredSize(new java.awt.Dimension(89, 553));
+        FormInput.setPreferredSize(new java.awt.Dimension(89, 583));
         FormInput.setLayout(null);
 
         label14.setText("Operator 1 :");
@@ -1934,12 +1937,12 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
 
         Laporan.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         Laporan.setColumns(20);
-        Laporan.setRows(5);
+        Laporan.setRows(30);
         Laporan.setName("Laporan"); // NOI18N
         scrollPane2.setViewportView(Laporan);
 
         FormInput.add(scrollPane2);
-        scrollPane2.setBounds(410, 415, 470, 130);
+        scrollPane2.setBounds(510, 430, 320, 143);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Laporan Operasi :");
@@ -1982,10 +1985,10 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         FormInput.add(jenis);
         jenis.setBounds(910, 50, 90, 23);
 
-        jLabel11.setText("Kategori :");
-        jLabel11.setName("jLabel11"); // NOI18N
-        FormInput.add(jLabel11);
-        jLabel11.setBounds(790, 80, 81, 23);
+        jLabel16.setText("Kategori :");
+        jLabel116.setName("jLabel16"); // NOI18N
+        FormInput.add(jLabel16);
+        jLabel16.setBounds(790, 80, 81, 23);
 
         Sifat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elektif", "Cito" }));
         Sifat.setName("Sifat"); // NOI18N
@@ -2082,6 +2085,21 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         jLabel15.setName("jLabel15"); // NOI18N
         FormInput.add(jLabel15);
         jLabel15.setBounds(790, 200, 145, 23);
+
+        jLabel11.setText("Nomor Implan :");
+        jLabel11.setName("jLabel11"); // NOI18N
+        FormInput.add(jLabel11);
+        jLabel11.setBounds(0, 550, 145, 23);
+
+        NomorImplant.setHighlighter(null);
+        NomorImplant.setName("NomorImplant"); // NOI18N
+        NomorImplant.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                NomorImplantKeyPressed(evt);
+            }
+        });
+        FormInput.add(NomorImplant);
+        NomorImplant.setBounds(148, 550, 256, 23);
 
         scrollPane1.setViewportView(FormInput);
 
@@ -2912,11 +2930,11 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     
                 if(sukses==true){
                     if(!Laporan.getText().equals("")){
-                        if(Sequel.menyimpantf2("laporan_operasi","?,?,?,?,?,?,?,?,?,?,?,?,?","laporan operasi",13,new String[]{
+                        if(Sequel.menyimpantf2("laporan_operasi","?,?,?,?,?,?,?,?,?,?,?,?,?,?","laporan operasi",14,new String[]{
                                 TNoRw.getText(),Valid.SetTgl(tgl.getSelectedItem()+"")+" "+tgl.getSelectedItem().toString().substring(11,19),PreOp.getText(),
                                 PostOp.getText(),Jaringan.getText(),Valid.SetTgl(tgl2.getSelectedItem()+"")+" "+tgl2.getSelectedItem().toString().substring(11,19),
                                 DikirimPA.getSelectedItem().toString(),Laporan.getText(),Sifat.getSelectedItem().toString(),Penyulit.getSelectedItem().toString(),
-                                KehilanganDarah.getText(),Komplikasi.getText(),MacamOperasi.getText()
+                                KehilanganDarah.getText(),Komplikasi.getText(),MacamOperasi.getText(),NomorImplant.getText()
                             })==false){
                             sukses=false;
                         }
@@ -3088,7 +3106,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_JaringanKeyPressed
 
     private void DikirimPAKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DikirimPAKeyPressed
-        Valid.pindah(evt,Jaringan,Laporan);
+        Valid.pindah(evt,Jaringan,NomorImplant);
     }//GEN-LAST:event_DikirimPAKeyPressed
 
     private void BtnOperator1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnOperator1KeyPressed
@@ -3137,6 +3155,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         template.setVisible(true);
     }//GEN-LAST:event_btnTemplateActionPerformed
 
+
     private void jenisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jenisKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jenisKeyPressed
@@ -3164,6 +3183,10 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private void PenyulitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PenyulitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PenyulitActionPerformed
+
+    private void NomorImplantKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NomorImplantKeyPressed
+        Valid.pindah(evt,DikirimPA,Laporan);
+    }//GEN-LAST:event_NomorImplantKeyPressed
 
     /**
     * @param args the command line arguments
@@ -3207,6 +3230,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label LTotal;
     private widget.TextArea Laporan;
     private widget.TextArea MacamOperasi;
+    private widget.TextBox NomorImplant;
     private javax.swing.JPanel PanelInput;
     private widget.ComboBox Penyulit;
     private javax.swing.JPopupMenu Popup;
@@ -3245,6 +3269,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel13;
     private widget.Label jLabel14;
     private widget.Label jLabel15;
+	private widget.Label jLabel16;
     private widget.Label jLabel3;
     private widget.Label jLabel4;
     private widget.Label jLabel5;
