@@ -274,6 +274,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
     public DlgBilingRalan billing=new DlgBilingRalan(null,false);
     private int i=0,pilihan=0,sudah=0,jmlparsial=0;
     public DlgKamarInap kamarinap=new DlgKamarInap(null,false);
+    public DlgKamarInapIntensif kamarinapintensif=new DlgKamarInapIntensif(null,false);
     private DlgRawatJalan dlgrwjl2=new DlgRawatJalan(null,false);
     private boolean semua;
     private boolean sukses=false,ceksukses=false;

@@ -629,7 +629,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         WindowPhrase.getContentPane().add(internalFrame8, java.awt.BorderLayout.CENTER);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "02-10-2025 06:34:48" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "18-10-2025 15:41:18" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -734,6 +734,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
 
         R1.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
         buttonGroup1.add(R1);
+        R1.setSelected(true);
         R1.setText("5 Riwayat Terakhir");
         R1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         R1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -743,7 +744,6 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
 
         R2.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.pink));
         buttonGroup1.add(R2);
-        R2.setSelected(true);
         R2.setText("Semua Riwayat");
         R2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         R2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);

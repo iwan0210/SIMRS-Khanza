@@ -806,7 +806,7 @@ public final class SatuSehatKirimMedicationRequest extends javax.swing.JDialog {
                                         "\"encounter\": {" +
                                             "\"reference\": \"Encounter/"+tbObat.getValueAt(i,8).toString()+"\"" +
                                         "}," +
-                                        "\"authoredOn\": \""+tbObat.getValueAt(i,21).toString().replaceAll(" ","T")+"01+07:00\"," +
+                                        "\"authoredOn\": \""+tbObat.getValueAt(i,21).toString().replaceAll(" ","T")+"+07:00\"," +
                                         "\"requester\": {" +
                                             "\"reference\": \"Practitioner/"+iddokter+"\"," +
                                             "\"display\": \""+tbObat.getValueAt(i,6).toString()+"\"" +

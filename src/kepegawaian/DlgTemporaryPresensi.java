@@ -703,7 +703,7 @@ public final class DlgTemporaryPresensi extends javax.swing.JDialog {
             ps=koneksi.prepareStatement(
                     "SELECT pegawai.id, pegawai.nik, pegawai.nama, temporary_presensi.shift, " +
                     "temporary_presensi.jam_datang, now() as jam_pulang, temporary_presensi.status,  " +
-                    "temporary_presensi.keterlambatan, ((unix_timestamp(now()) - unix_timestamp(jam_datang))/3600) as durasi,temporary_presensi.photo  from pegawai  " +
+                    "temporary_presensi.keterlambatan, TIMESTAMPDIFF(SECOND, temporary_presensi.jam_datang, NOW()) AS durasi,temporary_presensi.photo  from pegawai  " +
                     "inner join temporary_presensi on pegawai.id=temporary_presensi.id " +
                     "where  pegawai.nik like ? or " +
                     "pegawai.nama like ? or " +
@@ -720,10 +720,11 @@ public final class DlgTemporaryPresensi extends javax.swing.JDialog {
                 ps.setString(6,"%"+TCari.getText().trim()+"%");
                 rs=ps.executeQuery(); 
                 while(rs.next()){
+                    String durasi = formatDurasi(rs.getInt(9));
                     tabMode.addRow(new Object[]{
                         false,rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),
                         rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
-                        rs.getString(9),rs.getString(10)
+                        durasi,rs.getString(10)
                     });
                 }
             } catch (Exception e) {
@@ -754,5 +755,13 @@ public final class DlgTemporaryPresensi extends javax.swing.JDialog {
             ppVerifyOtomatis.setEnabled(false);
         } 
      }
+    
+    private String formatDurasi(int detik) {
+        int jam = detik / 3600;
+        int menit = (detik % 3600) / 60;
+        int detikSisa = detik % 60;
+
+        return String.format("%02d:%02d:%02d", jam, menit, detikSisa);
+    }
 
 }

@@ -490,7 +490,7 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
         scrollPane4 = new widget.ScrollPane();
         PostOp = new widget.TextArea();
         jLabel12 = new widget.Label();
-        jLabel10 = new widget.Label();
+        jLabel15 = new widget.Label();
         NomorImplant = new widget.TextBox();
         internalFrame1 = new widget.InternalFrame();
         scrollPane1 = new widget.ScrollPane();
@@ -1664,13 +1664,13 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
             }
         });
         panelGlass7.add(KehilanganDarah);
-        KehilanganDarah.setBounds(250, 280, 80, 23);
+        KehilanganDarah.setBounds(210, 280, 80, 23);
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("cc");
         jLabel13.setName("jLabel13"); // NOI18N
         panelGlass7.add(jLabel13);
-        jLabel13.setBounds(340, 280, 30, 23);
+        jLabel13.setBounds(300, 280, 30, 23);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Komplikasi :");
@@ -1735,11 +1735,11 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
         panelGlass7.add(jLabel12);
         jLabel12.setBounds(210, 10, 81, 23);
 
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel10.setText("Nomor Implan :");
-        jLabel10.setName("jLabel10"); // NOI18N
-        panelGlass7.add(jLabel10);
-        jLabel10.setBounds(10, 285, 200, 23);
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel15.setText("Nomor Implan :");
+        jLabel15.setName("jLabel10"); // NOI18N
+        panelGlass7.add(jLabel15);
+        jLabel15.setBounds(350, 250, 200, 23);
 
         NomorImplant.setHighlighter(null);
         NomorImplant.setName("NomorImplant"); // NOI18N
@@ -1749,7 +1749,7 @@ public class DlgCariTagihanOperasi extends javax.swing.JDialog {
             }
         });
         panelGlass7.add(NomorImplant);
-        NomorImplant.setBounds(30, 310, 256, 23);
+        NomorImplant.setBounds(350, 280, 250, 23);
 
         internalFrame6.add(panelGlass7, java.awt.BorderLayout.WEST);
 
@@ -3154,8 +3154,8 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
             Sequel.menyimpan("laporan_operasi","?,?,?,?,?,?,?,?,?,?,?,?,?,?","laporan operasi",14,new String[]{
                 tbDokter.getValueAt(tbDokter.getSelectedRow(),1).toString(),tbDokter.getValueAt(tbDokter.getSelectedRow(),0).toString(),PreOp.getText(),
                 PostOp.getText(),Jaringan.getText(),Valid.SetTgl(tgl2.getSelectedItem()+"")+" "+tgl2.getSelectedItem().toString().substring(11,19),
-                DikirimPA.getSelectedItem().toString(),Laporan.getText(),Sifat.getSelectedItem().toString(),Penyulit.getSelectedItem().toString(),
-                KehilanganDarah.getText(),Komplikasi.getText(),MacamOperasi.getText(),NomorImplant.getText()
+                DikirimPA.getSelectedItem().toString(),NomorImplant.getText(),Laporan.getText(),Sifat.getSelectedItem().toString(),Penyulit.getSelectedItem().toString(),
+                KehilanganDarah.getText(),Komplikasi.getText(),MacamOperasi.getText()
             });
             JOptionPane.showMessageDialog(null,"Proses update selesai...!!!!");
         }
@@ -3335,10 +3335,10 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JMenuItem MnUbahLaporan;
     private javax.swing.JMenuItem MnUbahOperatorPetugas;
     private widget.TextBox NoRawat;
+    private widget.TextBox NomorImplant;
     private widget.ComboBox Penyulit;
     private widget.TextArea PostOp;
     private widget.TextArea PreOp;
-    private widget.TextBox NomorImplant;
     private widget.ScrollPane Scroll3;
     private widget.ComboBox Sifat;
     private widget.TextBox TCari;
@@ -3373,6 +3373,7 @@ private void MnHapusObatOperasiActionPerformed(java.awt.event.ActionEvent evt) {
     private widget.Label jLabel12;
     private widget.Label jLabel13;
     private widget.Label jLabel14;
+    private widget.Label jLabel15;
     private widget.Label jLabel5;
     private widget.Label jLabel6;
     private widget.Label jLabel7;

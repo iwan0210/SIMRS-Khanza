@@ -880,7 +880,7 @@ public final class SatuSehatKirimMedicationDispense extends javax.swing.JDialog 
                                     "},"+
                                     "\"quantity\": {" +
                                         "\"system\": \""+tbObat.getValueAt(i,20).toString()+"\"," +
-                                        "\"code\": \""+tbObat.getValueAt(i,19).toString()+"\"" +
+                                        "\"code\": \""+tbObat.getValueAt(i,19).toString()+"\"," +
                                         "\"value\": "+tbObat.getValueAt(i,22).toString()+"," +
                                     "}," +
                                     "\"whenPrepared\": \""+tbObat.getValueAt(i,21).toString().replaceAll(" ","T")+"Z\"," +

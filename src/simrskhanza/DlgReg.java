@@ -19085,6 +19085,19 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     }
     
     private void ganti(){
+        if (!TNoRw.getText().trim().equals(tbPetugas.getValueAt(tbPetugas.getSelectedRow(),2).toString())){
+            int reply = JOptionPane.showConfirmDialog(rootPane, "Apakah anda benar akan mengubah nomor rawat pasien \""+tbPetugas.getValueAt(tbPetugas.getSelectedRow(),8).toString()+"\" dari "+tbPetugas.getValueAt(tbPetugas.getSelectedRow(),2).toString()+" menjadi "+TNoRw.getText().trim()+" ???", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.NO_OPTION) {
+                return;
+            }
+        }
+        
+        if (!TNoRM.getText().trim().equals(tbPetugas.getValueAt(tbPetugas.getSelectedRow(),7).toString())) {
+            int reply = JOptionPane.showConfirmDialog(rootPane, "Apakah anda benar akan mengubah pasien dengan nomor rawat \""+tbPetugas.getValueAt(tbPetugas.getSelectedRow(),2).toString()+"\" dari \""+tbPetugas.getValueAt(tbPetugas.getSelectedRow(),8).toString()+"\" menjadi \""+TPasien.getText().trim()+"\" ???", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.NO_OPTION) {
+                return;
+            }
+        }
         if(Sequel.queryu2tf("update reg_periksa set no_rawat=?,no_reg=?,tgl_registrasi=?,jam_reg=?,kd_dokter=?,no_rkm_medis=?,kd_poli=?,"+
                             "p_jawab=?,almt_pj=?,biaya_reg=?,hubunganpj=?,stts_daftar=?,kd_pj=?,umurdaftar=?,sttsumur=? where no_rawat=?",16,
             new String[]{

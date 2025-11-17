@@ -1942,7 +1942,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         scrollPane2.setViewportView(Laporan);
 
         FormInput.add(scrollPane2);
-        scrollPane2.setBounds(510, 430, 320, 143);
+        scrollPane2.setBounds(410, 420, 470, 143);
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Laporan Operasi :");
@@ -1961,7 +1961,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
             }
         });
         FormInput.add(btnTemplate);
-        btnTemplate.setBounds(380, 440, 28, 23);
+        btnTemplate.setBounds(370, 430, 28, 23);
 
         scrollPane3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane3.setName("scrollPane3"); // NOI18N
@@ -1986,7 +1986,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         jenis.setBounds(910, 50, 90, 23);
 
         jLabel16.setText("Kategori :");
-        jLabel116.setName("jLabel16"); // NOI18N
+        jLabel16.setName("jLabel16"); // NOI18N
         FormInput.add(jLabel16);
         jLabel16.setBounds(790, 80, 81, 23);
 
@@ -2089,7 +2089,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         jLabel11.setText("Nomor Implan :");
         jLabel11.setName("jLabel11"); // NOI18N
         FormInput.add(jLabel11);
-        jLabel11.setBounds(0, 550, 145, 23);
+        jLabel11.setBounds(900, 420, 90, 23);
 
         NomorImplant.setHighlighter(null);
         NomorImplant.setName("NomorImplant"); // NOI18N
@@ -2099,7 +2099,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
             }
         });
         FormInput.add(NomorImplant);
-        NomorImplant.setBounds(148, 550, 256, 23);
+        NomorImplant.setBounds(1000, 420, 256, 23);
 
         scrollPane1.setViewportView(FormInput);
 
@@ -2933,8 +2933,8 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         if(Sequel.menyimpantf2("laporan_operasi","?,?,?,?,?,?,?,?,?,?,?,?,?,?","laporan operasi",14,new String[]{
                                 TNoRw.getText(),Valid.SetTgl(tgl.getSelectedItem()+"")+" "+tgl.getSelectedItem().toString().substring(11,19),PreOp.getText(),
                                 PostOp.getText(),Jaringan.getText(),Valid.SetTgl(tgl2.getSelectedItem()+"")+" "+tgl2.getSelectedItem().toString().substring(11,19),
-                                DikirimPA.getSelectedItem().toString(),Laporan.getText(),Sifat.getSelectedItem().toString(),Penyulit.getSelectedItem().toString(),
-                                KehilanganDarah.getText(),Komplikasi.getText(),MacamOperasi.getText(),NomorImplant.getText()
+                                DikirimPA.getSelectedItem().toString(),NomorImplant.getText(),Laporan.getText(),Sifat.getSelectedItem().toString(),Penyulit.getSelectedItem().toString(),
+                                KehilanganDarah.getText(),Komplikasi.getText(),MacamOperasi.getText()
                             })==false){
                             sukses=false;
                         }
@@ -3269,7 +3269,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Label jLabel13;
     private widget.Label jLabel14;
     private widget.Label jLabel15;
-	private widget.Label jLabel16;
+    private widget.Label jLabel16;
     private widget.Label jLabel3;
     private widget.Label jLabel4;
     private widget.Label jLabel5;

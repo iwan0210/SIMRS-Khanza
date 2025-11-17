@@ -2143,7 +2143,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="250" y="280" width="80" height="23"/>
+                      <AbsoluteConstraints x="210" y="280" width="80" height="23"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -2155,7 +2155,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="340" y="280" width="30" height="23"/>
+                      <AbsoluteConstraints x="300" y="280" width="30" height="23"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -2312,7 +2312,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="widget.Label" name="jLabel10">
+                <Component class="widget.Label" name="jLabel15">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="2"/>
                     <Property name="text" type="java.lang.String" value="Nomor Implan :"/>
@@ -2320,7 +2320,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="10" y="285" width="200" height="23"/>
+                      <AbsoluteConstraints x="350" y="250" width="200" height="23"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -2336,7 +2336,7 @@
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="30" y="310" width="256" height="23"/>
+                      <AbsoluteConstraints x="350" y="280" width="250" height="23"/>
                     </Constraint>
                   </Constraints>
                 </Component>

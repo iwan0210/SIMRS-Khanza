@@ -213,7 +213,7 @@ import surat.SuratSakitPihak2;
  *
  * @author perpustakaan
  */
-public class DlgKamarInap extends javax.swing.JDialog {
+public class DlgKamarInapIntensif extends javax.swing.JDialog {
     private final DefaultTableModel tabMode;
     private Connection koneksi=koneksiDB.condb();
     private sekuel Sequel=new sekuel();
@@ -243,7 +243,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
     /** Creates new form DlgKamarInap
      * @param parent
        @param modal */
-    public DlgKamarInap(java.awt.Frame parent, boolean modal) {
+    public DlgKamarInapIntensif(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         initKamarInap();
@@ -5910,8 +5910,6 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 
                 norawat.requestFocus();   
                 isjml();    
-                String diagnosaAkhir = Sequel.cariIsi("SELECT CASE WHEN CHAR_LENGTH(REPLACE(REPLACE(pemeriksaan_ranap.penilaian, '\\r\\n', ', '), '\\n', ', ')) > 100 THEN CONCAT(LEFT(REPLACE(REPLACE(pemeriksaan_ranap.penilaian, '\\r\\n', ', '), '\\n', ', '), 97), '...') ELSE REPLACE(REPLACE(pemeriksaan_ranap.penilaian, '\\r\\n', ', '), '\\n', ', ') END AS penilaian_ringkas FROM pemeriksaan_ranap JOIN dokter ON dokter.kd_dokter = pemeriksaan_ranap.nip WHERE pemeriksaan_ranap.no_rawat = ? ORDER BY pemeriksaan_ranap.tgl_perawatan DESC, pemeriksaan_ranap.jam_rawat DESC LIMIT 1", norawat.getText().trim());
-                diagnosaakhir.setText(diagnosaAkhir);
                 WindowInputKamar.setLocationRelativeTo(internalFrame1);
                 WindowInputKamar.setVisible(true);
         }
@@ -13689,10 +13687,10 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                                 RMTransferPasienAntarRuang form=new RMTransferPasienAntarRuang(null,false);
                                 form.isCek();
+                                form.emptTeks();
                                 form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
-                                form.emptTeks();
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
                                 }else if(R2.isSelected()==true){
@@ -18965,7 +18963,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            DlgKamarInap dialog = new DlgKamarInap(new javax.swing.JFrame(), true);
+            DlgKamarInapIntensif dialog = new DlgKamarInapIntensif(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -19381,7 +19379,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
             }
 
             key=kmr+" "+terbitsep;
-            key = key + " and bangsal.kd_bangsal not in ('ICU','NICU','PICU') ";
+            key = key + " and bangsal.kd_bangsal in ('ICU','NICU','PICU') ";
             if(!TCari.getText().equals("")){
                 key= kmr+"and (kamar_inap.no_rawat like '%"+TCari.getText().trim()+"%' or reg_periksa.no_rkm_medis like '%"+TCari.getText().trim()+"%' or pasien.nm_pasien like '%"+TCari.getText().trim()+"%' or "+
                    "concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab) like '%"+TCari.getText().trim()+"%' or kamar_inap.kd_kamar like '%"+TCari.getText().trim()+"%' or "+

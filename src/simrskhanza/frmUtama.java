@@ -1870,6 +1870,7 @@ public class frmUtama extends javax.swing.JFrame {
         BtnToolJualObat = new widget.ButtonBig();
         jSeparator9 = new javax.swing.JSeparator();
         BtnToolKamnap = new widget.ButtonBig();
+        BtnToolKamnapIntensif = new widget.ButtonBig();
         BtnToolKasir = new widget.ButtonBig();
         jSeparator7 = new javax.swing.JSeparator();
         BtnLog = new widget.ButtonBig();
@@ -7389,6 +7390,24 @@ public class frmUtama extends javax.swing.JFrame {
         });
         internalFrame1.add(BtnToolKamnap);
 
+        BtnToolKamnapIntensif.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/emergency-room.png"))); // NOI18N
+        BtnToolKamnapIntensif.setMnemonic('K');
+        BtnToolKamnapIntensif.setText("Intensif");
+        BtnToolKamnapIntensif.setToolTipText("Alt+K");
+        BtnToolKamnapIntensif.setEnabled(false);
+        BtnToolKamnapIntensif.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        BtnToolKamnapIntensif.setIconTextGap(2);
+        BtnToolKamnapIntensif.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        BtnToolKamnapIntensif.setName("BtnToolKamnapIntensif"); // NOI18N
+        BtnToolKamnapIntensif.setPreferredSize(new java.awt.Dimension(107, 38));
+        BtnToolKamnapIntensif.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
+        BtnToolKamnapIntensif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnToolKamnapIntensifActionPerformed(evt);
+            }
+        });
+        internalFrame1.add(BtnToolKamnapIntensif);
+
         BtnToolKasir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/addressbook-edit24.png"))); // NOI18N
         BtnToolKasir.setMnemonic('S');
         BtnToolKasir.setText("Rawat Jalan");
@@ -8430,6 +8449,7 @@ public class frmUtama extends javax.swing.JFrame {
             case "Log Out":
                 BtnToolReg.setEnabled(false);
                 BtnToolKamnap.setEnabled(false);
+                BtnToolKamnapIntensif.setEnabled(false);
                 BtnToolKasir.setEnabled(false);
                 btnToolIGD.setEnabled(false);
                 MnGantiPassword.setEnabled(false);
@@ -8474,6 +8494,7 @@ public class frmUtama extends javax.swing.JFrame {
                     BtnMenu.setEnabled(true);
                     BtnToolReg.setEnabled(true);
                     BtnToolKamnap.setEnabled(true);
+                    BtnToolKamnapIntensif.setEnabled(true);
                     BtnToolKasir.setEnabled(true); 
                     btnToolIGD.setEnabled(true);
                     btnPermintaanLab.setEnabled(true);
@@ -8512,8 +8533,10 @@ public class frmUtama extends javax.swing.JFrame {
                     BtnToolReg.setEnabled(akses.getregistrasi());
                     if((akses.getkamar_inap()==true)||(akses.getbilling_ranap()==true)||(akses.gettindakan_ranap()==true)){
                         BtnToolKamnap.setEnabled(true);
+                        BtnToolKamnapIntensif.setEnabled(true);
                     }else{
                         BtnToolKamnap.setEnabled(akses.getkamar_inap());
+                        BtnToolKamnapIntensif.setEnabled(akses.getkamar_inap());
                     }
                     
                     if((akses.getkasir_ralan()==true)||(akses.getbilling_ralan()==true)){
@@ -8555,6 +8578,7 @@ public class frmUtama extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null,"Maaf, Gagal login. ID User atau password ada yang salah ...!");
                     BtnToolReg.setEnabled(false);
                     BtnToolKamnap.setEnabled(false);
+                    BtnToolKamnapIntensif.setEnabled(false);
                     BtnToolKasir.setEnabled(false);
                     MnGantiPassword.setEnabled(false);  
                     MnPengajuanCutiPegawai.setEnabled(false);
@@ -14723,6 +14747,18 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         Valid.panggilUrl("antrianmobilejkn.php");
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_MnInfoMobileJKNActionPerformed
+
+    private void BtnToolKamnapIntensifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnToolKamnapIntensifActionPerformed
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        kasirralan.kamarinapintensif.isCek();
+        kasirralan.kamarinapintensif.emptTeks();  
+        kasirralan.kamarinapintensif.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
+        kasirralan.kamarinapintensif.setLocationRelativeTo(PanelUtama);
+        kasirralan.kamarinapintensif.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_BtnToolKamnapIntensifActionPerformed
 
     private void btnKategoriPerpustakaanActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
@@ -23090,6 +23126,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.ButtonBig BtnMenu;
     private widget.ButtonBig BtnToolJualObat;
     private widget.ButtonBig BtnToolKamnap;
+    private widget.ButtonBig BtnToolKamnapIntensif;
     private widget.ButtonBig BtnToolKasir;
     private widget.ButtonBig BtnToolReg;
     private widget.CekBox ChkInput;

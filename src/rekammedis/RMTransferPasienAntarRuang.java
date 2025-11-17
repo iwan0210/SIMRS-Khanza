@@ -2514,6 +2514,15 @@ public final class RMTransferPasienAntarRuang extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat(); 
+        
+        String lastOutDate = Sequel.cariIsi("select tanggal_pindah from transfer_pasien_antar_ruang where no_rawat = ? ORDER BY tanggal_pindah DESC LIMIT 1", norwt);
+        
+        if (!lastOutDate.isEmpty()) {
+            lastOutDate = lastOutDate.replaceAll("\\.\\d+$", "");
+            Valid.SetTgl2(TanggalMasuk, lastOutDate);
+            return;
+        }
+        
         Valid.SetTgl2(TanggalMasuk, Sequel.cariIsi("select concat(tgl_registrasi, ' ', jam_reg) as tgl_reg from reg_periksa where no_rawat = ?", norwt));
         
         getDataFromMedisIGD(norwt);
