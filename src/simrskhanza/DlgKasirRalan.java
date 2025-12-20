@@ -54,9 +54,12 @@ import java.awt.event.WindowListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -252,6 +255,11 @@ import surat.SuratPulangAtasPermintaanSendiri;
 import surat.SuratSakit;
 import surat.SuratSakitPihak2;
 import surat.SuratTidakHamil;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 /**
  *
@@ -970,6 +978,8 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         kddokter = new widget.TextBox();
         TDokter = new widget.TextBox();
         btnCariDokter = new widget.Button();
+        BtnPanggil = new javax.swing.JButton();
+        BtnRefresh = new javax.swing.JButton();
         Kd2 = new widget.TextBox();
         TKdPny = new widget.TextBox();
         Tanggal = new widget.TextBox();
@@ -5440,6 +5450,25 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         });
         internalFrame3.add(btnCariDokter);
         btnCariDokter.setBounds(366, 32, 28, 23);
+        
+        BtnPanggil.setText("Panggil");
+        BtnPanggil.setName("BtnPanggil"); // NOI18N
+        BtnPanggil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPanggilActionPerformed(evt);
+            }
+        });
+        BtnPanggil.setPreferredSize(new java.awt.Dimension(120, 30));
+        
+        BtnRefresh.setText("Refresh");
+        BtnRefresh.setName("BtnRefresh"); // NOI18N
+        BtnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRefreshActionPerformed(evt);
+            }
+        });
+        BtnRefresh.setPreferredSize(new java.awt.Dimension(120, 30));
+        
 
         WindowGantiDokter.getContentPane().add(internalFrame3, java.awt.BorderLayout.CENTER);
 
@@ -6794,6 +6823,8 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         TPasienCari.setName("TPasienCari"); // NOI18N
         TPasienCari.setPreferredSize(new java.awt.Dimension(250, 23));
         panelGlass9.add(TPasienCari);
+        panelGlass9.add(BtnPanggil);
+        panelGlass9.add(BtnRefresh);
 
         internalFrame1.add(panelGlass9, java.awt.BorderLayout.PAGE_START);
 
@@ -8059,6 +8090,101 @@ private void btnCariDokterActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         billing.dokter.setLocationRelativeTo(internalFrame1);
         billing.dokter.setVisible(true);
 }//GEN-LAST:event_btnCariDokterActionPerformed
+
+private void BtnPanggilActionPerformed(java.awt.event.ActionEvent evt) {
+    if(tabModekasir.getRowCount()==0){
+        JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+        TCari.requestFocus();
+        return;
+    }
+    
+    if (tbKasirRalan.getSelectedRow() < 0) {
+        JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu pasien...!!!");
+        tbKasirRalan.requestFocus();
+        return;
+    }
+    
+    String dataDate = tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(), 12).toString();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDate tableDate = LocalDate.parse(dataDate, formatter);
+    
+    LocalDate today = LocalDate.now();
+    
+    if (!tableDate.isEqual(today)) {
+        JOptionPane.showMessageDialog(null,"pilih pasien hari ini...!!!");
+        return;
+    }
+    
+    String namaFormatter = tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(), 3).toString();
+    String kodePoli = tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(), 18).toString();
+    String kodeDokter = tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(), 0).toString();
+    String nomor_antrian = tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(), 14).toString();
+    String nama = namaFormatter.split("\\(")[0].trim();
+    
+    Set<String> allowed = Set.of("U0001", "U0002", "U0003", "U0004");
+
+    if (!allowed.contains(kodePoli)) {
+        JOptionPane.showMessageDialog(null,"Hanya untuk pasien Poli...!!!");
+        return;
+    }
+    
+    RestTemplate restTemplate = new RestTemplate();
+    String url = "https://local.rskaromahholistic.com:8000/send";
+    
+    if (!Sequel.replacetf("antrian_poli_karomah", "?,?,?,?,?", 5, new String[] {
+        kodePoli, kodeDokter, dataDate, nama, nomor_antrian
+    })) {
+        JOptionPane.showMessageDialog(null,"Gagal memanggil");
+        return;
+    }
+    
+    try {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        String jsonBody = "{"
+                + "\"type\":\"lanjut\","
+                + "\"poli\":\""+ kodePoli +"\","
+                + "\"dokter\":\""+ kodeDokter +"\","
+                + "\"no\":\""+ nomor_antrian +"\","
+                + "\"nama\":\""+ nama +"\""
+            + "}";
+        System.out.println("req: " + url);
+        System.out.println("payload:" + jsonBody);
+        HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
+        String response = restTemplate.postForObject(url, entity, String.class);
+        System.out.println("API Response: " + response);
+    } catch (RestClientException e) {
+        System.err.println("API Error: " + e.getMessage());
+    } catch (Exception e) {
+        // Error general lain
+        System.err.println("Unknown Error: " + e.getMessage());
+    }
+}
+
+private void BtnRefreshActionPerformed(java.awt.event.ActionEvent evt) {
+    RestTemplate restTemplate = new RestTemplate();
+    String url = "https://local.rskaromahholistic.com:8000/send";
+    
+    try {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        
+        String jsonBody = "{"
+                + "\"type\":\"reload\""
+            + "}";
+        System.out.println("req: " + url);
+        System.out.println("payload:" + jsonBody);
+        HttpEntity<String> entity = new HttpEntity<>(jsonBody, headers);
+        String response = restTemplate.postForObject(url, entity, String.class);
+        System.out.println("API Response: " + response);
+    } catch (RestClientException e) {
+        System.err.println("API Error: " + e.getMessage());
+    } catch (Exception e) {
+        // Error general lain
+        System.err.println("Unknown Error: " + e.getMessage());
+    }
+}
 
 private void MnDokterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnDokterActionPerformed
     if(tabModekasir.getRowCount()==0){
@@ -15931,6 +16057,8 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.Button btnBayar;
     private widget.Button btnCariDokter;
     private widget.Button btnCariPoli;
+    private javax.swing.JButton BtnPanggil;
+    private javax.swing.JButton BtnRefresh;
     private widget.ComboBox cmbStatus;
     private widget.ComboBox cmbStatusBayar;
     private widget.InternalFrame internalFrame1;

@@ -19379,9 +19379,10 @@ public class DlgKamarInapIntensif extends javax.swing.JDialog {
             }
 
             key=kmr+" "+terbitsep;
-            key = key + " and bangsal.kd_bangsal in ('ICU','NICU','PICU') ";
+            String icu = " and bangsal.kd_bangsal in ('ICU','NICU','PICU') ";
+            key = key + icu;
             if(!TCari.getText().equals("")){
-                key= kmr+"and (kamar_inap.no_rawat like '%"+TCari.getText().trim()+"%' or reg_periksa.no_rkm_medis like '%"+TCari.getText().trim()+"%' or pasien.nm_pasien like '%"+TCari.getText().trim()+"%' or "+
+                key= kmr+icu+"and (kamar_inap.no_rawat like '%"+TCari.getText().trim()+"%' or reg_periksa.no_rkm_medis like '%"+TCari.getText().trim()+"%' or pasien.nm_pasien like '%"+TCari.getText().trim()+"%' or "+
                    "concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab) like '%"+TCari.getText().trim()+"%' or kamar_inap.kd_kamar like '%"+TCari.getText().trim()+"%' or "+
                    "bangsal.nm_bangsal like '%"+TCari.getText().trim()+"%' or kamar_inap.diagnosa_awal like '%"+TCari.getText().trim()+"%' or kamar_inap.diagnosa_akhir like '%"+TCari.getText().trim()+"%' or "+
                    "kamar_inap.tgl_masuk like '%"+TCari.getText().trim()+"%' or dokter.nm_dokter like '%"+TCari.getText().trim()+"%' or kamar_inap.stts_pulang like '%"+TCari.getText().trim()+"%' or "+
@@ -19692,7 +19693,8 @@ public class DlgKamarInapIntensif extends javax.swing.JDialog {
                     JamMasuk.setText("");
                     TOut.setText("");
                     ttlbiaya.setText("0");
-                    String diagnosaMasuk = Sequel.cariIsi("SELECT CASE WHEN CHAR_LENGTH(REPLACE(REPLACE(diagnosis, '\\r\\n', ', '), '\\n', ', ')) > 100 THEN CONCAT(LEFT(REPLACE(REPLACE(diagnosis, '\\r\\n', ', '), '\\n', ', '), 97), '...') ELSE REPLACE(REPLACE(diagnosis, '\\r\\n', ', '), '\\n', ', ') END AS diagnosis_ringkas FROM penilaian_medis_igd WHERE no_rawat = ?",norwt);
+                    //String diagnosaMasuk = Sequel.cariIsi("SELECT CASE WHEN CHAR_LENGTH(REPLACE(REPLACE(diagnosis, '\\r\\n', ', '), '\\n', ', ')) > 100 THEN CONCAT(LEFT(REPLACE(REPLACE(diagnosis, '\\r\\n', ', '), '\\n', ', '), 97), '...') ELSE REPLACE(REPLACE(diagnosis, '\\r\\n', ', '), '\\n', ', ') END AS diagnosis_ringkas FROM penilaian_medis_igd WHERE no_rawat = ?",norwt);
+                    String diagnosaMasuk = Sequel.cariIsi("SELECT CASE WHEN CHAR_LENGTH(x.clean) > 100 THEN CONCAT(LEFT(x.clean,97),'...') ELSE x.clean END AS diagnosis_ringkas FROM (SELECT REPLACE(REPLACE(REPLACE(REPLACE(TRIM(diagnosis),'\\r\\n',', '),'\\n',', '),', ,',', '),',  , ',', ') AS clean FROM penilaian_medis_igd WHERE no_rawat = ?) x",norwt);
                     diagnosaawal.setText(diagnosaMasuk);
                     jLabel23.setVisible(false);                
                     cmbStatus.setVisible(false);

@@ -2912,7 +2912,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
                     Radiologi.setText(rs.getString("rad"));
                     Penunjang.setText(rs.getString("penunjanglain"));
                     Diagnosis.setText(rs.getString("diagnosis"));
-                    Tatalaksana.setText(rs.getString("terapi"));
+                    Tatalaksana.setText(rs.getString("terapi")+"\n"+rs.getString("tindakan"));
                     Edukasi.setText(rs.getString("edukasi"));
                     KetFisik.setText(ketFisik);
                 }

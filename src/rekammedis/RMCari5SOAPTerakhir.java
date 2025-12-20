@@ -11,16 +11,18 @@
 
 package rekammedis;
 
-import fungsi.WarnaTable4;
+import fungsi.WarnaTable4MultiLine;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
 import fungsi.validasi;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -76,7 +78,7 @@ public final class RMCari5SOAPTerakhir extends javax.swing.JDialog {
                 column.setPreferredWidth(220);
             }
         }
-        tbKamar.setDefaultRenderer(Object.class, new WarnaTable4());
+        tbKamar.setDefaultRenderer(Object.class, new WarnaTable4MultiLine());
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));
         if(koneksiDB.CARICEPAT().equals("aktif")){
             TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
@@ -144,6 +146,11 @@ public final class RMCari5SOAPTerakhir extends javax.swing.JDialog {
 
         tbKamar.setName("tbKamar"); // NOI18N
         tbKamar.setRowHeight(85);
+        tbKamar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbKamarMouseClicked(evt);
+            }
+        });
         tbKamar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tbKamarKeyPressed(evt);
@@ -303,6 +310,14 @@ public final class RMCari5SOAPTerakhir extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_tbKamarKeyPressed
 
+    private void tbKamarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbKamarMouseClicked
+        if(tbKamar.getRowCount()!=0){
+            if(evt.getClickCount()==2){
+                dispose();
+            }
+        }
+    }//GEN-LAST:event_tbKamarMouseClicked
+
     /**
     * @param args the command line arguments
     */
@@ -407,7 +422,9 @@ public final class RMCari5SOAPTerakhir extends javax.swing.JDialog {
                 System.out.println("Notifikasi : "+e);
             }
         }
+        
         LCount.setText(""+tabMode.getRowCount());
+        SwingUtilities.invokeLater(() -> packRows(tbKamar));
     }
 
     private void emptTeks() {   
@@ -423,6 +440,19 @@ public final class RMCari5SOAPTerakhir extends javax.swing.JDialog {
 
     public JTable getTable(){
         return tbKamar;
+    }
+    
+    private static void packRows(JTable table) {
+        for (int row = 0; row < table.getRowCount(); row++) {
+            int rowHeight = table.getRowHeight();
+            
+            for (int column = 0; column < table.getColumnCount(); column++) {
+                Component comp = table.prepareRenderer(table.getCellRenderer(row, column), row, column);
+                rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
+            }
+            
+            table.setRowHeight(row, rowHeight);
+        }
     }
     
 }

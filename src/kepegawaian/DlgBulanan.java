@@ -737,10 +737,12 @@ public final class DlgBulanan extends javax.swing.JDialog {
         if(Nik.getText().trim().equals("")){
             Valid.textKosong(Nik,"ID");
         }else{
-            Sequel.cariIsi("select jam_jaga.jam_masuk from jam_jaga inner join pegawai on pegawai.departemen=jam_jaga.dep_id "+
-                " where jam_jaga.shift='"+Shift.getSelectedItem().toString()+"' and pegawai.id='"+Idpresensi.getText()+"'", jamdatang);
-            Sequel.cariIsi("select jam_jaga.jam_pulang from jam_jaga inner join pegawai on pegawai.departemen=jam_jaga.dep_id "+
-                " where jam_jaga.shift='"+Shift.getSelectedItem().toString()+"' and pegawai.id='"+Idpresensi.getText()+"'", jampulang);
+//            Sequel.cariIsi("select jam_jaga.jam_masuk from jam_jaga inner join pegawai on pegawai.departemen=jam_jaga.dep_id "+
+//                " where jam_jaga.shift='"+Shift.getSelectedItem().toString()+"' and pegawai.id='"+Idpresensi.getText()+"'", jamdatang);
+//            Sequel.cariIsi("select jam_jaga.jam_pulang from jam_jaga inner join pegawai on pegawai.departemen=jam_jaga.dep_id "+
+//                " where jam_jaga.shift='"+Shift.getSelectedItem().toString()+"' and pegawai.id='"+Idpresensi.getText()+"'", jampulang);
+            Sequel.cariIsi("select jam_masuk from jam_masuk where shift = '"+Shift.getSelectedItem().toString()+"'", jamdatang);
+            Sequel.cariIsi("select jam_pulang from jam_masuk where shift = '"+Shift.getSelectedItem().toString()+"'", jampulang);
             String jam="now()";
             if(!jamdatang.getText().equals("")){
                 jam="'"+Valid.SetTgl(tglMasuk.getSelectedItem()+"")+" "+jamdatang.getText()+"'";
@@ -760,8 +762,8 @@ public final class DlgBulanan extends javax.swing.JDialog {
                     "'"+Shift.getSelectedItem()+"',"+
                     "'"+masuk+"',"+
                     "'"+pulang+"',"+
-                    "if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(toleransi*60)+",if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(terlambat1*60)+",if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(terlambat2*60)+",concat('Terlambat II',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' ')),concat('Terlambat I',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),concat('Terlambat Toleransi',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),concat('Tepat Waktu',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),"+
-                    "if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(toleransi*60)+",SEC_TO_TIME(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")),''),"+
+                    "if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(toleransi)+",if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(terlambat1)+",if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(terlambat2)+",concat('Terlambat II',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' ')),concat('Terlambat I',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),concat('Terlambat Toleransi',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),concat('Tepat Waktu',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),"+
+                    "if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(toleransi)+",SEC_TO_TIME(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")),''),"+
                     "(SEC_TO_TIME(unix_timestamp('"+pulang+"') - unix_timestamp('"+masuk+"'))),"+
                     "'"+catatan.getText()+"',''", "ID/Presensi");
             } else if (Cari.isEnabled()==false) {
@@ -769,8 +771,8 @@ public final class DlgBulanan extends javax.swing.JDialog {
                     + "',durasi=(SEC_TO_TIME(unix_timestamp('"+pulang+ "') - unix_timestamp('"+masuk+"'))),"
                     +"keterangan='"+catatan.getText()+"',"
                     +"shift='"+Shift.getSelectedItem()+"',"
-                    +"status=if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(toleransi*60)+",if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(terlambat1*60)+",if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(terlambat2*60)+",concat('Terlambat II',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' ')),concat('Terlambat I',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),concat('Terlambat Toleransi',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),concat('Tepat Waktu',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),"
-                    +"keterlambatan=if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(toleransi*60)+",SEC_TO_TIME(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")),'')");
+                    +"status=if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(toleransi)+",if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(terlambat1)+",if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(terlambat2)+",concat('Terlambat II',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' ')),concat('Terlambat I',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),concat('Terlambat Toleransi',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),concat('Tepat Waktu',if(TIME_TO_SEC('"+pulang+"')-TIME_TO_SEC("+jam2+")<0,' & PSW',' '))),"
+                    +"keterlambatan=if(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")>"+(toleransi)+",SEC_TO_TIME(TIME_TO_SEC('"+masuk+"')-TIME_TO_SEC("+jam+")),'')");
                 DlgInput.dispose();
             }
             tampil();

@@ -2106,6 +2106,38 @@ public final class sekuel {
     private void cetak(String str) {
         System.out.println(str);
     }
+    
+    public boolean replacetf(String table,String value,int i,String[] a){
+        bool=true;
+        try{ 
+            ps=connect.prepareStatement("replace into "+table+" values("+value+")");
+            try {
+                for(angka=1;angka<=i;angka++){
+                    ps.setString(angka,a[angka-1]);
+                }            
+                ps.executeUpdate();
+                bool=true;
+            } catch (Exception e) {
+                bool=false;
+                System.out.println("Notifikasi : "+e);  
+            } finally{
+                if(ps != null){
+                    ps.close();
+                }
+            }
+            if(AKTIFKANTRACKSQL.equals("yes")){
+                dicari="";
+                for(angka=1;angka<=i;angka++){
+                    dicari=dicari+"|"+a[angka-1];
+                }
+            }
+            SimpanTrack("replace into "+table+" values("+dicari+")");
+        }catch(Exception e){
+            bool=false;
+            System.out.println("Notifikasi : "+e);  
+        }
+        return bool;
+    }
 
     public class Painter extends Canvas {
 

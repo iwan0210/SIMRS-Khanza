@@ -15,12 +15,18 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Owner
  */
-public class WarnaTable4 extends JTextArea implements TableCellRenderer {
+public class WarnaTable4MultiLine extends JTextArea implements TableCellRenderer {
+    
+    public WarnaTable4MultiLine() {
+        setLineWrap(true);
+        setWrapStyleWord(true);
+        setOpaque(true);
+        setFont(new java.awt.Font("Tahoma", 0, 11));
+    }
+    
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column){
         this.setText((String)value);
-        this.setWrapStyleWord(true);                    
-        this.setLineWrap(true);  
         
         if (isSelected) {
             setBackground(table.getSelectionBackground());

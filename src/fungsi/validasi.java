@@ -660,10 +660,14 @@ public final class validasi {
         try {
             try (Statement stm = connect.createStatement()) {
                 try {
-                    File f = new File("./"+reportDirName+"/"+reportName.replaceAll("jasper","pdf")); 
+                    File fdir = new File("./reportpdf");
+                    if (!fdir.exists()) {
+                        fdir.mkdirs();
+                    }
+                    File f = new File(fdir, reportName.replaceAll("jasper","pdf")); 
                     String namafile="./"+reportDirName+"/"+reportName;
                     JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters, connect);
-                    JasperExportManager.exportReportToPdfFile(jasperPrint,"./"+reportDirName+"/"+reportName.replaceAll("jasper","pdf"));
+                    JasperExportManager.exportReportToPdfFile(jasperPrint, f.getAbsolutePath());
                     Desktop.getDesktop().open(f);
                 } catch (Exception rptexcpt) {
                     System.out.println("Report Can't view because : " + rptexcpt);
@@ -700,10 +704,14 @@ public final class validasi {
         try {
             try (Statement stm = connect.createStatement()) {
                 try {
-                    File f = new File("./"+reportDirName+"/"+reportName.replaceAll("jasper","pdf")); 
+                    File fdir = new File("./reportpdf");
+                    if (!fdir.exists()) {
+                        fdir.mkdirs();
+                    }
+                    File f = new File(fdir, reportName.replaceAll("jasper","pdf"));  
                     String namafile="./"+reportDirName+"/"+reportName;
                     JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters, connect);
-                    JasperExportManager.exportReportToPdfFile(jasperPrint,"./"+reportDirName+"/"+reportName.replaceAll("jasper","pdf"));
+                    JasperExportManager.exportReportToPdfFile(jasperPrint, f.getAbsolutePath());
                 } catch (Exception rptexcpt) {
                     System.out.println("Report Can't view because : " + rptexcpt);
                     JOptionPane.showMessageDialog(null,"Report Can't view because : "+ rptexcpt);
@@ -838,11 +846,18 @@ public final class validasi {
             ps=connect.prepareStatement(qry);
             try {
                 String namafile="./"+reportDirName+"/"+reportName;
-                File f = new File("./"+reportDirName+"/"+reportName.replaceAll("jasper","pdf")); 
+                
+                File fdir = new File("./reportpdf");
+                if (!fdir.exists()) {
+                    fdir.mkdirs();
+                }
+                File f = new File(fdir, reportName.replaceAll("jasper","pdf")); 
+                
+                
                 rs=ps.executeQuery();
                 JRResultSetDataSource rsdt = new JRResultSetDataSource(rs);
                 JasperPrint jasperPrint = JasperFillManager.fillReport(namafile, parameters,rsdt);
-                JasperExportManager.exportReportToPdfFile(jasperPrint,"./"+reportDirName+"/"+reportName.replaceAll("jasper","pdf"));
+                JasperExportManager.exportReportToPdfFile(jasperPrint, f.getAbsolutePath());
                 Desktop.getDesktop().open(f);
             } catch (Exception rptexcpt) {
                 System.out.println("Report Can't view because : " + rptexcpt);
