@@ -6194,6 +6194,58 @@ public class DlgKamarInap extends javax.swing.JDialog {
                             } catch (Exception e) {
                             }
                         }
+                        if (cmbStatus.getSelectedIndex() == 11) {
+                            String noSep = Sequel.cariIsi("select no_sep from bridging_sep where no_rawat = ? and jnspelayanan='1' and tglpulang='0000-00-00 00:00:00'", norawat.getText());
+                            if (!noSep.isEmpty()) {
+                                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                                try {
+                                    headers = new HttpHeaders();
+                                    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+                                    headers.add("X-Cons-ID",koneksiDB.CONSIDAPIBPJS());
+                                    utc=String.valueOf(api.GetUTCdatetimeAsString());
+                                    headers.add("X-Timestamp",utc);
+                                    headers.add("X-Signature",api.getHmac(utc));
+                                    headers.add("user_key",koneksiDB.USERKEYAPIBPJS());
+                                    URL = link+"/SEP/2.0/updtglplg";
+                                    requestJson ="{" +
+                                                "\"request\":" +
+                                                   "{" +
+                                                      "\"t_sep\":" +
+                                                         "{" +
+                                                          "\"noSep\":\""+noSep+"\"," +
+                                                          "\"statusPulang\":\"1\"," +
+                                                          "\"noSuratMeninggal\":\"\"," +
+                                                          "\"tglMeninggal\":\"\"," +
+                                                          "\"tglPulang\":\""+CmbTahun.getSelectedItem()+"-"+CmbBln.getSelectedItem()+"-"+CmbTgl.getSelectedItem()+"\"," +
+                                                          "\"noLPManual\":\"\"," +
+                                                          "\"user\":\"RSKH-"+user+"\"" +                                            
+                                                         "}" +
+                                                   "}" +
+                                               "}";
+                                    System.out.println("JSON : "+requestJson);
+                                    requestEntity = new HttpEntity(requestJson,headers);
+                                    root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.PUT, requestEntity, String.class).getBody());
+                                    nameNode = root.path("metaData");
+                                    System.out.println("code : "+nameNode.path("code").asText());
+                                    System.out.println("message : "+nameNode.path("message").asText());
+                                    if(nameNode.path("code").asText().equals("200")){
+                                        Sequel.mengedit("bridging_sep","no_sep=?","tglpulang=?",2,new String[]{                             
+                                            CmbTahun.getSelectedItem()+"-"+CmbBln.getSelectedItem()+"-"+CmbTgl.getSelectedItem()+" "+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
+                                            noSep
+                                        });
+                                        System.out.println("Update Pulang SEP berhasil");
+                                    }else{
+                                        JOptionPane.showMessageDialog(null,nameNode.path("message").asText());
+                                    } 
+                                } catch (Exception ex) {
+                                    System.out.println("Notifikasi Bridging Simpan : "+ex);
+                                    if(ex.toString().contains("UnknownHostException")){
+                                        JOptionPane.showMessageDialog(null,"Koneksi ke server BPJS terputus...!");
+                                    }
+                                }
+                                this.setCursor(Cursor.getDefaultCursor());
+                            }
+                        }
                         tabMode.removeRow(tbKamIn.getSelectedRow());
                         try {
                             if(cmbStatus.getSelectedItem().equals("Meninggal")){

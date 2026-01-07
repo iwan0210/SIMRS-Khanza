@@ -11,6 +11,7 @@ import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.akses;
+import freehand.DlgMarkingImagePreOperasi;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -190,6 +191,8 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         LoadHTML = new widget.editorpane();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         MnPenilaianMedis = new javax.swing.JMenuItem();
+        MnMarkingPreOperasi = new javax.swing.JMenuItem();
+        MnCetakMarkingPreOperasi = new javax.swing.JMenuItem();
         TanggalRegistrasi = new widget.TextBox();
         internalFrame1 = new widget.InternalFrame();
         panelGlass8 = new widget.panelisi();
@@ -278,6 +281,35 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
             }
         });
         jPopupMenu1.add(MnPenilaianMedis);
+
+        MnMarkingPreOperasi.setBackground(new java.awt.Color(255, 255, 254));
+        MnMarkingPreOperasi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnMarkingPreOperasi.setForeground(new java.awt.Color(50, 50, 50));
+        MnMarkingPreOperasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnMarkingPreOperasi.setText("Marking");
+        MnMarkingPreOperasi.setName("MnMarkingPreOperasi"); // NOI18N
+        MnMarkingPreOperasi.setPreferredSize(new java.awt.Dimension(220, 26));
+        MnMarkingPreOperasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnMarkingPreOperasiActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(MnMarkingPreOperasi);
+
+        MnCetakMarkingPreOperasi.setBackground(new java.awt.Color(255, 255, 254));
+        MnCetakMarkingPreOperasi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnCetakMarkingPreOperasi.setForeground(new java.awt.Color(50, 50, 50));
+        MnCetakMarkingPreOperasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnCetakMarkingPreOperasi.setText("Cetak Marking");
+        MnCetakMarkingPreOperasi.setToolTipText("");
+        MnCetakMarkingPreOperasi.setName("MnCetakMarkingPreOperasi"); // NOI18N
+        MnCetakMarkingPreOperasi.setPreferredSize(new java.awt.Dimension(220, 26));
+        MnCetakMarkingPreOperasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnCetakMarkingPreOperasiActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(MnCetakMarkingPreOperasi);
 
         TanggalRegistrasi.setHighlighter(null);
         TanggalRegistrasi.setName("TanggalRegistrasi"); // NOI18N
@@ -543,7 +575,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         label11.setBounds(538, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-04-2025 18:58:50" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2026 14:29:04" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -799,7 +831,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-04-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -813,7 +845,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-04-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1235,6 +1267,63 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         Valid.pindah2(evt,HalYangDipersiapkan,BtnSimpan);
     }//GEN-LAST:event_TerapiPreOpKeyPressed
 
+    private void MnMarkingPreOperasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnMarkingPreOperasiActionPerformed
+        if (tabMode.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
+            return;
+        }
+        
+        if (tbObat.getSelectedRow() < -1) {
+            JOptionPane.showMessageDialog(null,"Silahkan pilih data terlebih dahulu...!!!!");
+            return;
+        }
+        
+        DlgMarkingImagePreOperasi form = new DlgMarkingImagePreOperasi(null, false);
+        String[] format = tbObat.getValueAt(tbObat.getSelectedRow(), 7).toString().split(" ");
+        
+        form.setNoRw(
+                tbObat.getValueAt(tbObat.getSelectedRow(), 0).toString(),
+                format[0],format[1].replace(".0", "")
+                );
+        form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        form.setLocationRelativeTo(internalFrame1);
+        form.setVisible(true);
+    }//GEN-LAST:event_MnMarkingPreOperasiActionPerformed
+
+    private void MnCetakMarkingPreOperasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnCetakMarkingPreOperasiActionPerformed
+        if(tbObat.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null,"Silahkan pilih data terlebih dahulu...!!!!");
+            return;
+        }
+        
+        String[] format = tbObat.getValueAt(tbObat.getSelectedRow(), 7).toString().split(" ");
+        int count = Sequel.cariInteger("select count(no_rawat) from pre_operasi_marking where no_rawat=? and tanggal=? and jam=?", tbObat.getValueAt(tbObat.getSelectedRow(), 0).toString(), format[0], format[1].replace(".0", ""));
+        
+        if (count < 1) {
+            JOptionPane.showMessageDialog(null,"Belum ada data Marking");
+            return;
+        }
+        
+        Map<String, Object> param = new HashMap<>();
+        param.put("namars",akses.getnamars());
+        param.put("alamatrs",akses.getalamatrs());
+        param.put("kotars",akses.getkabupatenrs());
+        param.put("propinsirs",akses.getpropinsirs());
+        param.put("kontakrs",akses.getkontakrs());
+        param.put("emailrs",akses.getemailrs());          
+        param.put("logo",Sequel.cariGambar("select setting.logo from setting"));
+        param.put("base_url","https://" + koneksiDB.HOSTHYBRIDWEB() + ":" + koneksiDB.PORTWEB() + "/" + koneksiDB.HYBRIDWEB() + "/imagefreehand/");
+        
+
+        Valid.MyReportqry("rptCetakMarkingPreOperasi.jasper","report","::[ Penanda Lokasi Operasi ]::",
+            "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,pre_operasi_marking.url_image,pre_operasi_marking.posisi, penilaian_pre_operasi.tanggal "+
+            "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+            "inner join pre_operasi_marking on reg_periksa.no_rawat=pre_operasi_marking.no_rawat "+
+            "inner join penilaian_pre_operasi on reg_periksa.no_rawat=penilaian_pre_operasi.no_rawat "+
+            "where pre_operasi_marking.no_rawat='"+tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()+"' "+
+            "and pre_operasi_marking.tanggal='"+format[0]+"' and pre_operasi_marking.jam='"+format[1].replace(".0", "")+"'",param);
+    }//GEN-LAST:event_MnCetakMarkingPreOperasiActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -1270,6 +1359,8 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
     private widget.TextBox KdDokter;
     private widget.Label LCount;
     private widget.editorpane LoadHTML;
+    private javax.swing.JMenuItem MnCetakMarkingPreOperasi;
+    private javax.swing.JMenuItem MnMarkingPreOperasi;
     private javax.swing.JMenuItem MnPenilaianMedis;
     private widget.TextBox NmDokter;
     private widget.TextArea PemeriksaanDiagnostik;

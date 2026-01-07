@@ -781,6 +781,28 @@ public final class sekuel {
         }
     }
     
+    public void meghapus(String table,String field,String field2,String field3,String nilai_field,String nilai_field2, String nilai_field3) {
+        try {
+            ps=connect.prepareStatement("delete from "+table+" where "+field+"=? and "+field2+"=? and "+field3+"=?");
+            try{       
+                ps.setString(1,nilai_field);
+                ps.setString(2,nilai_field2);
+                ps.setString(3,nilai_field3);
+                ps.executeUpdate(); 
+             }catch(Exception e){
+                System.out.println("Notifikasi : "+e);
+                JOptionPane.showMessageDialog(null,"Maaf, data gagal dihapus. Kemungkinan data tersebut masih dipakai di table lain...!!!!");
+             }finally{
+                if(ps != null){
+                    ps.close();
+                }
+            }
+            SimpanTrack("delete from "+table+" where "+field+"='"+nilai_field+"' and "+field2+"='"+nilai_field2+"' and "+field3+"='"+nilai_field3+"'");
+        } catch (Exception e) {
+            System.out.println("Notifikasi : "+e);
+        }
+    }
+    
     public void meghapus2(String table,String field,String nilai_field) {
         try {
             ps=connect.prepareStatement("delete from "+table+" where "+field+"=?");
@@ -1599,6 +1621,41 @@ public final class sekuel {
             System.out.println("Notifikasi : "+e);
         }
             
+        return dicari;
+    }
+    
+    public String cariIsi(String sql, String[] data) {
+        dicari="";
+        
+        try {
+            ps=connect.prepareStatement(sql);
+            try {
+                for (angka=1;angka<=data.length;angka++) {
+                    ps.setString(angka, data[angka -1]);
+                }
+                
+                rs=ps.executeQuery();            
+                if(rs.next()){
+                    dicari=rs.getString(1);
+                }else{
+                    dicari="";
+                }
+            } catch(Exception e){
+                dicari="";
+                System.out.println("Notifikasi : "+e);
+            } finally{
+                if(rs != null ){
+                    rs.close();
+                }
+
+                if(ps != null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notifikasi : "+e);
+        }
+        
         return dicari;
     }
     
