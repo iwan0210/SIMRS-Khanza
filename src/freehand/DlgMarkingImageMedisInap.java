@@ -14,7 +14,6 @@ package freehand;
 import fungsi.koneksiDB;
 import fungsi.sekuel;
 import java.awt.event.KeyEvent;
-import javax.swing.JOptionPane;
 import java.awt.AWTException;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -34,6 +33,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -51,12 +51,11 @@ import org.apache.http.util.EntityUtils;
  *
  * @author perpustakaan
  */
-public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
+public class DlgMarkingImageMedisInap extends javax.swing.JDialog {
 
     private final sekuel Sequel = new sekuel();
     private int index = 0;
     private Point[] arr = new Point[100000];
-    private String tanggal = "", jam = "";
 
     /**
      * Creates new form DlgPemberianObat
@@ -64,7 +63,7 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public DlgMarkingImagePreOperasi(java.awt.Frame parent, boolean modal) {
+    public DlgMarkingImageMedisInap(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         final Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -83,8 +82,7 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
         FormInput = new widget.PanelBiasa();
         jLabel3 = new widget.Label();
         TNoRawat = new widget.TextBox();
-        jLabel4 = new widget.Label();
-        PosisiPasien = new widget.TextBox();
+        btnAmbilMedisIGD = new widget.Button();
         panelGlass9 = new widget.panelisi();
         panelGlass10 = new widget.panelisi();
         rbFullBadan = new javax.swing.JRadioButton();
@@ -114,7 +112,7 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
             }
         });
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Site Marking Pre Operasi ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(70, 70, 70))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Site Marking Medis Inap ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(70, 70, 70))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -133,16 +131,24 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
         FormInput.add(TNoRawat);
         TNoRawat.setBounds(70, 10, 470, 23);
 
-        jLabel4.setText("Posisi pasien dalam operasi :");
-        jLabel4.setName("jLabel4"); // NOI18N
-        FormInput.add(jLabel4);
-        jLabel4.setBounds(560, 10, 170, 23);
-
-        PosisiPasien.setEditable(false);
-        PosisiPasien.setHighlighter(null);
-        PosisiPasien.setName("PosisiPasien"); // NOI18N
-        FormInput.add(PosisiPasien);
-        PosisiPasien.setBounds(740, 10, 210, 23);
+        btnAmbilMedisIGD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/kiri.png"))); // NOI18N
+        btnAmbilMedisIGD.setMnemonic('H');
+        btnAmbilMedisIGD.setText("Ambil Medis IGD");
+        btnAmbilMedisIGD.setToolTipText("Alt+H");
+        btnAmbilMedisIGD.setName("btnAmbilMedisIGD"); // NOI18N
+        btnAmbilMedisIGD.setPreferredSize(new java.awt.Dimension(150, 30));
+        btnAmbilMedisIGD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAmbilMedisIGDActionPerformed(evt);
+            }
+        });
+        btnAmbilMedisIGD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAmbilMedisIGDKeyPressed(evt);
+            }
+        });
+        FormInput.add(btnAmbilMedisIGD);
+        btnAmbilMedisIGD.setBounds(560, 10, 150, 30);
 
         internalFrame1.add(FormInput, java.awt.BorderLayout.PAGE_START);
         FormInput.getAccessibleContext().setAccessibleName("");
@@ -414,47 +420,42 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
                 dir.mkdirs();
             }
             
-            String fileName = "preOperasi_" + TNoRawat.getText().replaceAll("/", "") + "_"+tanggal.replaceAll("-", "")+"_"+jam.replaceAll(":", "")+".png";
+            String fileName = "medisInap_" + TNoRawat.getText().replaceAll("/", "")+".png";
             File output = new File(dir, fileName);
             
             ImageIO.write(image, "png", output);
 
-            uploadImage(fileName, "preoperasi/imagemarking");
+            uploadImage(fileName, "medisinap/imagemarking");
             
-            int savedImage = Sequel.cariInteger("select count(no_rawat) from pre_operasi_marking where no_rawat=? and tanggal=? and jam=?",
-                    TNoRawat.getText(), tanggal, jam);
+            int savedImage = Sequel.cariInteger("select count(no_rawat) from medis_inap_marking where no_rawat=?",
+                    TNoRawat.getText());
             
             if (savedImage > 0) {
                 Sequel.mengedittf(
-                    "pre_operasi_marking",
-                    "no_rawat=? and tanggal=? and jam=?","url_image=?, posisi=?",
-                    5,
+                    "medis_inap_marking",
+                    "no_rawat=?","url_image=?",
+                    2,
                     new String[]{
-                        "preoperasi/imagemarking/" + fileName,
-                        PosisiPasien.getText(),
-                        TNoRawat.getText(),
-                        tanggal, jam
+                        "medisinap/imagemarking/" + fileName,
+                        TNoRawat.getText()
                     }
                 );
             } else {
                 Sequel.menyimpantf(
-                    "pre_operasi_marking",
-                    "?,?,?,?,?",
+                    "medis_inap_marking",
+                    "?,?",
                     "No.Rawat",
-                    5,
+                    2,
                     new String[]{
                         TNoRawat.getText(),
-                        tanggal,
-                        jam,
-                        "preoperasi/imagemarking/" + fileName,
-                        PosisiPasien.getText()
+                        "medisinap/imagemarking/" + fileName
                     }
                 );
             }
 
             dispose();
         } catch (AWTException | IOException ex) {
-            Logger.getLogger(DlgMarkingImagePreOperasi.class.getName())
+            Logger.getLogger(DlgMarkingImageMedisIGD.class.getName())
                   .log(Level.SEVERE, null, ex);
         }
 }//GEN-LAST:event_BtnSimpanActionPerformed
@@ -511,11 +512,7 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
 
     private void BtnHapusGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusGambarActionPerformed
         try {
-            String FileName = Sequel.cariIsi(
-                "select url_image from pre_operasi_marking where no_rawat=? and tanggal=? and jam=?",
-                new String[] {
-                    TNoRawat.getText(),tanggal,jam
-                });
+            String FileName = Sequel.cariIsi("select url_image from medis_inap_marking where no_rawat=?",TNoRawat.getText());
             
             String url = "https://"
                 + koneksiDB.HOSTHYBRIDWEB() + ":"
@@ -540,10 +537,9 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
 
                 if ("File berhasil dihapus".equals(responHasilnya)) {
                     Sequel.meghapus(
-                        "pre_operasi_marking",
-                        "no_rawat","tanggal","jam",
-                        TNoRawat.getText(),
-                        tanggal,jam
+                        "medis_inap_marking",
+                        "no_rawat",
+                        TNoRawat.getText()
                     );
                 }
             } else {
@@ -552,7 +548,6 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
         } catch (Exception e) {
             System.out.println("Hapus error" + e);
         }
-        PosisiPasien.setText("");
         pilihanGambar();
     }//GEN-LAST:event_BtnHapusGambarActionPerformed
 
@@ -600,12 +595,27 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/tubuhWanita.png")));
     }//GEN-LAST:event_rbTubuhWanitaActionPerformed
 
+    private void btnAmbilMedisIGDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmbilMedisIGDActionPerformed
+        String imageUrl = Sequel.cariIsi("select url_image from medis_igd_marking where no_rawat = ?", TNoRawat.getText());
+        
+        if (imageUrl.isEmpty()) {
+            JOptionPane.showMessageDialog(null,"Tidak ada data marking pada medis IGD");
+            return;
+        }
+        
+        imageAssesment("https://" + koneksiDB.HOSTHYBRIDWEB() + ":" + koneksiDB.PORTWEB() + "/" + koneksiDB.HYBRIDWEB() + "/imagefreehand/" + imageUrl);
+    }//GEN-LAST:event_btnAmbilMedisIGDActionPerformed
+
+    private void btnAmbilMedisIGDKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAmbilMedisIGDKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAmbilMedisIGDKeyPressed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            DlgMarkingImagePreOperasi dialog = new DlgMarkingImagePreOperasi(new javax.swing.JFrame(), true);
+            DlgMarkingImageMedisIGD dialog = new DlgMarkingImageMedisIGD(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -623,13 +633,12 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
     private widget.Button BtnSimpan;
     private widget.PanelBiasa FormInput;
     private usu.widget.glass.PanelGlass PanelMenggambar;
-    private widget.TextBox PosisiPasien;
     private widget.TextBox TNoRawat;
+    private widget.Button btnAmbilMedisIGD;
     private widget.Button btnPerbaruiGambar;
     private javax.swing.ButtonGroup buttonGroup1;
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel3;
-    private widget.Label jLabel4;
     private widget.panelisi panelGlass10;
     private widget.panelisi panelGlass8;
     private widget.panelisi panelGlass9;
@@ -646,26 +655,18 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
 
-    public void setNoRw(String norw, String tanggal, String jam) {
+    public void setNoRw(String norw) {
         TNoRawat.setText(norw);
-        this.tanggal = tanggal;
-        this.jam = jam;
         rbFullBadan.setSelected(true);
         
-        String imageUrl = Sequel.cariIsi("select url_image from pre_operasi_marking where no_rawat = ? and tanggal = ? and jam = ?", new String[] {
-            norw, tanggal, jam
-        });
+        String imageUrl = Sequel.cariIsi("select url_image from medis_inap_marking where no_rawat = ?", norw);
         
         if (imageUrl.isEmpty()) {
             PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/semua43.png")));
             return;
         }
         
-        PosisiPasien.setText(Sequel.cariIsi("select posisi from pre_operasi_marking where no_rawat = ? and tanggal = ? and jam = ?", new String[] {
-            norw, tanggal, jam
-        }));
-        
-        imageAssesment("https://" + koneksiDB.HOSTHYBRIDWEB() + ":" + koneksiDB.PORTWEB() + "/" + koneksiDB.HYBRIDWEB() + "/imagefreehand/" + imageUrl + "");
+        imageAssesment("https://" + koneksiDB.HOSTHYBRIDWEB() + ":" + koneksiDB.PORTWEB() + "/" + koneksiDB.HYBRIDWEB() + "/imagefreehand/" + imageUrl);
         
     }
 

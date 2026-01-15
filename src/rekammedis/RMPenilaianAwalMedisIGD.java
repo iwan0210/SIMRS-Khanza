@@ -13,21 +13,26 @@ import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.akses;
+import freehand.DlgMarkingImageMedisIGD;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
@@ -397,6 +402,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         btnBalasanKonsul = new javax.swing.JButton();
         BtnRiwayatPerawatan = new javax.swing.JButton();
         BtnHasilLab = new javax.swing.JButton();
+        BtnMarking = new javax.swing.JButton();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -443,7 +449,6 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
             }
         });
         jPopupMenu1.add(MnSimpanSOAPRalan);
-        MnSimpanSOAPRalan.getAccessibleContext().setAccessibleName("Simpan SOAP Ralan");
 
         TanggalRegistrasi.setHighlighter(null);
         TanggalRegistrasi.setName("TanggalRegistrasi"); // NOI18N
@@ -1351,7 +1356,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         label11.setBounds(380, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-10-2025 17:19:34" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-01-2026 18:07:43" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -1462,6 +1467,16 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         FormInput.add(BtnHasilLab);
         BtnHasilLab.setBounds(880, 160, 150, 50);
 
+        BtnMarking.setText("Marking Lokalis");
+        BtnMarking.setName("BtnMarking"); // NOI18N
+        BtnMarking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnMarkingActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnMarking);
+        BtnMarking.setBounds(880, 550, 150, 50);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -1503,7 +1518,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-10-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-01-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1517,7 +1532,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-10-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08-01-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2094,10 +2109,24 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
             param.put("kontakrs",akses.getkontakrs());
             param.put("emailrs",akses.getemailrs());          
             param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+            String imageUrl = Sequel.cariIsi("select url_image from medis_igd_marking where no_rawat = ?",tbObat.getValueAt(tbObat.getSelectedRow(),0).toString());
+            
             try {
-                param.put("lokalis",getClass().getResource("/picture/semua.png").openStream());
+                if (imageUrl == null || imageUrl.trim().isEmpty()) {
+                    param.put("lokalis",
+                        getClass().getResource("/picture/semua.png").openStream()
+                    );
+                } else {
+                    URL url = new URL(
+                        "https://" + koneksiDB.HOSTHYBRIDWEB() + ":" +
+                        koneksiDB.PORTWEB() + "/" +
+                        koneksiDB.HYBRIDWEB() + "/imagefreehand/" + imageUrl
+                    );
+                    param.put("lokalis", url.openStream());
+                }
             } catch (Exception e) {
-            } 
+            }
+            
             finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",tbObat.getValueAt(tbObat.getSelectedRow(),5).toString());
             param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+tbObat.getValueAt(tbObat.getSelectedRow(),6).toString()+"\nID "+(finger.equals("")?tbObat.getValueAt(tbObat.getSelectedRow(),5).toString():finger)+"\n"+Valid.SetTgl3(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString())); 
             
@@ -2221,6 +2250,49 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(null,"Silahkan pilih data terlebih dahulu ");
     }//GEN-LAST:event_MnSimpanSOAPRalanActionPerformed
 
+    private void BtnMarkingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMarkingActionPerformed
+        if (TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        DlgMarkingImageMedisIGD form = new DlgMarkingImageMedisIGD(null, false);
+        form.setNoRw(TNoRw.getText());
+        form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        form.setLocationRelativeTo(internalFrame1);
+        form.setVisible(true);
+        form.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                updateImageMarking();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+            
+        });
+    }//GEN-LAST:event_BtnMarkingActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2250,6 +2322,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
     private widget.Button BtnHapus;
     private javax.swing.JButton BtnHasilLab;
     private widget.Button BtnKeluar;
+    private javax.swing.JButton BtnMarking;
     private widget.Button BtnPrint;
     private javax.swing.JButton BtnRiwayatPerawatan;
     private widget.Button BtnSPO;
@@ -2531,6 +2604,8 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
             Diagnosis.setText(tbObat.getValueAt(tbObat.getSelectedRow(),39).toString());
             Tatalaksana.setText(tbObat.getValueAt(tbObat.getSelectedRow(),40).toString());
             Valid.SetTgl2(TglAsuhan,tbObat.getValueAt(tbObat.getSelectedRow(),7).toString());
+            
+            updateImageMarking();
         }
     }
 
@@ -2575,6 +2650,8 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
         cekTTVTriase();
         RPS.setText(Sequel.cariIsi("SELECT keluhan_utama FROM (SELECT no_rawat, keluhan_utama FROM data_triase_igdprimer UNION ALL SELECT no_rawat, anamnesa_singkat AS keluhan_utama FROM data_triase_igdsekunder WHERE no_rawat NOT IN (SELECT no_rawat FROM data_triase_igdprimer)) AS combined WHERE no_rawat = ?", norwt));
         getPemeriksaanFisikFromTriase(norwt);
+        
+        updateImageMarking();
     }
     
     public void isCek(){
@@ -2806,7 +2883,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
                    + "WHERE ms.no_rawat = ? "
                    + "GROUP BY mp.nama_pemeriksaan");
             try {
-                ps.setString(1,TNoRw.getText());
+                ps.setString(1,norwt);
                 rs=ps.executeQuery();
                 StringBuilder output = new StringBuilder();
                 while (rs.next()){
@@ -2829,6 +2906,30 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             System.out.println("Notif : "+e);
+        }
+    }
+    
+    private void updateImageMarking() {
+        if (TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        String imageUrl = Sequel.cariIsi("select url_image from medis_igd_marking where no_rawat = ?", TNoRw.getText());
+        
+        if (imageUrl.isEmpty()) {
+            PanelWall.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/semua.png")));
+            return;
+        }
+        
+        imageAssesment("https://" + koneksiDB.HOSTHYBRIDWEB() + ":" + koneksiDB.PORTWEB() + "/" + koneksiDB.HYBRIDWEB() + "/imagefreehand/" + imageUrl);
+    }
+    
+    private void imageAssesment(String url) {
+        try {
+            BufferedImage img = ImageIO.read(new URL(url.trim()));
+            PanelWall.setBackgroundImage(new javax.swing.ImageIcon(img));
+        } catch (IOException ex) {
+
         }
     }
 }

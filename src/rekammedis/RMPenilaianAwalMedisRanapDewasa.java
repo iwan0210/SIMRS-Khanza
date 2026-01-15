@@ -12,21 +12,26 @@ import fungsi.koneksiDB;
 import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.akses;
+import freehand.DlgMarkingImageMedisInap;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
@@ -412,6 +417,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         BtnDataFromIGD = new javax.swing.JButton();
         BtnDataFromPoliPD = new javax.swing.JButton();
         BtnDataFromPoliBDH = new javax.swing.JButton();
+        BtnMarking = new javax.swing.JButton();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -1374,7 +1380,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         label11.setBounds(380, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-05-2025 19:08:28" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-12-2025 18:43:35" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -1571,6 +1577,16 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         FormInput.add(BtnDataFromPoliBDH);
         BtnDataFromPoliBDH.setBounds(880, 520, 150, 50);
 
+        BtnMarking.setText("Marking Lokalis");
+        BtnMarking.setName("BtnMarking"); // NOI18N
+        BtnMarking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnMarkingActionPerformed(evt);
+            }
+        });
+        FormInput.add(BtnMarking);
+        BtnMarking.setBounds(880, 630, 150, 50);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -1612,7 +1628,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-05-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-12-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1626,7 +1642,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-05-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "11-12-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2268,10 +2284,23 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
             param.put("kontakrs",akses.getkontakrs());
             param.put("emailrs",akses.getemailrs());          
             param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+            String imageUrl = Sequel.cariIsi("select url_image from medis_inap_marking where no_rawat = ?",tbObat.getValueAt(tbObat.getSelectedRow(),0).toString());
+            
             try {
-                param.put("lokalis",getClass().getResource("/picture/semua.png").openStream());
+                if (imageUrl == null || imageUrl.trim().isEmpty()) {
+                    param.put("lokalis",
+                        getClass().getResource("/picture/semua.png").openStream()
+                    );
+                } else {
+                    URL url = new URL(
+                        "https://" + koneksiDB.HOSTHYBRIDWEB() + ":" +
+                        koneksiDB.PORTWEB() + "/" +
+                        koneksiDB.HYBRIDWEB() + "/imagefreehand/" + imageUrl
+                    );
+                    param.put("lokalis", url.openStream());
+                }
             } catch (Exception e) {
-            } 
+            }
             finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",tbObat.getValueAt(tbObat.getSelectedRow(),5).toString());
             param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+tbObat.getValueAt(tbObat.getSelectedRow(),6).toString()+"\nID "+(finger.equals("")?tbObat.getValueAt(tbObat.getSelectedRow(),5).toString():finger)+"\n"+Valid.SetTgl3(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString())); 
             
@@ -2392,6 +2421,49 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         getDataFromBDH(TNoRw.getText());
     }//GEN-LAST:event_BtnDataFromPoliBDHActionPerformed
 
+    private void BtnMarkingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMarkingActionPerformed
+        if (TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+
+        DlgMarkingImageMedisInap form = new DlgMarkingImageMedisInap(null, false);
+        form.setNoRw(TNoRw.getText());
+        form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        form.setLocationRelativeTo(internalFrame1);
+        form.setVisible(true);
+        form.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                updateImageMarking();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+
+        });
+    }//GEN-LAST:event_BtnMarkingActionPerformed
+
     /**
     * @param args the command line arguments
     */
@@ -2425,6 +2497,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
     private widget.Button BtnHapus;
     private javax.swing.JButton BtnHasilLab;
     private widget.Button BtnKeluar;
+    private javax.swing.JButton BtnMarking;
     private widget.Button BtnPrint;
     private javax.swing.JButton BtnRiwayatPerawatan;
     private widget.Button BtnSimpan;
@@ -2723,6 +2796,8 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
             Tatalaksana.setText(tbObat.getValueAt(tbObat.getSelectedRow(),43).toString());
             Edukasi.setText(tbObat.getValueAt(tbObat.getSelectedRow(),44).toString());
             Valid.SetTgl2(TglAsuhan,tbObat.getValueAt(tbObat.getSelectedRow(),7).toString());
+            
+            updateImageMarking();
         }
     }
 
@@ -2762,6 +2837,7 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat(); 
+        updateImageMarking();
     }
     
     public void isCek(){
@@ -2977,6 +3053,30 @@ public final class RMPenilaianAwalMedisRanapDewasa extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             System.out.println("Notif : "+e);
+        }
+    }
+    
+    private void updateImageMarking() {
+        if (TNoRw.getText().trim().isEmpty()) {
+            return;
+        }
+        
+        String imageUrl = Sequel.cariIsi("select url_image from medis_inap_marking where no_rawat = ?", TNoRw.getText());
+        
+        if (imageUrl.isEmpty()) {
+            PanelWall.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/semua.png")));
+            return;
+        }
+        
+        imageAssesment("https://" + koneksiDB.HOSTHYBRIDWEB() + ":" + koneksiDB.PORTWEB() + "/" + koneksiDB.HYBRIDWEB() + "/imagefreehand/" + imageUrl);
+    }
+    
+    private void imageAssesment(String url) {
+        try {
+            BufferedImage img = ImageIO.read(new URL(url.trim()));
+            PanelWall.setBackgroundImage(new javax.swing.ImageIcon(img));
+        } catch (IOException ex) {
+
         }
     }
 }

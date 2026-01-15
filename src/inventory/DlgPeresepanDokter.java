@@ -78,6 +78,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
     private String TANGGALMUNDUR="yes";
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private volatile boolean ceksukses = false;
+    private DlgCariMetodeRacik metoderacik = new DlgCariMetodeRacik(null, false);
     /** Creates new form DlgPenyakit
      * @param parent
      * @param modal */
@@ -312,6 +313,42 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
             @Override
             public void windowDeactivated(WindowEvent e) {}
         });
+        
+        metoderacik.addWindowListener(new WindowListener() {
+        @Override
+        public void windowOpened(WindowEvent e) {}
+        @Override
+        public void windowClosing(WindowEvent e) {}
+        @Override
+        public void windowClosed(WindowEvent e) {
+            if(metoderacik.getTable().getSelectedRow()!= -1){  
+                tbObatResepRacikan.setValueAt(metoderacik.getTable().getValueAt(metoderacik.getTable().getSelectedRow(),1).toString(),tbObatResepRacikan.getSelectedRow(),2);
+                tbObatResepRacikan.setValueAt(metoderacik.getTable().getValueAt(metoderacik.getTable().getSelectedRow(),2).toString(),tbObatResepRacikan.getSelectedRow(),3);
+                tbObatResepRacikan.requestFocus();
+            }  
+        }
+        @Override
+        public void windowIconified(WindowEvent e) {}
+        @Override
+        public void windowDeiconified(WindowEvent e) {}
+        @Override
+        public void windowActivated(WindowEvent e) {}
+        @Override
+        public void windowDeactivated(WindowEvent e) {}
+    });
+
+    metoderacik.getTable().addKeyListener(new KeyListener() {
+        @Override
+        public void keyTyped(KeyEvent e) {}
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                metoderacik.dispose();
+            }
+        }
+        @Override
+        public void keyReleased(KeyEvent e) {}
+    });
         
         jam();
         
@@ -702,7 +739,7 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         jLabel8.setBounds(0, 42, 72, 23);
 
         DTPBeri.setForeground(new java.awt.Color(50, 70, 50));
-        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-07-2025" }));
+        DTPBeri.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-01-2026" }));
         DTPBeri.setDisplayFormat("dd-MM-yyyy");
         DTPBeri.setName("DTPBeri"); // NOI18N
         DTPBeri.setOpaque(false);
@@ -899,6 +936,11 @@ public final class DlgPeresepanDokter extends javax.swing.JDialog {
         Scroll1.setPreferredSize(new java.awt.Dimension(454, 90));
 
         tbObatResepRacikan.setName("tbObatResepRacikan"); // NOI18N
+        tbObatResepRacikan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbObatResepRacikanMouseClicked(evt);
+            }
+        });
         tbObatResepRacikan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tbObatResepRacikanKeyPressed(evt);
@@ -1401,58 +1443,27 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         if(tbObatResepRacikan.getRowCount()!=0){
             try {
                 i=tbObatResepRacikan.getSelectedColumn();
-                if(evt.getKeyCode()==KeyEvent.VK_RIGHT){
-                    if(i==5){
-                        akses.setform("DlgCariObat");
-                        DlgCariAturanPakai aturanpakai=new DlgCariAturanPakai(null,false);
-                        aturanpakai.addWindowListener(new WindowListener() {
-                            @Override
-                            public void windowOpened(WindowEvent e) {}
-                            @Override
-                            public void windowClosing(WindowEvent e) {}
-                            @Override
-                            public void windowClosed(WindowEvent e) {
-                                if(aturanpakai.getTable().getSelectedRow()!= -1){  
-                                    if(TabRawat.getSelectedIndex()==0){
-                                        tbResep.setValueAt(aturanpakai.getTable().getValueAt(aturanpakai.getTable().getSelectedRow(),0).toString(),tbResep.getSelectedRow(),2);
-                                        tbResep.requestFocus();
-                                    }else if(TabRawat.getSelectedIndex()==1){
-                                        tbObatResepRacikan.setValueAt(aturanpakai.getTable().getValueAt(aturanpakai.getTable().getSelectedRow(),0).toString(),tbObatResepRacikan.getSelectedRow(),5);
-                                        tbObatResepRacikan.requestFocus();
-                                    }   
-                                }
-                            }
-                            @Override
-                            public void windowIconified(WindowEvent e) {}
-                            @Override
-                            public void windowDeiconified(WindowEvent e) {}
-                            @Override
-                            public void windowActivated(WindowEvent e) {}
-                            @Override
-                            public void windowDeactivated(WindowEvent e) {}
-                        });
-                        aturanpakai.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
-                        aturanpakai.setLocationRelativeTo(internalFrame1);
-                        aturanpakai.setVisible(true);
-                    }else if(i==3){
-                        if(tbObatResepRacikan.getValueAt(tbObatResepRacikan.getSelectedRow(),1).equals("")){
-                            JOptionPane.showMessageDialog(null,"Silahkan masukkan nama racikan..!!");
-                            tbObatResepRacikan.requestFocus();
-                        }else{
-                            DlgCariMetodeRacik metoderacik=new DlgCariMetodeRacik(null,false);
-        
-                            metoderacik.addWindowListener(new WindowListener() {
+                switch (evt.getKeyCode()) {
+                    case KeyEvent.VK_RIGHT:
+                        if(i==5){
+                            akses.setform("DlgCariObat");
+                            DlgCariAturanPakai aturanpakai=new DlgCariAturanPakai(null,false);
+                            aturanpakai.addWindowListener(new WindowListener() {
                                 @Override
                                 public void windowOpened(WindowEvent e) {}
                                 @Override
                                 public void windowClosing(WindowEvent e) {}
                                 @Override
                                 public void windowClosed(WindowEvent e) {
-                                    if(metoderacik.getTable().getSelectedRow()!= -1){  
-                                        tbObatResepRacikan.setValueAt(metoderacik.getTable().getValueAt(metoderacik.getTable().getSelectedRow(),1).toString(),tbObatResepRacikan.getSelectedRow(),2);
-                                        tbObatResepRacikan.setValueAt(metoderacik.getTable().getValueAt(metoderacik.getTable().getSelectedRow(),2).toString(),tbObatResepRacikan.getSelectedRow(),3);
-                                        tbObatResepRacikan.requestFocus();
-                                    }  
+                                    if(aturanpakai.getTable().getSelectedRow()!= -1){
+                                        if(TabRawat.getSelectedIndex()==0){
+                                            tbResep.setValueAt(aturanpakai.getTable().getValueAt(aturanpakai.getTable().getSelectedRow(),0).toString(),tbResep.getSelectedRow(),2);
+                                            tbResep.requestFocus();
+                                        }else if(TabRawat.getSelectedIndex()==1){
+                                            tbObatResepRacikan.setValueAt(aturanpakai.getTable().getValueAt(aturanpakai.getTable().getSelectedRow(),0).toString(),tbObatResepRacikan.getSelectedRow(),5);
+                                            tbObatResepRacikan.requestFocus();   
+                                        }
+                                    }
                                 }
                                 @Override
                                 public void windowIconified(WindowEvent e) {}
@@ -1463,33 +1474,42 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                                 @Override
                                 public void windowDeactivated(WindowEvent e) {}
                             });
-
-                            metoderacik.getTable().addKeyListener(new KeyListener() {
-                                @Override
-                                public void keyTyped(KeyEvent e) {}
-                                @Override
-                                public void keyPressed(KeyEvent e) {
-                                    if(e.getKeyCode()==KeyEvent.VK_SPACE){
-                                        metoderacik.dispose();
-                                    }
-                                }
-                                @Override
-                                public void keyReleased(KeyEvent e) {}
-                            }); 
-                            metoderacik.isCek();
-                            metoderacik.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
-                            metoderacik.setLocationRelativeTo(internalFrame1);
-                            metoderacik.setVisible(true);
-                        }
-                    }
-                }else if(evt.getKeyCode()==KeyEvent.VK_SHIFT){
-                    if(i==6){
-                        TCari.requestFocus();
-                    }
-                }else if(evt.getKeyCode()==KeyEvent.VK_ENTER){
-                    if(i==6){
-                        runBackground(() -> tampildetailracikanresep());
-                    }
+                            aturanpakai.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                            aturanpakai.setLocationRelativeTo(internalFrame1);
+                            aturanpakai.setVisible(true);
+                        }else if(i==3){
+                            if(tbObatResepRacikan.getValueAt(tbObatResepRacikan.getSelectedRow(),1).equals("")){
+                                JOptionPane.showMessageDialog(null,"Silahkan masukkan nama racikan..!!");
+                                tbObatResepRacikan.requestFocus();
+                            }else{
+                                metoderacik.isCek();
+                                metoderacik.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                metoderacik.setLocationRelativeTo(internalFrame1);
+                                metoderacik.setVisible(true);
+                            }
+                        }   break;
+                    case KeyEvent.VK_SHIFT:
+                        if(i==6){
+                            TCari.requestFocus();
+                        }   break;
+                    case KeyEvent.VK_ENTER:
+                        if(i==6){
+                            runBackground(() -> tampildetailracikanresep());
+                        }   break;
+                    case KeyEvent.VK_SPACE:
+                        if(i==3){
+                            if(tbObatResepRacikan.getValueAt(tbObatResepRacikan.getSelectedRow(),1).equals("")){
+                                JOptionPane.showMessageDialog(null,"Silahkan masukkan nama racikan..!!");
+                                tbObatResepRacikan.requestFocus();
+                            }else{
+                                metoderacik.isCek();
+                                metoderacik.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                                metoderacik.setLocationRelativeTo(internalFrame1);
+                                metoderacik.setVisible(true);
+                            }
+                        }   break;
+                    default:
+                        break;
                 }
             } catch (Exception e) {
             }
@@ -1604,6 +1624,10 @@ private void ppBersihkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private void bbKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bbKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_bbKeyPressed
+
+    private void tbObatResepRacikanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbObatResepRacikanMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbObatResepRacikanMouseClicked
 
     /**
     * @param args the command line arguments

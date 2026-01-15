@@ -176,7 +176,7 @@ import rekammedis.RMPenilaianPasienImunitasRendah;
 import rekammedis.RMPenilaianPasienPenyakitMenular;
 import rekammedis.RMPenilaianPasienTerminal;
 import rekammedis.RMPenilaianPreAnastesi;
-import rekammedis.RMPenilaianPreInduksi;
+import rekammedis.RMPenilaianPreInduksiCustom;
 import rekammedis.RMPenilaianPreOperasi;
 import rekammedis.RMPenilaianPsikologi;
 import rekammedis.RMPenilaianPsikologiKlinis;
@@ -16138,7 +16138,7 @@ public class DlgKamarInapIntensif extends javax.swing.JDialog {
                             rs2=psanak.executeQuery();
                             if(rs2.next()){
                                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                                RMPenilaianPreInduksi form=new RMPenilaianPreInduksi(null,false);
+                                RMPenilaianPreInduksiCustom form=new RMPenilaianPreInduksiCustom(null,false);
                                 form.isCek();
                                 form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
@@ -16172,7 +16172,7 @@ public class DlgKamarInapIntensif extends javax.swing.JDialog {
                     }
                 }else{
                     this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                    RMPenilaianPreInduksi form=new RMPenilaianPreInduksi(null,false);
+                    RMPenilaianPreInduksiCustom form=new RMPenilaianPreInduksiCustom(null,false);
                     form.isCek();
                     form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
