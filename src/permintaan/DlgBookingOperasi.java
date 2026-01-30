@@ -35,7 +35,7 @@ import rekammedis.RMChecklistPreOperasi;
 import rekammedis.RMMonitoringAldrettePascaAnestesi;
 import rekammedis.RMMonitoringBromagePascaAnestesi;
 import rekammedis.RMMonitoringStewardPascaAnestesi;
-import rekammedis.RMPenilaianPreAnastesi;
+import rekammedis.RMPenilaianPreAnastesiCustom;
 import rekammedis.RMPenilaianPreInduksiCustom;
 import rekammedis.RMPenilaianPreOperasi;
 import simrskhanza.DlgKamarInap;
@@ -1844,7 +1844,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }else{            
             if(tbObat.getSelectedRow()!= -1){
                 this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                RMPenilaianPreAnastesi form=new RMPenilaianPreAnastesi(null,false);
+                RMPenilaianPreAnastesiCustom form=new RMPenilaianPreAnastesiCustom(null,false);
                 form.isCek();
                 form.emptTeks();
                 form.setNoRm(TNoRw.getText(),DTPCari2.getDate());

@@ -1013,7 +1013,7 @@ import rekammedis.RMPenilaianPasienImunitasRendah;
 import rekammedis.RMPenilaianPasienKeracunan;
 import rekammedis.RMPenilaianPasienPenyakitMenular;
 import rekammedis.RMPenilaianPasienTerminal;
-import rekammedis.RMPenilaianPreAnastesi;
+import rekammedis.RMPenilaianPreAnastesiCustom;
 import rekammedis.RMPenilaianPreInduksiCustom;
 import rekammedis.RMPenilaianPreOperasi;
 import rekammedis.RMPenilaianPsikologi;
@@ -19620,7 +19620,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private void btnPenilaianPreAnastesiActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        RMPenilaianPreAnastesi form=new RMPenilaianPreAnastesi(this,false);
+        RMPenilaianPreAnastesiCustom form=new RMPenilaianPreAnastesiCustom(this,false);
         form.isCek();
         form.emptTeks();
         form.setTampil();

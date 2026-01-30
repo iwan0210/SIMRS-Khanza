@@ -22,9 +22,12 @@
         <group>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/SatuSehatMapingObatAlkes.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMSkriningNutrisiLansia.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/SIMRSKhanza.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianDerajatDehidrasi.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianPreOperasi.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgKamarInap.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/inventory/DlgDaftarPermintaanResep.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianPreAnastesiCustom.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgReg.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/MobileJKNReferensiPendaftaran.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMSkriningNutrisiAnak.java</file>
@@ -35,23 +38,20 @@
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianPreInduksiCustom.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/laporan/DlgDiagnosaPenyakit.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgIGD.java</file>
-            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianAwalMedisIGD.java</file>
-            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/frmUtama.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMTransferPasienAntarRuang.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/keuangan/DlgBilingRanap.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMDataResumePasienRanap.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMRiwayatPerawatan.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/fungsi/BuildConfig.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgPasienMeninggal.java</file>
-            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/freehand/DlgMarkingImageMedisIGD.java</file>
-            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/inventory/DlgPeresepanDokter.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianAwalKeperawatanIGD.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgRawatJalan.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/ApiBPJS.java</file>
-            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/BPJSDataFingerPrintPasien.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgKasirRalan.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/fungsi/validasi.java</file>
+            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/surat/SuratSakit.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgPasien.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/ApiBPJSAplicare.java</file>
-            <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMPenilaianPreAnastesi.java</file>
             <file>file:/F:/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMDataResumePasien.java</file>
         </group>
     </open-files>

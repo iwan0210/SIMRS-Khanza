@@ -2683,8 +2683,10 @@ public final class RMTransferPasienAntarRuang extends javax.swing.JDialog {
                 rs=ps.executeQuery();
                 if(rs.next()){
                     DiagnosaUtama.setText(rs.getString("diagnosis"));
+                    DiagnosaSekunder.setText(rs.getString("diagnosis"));
                     ObatYangDiberikan.setText(rs.getString("tata"));
                     KeluhanUtamaSebelumTransfer.setText(rs.getString("keluhan_utama"));
+                    KeluhanUtamaSetelahTransfer.setText(rs.getString("keluhan_utama"));
                     KeadaanUmumSebelumTransfer.setSelectedItem(rs.getString("keadaan"));
                     TDSebelumTransfer.setText(rs.getString("td"));
                     NadiSebelumTransfer.setText(rs.getString("nadi"));

@@ -4307,6 +4307,8 @@ public final class RMPenilaianAwalKeperawatanIGD extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat();
+        
+        KeluhanUtama.setText(Sequel.cariIsi("select rps from penilaian_medis_igd where no_rawat = ?", norwt));
     }
     
     

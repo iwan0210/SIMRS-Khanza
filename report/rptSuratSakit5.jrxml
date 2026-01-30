@@ -4,9 +4,8 @@
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="372"/>
-	<parameter name="hari" class="java.lang.String"/>
-	<parameter name="TanggalAwal" class="java.lang.String"/>
-	<parameter name="TanggalAkhir" class="java.lang.String"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="490"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="500"/>
 	<parameter name="namars" class="java.lang.String"/>
 	<parameter name="alamatrs" class="java.lang.String"/>
 	<parameter name="kotars" class="java.lang.String"/>
@@ -14,28 +13,11 @@
 	<parameter name="kontakrs" class="java.lang.String"/>
 	<parameter name="emailrs" class="java.lang.String"/>
 	<parameter name="logo" class="java.io.InputStream"/>
-	<parameter name="penyakit" class="java.lang.String"/>
-	<parameter name="nosakit" class="java.lang.String"/>
 	<parameter name="finger" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select reg_periksa.no_rawat,dokter.nm_dokter,pasien.keluarga,pasien.namakeluarga,pasien.tgl_lahir,pasien.jk,
- pasien.nm_pasien,pasien.jk,pasien.umur,pasien.pekerjaan,pasien.alamat
- from reg_periksa inner join pasien inner join dokter
- on reg_periksa.no_rkm_medis=pasien.no_rkm_medis and reg_periksa.kd_dokter=dokter.kd_dokter]]>
+		<![CDATA[select suratsakit.no_surat, pasien.nm_pasien, concat(reg_periksa.umurdaftar, ' ', reg_periksa.sttsumur) as umur, pasien.alamat, pasien.jk, suratsakit.pekerjaan, suratsakit.instansi, suratsakit.lamasakit, suratsakit.tanggalawal, suratsakit.tanggalakhir, suratsakit.diagnosa, suratsakit.tanggalsurat, dokter.nm_dokter from suratsakit join reg_periksa on reg_periksa.no_rawat = suratsakit.no_rawat join pasien on pasien.no_rkm_medis = reg_periksa.no_rkm_medis join dokter on dokter.kd_dokter = reg_periksa.kd_dokter]]>
 	</queryString>
-	<field name="no_rawat" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="nm_dokter" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="keluarga" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="namakeluarga" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="tgl_lahir" class="java.sql.Date">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="jk" class="java.lang.String">
@@ -53,8 +35,13 @@
 	<field name="alamat" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="tgl_registrasi" class="java.lang.String"/>
-	<field name="nama_perusahaan" class="java.lang.String"/>
+	<field name="no_surat" class="java.lang.String"/>
+	<field name="instansi" class="java.lang.String"/>
+	<field name="lamasakit" class="java.lang.String"/>
+	<field name="tanggalawal" class="java.sql.Date"/>
+	<field name="tanggalakhir" class="java.sql.Date"/>
+	<field name="diagnosa" class="java.lang.String"/>
+	<field name="tanggalsurat" class="java.sql.Date"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -260,7 +247,7 @@
 					<font fontName="Tahoma" size="11"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Memerlukan istirahat selama "+$P{hari}+ " hari karena sakit terhitung dari tanggal "+$P{TanggalAwal}+" sampai dengan " +$P{TanggalAkhir}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Memerlukan istirahat selama "+$F{lamasakit}+ " hari karena sakit terhitung dari tanggal "+$F{tanggalawal}+" sampai dengan " +$F{tanggalakhir}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="373" y="419" width="177" height="14" uuid="05a206ab-f7e8-4703-bb42-1e42c18557f8">
@@ -290,7 +277,7 @@
 					<font fontName="Tahoma" size="11"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{kotars}+", "+$F{tgl_registrasi}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{kotars}+", "+$F{tanggalsurat}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="91" y="143" width="463" height="14" uuid="cd034c99-6e06-4431-af3a-2282d0113046">
@@ -420,7 +407,7 @@
 					<font fontName="Tahoma" size="11"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P{penyakit}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{diagnosa}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="223" width="79" height="14" uuid="3486cdbf-ab14-4207-bc47-9117c73cbd1c">
@@ -473,7 +460,7 @@
 				<textElement>
 					<font fontName="Tahoma" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nama_perusahaan}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{instansi}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="198" y="91" width="155" height="14" uuid="05c8850f-f665-42be-b850-6b9c32541e43">
@@ -482,7 +469,7 @@
 				<textElement textAlignment="Center">
 					<font fontName="Tahoma" size="11"/>
 				</textElement>
-				<textFieldExpression><![CDATA["No. "+$P{nosakit}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["No. "+$F{no_surat}]]></textFieldExpression>
 			</textField>
 			<componentElement>
 				<reportElement x="373" y="340" width="174" height="73" isRemoveLineWhenBlank="true" uuid="cb9e7fe5-54c5-4a8e-900f-fc2ef2259792">

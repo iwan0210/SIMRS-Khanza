@@ -63,7 +63,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         
         tabMode=new DefaultTableModel(null,new Object[]{
             "No.Rawat","No.RM","Nama Pasien","Tgl.Lahir","J.K.","Kode Dokter","Nama Dokter","Tanggal","Ringkasan Klinik","Pemeriksaan Fisik",
-            "Pemeriksaan Diagnostik","Diagnosa Pre Operasi","Rencana Tindakan Bedah","Hal-hal Yang Perlu Dipersiapkan","Terapi Pre Operasi"
+            "Pemeriksaan Diagnostik","Diagnosa Pre Operasi","Rencana Tindakan Bedah","Hal-hal Yang Perlu Dipersiapkan","Terapi Pre Operasi","estimasi jam","estimasi menit"
         }){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -72,7 +72,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         tbObat.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbObat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 15; i++) {
+        for (i = 0; i < 17; i++) {
             TableColumn column = tbObat.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(105);
@@ -90,6 +90,10 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
                 column.setPreferredWidth(150);
             }else if(i==7){
                 column.setPreferredWidth(115);
+            }else if(i==15){
+                column.setPreferredWidth(50);
+            }else if(i==16){
+                column.setPreferredWidth(50);
             }else{
                 column.setPreferredWidth(300);
             }
@@ -249,6 +253,11 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         jSeparator7 = new javax.swing.JSeparator();
         scrollPane20 = new widget.ScrollPane();
         TerapiPreOp = new widget.TextArea();
+        MenitOp = new widget.TextBox();
+        jLabel12 = new widget.Label();
+        jLabel13 = new widget.Label();
+        JamOp = new widget.TextBox();
+        jLabel14 = new widget.Label();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -549,17 +558,17 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         Jk.setHighlighter(null);
         Jk.setName("Jk"); // NOI18N
         FormInput.add(Jk);
-        Jk.setBounds(74, 40, 80, 23);
+        Jk.setBounds(80, 40, 80, 23);
 
         jLabel10.setText("No.Rawat :");
         jLabel10.setName("jLabel10"); // NOI18N
         FormInput.add(jLabel10);
         jLabel10.setBounds(0, 10, 70, 23);
 
-        jLabel11.setText("J.K. :");
+        jLabel11.setText("Menit");
         jLabel11.setName("jLabel11"); // NOI18N
         FormInput.add(jLabel11);
-        jLabel11.setBounds(0, 40, 70, 23);
+        jLabel11.setBounds(1110, 10, 30, 23);
 
         jSeparator1.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator1.setForeground(new java.awt.Color(239, 244, 234));
@@ -575,7 +584,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         label11.setBounds(538, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2026 14:29:04" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-01-2026 11:06:43" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -591,7 +600,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         jLabel109.setText("I. Ringkasan Klinik :");
         jLabel109.setName("jLabel109"); // NOI18N
         FormInput.add(jLabel109);
-        jLabel109.setBounds(10, 70, 190, 23);
+        jLabel109.setBounds(10, 80, 190, 23);
 
         scrollPane14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane14.setName("scrollPane14"); // NOI18N
@@ -608,20 +617,20 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         scrollPane14.setViewportView(RingkasanKlinik);
 
         FormInput.add(scrollPane14);
-        scrollPane14.setBounds(44, 90, 680, 63);
+        scrollPane14.setBounds(70, 100, 470, 63);
 
         jLabel110.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel110.setText("II. Pemeriksaan Fisik :");
         jLabel110.setName("jLabel110"); // NOI18N
         FormInput.add(jLabel110);
-        jLabel110.setBounds(10, 160, 190, 23);
+        jLabel110.setBounds(10, 170, 190, 23);
 
         jSeparator2.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator2.setForeground(new java.awt.Color(239, 244, 234));
         jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator2.setName("jSeparator2"); // NOI18N
         FormInput.add(jSeparator2);
-        jSeparator2.setBounds(0, 160, 750, 1);
+        jSeparator2.setBounds(0, 170, 750, 1);
 
         scrollPane15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane15.setName("scrollPane15"); // NOI18N
@@ -638,20 +647,20 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         scrollPane15.setViewportView(PemeriksaanFisik);
 
         FormInput.add(scrollPane15);
-        scrollPane15.setBounds(44, 180, 680, 63);
+        scrollPane15.setBounds(50, 190, 490, 63);
 
         jLabel111.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel111.setText("III. Pemeriksaan Diagnostik :");
         jLabel111.setName("jLabel111"); // NOI18N
         FormInput.add(jLabel111);
-        jLabel111.setBounds(10, 250, 190, 23);
+        jLabel111.setBounds(10, 260, 190, 23);
 
         jSeparator3.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator3.setForeground(new java.awt.Color(239, 244, 234));
         jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator3.setName("jSeparator3"); // NOI18N
         FormInput.add(jSeparator3);
-        jSeparator3.setBounds(0, 250, 750, 1);
+        jSeparator3.setBounds(0, 260, 750, 1);
 
         scrollPane16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane16.setName("scrollPane16"); // NOI18N
@@ -668,20 +677,20 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         scrollPane16.setViewportView(PemeriksaanDiagnostik);
 
         FormInput.add(scrollPane16);
-        scrollPane16.setBounds(44, 270, 680, 63);
+        scrollPane16.setBounds(50, 280, 490, 63);
 
         jLabel112.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel112.setText("IV. Diagnosa Pre Operasi :");
         jLabel112.setName("jLabel112"); // NOI18N
         FormInput.add(jLabel112);
-        jLabel112.setBounds(10, 340, 190, 23);
+        jLabel112.setBounds(10, 350, 190, 23);
 
         jSeparator4.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator4.setForeground(new java.awt.Color(239, 244, 234));
         jSeparator4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator4.setName("jSeparator4"); // NOI18N
         FormInput.add(jSeparator4);
-        jSeparator4.setBounds(0, 340, 750, 1);
+        jSeparator4.setBounds(0, 350, 750, 1);
 
         scrollPane17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane17.setName("scrollPane17"); // NOI18N
@@ -698,20 +707,20 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         scrollPane17.setViewportView(DiagnosaPreOperasi);
 
         FormInput.add(scrollPane17);
-        scrollPane17.setBounds(44, 360, 680, 63);
+        scrollPane17.setBounds(50, 380, 490, 63);
 
         jLabel113.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel113.setText("V. Rencana Tindakan Bedah :");
         jLabel113.setName("jLabel113"); // NOI18N
         FormInput.add(jLabel113);
-        jLabel113.setBounds(10, 430, 190, 23);
+        jLabel113.setBounds(580, 110, 190, 23);
 
         jSeparator5.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator5.setForeground(new java.awt.Color(239, 244, 234));
         jSeparator5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator5.setName("jSeparator5"); // NOI18N
         FormInput.add(jSeparator5);
-        jSeparator5.setBounds(0, 430, 750, 1);
+        jSeparator5.setBounds(570, 110, 750, 1);
 
         scrollPane18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane18.setName("scrollPane18"); // NOI18N
@@ -728,20 +737,20 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         scrollPane18.setViewportView(RencanaTindakanBedah);
 
         FormInput.add(scrollPane18);
-        scrollPane18.setBounds(44, 450, 680, 63);
+        scrollPane18.setBounds(620, 130, 470, 63);
 
         jLabel114.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel114.setText("VI. Hal-hal Yang Perlu Dipersiapkan :");
         jLabel114.setName("jLabel114"); // NOI18N
         FormInput.add(jLabel114);
-        jLabel114.setBounds(10, 520, 190, 23);
+        jLabel114.setBounds(580, 200, 190, 23);
 
         jSeparator6.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator6.setForeground(new java.awt.Color(239, 244, 234));
         jSeparator6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator6.setName("jSeparator6"); // NOI18N
         FormInput.add(jSeparator6);
-        jSeparator6.setBounds(0, 520, 750, 1);
+        jSeparator6.setBounds(570, 200, 750, 1);
 
         scrollPane19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane19.setName("scrollPane19"); // NOI18N
@@ -758,20 +767,20 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         scrollPane19.setViewportView(HalYangDipersiapkan);
 
         FormInput.add(scrollPane19);
-        scrollPane19.setBounds(44, 540, 680, 63);
+        scrollPane19.setBounds(620, 220, 470, 63);
 
         jLabel115.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel115.setText("VII. Terapi Pre Operasi :");
         jLabel115.setName("jLabel115"); // NOI18N
         FormInput.add(jLabel115);
-        jLabel115.setBounds(10, 610, 190, 23);
+        jLabel115.setBounds(580, 290, 190, 23);
 
         jSeparator7.setBackground(new java.awt.Color(239, 244, 234));
         jSeparator7.setForeground(new java.awt.Color(239, 244, 234));
         jSeparator7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator7.setName("jSeparator7"); // NOI18N
         FormInput.add(jSeparator7);
-        jSeparator7.setBounds(0, 610, 750, 1);
+        jSeparator7.setBounds(570, 290, 750, 1);
 
         scrollPane20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane20.setName("scrollPane20"); // NOI18N
@@ -788,7 +797,32 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         scrollPane20.setViewportView(TerapiPreOp);
 
         FormInput.add(scrollPane20);
-        scrollPane20.setBounds(44, 630, 680, 63);
+        scrollPane20.setBounds(620, 310, 470, 63);
+
+        MenitOp.setHighlighter(null);
+        MenitOp.setName("MenitOp"); // NOI18N
+        FormInput.add(MenitOp);
+        MenitOp.setBounds(1020, 10, 80, 23);
+
+        jLabel12.setText("J.K. :");
+        jLabel12.setName("jLabel12"); // NOI18N
+        FormInput.add(jLabel12);
+        jLabel12.setBounds(0, 40, 70, 23);
+
+        jLabel13.setText("Estimasi Waktu Operasi :");
+        jLabel13.setName("jLabel13"); // NOI18N
+        FormInput.add(jLabel13);
+        jLabel13.setBounds(740, 10, 150, 23);
+
+        JamOp.setHighlighter(null);
+        JamOp.setName("JamOp"); // NOI18N
+        FormInput.add(JamOp);
+        JamOp.setBounds(900, 10, 80, 23);
+
+        jLabel14.setText("Jam");
+        jLabel14.setName("jLabel14"); // NOI18N
+        FormInput.add(jLabel14);
+        jLabel14.setBounds(990, 10, 20, 23);
 
         scrollInput.setViewportView(FormInput);
 
@@ -831,7 +865,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-01-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -845,7 +879,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-01-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-01-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1355,10 +1389,12 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
     private widget.TextArea DiagnosaPreOperasi;
     private widget.PanelBiasa FormInput;
     private widget.TextArea HalYangDipersiapkan;
+    private widget.TextBox JamOp;
     private widget.TextBox Jk;
     private widget.TextBox KdDokter;
     private widget.Label LCount;
     private widget.editorpane LoadHTML;
+    private widget.TextBox MenitOp;
     private javax.swing.JMenuItem MnCetakMarkingPreOperasi;
     private javax.swing.JMenuItem MnMarkingPreOperasi;
     private javax.swing.JMenuItem MnPenilaianMedis;
@@ -1389,6 +1425,9 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
     private widget.Label jLabel113;
     private widget.Label jLabel114;
     private widget.Label jLabel115;
+    private widget.Label jLabel12;
+    private widget.Label jLabel13;
+    private widget.Label jLabel14;
     private widget.Label jLabel19;
     private widget.Label jLabel21;
     private widget.Label jLabel6;
@@ -1425,7 +1464,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
                         "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,penilaian_pre_operasi.tanggal,"+
                         "penilaian_pre_operasi.kd_dokter,penilaian_pre_operasi.ringkasan_klinik,penilaian_pre_operasi.pemeriksaan_fisik,penilaian_pre_operasi.pemeriksaan_diagnostik,"+
                         "penilaian_pre_operasi.diagnosa_pre_operasi,penilaian_pre_operasi.rencana_tindakan_bedah,penilaian_pre_operasi.hal_hal_yang_perludi_persiapkan,"+
-                        "penilaian_pre_operasi.terapi_pre_operasi,dokter.nm_dokter from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                        "penilaian_pre_operasi.terapi_pre_operasi,penilaian_pre_operasi.estimasi_jam,penilaian_pre_operasi.estimasi_menit,dokter.nm_dokter from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                         "inner join penilaian_pre_operasi on reg_periksa.no_rawat=penilaian_pre_operasi.no_rawat "+
                         "inner join dokter on penilaian_pre_operasi.kd_dokter=dokter.kd_dokter where "+
                         "penilaian_pre_operasi.tanggal between ? and ? order by penilaian_pre_operasi.tanggal");
@@ -1434,7 +1473,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
                         "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,penilaian_pre_operasi.tanggal,"+
                         "penilaian_pre_operasi.kd_dokter,penilaian_pre_operasi.ringkasan_klinik,penilaian_pre_operasi.pemeriksaan_fisik,penilaian_pre_operasi.pemeriksaan_diagnostik,"+
                         "penilaian_pre_operasi.diagnosa_pre_operasi,penilaian_pre_operasi.rencana_tindakan_bedah,penilaian_pre_operasi.hal_hal_yang_perludi_persiapkan,"+
-                        "penilaian_pre_operasi.terapi_pre_operasi,dokter.nm_dokter from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                        "penilaian_pre_operasi.terapi_pre_operasi,penilaian_pre_operasi.estimasi_jam,penilaian_pre_operasi.estimasi_menit,dokter.nm_dokter from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                         "inner join penilaian_pre_operasi on reg_periksa.no_rawat=penilaian_pre_operasi.no_rawat "+
                         "inner join dokter on penilaian_pre_operasi.kd_dokter=dokter.kd_dokter where "+
                         "penilaian_pre_operasi.tanggal between ? and ? and (reg_periksa.no_rawat like ? or pasien.no_rkm_medis like ? or pasien.nm_pasien like ? or "+
@@ -1490,6 +1529,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         TglAsuhan.setDate(new Date());
         TabRawat.setSelectedIndex(0);
         RingkasanKlinik.requestFocus();
+        
     } 
 
     private void getData() {
@@ -1506,6 +1546,8 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
             RencanaTindakanBedah.setText(tbObat.getValueAt(tbObat.getSelectedRow(),12).toString());
             HalYangDipersiapkan.setText(tbObat.getValueAt(tbObat.getSelectedRow(),13).toString());
             TerapiPreOp.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
+            JamOp.setText(tbObat.getValueAt(tbObat.getSelectedRow(),15).toString());
+            MenitOp.setText(tbObat.getValueAt(tbObat.getSelectedRow(),16).toString());
             Valid.SetTgl2(TglAsuhan,tbObat.getValueAt(tbObat.getSelectedRow(),7).toString());
         }
     }
@@ -1600,10 +1642,10 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
     }
 
     private void ganti() {
-        if(Sequel.mengedittf("penilaian_pre_operasi","no_rawat=? and tanggal=?","no_rawat=?,tanggal=?,kd_dokter=?,ringkasan_klinik=?,pemeriksaan_fisik=?,pemeriksaan_diagnostik=?,diagnosa_pre_operasi=?,rencana_tindakan_bedah=?,hal_hal_yang_perludi_persiapkan=?,terapi_pre_operasi=?",12,new String[]{
+        if(Sequel.mengedittf("penilaian_pre_operasi","no_rawat=? and tanggal=?","no_rawat=?,tanggal=?,kd_dokter=?,ringkasan_klinik=?,pemeriksaan_fisik=?,pemeriksaan_diagnostik=?,diagnosa_pre_operasi=?,rencana_tindakan_bedah=?,hal_hal_yang_perludi_persiapkan=?,terapi_pre_operasi=?,estimasi_jam=?,estimasi_menit=?",14,new String[]{
                 TNoRw.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19),KdDokter.getText(),
                 RingkasanKlinik.getText(),PemeriksaanFisik.getText(),PemeriksaanDiagnostik.getText(),DiagnosaPreOperasi.getText(),RencanaTindakanBedah.getText(), 
-                HalYangDipersiapkan.getText(),TerapiPreOp.getText(),tbObat.getValueAt(tbObat.getSelectedRow(),0).toString(),tbObat.getValueAt(tbObat.getSelectedRow(),7).toString()
+                HalYangDipersiapkan.getText(),TerapiPreOp.getText(),JamOp.getText(),MenitOp.getText(),tbObat.getValueAt(tbObat.getSelectedRow(),0).toString(),tbObat.getValueAt(tbObat.getSelectedRow(),7).toString()
             })==true){
                 tbObat.setValueAt(TNoRw.getText(),tbObat.getSelectedRow(),0);
                 tbObat.setValueAt(TNoRM.getText(),tbObat.getSelectedRow(),1);
@@ -1620,20 +1662,22 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
                 tbObat.setValueAt(RencanaTindakanBedah.getText(),tbObat.getSelectedRow(),12);
                 tbObat.setValueAt(HalYangDipersiapkan.getText(),tbObat.getSelectedRow(),13);
                 tbObat.setValueAt(TerapiPreOp.getText(),tbObat.getSelectedRow(),14);
-               emptTeks();
+                tbObat.setValueAt(JamOp.getText(),tbObat.getSelectedRow(),15);
+                tbObat.setValueAt(MenitOp.getText(),tbObat.getSelectedRow(),16);
+                emptTeks();
                TabRawat.setSelectedIndex(1);
         }
     }
 
     private void simpan() {
-        if(Sequel.menyimpantf("penilaian_pre_operasi","?,?,?,?,?,?,?,?,?,?","No.Rawat, Tanggal & Jam",10,new String[]{
+        if(Sequel.menyimpantf("penilaian_pre_operasi","?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat, Tanggal & Jam",12,new String[]{
                 TNoRw.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19),KdDokter.getText(),
                 RingkasanKlinik.getText(),PemeriksaanFisik.getText(),PemeriksaanDiagnostik.getText(),DiagnosaPreOperasi.getText(),RencanaTindakanBedah.getText(), 
-                HalYangDipersiapkan.getText(),TerapiPreOp.getText()
+                HalYangDipersiapkan.getText(),TerapiPreOp.getText(),JamOp.getText(),MenitOp.getText()
             })==true){
                 tabMode.addRow(new Object[]{
                     TNoRw.getText(),TNoRM.getText(),TPasien.getText(),TglLahir.getText(),Jk.getText(),KdDokter.getText(),NmDokter.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19),
-                    RingkasanKlinik.getText(),PemeriksaanFisik.getText(),PemeriksaanDiagnostik.getText(),DiagnosaPreOperasi.getText(),RencanaTindakanBedah.getText(),HalYangDipersiapkan.getText(),TerapiPreOp.getText()
+                    RingkasanKlinik.getText(),PemeriksaanFisik.getText(),PemeriksaanDiagnostik.getText(),DiagnosaPreOperasi.getText(),RencanaTindakanBedah.getText(),HalYangDipersiapkan.getText(),TerapiPreOp.getText(),JamOp.getText(),MenitOp.getText()
                 });
                 emptTeks();
                 LCount.setText(""+tabMode.getRowCount());

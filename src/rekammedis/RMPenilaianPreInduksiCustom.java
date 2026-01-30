@@ -2489,7 +2489,7 @@ public final class RMPenilaianPreInduksiCustom extends javax.swing.JDialog {
         if (rontgen.isSelected()) {
             tunjang += "RONTGEN,";
         }
-        if (!tunjang.isEmpty()) {
+        if (!tunjang.endsWith(",")) {
             tunjang = tunjang.substring(0, tunjang.length() - 1);
         }
         return tunjang;

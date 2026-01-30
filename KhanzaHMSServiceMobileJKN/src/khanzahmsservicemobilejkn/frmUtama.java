@@ -32,8 +32,9 @@ import org.springframework.http.MediaType;
 public class frmUtama extends javax.swing.JFrame {
     private  Connection koneksi=koneksiDB.condb();
     private  sekuel Sequel=new sekuel();
-    private  String requestJson,URL="",utc="",link="",datajam="",nol_jam = "",nol_menit = "",nol_detik = "",jam="",menit="",
-                detik="",hari="",noresep="",kodepoli="",kodedokter="",kodebpjs=Sequel.cariIsi("select password_asuransi.kd_pj from password_asuransi");
+    private  String requestJson, URL = "", utc = "", link = "", datajam = "", nol_jam = "", nol_menit = "", nol_detik = "", jam = "", menit = "",
+            detik = "", hari = "", noresep = "", kodepoli = "", kodedokter = "", kodebpjs = Sequel.cariIsi("select password_asuransi.kd_pj from password_asuransi"),
+            verifTask5 = "";
     private  ApiMobileJKN api=new ApiMobileJKN();
     private  HttpHeaders headers;
     private  HttpEntity requestEntity;
@@ -183,6 +184,7 @@ public class frmUtama extends javax.swing.JFrame {
             private int nilai_jam;
             private int nilai_menit;
             private int nilai_detik;
+            @Override
             public void actionPerformed(ActionEvent e) {
                 nol_jam = "";
                 nol_menit = "";
@@ -597,7 +599,8 @@ public class frmUtama extends javax.swing.JFrame {
                                 }
                                 
                                 datajam=Sequel.cariIsi("select concat(resep_obat.tgl_perawatan,' ',resep_obat.jam) from resep_obat where resep_obat.tgl_perawatan<>'0000-00-00' and resep_obat.status='ralan' and resep_obat.no_rawat=?",rs.getString("no_rawat"));
-                                if(!datajam.equals("")){
+                                verifTask5=Sequel.cariIsi("select waktu from referensi_mobilejkn_bpjs_taskid where taskid = '5' and no_rawat = ?",rs.getString("no_rawat"));
+                                if(!datajam.equals("")&&!verifTask5.equals("")){
                                     if(Sequel.menyimpantf2("referensi_mobilejkn_bpjs_taskid","?,?,?","task id",3,new String[]{rs.getString("no_rawat"),"6",datajam})==true){
                                         parsedDate = dateFormat.parse(datajam);
                                         try {     
@@ -995,7 +998,8 @@ public class frmUtama extends javax.swing.JFrame {
                                             }
                                             
                                             datajam=Sequel.cariIsi("select concat(resep_obat.tgl_perawatan,' ',resep_obat.jam) from resep_obat where resep_obat.tgl_perawatan<>'0000-00-00' and resep_obat.status='ralan' and resep_obat.no_rawat=?",rs.getString("no_rawat"));
-                                            if(!datajam.equals("")){
+                                            verifTask5=Sequel.cariIsi("select waktu from referensi_mobilejkn_bpjs_taskid where taskid = '5' and no_rawat = ?",rs.getString("no_rawat"));
+                                            if(!datajam.equals("")&&!verifTask5.equals("")){
                                                 if(Sequel.menyimpantf2("referensi_mobilejkn_bpjs_taskid","?,?,?","task id",3,new String[]{rs.getString("no_rawat"),"6",datajam})==true){
                                                     parsedDate = dateFormat.parse(datajam);
                                                     try {     
