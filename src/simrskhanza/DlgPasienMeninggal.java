@@ -757,27 +757,68 @@ public class DlgPasienMeninggal extends javax.swing.JDialog {
 }//GEN-LAST:event_tbMatiMouseClicked
 
 private void MnCetakSuratKematianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnCetakSuratKematianActionPerformed
-      if(TPasien.getText().trim().equals("")){
-          JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu pasien...!!!");                
-      }else{
-          Map<String, Object> param = new HashMap<>(); 
-          param.put("namars",akses.getnamars());
-          param.put("alamatrs",akses.getalamatrs());
-          param.put("kotars",akses.getkabupatenrs());
-          param.put("propinsirs",akses.getpropinsirs());
-          param.put("kontakrs",akses.getkontakrs());
-          param.put("emailrs",akses.getemailrs());   
-          param.put(JRParameter.REPORT_LOCALE,new Locale("id"));
-          param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
-          finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",KdDokter.getText());
-          param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+NmDokter.getText()+"\nID "+(finger.equals("")?KdDokter.getText():finger)+"\n"+DTPTgl.getSelectedItem());  
-          Valid.MyReportqry("rptSuratKematian3.jasper","report","::[ Surat Kematian ]::",
-                "select pasien_meninggal.tanggal,pasien_meninggal.no_surat,"+
-                "pasien_meninggal.jam,pasien_meninggal.no_rkm_medis,pasien.nm_pasien,"+
-                "pasien.jk,pasien.tmp_lahir,pasien.tgl_lahir,pasien.no_ktp,pasien.alamat,pasien_meninggal.kd_dokter,dokter.nm_dokter "+
-                "from pasien_meninggal inner join pasien on pasien_meninggal.no_rkm_medis=pasien.no_rkm_medis "+
-                "inner join dokter on pasien_meninggal.kd_dokter=dokter.kd_dokter where pasien_meninggal.no_surat='"+NoSurat.getText()+"' ",param);
-      }
+      if (TPasien.getText().trim().equals("")) {
+        JOptionPane.showMessageDialog(null, "Maaf, Silahkan anda pilih dulu pasien...!!!");
+    } else {
+        Map<String, Object> param = new HashMap<>();
+        param.put("namars", akses.getnamars());
+        param.put("alamatrs", akses.getalamatrs());
+        param.put("kotars", akses.getkabupatenrs());
+        param.put("propinsirs", akses.getpropinsirs());
+        param.put("kontakrs", akses.getkontakrs());
+        param.put("emailrs", akses.getemailrs());
+        param.put(JRParameter.REPORT_LOCALE, new Locale("id"));
+        param.put("logo", Sequel.cariGambar("select setting.logo from setting"));
+        finger = Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?", KdDokter.getText());
+        param.put("finger", "Dikeluarkan di " + akses.getnamars() + ", Kabupaten/Kota " + akses.getkabupatenrs() + "\nDitandatangani secara elektronik oleh " + NmDokter.getText() + "\nID " + (finger.equals("") ? KdDokter.getText() : finger) + "\n" + DTPTgl.getSelectedItem());
+        Valid.MyReportqry("rptSuratKematian3.jasper", "report", "::[ Surat Kematian ]::",
+                "select pasien_meninggal.tanggal,"
+                + "pasien_meninggal.no_surat,"
+                + "pasien_meninggal.jam,"
+                + "pasien_meninggal.no_rkm_medis,"
+                + "pasien.nm_pasien,"
+                + "REPLACE("
+                + "TRIM("
+                + "COALESCE("
+                + "("
+                + "SELECT pr.penilaian "
+                + "FROM pemeriksaan_ranap pr "
+                + "WHERE pr.no_rawat = reg_periksa.no_rawat "
+                + "AND CONCAT(pr.tgl_perawatan,' ',pr.jam_rawat) "
+                + "< CONCAT(pasien_meninggal.tanggal,' ',pasien_meninggal.jam) "
+                + "ORDER BY pr.tgl_perawatan DESC, pr.jam_rawat DESC "
+                + "LIMIT 1"
+                + "),"
+                + "("
+                + "SELECT prl.penilaian "
+                + "FROM pemeriksaan_ralan prl "
+                + "WHERE prl.no_rawat = reg_periksa.no_rawat "
+                + "AND CONCAT(prl.tgl_perawatan,' 00:00:00') "
+                + "< CONCAT(pasien_meninggal.tanggal,' ',pasien_meninggal.jam) "
+                + "ORDER BY prl.tgl_perawatan DESC "
+                + "LIMIT 1"
+                + ")"
+                + ")"
+                + "),"
+                + "CHAR(10),', ') AS penilaian,"
+                + "pasien.jk,"
+                + "pasien.tmp_lahir,"
+                + "pasien.tgl_lahir,"
+                + "pasien.no_ktp,"
+                + "pasien.alamat,"
+                + "pasien_meninggal.kd_dokter,"
+                + "dokter.nm_dokter "
+                + "from pasien_meninggal "
+                + "inner join pasien "
+                + "on pasien_meninggal.no_rkm_medis = pasien.no_rkm_medis "
+                + "inner join dokter "
+                + "on pasien_meninggal.kd_dokter = dokter.kd_dokter "
+                + "inner join reg_periksa "
+                + "on pasien.no_rkm_medis = reg_periksa.no_rkm_medis "
+                + "where pasien_meninggal.no_surat='" + NoSurat.getText() + "' "
+                + "order by reg_periksa.no_rawat desc "
+                + "limit 1 ", param);
+    }
 }//GEN-LAST:event_MnCetakSuratKematianActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

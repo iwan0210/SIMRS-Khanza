@@ -100,6 +100,7 @@ import rekammedis.RMChecklistKriteriaMasukNICU;
 import rekammedis.RMChecklistKriteriaMasukPICU;
 import rekammedis.RMChecklistPemberianFibrinolitik;
 import rekammedis.RMChecklistPreOperasi;
+import rekammedis.RMLaporanOperasiCustom;
 import rekammedis.RMDataAsuhanGizi;
 import rekammedis.RMDataCatatanCairanHemodialisa;
 import rekammedis.RMDataCatatanCekGDS;
@@ -734,6 +735,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnPenilaianTerapiWicara = new javax.swing.JMenuItem();
         MnRMOperasi = new javax.swing.JMenu();
         MnChecklistPreOperasi = new javax.swing.JMenuItem();
+        MnLaporanOperasi = new javax.swing.JMenuItem();
         MnSignInSebelumAnestesi = new javax.swing.JMenuItem();
         MnTimeOutSebelumInsisi = new javax.swing.JMenuItem();
         MnSignOutSebelumMenutupLuka = new javax.swing.JMenuItem();
@@ -1773,6 +1775,21 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
                 MnChecklistPreOperasiActionPerformed(evt);
             }
         });
+        
+        MnLaporanOperasi.setBackground(new java.awt.Color(255, 255, 254));
+        MnLaporanOperasi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnLaporanOperasi.setForeground(new java.awt.Color(50, 50, 50));
+        MnLaporanOperasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnLaporanOperasi.setText("Laporan Operasi");
+        MnLaporanOperasi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnLaporanOperasi.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnLaporanOperasi.setName("MnLaporanOperasi"); // NOI18N
+        MnLaporanOperasi.setPreferredSize(new java.awt.Dimension(210, 26));
+        MnLaporanOperasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnLaporanOperasiActionPerformed(evt);
+            }
+        });
 
         MnSignInSebelumAnestesi.setBackground(new java.awt.Color(255, 255, 254));
         MnSignInSebelumAnestesi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -1823,7 +1840,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnPenilaianPreOp.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnPenilaianPreOp.setForeground(new java.awt.Color(50, 50, 50));
         MnPenilaianPreOp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnPenilaianPreOp.setText("Pengkajian Pre Operasi");
+        MnPenilaianPreOp.setText("Asesmen Pra Operasi");
         MnPenilaianPreOp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MnPenilaianPreOp.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnPenilaianPreOp.setName("MnPenilaianPreOp"); // NOI18N
@@ -12969,6 +12986,28 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
             }
         }
     }//GEN-LAST:event_MnChecklistPreOperasiActionPerformed
+    
+    private void MnLaporanOperasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnLaporanOperasiActionPerformed
+        if(tabModekasir.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+            //TNoReg.requestFocus();
+        }else if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbKasirRalan.requestFocus();
+        }else{
+            if(tbKasirRalan.getSelectedRow()!= -1){
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                RMLaporanOperasiCustom form=new RMLaporanOperasiCustom(null,false);
+                form.isCek();
+                form.emptTeks();
+                form.setNoRm(TNoRw.getText(),DTPCari2.getDate());
+                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setLocationRelativeTo(internalFrame1);
+                form.setVisible(true);
+                this.setCursor(Cursor.getDefaultCursor());
+            }
+        }
+    }//GEN-LAST:event_MnLaporanOperasiActionPerformed
 
     private void MnSignInSebelumAnestesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSignInSebelumAnestesiActionPerformed
         if(tabModekasir.getRowCount()==0){
@@ -15830,6 +15869,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnCheckListKriteriaMasukHCU;
     private javax.swing.JMenuItem MnCheckListKriteriaMasukICU;
     private javax.swing.JMenuItem MnChecklistPreOperasi;
+    private javax.swing.JMenuItem MnLaporanOperasi;
     private javax.swing.JMenuItem MnCopyResep;
     private javax.swing.JMenuItem MnCopyResep2;
     private javax.swing.JMenuItem MnDIrawat;
@@ -16539,6 +16579,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         MnTransferAntarRuang.setEnabled(akses.gettransfer_pasien_antar_ruang());
         MnCatatanCekGDS.setEnabled(akses.getcatatan_cek_gds());
         MnChecklistPreOperasi.setEnabled(akses.getchecklist_pre_operasi());
+        MnLaporanOperasi.setEnabled(akses.getchecklist_pre_operasi());
         MnSignInSebelumAnestesi.setEnabled(akses.getsignin_sebelum_anestesi());
         MnTimeOutSebelumInsisi.setEnabled(akses.gettimeout_sebelum_insisi());
         MnSignOutSebelumMenutupLuka.setEnabled(akses.getsignout_sebelum_menutup_luka());
@@ -18272,6 +18313,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         
         MnRMOperasi.add(MnPenilaianPreInduksi);
         MnRMOperasi.add(MnChecklistPreOperasi);
+        MnRMOperasi.add(MnLaporanOperasi);
         MnRMOperasi.add(MnSignInSebelumAnestesi);
         MnRMOperasi.add(MnTimeOutSebelumInsisi);
         MnRMOperasi.add(MnSignOutSebelumMenutupLuka);

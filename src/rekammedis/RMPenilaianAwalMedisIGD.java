@@ -2815,6 +2815,7 @@ public final class RMPenilaianAwalMedisIGD extends javax.swing.JDialog {
                     Thoraks.getSelectedItem().toString(),Abdomen.getSelectedItem().toString(),Genital.getSelectedItem().toString(),Ekstremitas.getSelectedItem().toString(),KetFisik.getText(),KetLokalis.getText(),EKG.getText(),Radiologi.getText(),Laborat.getText(),
                     Diagnosis.getText(),Tatalaksana.getText()
                 });
+                Sequel.mengedit("reg_periksa", "no_rawat='"+TNoRw.getText()+"'", "stts='Sudah'");
                 if (Sequel.menyimpantf("pemeriksaan_ralan", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "Data", 21, new String[] {
                     TNoRw.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+""),TglAsuhan.getSelectedItem().toString().substring(11,19),
                     Suhu.getText(),TD.getText(),Nadi.getText(),RR.getText(),TB.getText(),BB.getText(),SPO.getText(),GCS.getText(),

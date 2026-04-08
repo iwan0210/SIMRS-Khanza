@@ -230,27 +230,21 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         scrollPane14 = new widget.ScrollPane();
         RingkasanKlinik = new widget.TextArea();
         jLabel110 = new widget.Label();
-        jSeparator2 = new javax.swing.JSeparator();
         scrollPane15 = new widget.ScrollPane();
         PemeriksaanFisik = new widget.TextArea();
         jLabel111 = new widget.Label();
-        jSeparator3 = new javax.swing.JSeparator();
         scrollPane16 = new widget.ScrollPane();
         PemeriksaanDiagnostik = new widget.TextArea();
         jLabel112 = new widget.Label();
-        jSeparator4 = new javax.swing.JSeparator();
         scrollPane17 = new widget.ScrollPane();
         DiagnosaPreOperasi = new widget.TextArea();
         jLabel113 = new widget.Label();
-        jSeparator5 = new javax.swing.JSeparator();
         scrollPane18 = new widget.ScrollPane();
         RencanaTindakanBedah = new widget.TextArea();
         jLabel114 = new widget.Label();
-        jSeparator6 = new javax.swing.JSeparator();
         scrollPane19 = new widget.ScrollPane();
         HalYangDipersiapkan = new widget.TextArea();
         jLabel115 = new widget.Label();
-        jSeparator7 = new javax.swing.JSeparator();
         scrollPane20 = new widget.ScrollPane();
         TerapiPreOp = new widget.TextArea();
         MenitOp = new widget.TextBox();
@@ -327,7 +321,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pengkajian Pre Operasi ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Asesmen Pra Operasi ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setPreferredSize(new java.awt.Dimension(467, 500));
@@ -584,7 +578,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         label11.setBounds(538, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-01-2026 11:06:43" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2026 11:03:18" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -617,20 +611,13 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         scrollPane14.setViewportView(RingkasanKlinik);
 
         FormInput.add(scrollPane14);
-        scrollPane14.setBounds(70, 100, 470, 63);
+        scrollPane14.setBounds(50, 100, 490, 63);
 
         jLabel110.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel110.setText("II. Pemeriksaan Fisik :");
         jLabel110.setName("jLabel110"); // NOI18N
         FormInput.add(jLabel110);
         jLabel110.setBounds(10, 170, 190, 23);
-
-        jSeparator2.setBackground(new java.awt.Color(239, 244, 234));
-        jSeparator2.setForeground(new java.awt.Color(239, 244, 234));
-        jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
-        jSeparator2.setName("jSeparator2"); // NOI18N
-        FormInput.add(jSeparator2);
-        jSeparator2.setBounds(0, 170, 750, 1);
 
         scrollPane15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane15.setName("scrollPane15"); // NOI18N
@@ -655,13 +642,6 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         FormInput.add(jLabel111);
         jLabel111.setBounds(10, 260, 190, 23);
 
-        jSeparator3.setBackground(new java.awt.Color(239, 244, 234));
-        jSeparator3.setForeground(new java.awt.Color(239, 244, 234));
-        jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
-        jSeparator3.setName("jSeparator3"); // NOI18N
-        FormInput.add(jSeparator3);
-        jSeparator3.setBounds(0, 260, 750, 1);
-
         scrollPane16.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane16.setName("scrollPane16"); // NOI18N
 
@@ -684,13 +664,6 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         jLabel112.setName("jLabel112"); // NOI18N
         FormInput.add(jLabel112);
         jLabel112.setBounds(10, 350, 190, 23);
-
-        jSeparator4.setBackground(new java.awt.Color(239, 244, 234));
-        jSeparator4.setForeground(new java.awt.Color(239, 244, 234));
-        jSeparator4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
-        jSeparator4.setName("jSeparator4"); // NOI18N
-        FormInput.add(jSeparator4);
-        jSeparator4.setBounds(0, 350, 750, 1);
 
         scrollPane17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane17.setName("scrollPane17"); // NOI18N
@@ -715,13 +688,6 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         FormInput.add(jLabel113);
         jLabel113.setBounds(580, 110, 190, 23);
 
-        jSeparator5.setBackground(new java.awt.Color(239, 244, 234));
-        jSeparator5.setForeground(new java.awt.Color(239, 244, 234));
-        jSeparator5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
-        jSeparator5.setName("jSeparator5"); // NOI18N
-        FormInput.add(jSeparator5);
-        jSeparator5.setBounds(570, 110, 750, 1);
-
         scrollPane18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane18.setName("scrollPane18"); // NOI18N
 
@@ -745,13 +711,6 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         FormInput.add(jLabel114);
         jLabel114.setBounds(580, 200, 190, 23);
 
-        jSeparator6.setBackground(new java.awt.Color(239, 244, 234));
-        jSeparator6.setForeground(new java.awt.Color(239, 244, 234));
-        jSeparator6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
-        jSeparator6.setName("jSeparator6"); // NOI18N
-        FormInput.add(jSeparator6);
-        jSeparator6.setBounds(570, 200, 750, 1);
-
         scrollPane19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane19.setName("scrollPane19"); // NOI18N
 
@@ -774,13 +733,6 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         jLabel115.setName("jLabel115"); // NOI18N
         FormInput.add(jLabel115);
         jLabel115.setBounds(580, 290, 190, 23);
-
-        jSeparator7.setBackground(new java.awt.Color(239, 244, 234));
-        jSeparator7.setForeground(new java.awt.Color(239, 244, 234));
-        jSeparator7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
-        jSeparator7.setName("jSeparator7"); // NOI18N
-        FormInput.add(jSeparator7);
-        jSeparator7.setBounds(570, 290, 750, 1);
 
         scrollPane20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane20.setName("scrollPane20"); // NOI18N
@@ -865,7 +817,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-01-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -879,7 +831,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "23-01-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07-04-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1435,12 +1387,6 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
     private widget.Label jLabel8;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JSeparator jSeparator7;
     private widget.Label label11;
     private widget.Label label14;
     private widget.panelisi panelGlass8;
@@ -1589,6 +1535,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat(); 
+        getDataFromAwalMedis(norwt);
     }
     
     public void setNoRm(String norwt,Date tgl2,String KodeDokter,String NamaDokter,String Operasi) {
@@ -1599,6 +1546,7 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
         KdDokter.setText(KodeDokter);
         NmDokter.setText(NamaDokter);
         RencanaTindakanBedah.setText(Operasi);
+        getDataFromAwalMedis(norwt);
     }
     
     public void isCek(){
@@ -1681,6 +1629,50 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
                 });
                 emptTeks();
                 LCount.setText(""+tabMode.getRowCount());
+        }
+    }
+    
+    private void getDataFromAwalMedis(String norawat) {
+        try {
+            String sql = "select rps, ket_fisik, lab, rad, penunjang, diagnosis "
+                    + "from penilaian_medis_ranap "
+                    + "where no_rawat = ?";
+            ps = koneksi.prepareStatement(sql);
+            
+            try {
+                ps.setString(1, norawat);
+                rs = ps.executeQuery();
+                if (rs.next()) {
+                    RingkasanKlinik.setText(rs.getString("rps").trim());
+                    PemeriksaanFisik.setText(rs.getString("ket_fisik").trim());
+                    String diagnostik = "";
+                    if (!rs.getString("lab").trim().isEmpty()) {
+                        diagnostik += "lab : " + rs.getString("lab").trim();
+                    }
+                    
+                    if (!rs.getString("rad").trim().isEmpty()) {
+                        diagnostik += "\nrad : " + rs.getString("rad").trim();
+                    }
+                    
+                    if (!rs.getString("penunjang").trim().isEmpty()) {
+                        diagnostik += "\nekg : " + rs.getString("penunjang").trim();
+                    }
+                    
+                    PemeriksaanDiagnostik.setText(diagnostik.trim());
+                    DiagnosaPreOperasi.setText(rs.getString("diagnosis").trim());
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
         }
     }
 }

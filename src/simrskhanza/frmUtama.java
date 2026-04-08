@@ -40,6 +40,7 @@ import bridging.ApotekBPJSCekReferensiPoli;
 import bridging.ApotekBPJSCekReferensiSettingPPK;
 import bridging.ApotekBPJSCekReferensiSpesialistik;
 import bridging.ApotekBPJSDaftarPelayananObat;
+import bridging.ApotekBPJSKirimResep;
 import bridging.ApotekBPJSKunjunganSEP;
 import bridging.ApotekBPJSMapingObat;
 import bridging.ApotekBPJSMonitoringKlaim;
@@ -1794,6 +1795,7 @@ public class frmUtama extends javax.swing.JFrame {
         btnGrafikLimbahDomestikPerTanggal = new widget.ButtonBig();
         btnLaboratoriumPA = new widget.ButtonBig();
         btnLaboratoriumMB = new widget.ButtonBig();
+        btnKlaimObatDepan = new widget.ButtonBig();
         internalFrame1 = new widget.InternalFrame();
         BtnMenu = new widget.ButtonBig();
         jSeparator4 = new javax.swing.JSeparator();
@@ -2093,7 +2095,7 @@ public class frmUtama extends javax.swing.JFrame {
 
         tanggal.setEditable(false);
         tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "04/12/2025" }));
+        tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08/12/2025" }));
         tanggal.setDisplayFormat("dd/MM/yyyy");
         tanggal.setName("tanggal"); // NOI18N
         tanggal.setOpaque(false);
@@ -7147,6 +7149,18 @@ public class frmUtama extends javax.swing.JFrame {
             }
         });
 
+        btnKlaimObatDepan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/bpjs_apotek.png"))); // NOI18N
+        btnKlaimObatDepan.setText("Klaim Apotek Online");
+        btnKlaimObatDepan.setToolTipText("");
+        btnKlaimObatDepan.setIconTextGap(0);
+        btnKlaimObatDepan.setName("btnKlaimObatDepan"); // NOI18N
+        btnKlaimObatDepan.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnKlaimObatDepan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKlaimObatDepanActionPerformed(evt);
+            }
+        });
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("::[ Khanza SIMKES 2022 ]::");
         setBackground(new java.awt.Color(255, 254, 254));
@@ -8465,6 +8479,7 @@ public class frmUtama extends javax.swing.JFrame {
                     btnDataPenyerahanDarah.setEnabled(true);
                     btnDaftarPermintaanResep.setEnabled(true);
                     btnResepObatDepan.setEnabled(true);
+                    btnKlaimObatDepan.setEnabled(true);
                     MnGantiPassword.setEnabled(false);
                     MnPengajuanCutiPegawai.setEnabled(false);
 
@@ -8526,6 +8541,7 @@ public class frmUtama extends javax.swing.JFrame {
                     btnDataPenyerahanDarah.setEnabled(akses.getutd_penyerahan_darah());
                     btnDaftarPermintaanResep.setEnabled(akses.getresep_dokter());
                     btnResepObatDepan.setEnabled(akses.getresep_obat());
+                    btnKlaimObatDepan.setEnabled(akses.getresep_obat());
                     if(AKTIFKANTRACKSQL.equals("yes")){
                         Sequel.menyimpan("tracker","'"+edAdmin.getText()+"',current_date(),current_time()","Login");
                     }
@@ -8551,6 +8567,7 @@ public class frmUtama extends javax.swing.JFrame {
                     btnDataPenyerahanDarah.setEnabled(false);
                     btnDaftarPermintaanResep.setEnabled(false);
                     btnResepObatDepan.setEnabled(false);
+                    btnKlaimObatDepan.setEnabled(false);
                     edAdmin.setText("");
                     edPwd.setText("");           
                      
@@ -11162,11 +11179,13 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         FlayMenu.add(btnDataPenyerahanDarah);
         FlayMenu.add(btnDaftarPermintaanResep);
         FlayMenu.add(btnResepObatDepan);
+        FlayMenu.add(btnKlaimObatDepan);
         btnInputPenjualan.setEnabled(akses.getpenjualan_obat());
         btnDataPenjualan.setEnabled(akses.getpenjualan_obat());
         btnDataPenyerahanDarah.setEnabled(akses.getutd_penyerahan_darah());
         btnDaftarPermintaanResep.setEnabled(akses.getresep_dokter());
         btnResepObatDepan.setEnabled(akses.getresep_obat());
+        btnKlaimObatDepan.setEnabled(akses.getresep_obat());
         FlayMenu.setVisible(true);       
     }//GEN-LAST:event_BtnToolJualObatActionPerformed
 
@@ -14714,6 +14733,18 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         DlgHome.dispose();
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_BtnToolKamnapIntensifActionPerformed
+
+    private void btnKlaimObatDepanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKlaimObatDepanActionPerformed
+        isTutup();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        ApotekBPJSKirimResep form = new ApotekBPJSKirimResep(this, false);
+        form.isCek();
+        form.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        DlgHome.dispose();
+        this.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnKlaimObatDepanActionPerformed
 
     private void btnKategoriPerpustakaanActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
@@ -23509,6 +23540,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private widget.ButtonBig btnKeuntungan;
     private widget.ButtonBig btnKeuntunganObat2;
     private widget.ButtonBig btnKeuntunganObatRanap;
+    private widget.ButtonBig btnKlaimObatDepan;
     private widget.ButtonBig btnKonversi;
     private widget.ButtonBig btnKunjunganLabRalan;
     private widget.ButtonBig btnKunjunganLabRanap;
