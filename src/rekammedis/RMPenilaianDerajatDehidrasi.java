@@ -1204,6 +1204,7 @@ public final class RMPenilaianDerajatDehidrasi extends javax.swing.JDialog {
     private void BtnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBatalActionPerformed
         emptTeks();
         ChkInput.setSelected(true);
+        ChkKejadian.setSelected(true);
         isForm(); 
 }//GEN-LAST:event_BtnBatalActionPerformed
 
@@ -1987,6 +1988,8 @@ public final class RMPenilaianDerajatDehidrasi extends javax.swing.JDialog {
         isRawat();
         ChkInput.setSelected(true);
         isForm();
+        
+        isTriage(norwt);
     }
     
     private void isForm(){
@@ -2197,5 +2200,22 @@ public final class RMPenilaianDerajatDehidrasi extends javax.swing.JDialog {
             emptTeks();
             LCount.setText(""+tabMode.getRowCount());
         }  
+    }
+    
+    private void isTriage(String norawat) {
+        String dataJam = Sequel.cariIsi("select tgl_kunjungan from data_triase_igd where no_rawat = ?", norawat);
+        
+        if (dataJam.isEmpty()) {
+            return;
+        }
+        
+        ChkKejadian.setSelected(false);
+        String tgljam[] = dataJam.split(" ");
+        String detailjam[] = tgljam[1].split(":");
+        
+        Valid.SetTgl(Tanggal, tgljam[0]);
+        Jam.setSelectedItem(detailjam[0]);
+        Menit.setSelectedItem(detailjam[1]);
+        Detik.setSelectedItem(detailjam[2]);
     }
 }

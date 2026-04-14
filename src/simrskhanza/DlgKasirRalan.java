@@ -89,6 +89,7 @@ import permintaan.DlgPermintaanLaboratorium;
 import permintaan.DlgPermintaanPelayananInformasiObat;
 import permintaan.DlgPermintaanRadiologi;
 import permintaan.DlgPermintaanRanap;
+import rekammedis.RMBundleKriteriaPemulihanRecoveryRoom;
 import rekammedis.RMCatatanADIMEGizi;
 import rekammedis.RMCatatanAnastesiSedasi;
 import rekammedis.RMCatatanPengkajianPaskaOperasi;
@@ -741,6 +742,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnSignOutSebelumMenutupLuka = new javax.swing.JMenuItem();
         MnPenilaianPreOp = new javax.swing.JMenuItem();
         MnPenilaianPreAnestesi = new javax.swing.JMenuItem();
+        MnKriteriaPemulihanRecoveryRoom = new javax.swing.JMenuItem();
         MnSkorAldrettePascaAnestesi = new javax.swing.JMenuItem();
         MnSkorStewardPascaAnestesi = new javax.swing.JMenuItem();
         MnPostAnesthesiaDischargeScoringSystem = new javax.swing.JMenuItem();
@@ -1863,6 +1865,21 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnPenilaianPreAnestesi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MnPenilaianPreAnestesiActionPerformed(evt);
+            }
+        });
+
+        MnKriteriaPemulihanRecoveryRoom.setBackground(new java.awt.Color(255, 255, 254));
+        MnKriteriaPemulihanRecoveryRoom.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnKriteriaPemulihanRecoveryRoom.setForeground(new java.awt.Color(50, 50, 50));
+        MnKriteriaPemulihanRecoveryRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnKriteriaPemulihanRecoveryRoom.setText("Kriteria Pemulihan Recovery Room");
+        MnKriteriaPemulihanRecoveryRoom.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnKriteriaPemulihanRecoveryRoom.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnKriteriaPemulihanRecoveryRoom.setName("MnKriteriaPemulihanRecoveryRoom"); // NOI18N
+        MnKriteriaPemulihanRecoveryRoom.setPreferredSize(new java.awt.Dimension(210, 26));
+        MnKriteriaPemulihanRecoveryRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnKriteriaPemulihanRecoveryRoomActionPerformed(evt);
             }
         });
 
@@ -14072,6 +14089,29 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }//GEN-LAST:event_MnCatatanPersalinanActionPerformed
 
+    private void MnKriteriaPemulihanRecoveryRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnKriteriaPemulihanRecoveryRoomActionPerformed
+        if(tabModekasir.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+            //TNoReg.requestFocus();
+        }else if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbKasirRalan.requestFocus();
+        }else{
+            if(tbKasirRalan.getSelectedRow()!= -1){
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                RMBundleKriteriaPemulihanRecoveryRoom form=new RMBundleKriteriaPemulihanRecoveryRoom(null,false);
+                form.isCek();
+                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setLocationRelativeTo(internalFrame1);
+                form.setVisible(true);
+                form.emptTeksSemua();
+                form.setNoRm(TNoRw.getText(),DTPCari2.getDate());
+                form.TampilkanData();
+                this.setCursor(Cursor.getDefaultCursor());
+            }
+        }
+    }//GEN-LAST:event_MnKriteriaPemulihanRecoveryRoomActionPerformed
+
     private void MnSkorAldrettePascaAnestesiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnSkorAldrettePascaAnestesiActionPerformed
         if(tabModekasir.getRowCount()==0){
             JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
@@ -16073,6 +16113,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private javax.swing.JMenuItem MnSJP;
     private javax.swing.JMenuItem MnSignInSebelumAnestesi;
     private javax.swing.JMenuItem MnSignOutSebelumMenutupLuka;
+    private javax.swing.JMenuItem MnKriteriaPemulihanRecoveryRoom;
     private javax.swing.JMenuItem MnSkorAldrettePascaAnestesi;
     private javax.swing.JMenuItem MnSkorBromagePascaAnestesi;
     private javax.swing.JMenuItem MnSkorStewardPascaAnestesi;
@@ -16627,6 +16668,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         MnPenilaianAwalMedisRalanParu.setEnabled(akses.getpenilaian_awal_medis_ralan_paru());
         MnCatatanKeperawatan.setEnabled(akses.getcatatan_keperawatan_ralan());
         MnCatatanPersalinan.setEnabled(akses.getcatatan_persalinan());
+        MnKriteriaPemulihanRecoveryRoom.setEnabled(akses.getskor_aldrette_pasca_anestesi());
         MnSkorAldrettePascaAnestesi.setEnabled(akses.getskor_aldrette_pasca_anestesi());
         MnSkorStewardPascaAnestesi.setEnabled(akses.getskor_steward_pasca_anestesi());
         MnSkorBromagePascaAnestesi.setEnabled(akses.getskor_bromage_pasca_anestesi());
@@ -18321,6 +18363,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         MnRMOperasi.add(MnCatatanAnastesiSedasi);
         MnRMOperasi.add(MnPenilaianPreAnestesi);
         MnRMOperasi.add(MnCheckListKesiapanAnestesi);
+        MnRMOperasi.add(MnKriteriaPemulihanRecoveryRoom);
         MnRMOperasi.add(MnSkorAldrettePascaAnestesi);
         MnRMOperasi.add(MnSkorStewardPascaAnestesi);
         MnRMOperasi.add(MnSkorBromagePascaAnestesi);

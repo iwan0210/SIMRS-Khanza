@@ -222,8 +222,8 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        MnMonitoringSkorAldrette = new javax.swing.JMenuItem();
-        MnMonitoringSkorAldrette2 = new javax.swing.JMenuItem();
+        MnMonitoringSkorPadss = new javax.swing.JMenuItem();
+        MnMonitoringSkorPadss2 = new javax.swing.JMenuItem();
         JK = new widget.TextBox();
         TanggalRegistrasi = new widget.TextBox();
         internalFrame1 = new widget.InternalFrame();
@@ -313,33 +313,33 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
-        MnMonitoringSkorAldrette.setBackground(new java.awt.Color(255, 255, 254));
-        MnMonitoringSkorAldrette.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnMonitoringSkorAldrette.setForeground(new java.awt.Color(50, 50, 50));
-        MnMonitoringSkorAldrette.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnMonitoringSkorAldrette.setText("Monitoring Skor Aldrette Pasca Anestesi");
-        MnMonitoringSkorAldrette.setName("MnMonitoringSkorAldrette"); // NOI18N
-        MnMonitoringSkorAldrette.setPreferredSize(new java.awt.Dimension(290, 26));
-        MnMonitoringSkorAldrette.addActionListener(new java.awt.event.ActionListener() {
+        MnMonitoringSkorPadss.setBackground(new java.awt.Color(255, 255, 254));
+        MnMonitoringSkorPadss.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnMonitoringSkorPadss.setForeground(new java.awt.Color(50, 50, 50));
+        MnMonitoringSkorPadss.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnMonitoringSkorPadss.setText("Monitoring Skor Aldrette Pasca Anestesi");
+        MnMonitoringSkorPadss.setName("MnMonitoringSkorPadss"); // NOI18N
+        MnMonitoringSkorPadss.setPreferredSize(new java.awt.Dimension(290, 26));
+        MnMonitoringSkorPadss.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnMonitoringSkorAldretteActionPerformed(evt);
+                MnMonitoringSkorPadssActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(MnMonitoringSkorAldrette);
+        jPopupMenu1.add(MnMonitoringSkorPadss);
 
-        MnMonitoringSkorAldrette2.setBackground(new java.awt.Color(255, 255, 254));
-        MnMonitoringSkorAldrette2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        MnMonitoringSkorAldrette2.setForeground(new java.awt.Color(50, 50, 50));
-        MnMonitoringSkorAldrette2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnMonitoringSkorAldrette2.setText("Rekap Monitoring Skor Aldrette Pasca Anestesi");
-        MnMonitoringSkorAldrette2.setName("MnMonitoringSkorAldrette2"); // NOI18N
-        MnMonitoringSkorAldrette2.setPreferredSize(new java.awt.Dimension(230, 26));
-        MnMonitoringSkorAldrette2.addActionListener(new java.awt.event.ActionListener() {
+        MnMonitoringSkorPadss2.setBackground(new java.awt.Color(255, 255, 254));
+        MnMonitoringSkorPadss2.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnMonitoringSkorPadss2.setForeground(new java.awt.Color(50, 50, 50));
+        MnMonitoringSkorPadss2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnMonitoringSkorPadss2.setText("Rekap Monitoring Skor Aldrette Pasca Anestesi");
+        MnMonitoringSkorPadss2.setName("MnMonitoringSkorPadss2"); // NOI18N
+        MnMonitoringSkorPadss2.setPreferredSize(new java.awt.Dimension(230, 26));
+        MnMonitoringSkorPadss2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MnMonitoringSkorAldrette2ActionPerformed(evt);
+                MnMonitoringSkorPadss2ActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(MnMonitoringSkorAldrette2);
+        jPopupMenu1.add(MnMonitoringSkorPadss2);
 
         JK.setHighlighter(null);
         JK.setName("JK"); // NOI18N
@@ -517,7 +517,7 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-08-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-04-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -531,7 +531,7 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-08-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-04-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -652,7 +652,7 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
         TPasien.setBounds(326, 10, 285, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "25-08-2025" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-04-2026" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -1086,7 +1086,6 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
         internalFrame1.add(PanelInput, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(internalFrame1, java.awt.BorderLayout.CENTER);
-        internalFrame1.getAccessibleContext().setAccessibleName("::[ Post Anesthesia Discharge Scoring System (PADSS) ]::");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1361,7 +1360,7 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
         Valid.pindah(evt,Detik,SkalaKriteria1);
     }//GEN-LAST:event_btnPetugasKeyPressed
 
-    private void MnMonitoringSkorAldretteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnMonitoringSkorAldretteActionPerformed
+    private void MnMonitoringSkorPadssActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnMonitoringSkorPadssActionPerformed
         if(tbObat.getSelectedRow()>-1){
             Map<String, Object> param = new HashMap<>();
             param.put("namars",akses.getnamars());
@@ -1389,7 +1388,7 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
                     "inner join dokter on post_anesthesia_discharge_scoring_system.kd_dokter=dokter.kd_dokter "+
                     "inner join petugas on post_anesthesia_discharge_scoring_system.nip=petugas.nip where reg_periksa.no_rawat='"+tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()+"'",param);
         }
-    }//GEN-LAST:event_MnMonitoringSkorAldretteActionPerformed
+    }//GEN-LAST:event_MnMonitoringSkorPadssActionPerformed
 
     private void SkalaKriteria1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_SkalaKriteria1ItemStateChanged
         if(SkalaKriteria1.getSelectedIndex()==0){
@@ -1506,7 +1505,7 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
         }
     }//GEN-LAST:event_tbObatMouseClicked
 
-    private void MnMonitoringSkorAldrette2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnMonitoringSkorAldrette2ActionPerformed
+    private void MnMonitoringSkorPadss2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnMonitoringSkorPadss2ActionPerformed
         if(tbObat.getSelectedRow()>-1){
             Map<String, Object> param = new HashMap<>();
             param.put("namars",akses.getnamars());
@@ -1530,7 +1529,7 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
                     "inner join dokter on post_anesthesia_discharge_scoring_system.kd_dokter=dokter.kd_dokter "+
                     "inner join petugas on post_anesthesia_discharge_scoring_system.nip=petugas.nip where reg_periksa.no_rawat='"+tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()+"'",param);
         }
-    }//GEN-LAST:event_MnMonitoringSkorAldrette2ActionPerformed
+    }//GEN-LAST:event_MnMonitoringSkorPadss2ActionPerformed
 
     /**
     * @param args the command line arguments
@@ -1571,8 +1570,8 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
     private widget.TextArea Keluar;
     private widget.Label LCount;
     private widget.ComboBox Menit;
-    private javax.swing.JMenuItem MnMonitoringSkorAldrette;
-    private javax.swing.JMenuItem MnMonitoringSkorAldrette2;
+    private javax.swing.JMenuItem MnMonitoringSkorPadss;
+    private javax.swing.JMenuItem MnMonitoringSkorPadss2;
     private widget.TextBox NIP;
     private widget.TextBox NamaPetugas;
     private widget.TextBox NilaKriteria1;
@@ -1643,7 +1642,7 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
     public void tampil() {
         Valid.tabelKosong(tabMode);
         try{
-            if(TCari.getText().toString().trim().equals("")){
+            if(TCari.getText().trim().equals("")){
                 ps=koneksi.prepareStatement(
                     "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,pasien.jk,pasien.tgl_lahir,post_anesthesia_discharge_scoring_system.tanggal,"+
                     "post_anesthesia_discharge_scoring_system.penilaian_skala1,post_anesthesia_discharge_scoring_system.penilaian_nilai1,"+
@@ -1678,7 +1677,7 @@ public final class RMMonitoringDischargeScoringSystemPascaAnestesi extends javax
             }
                 
             try {
-                if(TCari.getText().toString().trim().equals("")){
+                if(TCari.getText().trim().equals("")){
                     ps.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+"")+" 00:00:00");
                     ps.setString(2,Valid.SetTgl(DTPCari2.getSelectedItem()+"")+" 23:59:59");
                 }else{
