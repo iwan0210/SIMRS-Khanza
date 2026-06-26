@@ -1780,7 +1780,7 @@ public final class RMLaporanOperasiCustom extends javax.swing.JDialog {
             if (akses.getkode().equals("Admin Utama")) {
                 hapus();
             } else {
-                if (kdoperator1.getText().equals(tbObat.getValueAt(tbObat.getSelectedRow(), 5).toString())) {
+                if (kdoperator1.getText().equals(tbObat.getValueAt(tbObat.getSelectedRow(), 3).toString())) {
                     hapus();
                 } else {
                     JOptionPane.showMessageDialog(null, "Hanya bisa dihapus oleh dokter yang bersangkutan..!!");

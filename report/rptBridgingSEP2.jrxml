@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 5.2.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="390" columnWidth="533" leftMargin="42" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ee17c64b-b172-426d-b86b-757d3b7c740f">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
@@ -30,7 +30,7 @@ if(bridging_sep.lakalantas='0','Kasus Kecelakaan','Bukan Kasus Kecelakaan'),conc
 bridging_sep.tanggal_lahir,bridging_sep.peserta,bridging_sep.jkel,bridging_sep.no_kartu,
 bridging_sep.asal_rujukan,bridging_sep.eksekutif,bridging_sep.cob,bridging_sep.notelep,
 bridging_sep.tujuankunjungan,bridging_sep.flagprosedur,bridging_sep.klsnaik,bridging_sep.pembiayaan,
-bridging_sep.nmdpdjp,bridging_sep.lakalantas 
+bridging_sep.nmdpdjp,bridging_sep.lakalantas,bridging_sep.nmdpjplayanan 
 from bridging_sep  where no_sep= $P{parameter}]]>
 	</queryString>
 	<field name="no_sep" class="java.lang.String">
@@ -100,8 +100,12 @@ from bridging_sep  where no_sep= $P{parameter}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="if(bridging_sep.jnspelayanan=&apos;1&apos;,&apos;Rawat Inap&apos;,&apos;Rawat Jalan&apos;)" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="if(bridging_sep.jnspelayanan=&apos;1&apos;,&apos;Rawat Inap&apos;,&apos;Rawat Jalan&apos;)"/>
-		<property name="com.jaspersoft.studio.field.label" value="if(bridging_sep.jnspelayanan=&apos;1&apos;,&apos;Rawat Inap&apos;,&apos;Rawat Jalan&apos;)"/>
+		<property name="com.jaspersoft.studio.field.name">
+			<![CDATA[if(bridging_sep.jnspelayanan='1','Rawat Inap','Rawat Jalan')]]>
+		</property>
+		<property name="com.jaspersoft.studio.field.label">
+			<![CDATA[if(bridging_sep.jnspelayanan='1','Rawat Inap','Rawat Jalan')]]>
+		</property>
 	</field>
 	<field name="catatan" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="catatan"/>
@@ -134,12 +138,20 @@ from bridging_sep  where no_sep= $P{parameter}]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="if(bridging_sep.klsrawat=&apos;1&apos;,&apos;Kelas 1&apos;,if(bridging_sep.klsrawat=&apos;2&apos;,&apos;Kelas 2&apos;,&apos;Kelas 3&apos;))" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="if(bridging_sep.klsrawat=&apos;1&apos;,&apos;Kelas 1&apos;,if(bridging_sep.klsrawat=&apos;2&apos;,&apos;Kelas 2&apos;,&apos;Kelas 3&apos;))"/>
-		<property name="com.jaspersoft.studio.field.label" value="if(bridging_sep.klsrawat=&apos;1&apos;,&apos;Kelas 1&apos;,if(bridging_sep.klsrawat=&apos;2&apos;,&apos;Kelas 2&apos;,&apos;Kelas 3&apos;))"/>
+		<property name="com.jaspersoft.studio.field.name">
+			<![CDATA[if(bridging_sep.klsrawat='1','Kelas 1',if(bridging_sep.klsrawat='2','Kelas 2','Kelas 3'))]]>
+		</property>
+		<property name="com.jaspersoft.studio.field.label">
+			<![CDATA[if(bridging_sep.klsrawat='1','Kelas 1',if(bridging_sep.klsrawat='2','Kelas 2','Kelas 3'))]]>
+		</property>
 	</field>
 	<field name="if(bridging_sep.lakalantas=&apos;0&apos;,&apos;Kasus Kecelakaan&apos;,&apos;Bukan Kasus Kecelakaan&apos;)" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="if(bridging_sep.lakalantas=&apos;0&apos;,&apos;Kasus Kecelakaan&apos;,&apos;Bukan Kasus Kecelakaan&apos;)"/>
-		<property name="com.jaspersoft.studio.field.label" value="if(bridging_sep.lakalantas=&apos;0&apos;,&apos;Kasus Kecelakaan&apos;,&apos;Bukan Kasus Kecelakaan&apos;)"/>
+		<property name="com.jaspersoft.studio.field.name">
+			<![CDATA[if(bridging_sep.lakalantas='0','Kasus Kecelakaan','Bukan Kasus Kecelakaan')]]>
+		</property>
+		<property name="com.jaspersoft.studio.field.label">
+			<![CDATA[if(bridging_sep.lakalantas='0','Kasus Kecelakaan','Bukan Kasus Kecelakaan')]]>
+		</property>
 	</field>
 	<field name="lokasilaka" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="lokasilaka"/>
@@ -236,6 +248,7 @@ from bridging_sep  where no_sep= $P{parameter}]]>
 		<property name="com.jaspersoft.studio.field.tree.path" value="bridging_sep"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nmdpjplayanan" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -696,7 +709,7 @@ from bridging_sep  where no_sep= $P{parameter}]]>
 					<font fontName="Tahoma" size="10"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nmdpdjp}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nmdpjplayanan}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="">
 				<reportElement mode="Transparent" x="325" y="307" width="204" height="13" uuid="dde73658-6d21-4356-8234-4f9c030fbd35">

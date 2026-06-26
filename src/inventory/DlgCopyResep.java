@@ -492,7 +492,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
 
 			query += " and pasien.no_rkm_medis = ?";
 
-			if (TAMPILKANCOPYRESEPDOKTERLAIN.equals("no") || !akses.getkode().equals("3003")) {
+			if (TAMPILKANCOPYRESEPDOKTERLAIN.equals("no")) {
 				query += " and resep_obat.kd_dokter = ?";
 			}
 
@@ -508,7 +508,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
 
 				ps.setString(paramIndex++, norm);
 
-				if (TAMPILKANCOPYRESEPDOKTERLAIN.equals("no") || !akses.getkode().equals("3003")) {
+				if (TAMPILKANCOPYRESEPDOKTERLAIN.equals("no")) {
 					ps.setString(paramIndex++, kddokter);
 				}
                 rs=ps.executeQuery();

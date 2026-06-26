@@ -4738,12 +4738,28 @@ private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             Valid.textKosong(nmjabatanpolri,"Jabatan POLRI");
         }else{
             
-            if (!TKtp.getText().trim().equals("-")) {
-                int cariPasien = Sequel.cariInteger("select count(no_rkm_medis) from pasien where no_ktp = ?", TKtp.getText().trim());
-                
-                if (cariPasien > 0) {
-                    JOptionPane.showMessageDialog(null,"Maaf, data pasien dengan NIK tersebut sudah ada!!!");
+            String noKTP = TKtp.getText().trim();
+            
+            if (TNm.getText().trim().toLowerCase().startsWith("by ny")) {
+                String nikBayi = noKTP.replace("-", "");
+
+                if (nikBayi.isBlank()) {
+                    JOptionPane.showMessageDialog(null,
+                        "Maaf, NIK bayi tidak boleh kosong, bisa pakai NIK ibu!!!");
                     return;
+                }
+            } else {
+                if (!noKTP.contains("-")) {
+                    int cariPasien = Sequel.cariInteger(
+                        "select count(no_rkm_medis) from pasien where no_ktp = ?",
+                        TKtp.getText().trim()
+                    );
+
+                    if (cariPasien > 0) {
+                        JOptionPane.showMessageDialog(null,
+                            "Maaf, data pasien dengan NIK tersebut sudah ada!!!");
+                        return;
+                    }
                 }
             }
             

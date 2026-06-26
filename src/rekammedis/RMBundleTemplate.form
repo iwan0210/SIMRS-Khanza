@@ -253,7 +253,7 @@
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
-                        <StringItem index="0" value="10-04-2026"/>
+                        <StringItem index="0" value="15-04-2026"/>
                       </StringArray>
                     </Property>
                     <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -281,7 +281,7 @@
                     </Property>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                       <StringArray count="1">
-                        <StringItem index="0" value="10-04-2026"/>
+                        <StringItem index="0" value="15-04-2026"/>
                       </StringArray>
                     </Property>
                     <Property name="displayFormat" type="java.lang.String" value="dd-MM-yyyy"/>
@@ -444,8 +444,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Bromage Score">
-                    <Property name="tabTitle" type="java.lang.String" value="Bromage Score"/>
+                  <JTabbedPaneConstraints tabName="Tab 1">
+                    <Property name="tabTitle" type="java.lang.String" value="Tab 1"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -485,7 +485,7 @@
                     <Property name="name" type="java.lang.String" value="PanelInput" noResource="true"/>
                     <Property name="opaque" type="boolean" value="false"/>
                     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[192, 273]"/>
+                      <Dimension value="[192, 450]"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -539,6 +539,9 @@
                       <Properties>
                         <Property name="name" type="java.lang.String" value="Scroll7" noResource="true"/>
                         <Property name="opaque" type="boolean" value="true"/>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[46, 250]"/>
+                        </Property>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -554,7 +557,7 @@
                             <Property name="name" type="java.lang.String" value="panelGlass12" noResource="true"/>
                             <Property name="opaque" type="boolean" value="false"/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[44, 250]"/>
+                              <Dimension value="[44, 450]"/>
                             </Property>
                           </Properties>
 
@@ -582,8 +585,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Steward Score">
-                    <Property name="tabTitle" type="java.lang.String" value="Steward Score"/>
+                  <JTabbedPaneConstraints tabName="Tab 2">
+                    <Property name="tabTitle" type="java.lang.String" value="Tab 2"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -622,6 +625,9 @@
                   <Properties>
                     <Property name="name" type="java.lang.String" value="PanelInput1" noResource="true"/>
                     <Property name="opaque" type="boolean" value="false"/>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[192, 450]"/>
+                    </Property>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -674,6 +680,9 @@
                       <Properties>
                         <Property name="name" type="java.lang.String" value="Scroll8" noResource="true"/>
                         <Property name="opaque" type="boolean" value="true"/>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[46, 250]"/>
+                        </Property>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -687,7 +696,7 @@
                           <Properties>
                             <Property name="name" type="java.lang.String" value="panelGlass13" noResource="true"/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[44, 250]"/>
+                              <Dimension value="[44, 450]"/>
                             </Property>
                           </Properties>
 
@@ -715,8 +724,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Aldrette Score">
-                    <Property name="tabTitle" type="java.lang.String" value="Aldrette Score"/>
+                  <JTabbedPaneConstraints tabName="Tab 3">
+                    <Property name="tabTitle" type="java.lang.String" value="Tab 3"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -755,6 +764,9 @@
                   <Properties>
                     <Property name="name" type="java.lang.String" value="PanelInput2" noResource="true"/>
                     <Property name="opaque" type="boolean" value="false"/>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[192, 450]"/>
+                    </Property>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -807,6 +819,9 @@
                       <Properties>
                         <Property name="name" type="java.lang.String" value="Scroll9" noResource="true"/>
                         <Property name="opaque" type="boolean" value="true"/>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[46, 250]"/>
+                        </Property>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -820,7 +835,7 @@
                           <Properties>
                             <Property name="name" type="java.lang.String" value="panelGlass14" noResource="true"/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[44, 250]"/>
+                              <Dimension value="[44, 450]"/>
                             </Property>
                           </Properties>
 
@@ -848,8 +863,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="Post Anesthesia Discharge Scoring System">
-                    <Property name="tabTitle" type="java.lang.String" value="Post Anesthesia Discharge Scoring System"/>
+                  <JTabbedPaneConstraints tabName="Tab 4">
+                    <Property name="tabTitle" type="java.lang.String" value="Tab 4"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -888,6 +903,9 @@
                   <Properties>
                     <Property name="name" type="java.lang.String" value="PanelInput3" noResource="true"/>
                     <Property name="opaque" type="boolean" value="false"/>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[192, 450]"/>
+                    </Property>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -940,6 +958,9 @@
                       <Properties>
                         <Property name="name" type="java.lang.String" value="Scroll10" noResource="true"/>
                         <Property name="opaque" type="boolean" value="true"/>
+                        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[46, 250]"/>
+                        </Property>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -953,7 +974,7 @@
                           <Properties>
                             <Property name="name" type="java.lang.String" value="panelGlass15" noResource="true"/>
                             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                              <Dimension value="[44, 250]"/>
+                              <Dimension value="[44, 450]"/>
                             </Property>
                           </Properties>
 

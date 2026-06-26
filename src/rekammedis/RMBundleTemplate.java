@@ -746,7 +746,7 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-04-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-04-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -760,7 +760,7 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10-04-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-04-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -885,7 +885,7 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
-        PanelInput.setPreferredSize(new java.awt.Dimension(192, 273));
+        PanelInput.setPreferredSize(new java.awt.Dimension(192, 450));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/143.png"))); // NOI18N
@@ -911,11 +911,12 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         Scroll7.setName("Scroll7"); // NOI18N
         Scroll7.setOpaque(true);
+        Scroll7.setPreferredSize(new java.awt.Dimension(46, 250));
 
         panelGlass12.setAutoscrolls(true);
         panelGlass12.setName("panelGlass12"); // NOI18N
         panelGlass12.setOpaque(false);
-        panelGlass12.setPreferredSize(new java.awt.Dimension(44, 250));
+        panelGlass12.setPreferredSize(new java.awt.Dimension(44, 450));
         panelGlass12.setLayout(null);
         Scroll7.setViewportView(panelGlass12);
 
@@ -923,7 +924,7 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         internalFrame5.add(PanelInput, java.awt.BorderLayout.PAGE_START);
 
-        TabRawat.addTab("Bromage Score", internalFrame5);
+        TabRawat.addTab("Tab 1", internalFrame5);
 
         internalFrame6.setBackground(new java.awt.Color(235, 255, 235));
         internalFrame6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -951,6 +952,7 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         PanelInput1.setName("PanelInput1"); // NOI18N
         PanelInput1.setOpaque(false);
+        PanelInput1.setPreferredSize(new java.awt.Dimension(192, 450));
         PanelInput1.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/143.png"))); // NOI18N
@@ -976,9 +978,10 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         Scroll8.setName("Scroll8"); // NOI18N
         Scroll8.setOpaque(true);
+        Scroll8.setPreferredSize(new java.awt.Dimension(46, 250));
 
         panelGlass13.setName("panelGlass13"); // NOI18N
-        panelGlass13.setPreferredSize(new java.awt.Dimension(44, 250));
+        panelGlass13.setPreferredSize(new java.awt.Dimension(44, 450));
         panelGlass13.setLayout(null);
         Scroll8.setViewportView(panelGlass13);
 
@@ -986,7 +989,7 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         internalFrame6.add(PanelInput1, java.awt.BorderLayout.PAGE_START);
 
-        TabRawat.addTab("Steward Score", internalFrame6);
+        TabRawat.addTab("Tab 2", internalFrame6);
 
         internalFrame7.setBackground(new java.awt.Color(235, 255, 235));
         internalFrame7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -1014,6 +1017,7 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         PanelInput2.setName("PanelInput2"); // NOI18N
         PanelInput2.setOpaque(false);
+        PanelInput2.setPreferredSize(new java.awt.Dimension(192, 450));
         PanelInput2.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/143.png"))); // NOI18N
@@ -1039,9 +1043,10 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         Scroll9.setName("Scroll9"); // NOI18N
         Scroll9.setOpaque(true);
+        Scroll9.setPreferredSize(new java.awt.Dimension(46, 250));
 
         panelGlass14.setName("panelGlass14"); // NOI18N
-        panelGlass14.setPreferredSize(new java.awt.Dimension(44, 250));
+        panelGlass14.setPreferredSize(new java.awt.Dimension(44, 450));
         panelGlass14.setLayout(null);
         Scroll9.setViewportView(panelGlass14);
 
@@ -1049,7 +1054,7 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         internalFrame7.add(PanelInput2, java.awt.BorderLayout.PAGE_START);
 
-        TabRawat.addTab("Aldrette Score", internalFrame7);
+        TabRawat.addTab("Tab 3", internalFrame7);
 
         internalFrame8.setBackground(new java.awt.Color(235, 255, 235));
         internalFrame8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -1077,6 +1082,7 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         PanelInput3.setName("PanelInput3"); // NOI18N
         PanelInput3.setOpaque(false);
+        PanelInput3.setPreferredSize(new java.awt.Dimension(192, 450));
         PanelInput3.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/143.png"))); // NOI18N
@@ -1102,9 +1108,10 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         Scroll10.setName("Scroll10"); // NOI18N
         Scroll10.setOpaque(true);
+        Scroll10.setPreferredSize(new java.awt.Dimension(46, 250));
 
         panelGlass15.setName("panelGlass15"); // NOI18N
-        panelGlass15.setPreferredSize(new java.awt.Dimension(44, 250));
+        panelGlass15.setPreferredSize(new java.awt.Dimension(44, 450));
         panelGlass15.setLayout(null);
         Scroll10.setViewportView(panelGlass15);
 
@@ -1112,7 +1119,7 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
 
         internalFrame8.add(PanelInput3, java.awt.BorderLayout.PAGE_START);
 
-        TabRawat.addTab("Post Anesthesia Discharge Scoring System", internalFrame8);
+        TabRawat.addTab("Tab 4", internalFrame8);
 
         internalFrame1.add(TabRawat, java.awt.BorderLayout.CENTER);
 
@@ -1276,16 +1283,6 @@ public final class RMBundleTemplate extends javax.swing.JDialog {
         petugas.dispose();
         dokter.dispose();
         pasien.dispose();
-//        Modif Fataa
-//Menghilangkan Pesan Update
-//        try {
-//            i = JOptionPane.showConfirmDialog(null, "Mau skalian update status pasien sudah diperiksa ????", "Konfirmasi", JOptionPane.YES_NO_OPTION);
-//            if (i == JOptionPane.YES_OPTION) {
-//                Sequel.mengedit("reg_periksa", "no_rawat=?", "stts=?", 2, new String[]{"Sudah", TNoRw.getText()});
-//            }
-//        } catch (Exception e) {
-//        }
-//        Sampai sini 
         dispose();
 }//GEN-LAST:event_BtnKeluarActionPerformed
 
@@ -1798,18 +1795,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         
     }
 
-    private void SimpanPenangananDokter() {
-        
-    }
-
-    private void SimpanPenangananPetugas() {
-        
-    }
-
-    private void SimpanPenangananDokterPetugas() {
-        
-    }
-
     private void tampilkanPenangananPetugas() {
         
     }
@@ -1829,12 +1814,6 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     }
 
     private void simpan() {
-//            Modif Fataa
-        String namadokter = Sequel.cariIsi("select dokter.nm_dokter from dokter where dokter.kd_dokter=?", akses.getkode());
-        if (namadokter != "") {
-            Sequel.mengedit("reg_periksa", "no_rawat=?", "stts=?", 2, new String[]{"Sudah", TNoRw.getText()}); //Update data sudah diperiksa jika tekan simpan    
-        }
-//            End Modif Fataa
         switch (TabRawat.getSelectedIndex()) {
             case 0:
                 

@@ -356,7 +356,6 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         jLabel24 = new widget.Label();
         jLabel25 = new widget.Label();
         KeadaanUmum = new widget.ComboBox();
-        jLabel52 = new widget.Label();
         Drain = new widget.ComboBox();
         Tindakan = new widget.TextBox();
         jLabel57 = new widget.Label();
@@ -400,7 +399,6 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         jLabel55 = new widget.Label();
         jLabel31 = new widget.Label();
         jLabel32 = new widget.Label();
-        jLabel33 = new widget.Label();
         LetakDrain = new widget.TextBox();
         WarnaDrain = new widget.TextBox();
         jLabel34 = new widget.Label();
@@ -416,7 +414,7 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         MnPostOperasi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnPostOperasi.setForeground(new java.awt.Color(50, 50, 50));
         MnPostOperasi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnPostOperasi.setText("Formulir Check List Post Operasi");
+        MnPostOperasi.setText("Formulir Checklist Post Operasi");
         MnPostOperasi.setName("MnPostOperasi"); // NOI18N
         MnPostOperasi.setPreferredSize(new java.awt.Dimension(260, 26));
         MnPostOperasi.addActionListener(new java.awt.event.ActionListener() {
@@ -610,7 +608,7 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-06-2023" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2024" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -624,7 +622,7 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-06-2023" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2024" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -807,7 +805,7 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         TglLahir.setBounds(689, 10, 100, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-06-2023 23:09:52" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2024 18:12:29" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -930,11 +928,6 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         });
         FormInput.add(KeadaanUmum);
         KeadaanUmum.setBounds(144, 120, 110, 23);
-
-        jLabel52.setText(":");
-        jLabel52.setName("jLabel52"); // NOI18N
-        FormInput.add(jLabel52);
-        jLabel52.setBounds(0, 120, 140, 23);
 
         Drain.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ada", "Tidak Ada" }));
         Drain.setName("Drain"); // NOI18N
@@ -1195,7 +1188,7 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         jLabel53.setBounds(0, 150, 140, 23);
 
         TanggalKateter.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalKateter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "12-06-2023 23:09:52" }));
+        TanggalKateter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "20-04-2024 18:12:29" }));
         TanggalKateter.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalKateter.setName("TanggalKateter"); // NOI18N
         TanggalKateter.setOpaque(false);
@@ -1229,10 +1222,10 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         WarnaUrine.setBounds(585, 150, 83, 23);
 
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel29.setText("buah, ");
+        jLabel29.setText("buah, Letak :");
         jLabel29.setName("jLabel29"); // NOI18N
         FormInput.add(jLabel29);
-        jLabel29.setBounds(399, 180, 40, 23);
+        jLabel29.setBounds(399, 180, 70, 23);
 
         JumlahUrine.setHighlighter(null);
         JumlahUrine.setName("JumlahUrine"); // NOI18N
@@ -1250,7 +1243,7 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         jLabel30.setBounds(653, 150, 70, 23);
 
         jLabel55.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel55.setText("Keadaan Umum");
+        jLabel55.setText("Keadaan Umum :");
         jLabel55.setName("jLabel55"); // NOI18N
         FormInput.add(jLabel55);
         jLabel55.setBounds(56, 120, 100, 23);
@@ -1266,12 +1259,6 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
         jLabel32.setName("jLabel32"); // NOI18N
         FormInput.add(jLabel32);
         jLabel32.setBounds(775, 150, 20, 23);
-
-        jLabel33.setText("Letak :");
-        jLabel33.setName("jLabel33"); // NOI18N
-        jLabel33.setVerifyInputWhenFocusTarget(false);
-        FormInput.add(jLabel33);
-        jLabel33.setBounds(420, 180, 44, 23);
 
         LetakDrain.setHighlighter(null);
         LetakDrain.setName("LetakDrain"); // NOI18N
@@ -1987,13 +1974,11 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
     private widget.Label jLabel30;
     private widget.Label jLabel31;
     private widget.Label jLabel32;
-    private widget.Label jLabel33;
     private widget.Label jLabel34;
     private widget.Label jLabel35;
     private widget.Label jLabel36;
     private widget.Label jLabel4;
     private widget.Label jLabel5;
-    private widget.Label jLabel52;
     private widget.Label jLabel53;
     private widget.Label jLabel54;
     private widget.Label jLabel55;
@@ -2187,7 +2172,7 @@ public final class RMChecklistPostOperasi extends javax.swing.JDialog {
             NmPetugasAnest.setText(tbObat.getValueAt(tbObat.getSelectedRow(),37).toString());
             Valid.SetTgl2(Tanggal,tbObat.getValueAt(tbObat.getSelectedRow(),5).toString());
             if(!tbObat.getValueAt(tbObat.getSelectedRow(),25).toString().equals("")){
-                Valid.SetTgl2(Tanggal,tbObat.getValueAt(tbObat.getSelectedRow(),25).toString());
+                Valid.SetTgl2(TanggalKateter,tbObat.getValueAt(tbObat.getSelectedRow(),25).toString());
             }
         }
     }

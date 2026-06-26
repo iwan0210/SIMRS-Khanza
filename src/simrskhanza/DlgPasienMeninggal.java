@@ -59,7 +59,7 @@ public class DlgPasienMeninggal extends javax.swing.JDialog {
         initComponents();
 
         Object[] row={"No.Surat","Tanggal","Jam","No.R.Medik","Nama Pasien","J.K.","Tmp.Lahir",
-                      "Tgl.Lahir","G.D.","Stts.Nikah","Agama","Kode Dokter","Nama Dokter"};
+                      "Tgl.Lahir","G.D.","Stts.Nikah","Agama","Kode Dokter","Nama Dokter", "Diagnosa"};
 
         tabMode=new DefaultTableModel(null,row){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
@@ -70,7 +70,7 @@ public class DlgPasienMeninggal extends javax.swing.JDialog {
         tbMati.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbMati.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (int i = 0; i < 13; i++) {
+        for (int i = 0; i < 14; i++) {
             TableColumn column = tbMati.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(120);
@@ -98,6 +98,8 @@ public class DlgPasienMeninggal extends javax.swing.JDialog {
                 column.setPreferredWidth(90);
             }else if(i==12){
                 column.setPreferredWidth(150);
+            }else if(i==13){
+                column.setPreferredWidth(250);
             }
         }
         tbMati.setDefaultRenderer(Object.class, new WarnaTable());
@@ -182,6 +184,9 @@ public class DlgPasienMeninggal extends javax.swing.JDialog {
         BtnDokter = new widget.Button();
         jLabel11 = new widget.Label();
         NoSurat = new widget.TextBox();
+        scrollPane3 = new widget.ScrollPane();
+        Diagnosa = new widget.TextArea();
+        jLabel12 = new widget.Label();
 
         jPopupMenu1.setName("jPopupMenu1"); // NOI18N
 
@@ -407,7 +412,7 @@ public class DlgPasienMeninggal extends javax.swing.JDialog {
         PanelInput.setBackground(new java.awt.Color(255, 255, 255));
         PanelInput.setName("PanelInput"); // NOI18N
         PanelInput.setOpaque(false);
-        PanelInput.setPreferredSize(new java.awt.Dimension(192, 185));
+        PanelInput.setPreferredSize(new java.awt.Dimension(192, 235));
         PanelInput.setLayout(new java.awt.BorderLayout(1, 1));
 
         ChkInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/143.png"))); // NOI18N
@@ -452,7 +457,7 @@ public class DlgPasienMeninggal extends javax.swing.JDialog {
 
         DTPTgl.setEditable(false);
         DTPTgl.setForeground(new java.awt.Color(50, 70, 50));
-        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "13-06-2025" }));
+        DTPTgl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "27-04-2026" }));
         DTPTgl.setDisplayFormat("dd-MM-yyyy");
         DTPTgl.setName("DTPTgl"); // NOI18N
         DTPTgl.setOpaque(false);
@@ -526,10 +531,10 @@ public class DlgPasienMeninggal extends javax.swing.JDialog {
         FormInput.add(cmbDtk);
         cmbDtk.setBounds(440, 50, 62, 23);
 
-        jLabel10.setText("Nomor :");
+        jLabel10.setText("Diagnosa :");
         jLabel10.setName("jLabel10"); // NOI18N
         FormInput.add(jLabel10);
-        jLabel10.setBounds(0, 90, 115, 23);
+        jLabel10.setBounds(10, 150, 115, 23);
 
         jLabel16.setText("Dokter :");
         jLabel16.setName("jLabel16"); // NOI18N
@@ -574,6 +579,23 @@ public class DlgPasienMeninggal extends javax.swing.JDialog {
         NoSurat.setName("NoSurat"); // NOI18N
         FormInput.add(NoSurat);
         NoSurat.setBounds(120, 90, 170, 23);
+
+        scrollPane3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPane3.setName("scrollPane3"); // NOI18N
+
+        Diagnosa.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        Diagnosa.setColumns(20);
+        Diagnosa.setRows(5);
+        Diagnosa.setName("Diagnosa"); // NOI18N
+        scrollPane3.setViewportView(Diagnosa);
+
+        FormInput.add(scrollPane3);
+        scrollPane3.setBounds(130, 130, 380, 70);
+
+        jLabel12.setText("Nomor :");
+        jLabel12.setName("jLabel12"); // NOI18N
+        FormInput.add(jLabel12);
+        jLabel12.setBounds(0, 90, 115, 23);
 
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
@@ -659,10 +681,11 @@ public class DlgPasienMeninggal extends javax.swing.JDialog {
         }else if(NmDokter.getText().trim().equals("")){
             Valid.textKosong(BtnDokter,"Dokter");
         }else{
-            if(Sequel.menyimpantf("pasien_meninggal","'"+NoSurat.getText()+"','"+
-                    Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"','"+
-                    cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"','"+
-                    TNoRM.getText()+"','"+KdDokter.getText()+"'","pasien")==true){
+            if(Sequel.menyimpantf("pasien_meninggal", "?,?,?,?,?,?", "No.Surat", 6, new String[] {
+                NoSurat.getText(), Valid.SetTgl(DTPTgl.getSelectedItem()+""),
+                cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem(),
+                TNoRM.getText(), KdDokter.getText(), Diagnosa.getText()
+            })) {
                 tampil();
                 emptTeks();
             }
@@ -777,39 +800,15 @@ private void MnCetakSuratKematianActionPerformed(java.awt.event.ActionEvent evt)
                 + "pasien_meninggal.jam,"
                 + "pasien_meninggal.no_rkm_medis,"
                 + "pasien.nm_pasien,"
-                + "REPLACE("
-                + "TRIM("
-                + "COALESCE("
-                + "("
-                + "SELECT pr.penilaian "
-                + "FROM pemeriksaan_ranap pr "
-                + "INNER JOIN dokter d ON pr.nip = d.kd_dokter "
-                + "WHERE pr.no_rawat = reg_periksa.no_rawat "
-                + "AND CONCAT(pr.tgl_perawatan,' ',pr.jam_rawat) "
-                + "< CONCAT(pasien_meninggal.tanggal,' ',pasien_meninggal.jam) "
-                + "ORDER BY pr.tgl_perawatan DESC, pr.jam_rawat DESC "
-                + "LIMIT 1"
-                + "),"
-                + "("
-                + "SELECT prl.penilaian "
-                + "FROM pemeriksaan_ralan prl "
-                + "INNER JOIN dokter d2 ON prl.nip = d2.kd_dokter "
-                + "WHERE prl.no_rawat = reg_periksa.no_rawat "
-                + "AND CONCAT(prl.tgl_perawatan,' 00:00:00') "
-                + "< CONCAT(pasien_meninggal.tanggal,' ',pasien_meninggal.jam) "
-                + "ORDER BY prl.tgl_perawatan DESC "
-                + "LIMIT 1"
-                + ")"
-                + ")"
-                + "),"
-                + "CHAR(10),', ') AS penilaian,"
+                + "pasien_meninggal.diagnosa,"
                 + "pasien.jk,"
                 + "pasien.tmp_lahir,"
                 + "pasien.tgl_lahir,"
                 + "pasien.no_ktp,"
                 + "pasien.alamat,"
                 + "pasien_meninggal.kd_dokter,"
-                + "dokter.nm_dokter "
+                + "dokter.nm_dokter, "
+                + "pasien_meninggal.diagnosa "
                 + "from pasien_meninggal "
                 + "inner join pasien "
                 + "on pasien_meninggal.no_rkm_medis = pasien.no_rkm_medis "
@@ -908,7 +907,7 @@ private void MnCetakSuratKematianActionPerformed(java.awt.event.ActionEvent evt)
             Sequel.mengedit("pasien_meninggal", "no_surat='"+tbMati.getValueAt(tbMati.getSelectedRow(),0).toString()+"'",
                     "no_surat='"+NoSurat.getText()+"',tanggal='"+Valid.SetTgl(DTPTgl.getSelectedItem()+"")+"',"+
                     "jam='"+cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"',"+
-                    "no_rkm_medis='"+TNoRM.getText()+"',kd_dokter='"+KdDokter.getText()+"'");
+                    "no_rkm_medis='"+TNoRM.getText()+"',kd_dokter='"+KdDokter.getText()+"',dignosa='"+Diagnosa.getText()+"'");
             this.tampil();
             this.emptTeks();
         }
@@ -950,6 +949,7 @@ private void MnCetakSuratKematianActionPerformed(java.awt.event.ActionEvent evt)
     private widget.Button BtnSimpan;
     private widget.CekBox ChkInput;
     private widget.Tanggal DTPTgl;
+    private widget.TextArea Diagnosa;
     private widget.panelisi FormInput;
     private widget.TextBox KdDokter;
     private widget.Label LCount;
@@ -967,6 +967,7 @@ private void MnCetakSuratKematianActionPerformed(java.awt.event.ActionEvent evt)
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel10;
     private widget.Label jLabel11;
+    private widget.Label jLabel12;
     private widget.Label jLabel16;
     private widget.Label jLabel4;
     private widget.Label jLabel6;
@@ -977,6 +978,7 @@ private void MnCetakSuratKematianActionPerformed(java.awt.event.ActionEvent evt)
     private javax.swing.JTextField kd2;
     private widget.panelisi panelGlass8;
     private widget.panelisi panelGlass9;
+    private widget.ScrollPane scrollPane3;
     private widget.Table tbMati;
     // End of variables declaration//GEN-END:variables
 
@@ -985,7 +987,7 @@ private void MnCetakSuratKematianActionPerformed(java.awt.event.ActionEvent evt)
         try{
             ps=koneksi.prepareStatement("select pasien_meninggal.no_surat, pasien_meninggal.tanggal,pasien_meninggal.jam,pasien_meninggal.no_rkm_medis,pasien.nm_pasien, "+
                    "pasien.jk,pasien.tmp_lahir,pasien.tgl_lahir,pasien.gol_darah,pasien.stts_nikah, "+
-                   "pasien.agama,pasien_meninggal.kd_dokter,dokter.nm_dokter "+
+                   "pasien.agama,pasien_meninggal.kd_dokter,dokter.nm_dokter, pasien_meninggal.diagnosa "+
                    "from pasien_meninggal inner join pasien on pasien_meninggal.no_rkm_medis=pasien.no_rkm_medis "+
                    "inner join dokter on pasien_meninggal.kd_dokter=dokter.kd_dokter "+
                    (TCari.getText().trim().equals("")?"":
@@ -1004,7 +1006,8 @@ private void MnCetakSuratKematianActionPerformed(java.awt.event.ActionEvent evt)
                     tabMode.addRow(new Object[]{
                         rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),
                         rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8),
-                        rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),rs.getString(13)
+                        rs.getString(9),rs.getString(10),rs.getString(11),rs.getString(12),
+                        rs.getString(13),rs.getString(14)
                     });
                 }
             } catch (Exception e) {
@@ -1048,6 +1051,7 @@ private void MnCetakSuratKematianActionPerformed(java.awt.event.ActionEvent evt)
             Valid.SetTgl(DTPTgl,tbMati.getValueAt(tbMati.getSelectedRow(),1).toString());
             KdDokter.setText(tbMati.getValueAt(tbMati.getSelectedRow(),11).toString());
             NmDokter.setText(tbMati.getValueAt(tbMati.getSelectedRow(),12).toString());
+            Diagnosa.setText(tbMati.getValueAt(tbMati.getSelectedRow(),13).toString());
         }
     }
     
@@ -1064,12 +1068,13 @@ private void MnCetakSuratKematianActionPerformed(java.awt.event.ActionEvent evt)
         ChkInput.setSelected(true);
         isForm();
         TCari.setText(norm);
+        Diagnosa.setText(Sequel.cariIsi("SELECT REPLACE(TRIM((SELECT penilaian FROM (SELECT pr.penilaian, CONCAT(pr.tgl_perawatan,' ',pr.jam_rawat) AS tgl FROM pemeriksaan_ranap pr INNER JOIN dokter d ON pr.nip = d.kd_dokter INNER JOIN reg_periksa rp ON pr.no_rawat = rp.no_rawat WHERE rp.no_rkm_medis=? AND LOWER(pr.penilaian) NOT LIKE '%cardiac%' UNION ALL SELECT prl.penilaian, CONCAT(prl.tgl_perawatan,' 00:00:00') AS tgl FROM pemeriksaan_ralan prl INNER JOIN dokter d2 ON prl.nip = d2.kd_dokter INNER JOIN reg_periksa rp2 ON prl.no_rawat = rp2.no_rawat WHERE rp2.no_rkm_medis=? AND LOWER(prl.penilaian) NOT LIKE '%cardiac%') x ORDER BY tgl DESC LIMIT 1)),CHAR(10),', ') AS penilaian", new String[] { TNoRM.getText(), TNoRM.getText()}));
     }
     
     private void isForm(){
         if(ChkInput.isSelected()==true){
             ChkInput.setVisible(false);
-            PanelInput.setPreferredSize(new Dimension(WIDTH,185));
+            PanelInput.setPreferredSize(new Dimension(WIDTH,235));
             FormInput.setVisible(true);      
             ChkInput.setVisible(true);
         }else if(ChkInput.isSelected()==false){           

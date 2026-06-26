@@ -86,7 +86,16 @@ import bridging.ICareRiwayatPerawatan;
 import bridging.ICareRiwayatPerawatanFKTP;
 import bridging.INACBGPerawatanCorona;
 import bridging.PilihanBridgingAsuransi;
+import com.sun.jna.platform.win32.User32;
+import com.sun.jna.platform.win32.WinDef;
+import com.sun.jna.ptr.IntByReference;
 import inventory.DlgCopyResep;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.InputEvent;
 import javax.swing.SwingWorker;
 import rekammedis.RMDataResumePasien;
 import org.jfree.chart.ChartFactory;
@@ -271,6 +280,7 @@ import surat.SuratSakit;
 import surat.SuratSakitPihak2;
 import surat.SuratTidakHamil;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 /**
  *
  * @author dosen
@@ -292,7 +302,7 @@ public final class DlgReg extends javax.swing.JDialog {
     private boolean ceksukses=false;
     private String nosisrute="",aktifkanparsial="no",BASENOREG="",TANGGALMUNDUR="yes",
             URUTNOREG="",status="Baru",order="reg_periksa.tgl_registrasi,reg_periksa.jam_reg desc",alamatperujuk="-",aktifjadwal="",IPPRINTERTRACER="",umur="0",sttsumur="Th",terbitsep="",
-            validasiregistrasi="No",validasicatatan="No",norawatdipilih="",normdipilih="";
+            validasiregistrasi="No",validasicatatan="No",norawatdipilih="",normdipilih="", urlFrista="", urlFinger="", userFrista="", passFrista="";
     private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
     private char ESC = 27;
     // ganti kertas
@@ -997,6 +1007,33 @@ public final class DlgReg extends javax.swing.JDialog {
             validasicatatan="No";
         }
         
+        try {
+            ps3=koneksi.prepareStatement("select * from karomah_akun where id = 1");
+            try {
+                rs = ps3.executeQuery();
+                if (rs.next()) {
+                    urlFrista = rs.getString("frista");
+                    urlFinger = rs.getString("finger");
+                    userFrista = rs.getString("username");
+                    passFrista = rs.getString("password");
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps3!=null){
+                    ps3.close();
+                }
+            }
+        } catch (Exception e) {
+            urlFrista = "";
+            userFrista = "";
+            passFrista = "";;
+            System.out.println("E : " + e);
+        }
+        
         ChkInput.setSelected(false);
         isForm(); 
     }
@@ -1249,6 +1286,8 @@ public final class DlgReg extends javax.swing.JDialog {
         MnRiwayatPerawatanICareNoKartu = new javax.swing.JMenuItem();
         MnRiwayatPerawatanICareNIK1 = new javax.swing.JMenuItem();
         MnRiwayatPerawatanICareNoKartu1 = new javax.swing.JMenuItem();
+        MnFristaBPJS = new javax.swing.JMenuItem();
+        MnFingerBPJS = new javax.swing.JMenuItem();
         MenuInputData = new javax.swing.JMenu();
         ppCatatanPasien = new javax.swing.JMenuItem();
         ppBerkasDigital = new javax.swing.JMenuItem();
@@ -5032,7 +5071,7 @@ public final class DlgReg extends javax.swing.JDialog {
                 MnRiwayatPerawatanICareNIK1ActionPerformed(evt);
             }
         });
-        MnBridging.add(MnRiwayatPerawatanICareNIK1);
+        //MnBridging.add(MnRiwayatPerawatanICareNIK1);
 
         MnRiwayatPerawatanICareNoKartu1.setBackground(new java.awt.Color(255, 255, 254));
         MnRiwayatPerawatanICareNoKartu1.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -5048,7 +5087,37 @@ public final class DlgReg extends javax.swing.JDialog {
                 MnRiwayatPerawatanICareNoKartu1ActionPerformed(evt);
             }
         });
-        MnBridging.add(MnRiwayatPerawatanICareNoKartu1);
+        //MnBridging.add(MnRiwayatPerawatanICareNoKartu1);
+        
+        MnFristaBPJS.setBackground(new java.awt.Color(255, 255, 254));
+        MnFristaBPJS.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnFristaBPJS.setForeground(new java.awt.Color(50, 50, 50));
+        MnFristaBPJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnFristaBPJS.setText("Frista BPJS");
+        MnFristaBPJS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnFristaBPJS.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnFristaBPJS.setName("MnFristaBPJS"); // NOI18N
+        MnFristaBPJS.setPreferredSize(new java.awt.Dimension(320, 26));
+        MnFristaBPJS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnFristaBPJSActionPerformed(evt);
+            }
+        });
+        
+        MnFingerBPJS.setBackground(new java.awt.Color(255, 255, 254));
+        MnFingerBPJS.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnFingerBPJS.setForeground(new java.awt.Color(50, 50, 50));
+        MnFingerBPJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnFingerBPJS.setText("Finger BPJS");
+        MnFingerBPJS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnFingerBPJS.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnFingerBPJS.setName("MnFingerBPJS"); // NOI18N
+        MnFingerBPJS.setPreferredSize(new java.awt.Dimension(320, 26));
+        MnFingerBPJS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnFingerBPJSActionPerformed(evt);
+            }
+        });
 
         jPopupMenu1.add(MnBridging);
 
@@ -14522,6 +14591,80 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             }
         }
     }//GEN-LAST:event_MnRiwayatPerawatanICareNoKartu1ActionPerformed
+    
+    private void MnFristaBPJSActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+            TNoReg.requestFocus();
+            return;
+        }
+        
+        if(TPasien.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbPetugas.requestFocus();
+            return;
+        }
+        
+        if(tbPetugas.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbPetugas.requestFocus();
+            return;
+        }
+        
+        String noka = Sequel.cariIsi("select no_peserta from pasien where no_rkm_medis = ?", TNoRM.getText());
+        String penjab = Sequel.cariIsi("select kd_pj from reg_periksa where no_rawat = ?", TNoRw.getText());
+        
+        if(!penjab.equals("A65")) {
+            JOptionPane.showMessageDialog(null, "Bukan Pasien BPJS");
+            return;
+        }
+        
+        if (noka.trim().equals("") || noka.trim().equals("-")) {
+            JOptionPane.showMessageDialog(null, "Nomor Kartu Kosong");
+            return;
+        }
+        
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        openFrista(noka);
+        this.setCursor(Cursor.getDefaultCursor());
+    }
+    
+    private void MnFingerBPJSActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+            TNoReg.requestFocus();
+            return;
+        }
+        
+        if(TPasien.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbPetugas.requestFocus();
+            return;
+        }
+        
+        if(tbPetugas.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbPetugas.requestFocus();
+            return;
+        }
+        
+        String noka = Sequel.cariIsi("select no_peserta from pasien where no_rkm_medis = ?", TNoRM.getText());
+        String penjab = Sequel.cariIsi("select kd_pj from reg_periksa where no_rawat = ?", TNoRw.getText());
+        
+        if(!penjab.equals("A65")) {
+            JOptionPane.showMessageDialog(null, "Bukan Pasien BPJS");
+            return;
+        }
+        
+        if (noka.trim().equals("") || noka.trim().equals("-")) {
+            JOptionPane.showMessageDialog(null, "Nomor Kartu Kosong");
+            return;
+        }
+        
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        openFinger(noka);
+        this.setCursor(Cursor.getDefaultCursor());
+    }
 
     private void MnPenilaianAwalMedisHemodialisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnPenilaianAwalMedisHemodialisaActionPerformed
         if(tabMode.getRowCount()==0){
@@ -16768,6 +16911,8 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
     private javax.swing.JMenuItem MnRiwayatPerawatanICareNIK1;
     private javax.swing.JMenuItem MnRiwayatPerawatanICareNoKartu;
     private javax.swing.JMenuItem MnRiwayatPerawatanICareNoKartu1;
+    private javax.swing.JMenuItem MnFristaBPJS;
+    private javax.swing.JMenuItem MnFingerBPJS;
     private javax.swing.JMenuItem MnRujuk;
     private javax.swing.JMenuItem MnRujukMasuk;
     private javax.swing.JMenuItem MnRujukSisrute;
@@ -17546,6 +17691,8 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         MnPenilaianAwalMedisRalanKulitKelamin.setEnabled(akses.getpenilaian_awal_medis_ralan_kulit_kelamin());
         MnRiwayatPerawatanICareNoKartu.setEnabled(akses.getriwayat_perawatan_icare_bpjs());
         MnRiwayatPerawatanICareNoKartu1.setEnabled(akses.getriwayat_perawatan_icare_bpjs());
+        MnFristaBPJS.setEnabled(akses.getbpjs_sep());
+        MnFingerBPJS.setEnabled(akses.getbpjs_sep());
         MnRiwayatPerawatanICareNIK.setEnabled(akses.getriwayat_perawatan_icare_bpjs());
         MnRiwayatPerawatanICareNIK1.setEnabled(akses.getriwayat_perawatan_icare_bpjs());
         MnPenilaianAwalMedisHemodialisa.setEnabled(akses.getpenilaian_medis_ralan_hemodialisa());
@@ -19073,8 +19220,10 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         MnBridging.add(MnTeridentifikasiTB);
         MnBridging.add(MnRiwayatPerawatanICareNIK);
         MnBridging.add(MnRiwayatPerawatanICareNoKartu);
-        MnBridging.add(MnRiwayatPerawatanICareNIK1);
-        MnBridging.add(MnRiwayatPerawatanICareNoKartu1);
+        //MnBridging.add(MnRiwayatPerawatanICareNIK1);
+        //MnBridging.add(MnRiwayatPerawatanICareNoKartu1);
+        MnBridging.add(MnFristaBPJS);
+        MnBridging.add(MnFingerBPJS);
         
         MnPenilaianLain.add(MnPenilaianTambahanGeriatri);
         MnPenilaianLain.add(MnPenilaianTambahanBunuhDiri);
@@ -19232,5 +19381,220 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             tabMode.setValueAt(kdpnj.getText(),tbPetugas.getSelectedRow(),22);
             emptTeks();
         }
+    }
+    
+    private void openFrista(String insuranceNumber) {
+        if (insuranceNumber.trim().isBlank()) {
+            JOptionPane.showMessageDialog(null,"Nomor Kartu tidak boleh kosong !!");
+            return;
+        }
+        
+        this.toFront();
+        
+        try {
+            
+            Process process = Runtime.getRuntime().exec(urlFrista);
+            
+            WinDef.HWND hwnd = waitForWindow(process.pid(), 25000);
+            
+            if (hwnd == null) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Window FRISTA tidak ditemukan.");
+                return;
+            }
+            
+            bringToFront(hwnd);
+            
+            Robot robot = new Robot();
+
+            Thread.sleep(300);
+
+            // Username
+            copyToClipboard(userFrista);
+            pressCtrlV(robot);
+
+            pressTab(robot);
+
+            Thread.sleep(200);
+
+            // Password
+            copyToClipboard(passFrista);
+            pressCtrlV(robot);
+
+            pressTab(robot);
+
+            pressKey(robot, KeyEvent.VK_SPACE);
+
+            Thread.sleep(1200);
+            
+            Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+
+            robot.mouseMove(
+                    screen.width / 2,
+                    screen.height / 2);
+
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+
+            copyToClipboard(insuranceNumber.trim());
+            pressCtrlV(robot);
+        } catch (IOException | AWTException | InterruptedException ex) {
+
+            Thread.currentThread().interrupt();
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    ex.getMessage());
+        }
+    }
+    
+    private void openFinger(String insuranceNumber) {
+        if (insuranceNumber.trim().isBlank()) {
+            JOptionPane.showMessageDialog(null,"Nomor Kartu tidak boleh kosong !!");
+            return;
+        }
+        
+        this.toFront();
+        
+        try {
+            Process process = Runtime.getRuntime().exec(urlFinger);
+
+            WinDef.HWND hwnd = waitForWindow(process.pid(), 15000);
+
+            if (hwnd == null) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Window Finger tidak ditemukan.");
+                return;
+            }
+
+            bringToFront(hwnd);
+
+            Robot robot = new Robot();
+
+            Thread.sleep(500);
+
+            // Username
+            copyToClipboard(userFrista);
+            pressCtrlV(robot);
+
+            pressTab(robot);
+
+            Thread.sleep(300);
+
+            // Password
+            copyToClipboard(passFrista);
+            pressCtrlV(robot);
+
+            pressKey(robot, KeyEvent.VK_ENTER);
+
+            //Tunggu proses login.
+            Thread.sleep(5000);
+
+            // Nomor kartu
+            copyToClipboard(insuranceNumber.trim());
+            pressCtrlV(robot);
+        } catch (IOException ex) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Gagal menjalankan aplikasi Finger.\n\n"
+                    + ex.getMessage());
+
+        } catch (AWTException ex) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Robot tidak dapat dijalankan.\n\n"
+                    + ex.getMessage());
+
+        } catch (InterruptedException ex) {
+
+            Thread.currentThread().interrupt();
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Proses dibatalkan.");
+        }
+    }
+    
+    private WinDef.HWND waitForWindow(long pid, long timeoutMillis) {
+        User32 user32 = User32.INSTANCE;
+        long endTime = System.currentTimeMillis() + timeoutMillis;
+        
+        while(System.currentTimeMillis() < endTime) {
+            AtomicReference<WinDef.HWND> hwndRef = new AtomicReference<>();
+            
+            user32.EnumWindows((hWnd, data) -> {
+
+                IntByReference processId = new IntByReference();
+                user32.GetWindowThreadProcessId(hWnd, processId);
+
+                if (processId.getValue() == (int) pid
+                        && user32.IsWindowVisible(hWnd)) {
+
+                    hwndRef.set(hWnd);
+                    return false;
+                }
+
+                return true;
+
+            }, null);
+            
+            if (hwndRef.get() != null) {
+                return hwndRef.get();
+            }
+
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException ex) {
+                Thread.currentThread().interrupt();
+                return null;
+            }
+        }
+        
+        return null;
+    }
+    
+    private boolean bringToFront(WinDef.HWND hwnd) {
+
+        if (hwnd == null) {
+            return false;
+        }
+
+        User32 user32 = User32.INSTANCE;
+
+        user32.ShowWindow(hwnd, User32.SW_RESTORE);
+        user32.SetForegroundWindow(hwnd);
+
+        return user32.GetForegroundWindow().equals(hwnd);
+    }
+    
+    private void copyToClipboard(String text) {
+
+        StringSelection selection = new StringSelection(text);
+
+        Toolkit.getDefaultToolkit()
+                .getSystemClipboard()
+                .setContents(selection, null);
+    }
+    
+    private void pressKey(Robot robot, int key) {
+        robot.keyPress(key);
+        robot.keyRelease(key);
+    }
+
+    private void pressCtrlV(Robot robot) {
+
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+    }
+
+    private void pressTab(Robot robot) {
+        pressKey(robot, KeyEvent.VK_TAB);
     }
 }

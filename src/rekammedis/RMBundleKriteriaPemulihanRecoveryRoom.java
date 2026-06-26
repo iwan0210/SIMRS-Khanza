@@ -4059,7 +4059,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private void isRawat() {
         try {
             ps = koneksi.prepareStatement(
-                    "select reg_periksa.no_rkm_medis,pasien.tgl_lahir,pasien.jk,concat(pasien.nm_pasien,' (',pasien.umur,')') as pasien,reg_periksa.kd_dokter,reg_periksa.tgl_registrasi,"
+                    "select reg_periksa.no_rkm_medis,reg_periksa.tgl_registrasi,pasien.tgl_lahir,pasien.jk,concat(pasien.nm_pasien,' (',pasien.umur,')') as pasien,reg_periksa.kd_dokter,reg_periksa.tgl_registrasi,"
                     + "reg_periksa.jam_reg from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis where reg_periksa.no_rawat=?");
             try {
                 ps.setString(1, TNoRw.getText());
@@ -4069,6 +4069,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                     TPasien.setText(rs.getString("pasien"));
                     TglLahir.setText(rs.getString("tgl_lahir"));
                     JK.setText(rs.getString("jk"));
+                    DTPCari1.setDate(rs.getDate("tgl_registrasi"));
                 }
             } catch (Exception e) {
                 System.out.println("Notif : " + e);
@@ -4088,7 +4089,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     public void setNoRm(String norwt, Date tgl1) {
         TNoRw.setText(norwt);
         TCari.setText(norwt);
-        DTPCari1.setDate(tgl1);
+        DTPCari2.setDate(tgl1);
         isRawat();
         ChkInput.setSelected(true);
         isForm();

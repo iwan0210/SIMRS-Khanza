@@ -67,7 +67,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
             "TB", "BB", "TD", "Nadi", "Suhu", "Pernapasan", "Kesadaran", "Jenis Operasi", "Riwayat Penyakit", "Pengobatan Saat Ini", "Riwayat Operasi",
             "Riwayat Anestesi", "Riwayat Alergi", "Riwayat Kebiasaan", "Riwayat Penyakit Keluarga", "Laboratorium", "Penunjang Lain",
             "Rencana Anestesi", "Angka ASA", "Pemberian Informasi", "Persetujuan Tindakan", "Pemberian Medikasi", "Persiapan Transfusi Darah",
-            "HCU Pasca Operasi", "Pemeriksaan Tambahan"
+            "HCU Pasca Operasi", "Pemeriksaan Tambahan", "Anamnesa"
         }) {
             @Override
             public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -79,7 +79,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         tbObat.setPreferredScrollableViewportSize(new Dimension(500, 500));
         tbObat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 36; i++) {
+        for (i = 0; i < 37; i++) {
             TableColumn column = tbObat.getColumnModel().getColumn(i);
             if (i == 0) {
                 column.setPreferredWidth(105);
@@ -327,10 +327,8 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         jLabel110 = new widget.Label();
         jLabel40 = new widget.Label();
         jSeparator7 = new javax.swing.JSeparator();
-        jSeparator8 = new javax.swing.JSeparator();
         jLabel111 = new widget.Label();
         jSeparator9 = new javax.swing.JSeparator();
-        jSeparator10 = new javax.swing.JSeparator();
         jLabel128 = new widget.Label();
         RencanaAnestesi = new widget.ComboBox();
         AngkaASA = new widget.ComboBox();
@@ -387,6 +385,9 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         usg = new javax.swing.JCheckBox();
         rontgen = new javax.swing.JCheckBox();
         jLabel112 = new widget.Label();
+        jLabel48 = new widget.Label();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Anamnesa = new javax.swing.JTextArea();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -688,7 +689,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         label11.setBounds(538, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"21-01-2026 18:28:54"}));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-01-2026 08:55:45" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -707,7 +708,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         label12.setBounds(520, 80, 70, 23);
 
         TglOperasi.setForeground(new java.awt.Color(50, 70, 50));
-        TglOperasi.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"21-01-2026 18:28:55"}));
+        TglOperasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-01-2026 08:55:45" }));
         TglOperasi.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglOperasi.setName("TglOperasi"); // NOI18N
         TglOperasi.setOpaque(false);
@@ -918,14 +919,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         jSeparator7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator7.setName("jSeparator7"); // NOI18N
         FormInput.add(jSeparator7);
-        jSeparator7.setBounds(0, 480, 750, 1);
-
-        jSeparator8.setBackground(new java.awt.Color(239, 244, 234));
-        jSeparator8.setForeground(new java.awt.Color(239, 244, 234));
-        jSeparator8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
-        jSeparator8.setName("jSeparator8"); // NOI18N
-        FormInput.add(jSeparator8);
-        jSeparator8.setBounds(0, 480, 750, 1);
+        jSeparator7.setBounds(0, 228, 750, 1);
 
         jLabel111.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel111.setText("IV. Anamnesa:");
@@ -938,21 +932,14 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         jSeparator9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
         jSeparator9.setName("jSeparator9"); // NOI18N
         FormInput.add(jSeparator9);
-        jSeparator9.setBounds(10, 420, 750, 1);
-
-        jSeparator10.setBackground(new java.awt.Color(239, 244, 234));
-        jSeparator10.setForeground(new java.awt.Color(239, 244, 234));
-        jSeparator10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
-        jSeparator10.setName("jSeparator10"); // NOI18N
-        FormInput.add(jSeparator10);
-        jSeparator10.setBounds(10, 420, 750, 1);
+        jSeparator9.setBounds(0, 391, 750, 1);
 
         jLabel128.setText("Rencana Anestesi :");
         jLabel128.setName("jLabel128"); // NOI18N
         FormInput.add(jLabel128);
-        jLabel128.setBounds(10, 430, 130, 23);
+        jLabel128.setBounds(10, 600, 130, 23);
 
-        RencanaAnestesi.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"GA", "RA Spinal", "RA Epidural", "RA Combined", "Blok Syaraf"}));
+        RencanaAnestesi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "GA", "RA Spinal", "RA Epidural", "RA Combined", "Blok Syaraf" }));
         RencanaAnestesi.setName("RencanaAnestesi"); // NOI18N
         RencanaAnestesi.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -960,9 +947,9 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
             }
         });
         FormInput.add(RencanaAnestesi);
-        RencanaAnestesi.setBounds(150, 430, 140, 23);
+        RencanaAnestesi.setBounds(150, 600, 140, 23);
 
-        AngkaASA.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"1", "2", "3", "4", "5", "E"}));
+        AngkaASA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "E" }));
         AngkaASA.setName("AngkaASA"); // NOI18N
         AngkaASA.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -970,17 +957,17 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
             }
         });
         FormInput.add(AngkaASA);
-        AngkaASA.setBounds(440, 430, 60, 23);
+        AngkaASA.setBounds(440, 600, 60, 23);
 
         jLabel129.setText("Angka ASA :");
         jLabel129.setName("jLabel129"); // NOI18N
         FormInput.add(jLabel129);
-        jLabel129.setBounds(310, 430, 120, 23);
+        jLabel129.setBounds(310, 600, 120, 23);
 
-        jLabel47.setText("<html>\nPemeriksaan tambahan  :<br>\nyang diperlukan  \n</html>");
+        jLabel47.setText("<html> Pemeriksaan tambahan  :<br> yang diperlukan   </html>");
         jLabel47.setName("jLabel47"); // NOI18N
         FormInput.add(jLabel47);
-        jLabel47.setBounds(20, 600, 130, 30);
+        jLabel47.setBounds(20, 770, 130, 30);
 
         medikasi.setBackground(new java.awt.Color(255, 255, 255));
         medikasi.setText("Pemberian Medikasi ");
@@ -991,41 +978,41 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
             }
         });
         FormInput.add(medikasi);
-        medikasi.setBounds(150, 530, 150, 20);
+        medikasi.setBounds(150, 700, 150, 20);
 
         informasi.setBackground(new java.awt.Color(255, 255, 255));
         informasi.setText("Dokumen pemberian informasi tindakan anestesi");
         informasi.setName("informasi"); // NOI18N
         FormInput.add(informasi);
-        informasi.setBounds(150, 490, 320, 20);
+        informasi.setBounds(150, 660, 320, 20);
 
         tindakan.setBackground(new java.awt.Color(255, 255, 255));
         tindakan.setText("Persetujuan Tindakan Medis Anestesi");
         tindakan.setName("tindakan"); // NOI18N
         FormInput.add(tindakan);
-        tindakan.setBounds(150, 510, 290, 20);
+        tindakan.setBounds(150, 680, 290, 20);
 
         jLabel50.setText("Instruksi :");
         jLabel50.setName("jLabel50"); // NOI18N
         FormInput.add(jLabel50);
-        jLabel50.setBounds(10, 490, 130, 23);
+        jLabel50.setBounds(10, 660, 130, 23);
 
         hcu.setBackground(new java.awt.Color(255, 255, 255));
         hcu.setText("Perawatan HCU Pasca Operasi");
         hcu.setName("hcu"); // NOI18N
         FormInput.add(hcu);
-        hcu.setBounds(360, 560, 200, 20);
+        hcu.setBounds(360, 730, 200, 20);
 
         transfusi.setBackground(new java.awt.Color(255, 255, 255));
         transfusi.setText("Persiapan Transfusi darah");
         transfusi.setName("transfusi"); // NOI18N
         FormInput.add(transfusi);
-        transfusi.setBounds(150, 560, 200, 20);
+        transfusi.setBounds(150, 730, 200, 20);
 
         jLabel51.setText("Persiapan Lain-lain :");
         jLabel51.setName("jLabel51"); // NOI18N
         FormInput.add(jLabel51);
-        jLabel51.setBounds(10, 560, 130, 23);
+        jLabel51.setBounds(10, 730, 130, 23);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setName("jScrollPane1"); // NOI18N
@@ -1036,7 +1023,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tambahan);
 
         FormInput.add(jScrollPane1);
-        jScrollPane1.setBounds(160, 600, 400, 170);
+        jScrollPane1.setBounds(160, 770, 400, 170);
 
         jLabel130.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel130.setText("Jenis Operasi :");
@@ -1044,7 +1031,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         FormInput.add(jLabel130);
         jLabel130.setBounds(520, 170, 90, 23);
 
-        JenisOperasi.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Elektif", "Cito"}));
+        JenisOperasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elektif", "Cito" }));
         JenisOperasi.setName("JenisOperasi"); // NOI18N
         JenisOperasi.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1097,7 +1084,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         FormInput.add(jLabel131);
         jLabel131.setBounds(520, 140, 70, 23);
 
-        Kesadaran.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Compos Mentis", "Apatis", "Somnolen", "Sopor", "Soporocoma", "Coma"}));
+        Kesadaran.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Compos Mentis", "Apatis", "Somnolen", "Sopor", "Soporocoma", "Coma" }));
         Kesadaran.setName("Kesadaran"); // NOI18N
         Kesadaran.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1113,7 +1100,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         FormInput.add(jLabel132);
         jLabel132.setBounds(20, 290, 160, 23);
 
-        RiwayatOperasi.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Ada", "Tidak Ada"}));
+        RiwayatOperasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ada", "Tidak Ada" }));
         RiwayatOperasi.setSelectedIndex(1);
         RiwayatOperasi.setName("RiwayatOperasi"); // NOI18N
         RiwayatOperasi.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1130,7 +1117,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         FormInput.add(jLabel133);
         jLabel133.setBounds(20, 260, 170, 23);
 
-        PengobatanSaatIni.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Ada", "Tidak Ada"}));
+        PengobatanSaatIni.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ada", "Tidak Ada" }));
         PengobatanSaatIni.setSelectedIndex(1);
         PengobatanSaatIni.setName("PengobatanSaatIni"); // NOI18N
         PengobatanSaatIni.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1147,7 +1134,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         FormInput.add(jLabel134);
         jLabel134.setBounds(20, 320, 160, 23);
 
-        RiwayatAnestesi.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"General", "Regional", "Sedasi", "Lokal", "Tidak Ada"}));
+        RiwayatAnestesi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "General", "Regional", "Sedasi", "Lokal", "Tidak Ada" }));
         RiwayatAnestesi.setSelectedIndex(4);
         RiwayatAnestesi.setName("RiwayatAnestesi"); // NOI18N
         RiwayatAnestesi.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1164,7 +1151,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         FormInput.add(jLabel135);
         jLabel135.setBounds(340, 260, 160, 23);
 
-        RiwayatAlergi.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Ada", "Tidak Ada"}));
+        RiwayatAlergi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ada", "Tidak Ada" }));
         RiwayatAlergi.setSelectedIndex(1);
         RiwayatAlergi.setName("RiwayatAlergi"); // NOI18N
         RiwayatAlergi.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1187,7 +1174,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         FormInput.add(jLabel137);
         jLabel137.setBounds(340, 290, 160, 23);
 
-        RiwayatKebiasaan.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Perokok", "Minuman Alkohol", "Sulit Tidur", "Lainnya", "Tidak Ada"}));
+        RiwayatKebiasaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Perokok", "Minuman Alkohol", "Sulit Tidur", "Lainnya", "Tidak Ada" }));
         RiwayatKebiasaan.setSelectedIndex(4);
         RiwayatKebiasaan.setName("RiwayatKebiasaan"); // NOI18N
         RiwayatKebiasaan.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1339,6 +1326,22 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         FormInput.add(jLabel112);
         jLabel112.setBounds(640, 240, 170, 23);
 
+        jLabel48.setText("Anamnesa :");
+        jLabel48.setName("jLabel48"); // NOI18N
+        FormInput.add(jLabel48);
+        jLabel48.setBounds(20, 420, 130, 30);
+
+        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setName("jScrollPane2"); // NOI18N
+
+        Anamnesa.setColumns(20);
+        Anamnesa.setRows(5);
+        Anamnesa.setName("Anamnesa"); // NOI18N
+        jScrollPane2.setViewportView(Anamnesa);
+
+        FormInput.add(jScrollPane2);
+        jScrollPane2.setBounds(160, 420, 400, 160);
+
         scrollInput.setViewportView(FormInput);
 
         internalFrame2.add(scrollInput, java.awt.BorderLayout.CENTER);
@@ -1380,7 +1383,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"21-01-2026"}));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-01-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1394,7 +1397,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"21-01-2026"}));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-01-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1878,7 +1881,8 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
                     + "penilaian_pre_anestesi.pemberian_informasi, penilaian_pre_anestesi.informed_consent, "
                     + "penilaian_pre_anestesi.pemberian_medikasi, penilaian_pre_anestesi.persiapan_transfusi, "
                     + "penilaian_pre_anestesi.hcu_pasca_op, "
-                    + "penilaian_pre_anestesi.pemeriksaan_tambahan AS tambahan " // Alias untuk kolom tambahan
+                    + "penilaian_pre_anestesi.pemeriksaan_tambahan AS tambahan, " // Alias untuk kolom tambahan
+                    + "penilaian_pre_anestesi.anamnesa " // Alias untuk kolom tambahan
                     + "FROM reg_periksa "
                     + "INNER JOIN pasien ON reg_periksa.no_rkm_medis=pasien.no_rkm_medis "
                     + "INNER JOIN penilaian_pre_anestesi ON reg_periksa.no_rawat=penilaian_pre_anestesi.no_rawat "
@@ -1996,6 +2000,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea Anamnesa;
     private widget.ComboBox AngkaASA;
     private widget.TextBox BB;
     private widget.Button BtnAll;
@@ -2100,6 +2105,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
     private widget.Label jLabel28;
     private widget.Label jLabel40;
     private widget.Label jLabel47;
+    private widget.Label jLabel48;
     private widget.Label jLabel50;
     private widget.Label jLabel51;
     private widget.Label jLabel6;
@@ -2109,13 +2115,12 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
     private widget.Label jLabel8;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private widget.Label label11;
     private widget.Label label12;
@@ -2146,7 +2151,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
                 + "p.riwayat_alergi,p.riwayat_kebiasaan,p.riwayat_penyakit_keluarga,"
                 + "p.laboratorium,p.penunjang_lain,p.rencana_anestesi,p.asa,"
                 + "p.pemberian_informasi,p.informed_consent,p.pemberian_medikasi,"
-                + "p.persiapan_transfusi,p.hcu_pasca_op,p.pemeriksaan_tambahan,d.nm_dokter "
+                + "p.persiapan_transfusi,p.hcu_pasca_op,p.pemeriksaan_tambahan,p.anamnesa,d.nm_dokter "
                 + "from reg_periksa "
                 + "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "
                 + "inner join penilaian_pre_anestesi p on reg_periksa.no_rawat=p.no_rawat "
@@ -2209,7 +2214,8 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
                         rs.getString("pemberian_medikasi"),
                         rs.getString("persiapan_transfusi"),
                         rs.getString("hcu_pasca_op"),
-                        rs.getString("pemeriksaan_tambahan")
+                        rs.getString("pemeriksaan_tambahan"),
+                        rs.getString("anamnesa")
                     });
                 }
             }
@@ -2271,6 +2277,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         transfusi.setSelected(false);
         hcu.setSelected(false);
         tambahan.setText("");
+        Anamnesa.setText("");
         Diagnosa.requestFocus();
     }
 
@@ -2312,6 +2319,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
             transfusi.setSelected(tbObat.getValueAt(tbObat.getSelectedRow(), 33).toString().equals("Ya"));
             hcu.setSelected(tbObat.getValueAt(tbObat.getSelectedRow(), 34).toString().equals("Ya"));
             tambahan.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 35).toString());
+            Anamnesa.setText(tbObat.getValueAt(tbObat.getSelectedRow(), 36).toString());
         }
     }
 
@@ -2407,14 +2415,14 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         if (Sequel.mengedittf("penilaian_pre_anestesi", "no_rawat=? and tanggal=?", "no_rawat=?,tanggal=?,kd_dokter=?,tanggal_operasi=?,diagnosa=?,rencana_tindakan=?,tb=?,bb=?,td=?,nadi=?,"
                 + "suhu=?,pernapasan=?,kesadaran=?,jenis_operasi=?,riwayat_penyakit=?,pengobatan_saat_ini=?,riwayat_operasi=?,riwayat_anestesi=?,riwayat_alergi=?,riwayat_kebiasaan=?,"
                 + "riwayat_penyakit_keluarga=?,laboratorium=?,penunjang_lain=?,rencana_anestesi=?,asa=?,pemberian_informasi=?,informed_consent=?,pemberian_medikasi=?,persiapan_transfusi=?,"
-                + "hcu_pasca_op=?,pemeriksaan_tambahan=?", 33, new String[]{
+                + "hcu_pasca_op=?,pemeriksaan_tambahan=?,anamnesa=?", 34, new String[]{
                     TNoRw.getText(), Valid.SetTgl(TglAsuhan.getSelectedItem() + "") + " " + TglAsuhan.getSelectedItem().toString().substring(11, 19), KdDokter.getText(),
                     Valid.SetTgl(TglOperasi.getSelectedItem() + "") + " " + TglOperasi.getSelectedItem().toString().substring(11, 19), Diagnosa.getText(), RencanaTindakan.getText(),
                     TB.getText(), BB.getText(), TD.getText(), Nadi.getText(), Suhu.getText(), Pernapasan.getText(), Kesadaran.getSelectedItem().toString(), JenisOperasi.getSelectedItem().toString(),
                     riwayatPenyakit, PengobatanSaatIni.getSelectedItem().toString(), RiwayatOperasi.getSelectedItem().toString(), RiwayatAnestesi.getSelectedItem().toString(),
                     RiwayatAlergi.getSelectedItem().toString(), RiwayatKebiasaan.getSelectedItem().toString(), riwayatPenyakitKeluarga, laboratorium, penunjang,
                     RencanaAnestesi.getSelectedItem().toString(), AngkaASA.getSelectedItem().toString(), pemberianInformasi, informedConsent, pemberianMedikasi,
-                    persiapanTransfusi, HCUPascaOP, tambahan.getText(), tbObat.getValueAt(tbObat.getSelectedRow(), 0).toString(),
+                    persiapanTransfusi, HCUPascaOP, tambahan.getText(), Anamnesa.getText(), tbObat.getValueAt(tbObat.getSelectedRow(), 0).toString(),
                     tbObat.getValueAt(tbObat.getSelectedRow(), 7).toString()
                 }) == true) {
             tbObat.setValueAt(TNoRw.getText(), tbObat.getSelectedRow(), 0);
@@ -2453,6 +2461,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
             tbObat.setValueAt(persiapanTransfusi, tbObat.getSelectedRow(), 33);
             tbObat.setValueAt(HCUPascaOP, tbObat.getSelectedRow(), 34);
             tbObat.setValueAt(tambahan.getText(), tbObat.getSelectedRow(), 35);
+            tbObat.setValueAt(Anamnesa.getText(), tbObat.getSelectedRow(), 36);
             emptTeks();
             TabRawat.setSelectedIndex(1);
         }
@@ -2468,14 +2477,14 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         String pemberianMedikasi = medikasi.isSelected() ? "Ya" : "Tidak";
         String persiapanTransfusi = transfusi.isSelected() ? "Ya" : "Tidak";
         String HCUPascaOP = hcu.isSelected() ? "Ya" : "Tidak";
-        if (Sequel.menyimpantf("penilaian_pre_anestesi", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rawat, Tanggal & Jam", 31, new String[]{
+        if (Sequel.menyimpantf("penilaian_pre_anestesi", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "No.Rawat, Tanggal & Jam", 32, new String[]{
             TNoRw.getText(), Valid.SetTgl(TglAsuhan.getSelectedItem() + "") + " " + TglAsuhan.getSelectedItem().toString().substring(11, 19), KdDokter.getText(),
             Valid.SetTgl(TglOperasi.getSelectedItem() + "") + " " + TglOperasi.getSelectedItem().toString().substring(11, 19), Diagnosa.getText(), RencanaTindakan.getText(),
             TB.getText(), BB.getText(), TD.getText(), Nadi.getText(), Suhu.getText(), Pernapasan.getText(), Kesadaran.getSelectedItem().toString(), JenisOperasi.getSelectedItem().toString(),
             riwayatPenyakit, PengobatanSaatIni.getSelectedItem().toString(), RiwayatOperasi.getSelectedItem().toString(), RiwayatAnestesi.getSelectedItem().toString(),
             RiwayatAlergi.getSelectedItem().toString(), RiwayatKebiasaan.getSelectedItem().toString(), riwayatPenyakitKeluarga, laboratorium, penunjang,
             RencanaAnestesi.getSelectedItem().toString(), AngkaASA.getSelectedItem().toString(), pemberianInformasi, informedConsent, pemberianMedikasi,
-            persiapanTransfusi, HCUPascaOP, tambahan.getText()
+            persiapanTransfusi, HCUPascaOP, tambahan.getText(), Anamnesa.getText()
         }) == true) {
             tabMode.addRow(new Object[]{
                 TNoRw.getText(), TNoRM.getText(), TPasien.getText(), TglLahir.getText(), Jk.getText(), KdDokter.getText(), NmDokter.getText(), Valid.SetTgl(TglAsuhan.getSelectedItem() + "") + " " + TglAsuhan.getSelectedItem().toString().substring(11, 19),
@@ -2484,7 +2493,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
                 riwayatPenyakit, PengobatanSaatIni.getSelectedItem().toString(), RiwayatOperasi.getSelectedItem().toString(), RiwayatAnestesi.getSelectedItem().toString(),
                 RiwayatAlergi.getSelectedItem().toString(), RiwayatKebiasaan.getSelectedItem().toString(), riwayatPenyakitKeluarga, laboratorium, penunjang,
                 RencanaAnestesi.getSelectedItem().toString(), AngkaASA.getSelectedItem().toString(), pemberianInformasi, informedConsent, pemberianMedikasi,
-                persiapanTransfusi, HCUPascaOP, tambahan.getText()
+                persiapanTransfusi, HCUPascaOP, tambahan.getText(), Anamnesa.getText()
             });
             emptTeks();
             LCount.setText("" + tabMode.getRowCount());
@@ -2536,7 +2545,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         if (rontgen.isSelected()) {
             tunjang += "RONTGEN,";
         }
-        if (!tunjang.endsWith(",")) {
+        if (tunjang.endsWith(",")) {
             tunjang = tunjang.substring(0, tunjang.length() - 1);
         }
         return tunjang;

@@ -7278,7 +7278,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                 try {
                     rs2=koneksi.prepareStatement(
                             "select data_triase_igdprimer.keluhan_utama,data_triase_igdprimer.kebutuhan_khusus,data_triase_igdprimer.catatan,"+
-                            "data_triase_igdprimer.plan,data_triase_igdprimer.tanggaltriase,data_triase_igdprimer.nik,data_triase_igd.tekanan_darah,"+
+                            "data_triase_igdprimer.plan,data_triase_igdprimer.flow,data_triase_igdprimer.tanggaltriase,data_triase_igdprimer.nik,data_triase_igd.tekanan_darah,"+
                             "data_triase_igd.nadi,data_triase_igd.pernapasan,data_triase_igd.suhu,data_triase_igd.saturasi_o2,data_triase_igd.nyeri,"+
                             "data_triase_igd.cara_masuk,data_triase_igd.alat_transportasi,data_triase_igd.alasan_kedatangan,"+
                             "data_triase_igd.keterangan_kedatangan,data_triase_igd.kode_kasus,master_triase_macam_kasus.macam_kasus,pegawai.nama "+
@@ -7318,7 +7318,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                   "</tr>").append(
                                   "<tr class='isi'>").append(
                                       "<td valign='middle'>Tanda Vital</td>").append(
-                                      "<td valign='middle'>Suhu (C) : ").append(rs2.getString("suhu")).append(", Nyeri : ").append(rs2.getString("nyeri")).append(", Tensi : ").append(rs2.getString("tekanan_darah")).append(", Nadi(/menit) : ").append(rs2.getString("nadi")).append(", Saturasi O²(%) : ").append(rs2.getString("saturasi_o2")).append(", Respirasi(/menit) : ").append(rs2.getString("pernapasan")).append("</td>").append(
+                                      "<td valign='middle'>Suhu (C) : ").append(rs2.getString("suhu")).append(", Nyeri : ").append(rs2.getString("nyeri")).append(", Tensi : ").append(rs2.getString("tekanan_darah")).append(", Nadi(/menit) : ").append(rs2.getString("nadi")).append(", Saturasi O²(%) : ").append(rs2.getString("saturasi_o2")).append(", Respirasi(/menit) : ").append(rs2.getString("pernapasan")).append(", Flow : ").append(rs2.getString("flow")).append("</td>").append(
                                   "</tr>").append(
                                   "<tr class='isi'>").append(
                                       "<td valign='middle'>Kebutuhan Khusus</td>").append(
