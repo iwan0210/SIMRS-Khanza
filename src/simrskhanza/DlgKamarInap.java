@@ -1771,7 +1771,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnPenilaianPreAnestesi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         MnPenilaianPreAnestesi.setForeground(new java.awt.Color(50, 50, 50));
         MnPenilaianPreAnestesi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
-        MnPenilaianPreAnestesi.setText("Pengkajian Pre Anestesi");
+        MnPenilaianPreAnestesi.setText("Asesmen Pre Anestesi");
         MnPenilaianPreAnestesi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MnPenilaianPreAnestesi.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnPenilaianPreAnestesi.setName("MnPenilaianPreAnestesi"); // NOI18N
@@ -13110,6 +13110,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 form.isCek();
                                 form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
+                                form.emptTeks();
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
                                 }else if(R2.isSelected()==true){
@@ -13143,6 +13144,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     form.isCek();
                     form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
+                    form.emptTeks();
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
                     }else if(R2.isSelected()==true){
@@ -16622,6 +16624,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                                 form.setLocationRelativeTo(internalFrame1);
                                 form.setVisible(true);
+                                form.emptTeks();
                                 if(R1.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),new Date());
                                 }else if(R2.isSelected()==true){
@@ -16629,7 +16632,6 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 }else if(R3.isSelected()==true){
                                     form.setNoRm(rs2.getString("no_rawat2"),DTPCari4.getDate());
                                 }
-                                form.emptTeks();
                                 form.tampil();
                                 this.setCursor(Cursor.getDefaultCursor());
                             }else{
@@ -16656,6 +16658,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
                     form.setLocationRelativeTo(internalFrame1);
                     form.setVisible(true);
+                    form.emptTeks();
                     if(R1.isSelected()==true){
                         form.setNoRm(norawat.getText(),new Date());
                     }else if(R2.isSelected()==true){
@@ -16663,7 +16666,6 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     }else if(R3.isSelected()==true){
                         form.setNoRm(norawat.getText(),DTPCari4.getDate());
                     }  
-                    form.emptTeks();
                     form.tampil();
                     this.setCursor(Cursor.getDefaultCursor());
                 }
@@ -20586,7 +20588,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnPenilaianPreInduksi.setFont(new java.awt.Font("Tahoma", 0, 11)); 
         MnPenilaianPreInduksi.setForeground(new java.awt.Color(50, 50, 50));
         MnPenilaianPreInduksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); 
-        MnPenilaianPreInduksi.setText("Pengkajian Pre Induksi");
+        MnPenilaianPreInduksi.setText("Asesmen Pre Induksi");
         MnPenilaianPreInduksi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MnPenilaianPreInduksi.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnPenilaianPreInduksi.setName("MnPenilaianPreInduksi"); 
@@ -21272,18 +21274,18 @@ public class DlgKamarInap extends javax.swing.JDialog {
         
         MnRMOperasi.add(MnPenilaianPreOp);
         MnRMOperasi.add(MnLaporanOperasi);
-        MnRMOperasi.add(MnPenilaianPreInduksi);
         MnRMOperasi.add(MnPenilaianPreAnestesi);
+        MnRMOperasi.add(MnPenilaianPreInduksi);
         //MnRMOperasi.add(MnChecklistPreOperasi);
         //MnRMOperasi.add(MnSignInSebelumAnestesi);
         //MnRMOperasi.add(MnTimeOutSebelumInsisi);
         //MnRMOperasi.add(MnSignOutSebelumMenutupLuka);
         //MnRMOperasi.add(MnChecklistPostOperasi);
         //MnRMOperasi.add(MnCatatanAnastesiSedasi);
-        MnRMOperasi.add(MnDaftarTilikKeselamatanOperasi);
         MnRMOperasi.add(MnCheckListKesiapanAnestesi);
         MnRMOperasi.add(MnLaporanAnestesi);
         MnRMOperasi.add(MnMonitoringRecoveryRoom);
+        MnRMOperasi.add(MnDaftarTilikKeselamatanOperasi);
         MnRMOperasi.add(MnKriteriaPemulihanRecoveryRoom);
         //MnRMOperasi.add(MnSkorAldrettePascaAnestesi);
         //MnRMOperasi.add(MnSkorStewardPascaAnestesi);

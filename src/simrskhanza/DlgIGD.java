@@ -14606,7 +14606,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             
             Robot robot = new Robot();
 
-            Thread.sleep(300);
+            Thread.sleep(1000);
 
             // Username
             copyToClipboard(userFrista);
@@ -14624,7 +14624,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
 
             pressKey(robot, KeyEvent.VK_SPACE);
 
-            Thread.sleep(1200);
+            Thread.sleep(1500);
             
             Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -14671,7 +14671,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
 
             Robot robot = new Robot();
 
-            Thread.sleep(500);
+            Thread.sleep(1000);
 
             // Username
             copyToClipboard(userFrista);
@@ -14688,7 +14688,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             pressKey(robot, KeyEvent.VK_ENTER);
 
             //Tunggu proses login.
-            Thread.sleep(5000);
+            Thread.sleep(3000);
 
             // Nomor kartu
             copyToClipboard(insuranceNumber.trim());

@@ -689,7 +689,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         label11.setBounds(538, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-01-2026 08:55:45" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-05-2026 17:04:15" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -708,7 +708,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         label12.setBounds(520, 80, 70, 23);
 
         TglOperasi.setForeground(new java.awt.Color(50, 70, 50));
-        TglOperasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-01-2026 08:55:45" }));
+        TglOperasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-05-2026 17:04:16" }));
         TglOperasi.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglOperasi.setName("TglOperasi"); // NOI18N
         TglOperasi.setOpaque(false);
@@ -939,7 +939,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         FormInput.add(jLabel128);
         jLabel128.setBounds(10, 600, 130, 23);
 
-        RencanaAnestesi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "GA", "RA Spinal", "RA Epidural", "RA Combined", "Blok Syaraf" }));
+        RencanaAnestesi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "General Anestesi", "Anestesi Sedang / Dalam", "Regional Anestesi - SAB", "Regional Anestesi - Epidural" }));
         RencanaAnestesi.setName("RencanaAnestesi"); // NOI18N
         RencanaAnestesi.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1383,7 +1383,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-01-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-05-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1397,7 +1397,7 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "31-01-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "29-05-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2360,6 +2360,8 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);
         isRawat();
+        
+        getDataFromInduksi(norwt);
     }
 
     public void isCek() {
@@ -2737,6 +2739,48 @@ public final class RMPenilaianPreAnastesiCustom extends javax.swing.JDialog {
             if (s.trim().equals("RONTGEN")) {
                 rontgen.setSelected(true);
             }
+        }
+    }
+    
+    private void getDataFromInduksi(String norwt) {
+        try {
+            ps = koneksi.prepareStatement(
+                    "select bb, tensi, nadi, suhu, rr, laboratorium, penunjang_lain, rencana_anestesi, klasifikasiasa "
+                    + "from penilaian_pre_induksi where no_rawat = ?"
+            );
+            
+            try {
+                ps.setString(1, norwt);
+                rs = ps.executeQuery();
+                
+                if (rs.next()) {
+                    TD.setText(rs.getString("tensi"));
+                    Nadi.setText(rs.getString("nadi"));
+                    Pernapasan.setText(rs.getString("rr"));
+                    Suhu.setText(rs.getString("suhu"));
+                    BB.setText(rs.getString("bb"));
+                    if (rs.getString("klasifikasiasa").equals("E")) {
+                        AngkaASA.setSelectedItem(rs.getString("klasifikasiasa"));
+                    } else {
+                        AngkaASA.setSelectedItem(rs.getString("klasifikasiasa").replace("ASA ", ""));
+                    }
+                    
+                    RencanaAnestesi.setSelectedItem(rs.getString("rencana_anestesi"));
+                    tampilLaboratorium(rs.getString("laboratorium"));
+                    tampilPenunjang(rs.getString("penunjang_lain"));
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : " + e);
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : " + e);
         }
     }
 }

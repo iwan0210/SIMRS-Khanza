@@ -4228,6 +4228,14 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         NoRawat.setText(norawat);
         R4.setSelected(true);
     }
+    
+    public void setTabRawat(int index) {
+        if (index < 0 || index > 5) {
+            return;
+        }
+        
+        TabRawat.setSelectedIndex(index);
+    }
 
     private void isPasien() {
         try{
@@ -6652,10 +6660,15 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                 "pemeriksaan_ranap.nadi,pemeriksaan_ranap.respirasi,pemeriksaan_ranap.tinggi, " +
                                 "pemeriksaan_ranap.berat,pemeriksaan_ranap.spo2,pemeriksaan_ranap.gcs,pemeriksaan_ranap.kesadaran,pemeriksaan_ranap.keluhan, " +
                                 "pemeriksaan_ranap.pemeriksaan,pemeriksaan_ranap.alergi,pemeriksaan_ranap.penilaian,pemeriksaan_ranap.rtl,"+
-                                "pemeriksaan_ranap.instruksi,pemeriksaan_ranap.evaluasi,pemeriksaan_ranap.nip,pegawai.nama,pegawai.jbtn "+
+                                "pemeriksaan_ranap.instruksi,pemeriksaan_ranap.evaluasi,pemeriksaan_ranap.nip,pegawai.nama,pegawai.jbtn,verifikasi_perawatan_ranap.tgl_verif, dokter.nm_dokter "+
                                 "from pasien inner join reg_periksa on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                                 "inner join pemeriksaan_ranap on pemeriksaan_ranap.no_rawat=reg_periksa.no_rawat "+
-                                "inner join pegawai on pemeriksaan_ranap.nip=pegawai.nik where pemeriksaan_ranap.no_rawat=? "+
+                                "inner join pegawai on pemeriksaan_ranap.nip=pegawai.nik "+
+                                "left join verifikasi_perawatan_ranap on pemeriksaan_ranap.no_rawat = verifikasi_perawatan_ranap.no_rawat "+
+                                "and pemeriksaan_ranap.tgl_perawatan=verifikasi_perawatan_ranap.tanggal_soap "+
+                                "and pemeriksaan_ranap.jam_rawat=verifikasi_perawatan_ranap.jam_soap "+
+                                "left join dokter on verifikasi_perawatan_ranap.kd_dokter = dokter.kd_dokter "+
+                                "where pemeriksaan_ranap.no_rawat=? "+
                                 "order by pemeriksaan_ranap.tgl_perawatan,pemeriksaan_ranap.jam_rawat");
                     try {
                         ps2.setString(1,rs.getString("no_rawat"));
@@ -6670,19 +6683,34 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                             append("<td valign='middle' bgcolor='#FFFFF8' align='center' width='14%'>Plan</td>").
                                             append("<td valign='middle' bgcolor='#FFFFF8' align='center' width='14%'>Inst/Impl</td>").
                                             append("<td valign='middle' bgcolor='#FFFFF8' align='center' width='14%'>Evaluasi</td>").
+                                            append("<td valign='middle' bgcolor='#FFFFF8' align='center' width='7%'>Verifikasi</td>").
                                         append("</tr>");
                             do{
                                 htmlContent.append("<tr class='isi'>").
-                                                append("<td align='center'>").append(rs2.getString("tgl_perawatan")).append("<br>").append(rs2.getString("jam_rawat")).append("</td>").
-                                                append("<td align='center'>").append(rs2.getString("nip")).append("<br>").append(rs2.getString("nama")).append("</td>").
-                                                append("<td align='left'>").append(rs2.getString("keluhan").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").
-                                                append("<td align='left'>").append(rs2.getString("pemeriksaan").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append(rs2.getString("alergi").equals("")?"":"<br>Alergi : "+rs2.getString("alergi")).append(rs2.getString("suhu_tubuh").equals("")?"":"<br>Suhu(C) : "+rs2.getString("suhu_tubuh")).append(rs2.getString("tensi").equals("")?"":"<br>Tensi : "+rs2.getString("tensi")).append(rs2.getString("nadi").equals("")?"":"<br>Nadi(/menit) : "+rs2.getString("nadi")).append(rs2.getString("respirasi").equals("")?"":"<br>Respirasi(/menit) : "+rs2.getString("respirasi")).append(rs2.getString("tinggi").equals("")?"":"<br>Tinggi(Cm) : "+rs2.getString("tinggi")).append(rs2.getString("berat").equals("")?"":"<br>Berat(Kg) : "+rs2.getString("berat")).append(rs2.getString("spo2").equals("")?"":"<br>SpO2(%) : "+rs2.getString("spo2")).append(rs2.getString("gcs").equals("")?"":"<br>GCS(E,V,M) : "+rs2.getString("gcs")).append(rs2.getString("kesadaran").equals("")?"":"<br>Kesadaran : "+rs2.getString("kesadaran")).append("</td>").
-                                                append("<td align='left'>").append(rs2.getString("penilaian").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").
-                                                append("<td align='left'>").append(rs2.getString("rtl").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").
-                                                append("<td align='left'>").append(rs2.getString("instruksi").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").
-                                                append("<td align='left'>").append(rs2.getString("evaluasi").replaceAll("(\r\n|\r|\n|\n\r)","<br>")).append("</td>").
-                                            append("</tr>");
-                            }while(rs2.next());
+                                        append("<td align='center'>").append(rs2.getString("tgl_perawatan")).append("<br>").append(rs2.getString("jam_rawat")).append("</td>").
+                                        append("<td align='center'>").append(rs2.getString("nip")).append("<br>").append(rs2.getString("nama")).append("</td>").
+                                        append("<td align='left'>").append(rs2.getString("keluhan").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
+                                        append("<td align='left'>").append(rs2.getString("pemeriksaan").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append(rs2.getString("alergi").equals("") ? "" : "<br>Alergi : " + rs2.getString("alergi")).append(rs2.getString("suhu_tubuh").equals("") ? "" : "<br>Suhu(C) : " + rs2.getString("suhu_tubuh")).append(rs2.getString("tensi").equals("") ? "" : "<br>Tensi : " + rs2.getString("tensi")).append(rs2.getString("nadi").equals("") ? "" : "<br>Nadi(/menit) : " + rs2.getString("nadi")).append(rs2.getString("respirasi").equals("") ? "" : "<br>Respirasi(/menit) : " + rs2.getString("respirasi")).append(rs2.getString("tinggi").equals("") ? "" : "<br>Tinggi(Cm) : " + rs2.getString("tinggi")).append(rs2.getString("berat").equals("") ? "" : "<br>Berat(Kg) : " + rs2.getString("berat")).append(rs2.getString("spo2").equals("") ? "" : "<br>SpO2(%) : " + rs2.getString("spo2")).append(rs2.getString("gcs").equals("") ? "" : "<br>GCS(E,V,M) : " + rs2.getString("gcs")).append(rs2.getString("kesadaran").equals("") ? "" : "<br>Kesadaran : " + rs2.getString("kesadaran")).append("</td>").
+                                        append("<td align='left'>").append(rs2.getString("penilaian").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
+                                        append("<td align='left'>").append(rs2.getString("rtl").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
+                                        append("<td align='left'>").append(rs2.getString("instruksi").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
+                                        append("<td align='left'>").append(rs2.getString("evaluasi").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>");
+
+                                if (rs2.getString("nm_dokter") != null) {
+                                    htmlContent.append("<td align='center'>")
+                                            .append("<img src='")
+                                            .append(String.valueOf(getClass().getResource("/picture/verified.png")))
+                                            .append("' width='100' height='100'><br>")
+                                            .append(rs2.getString("nm_dokter"))
+                                            .append("<br>")
+                                            .append(rs2.getString("tgl_verif"))
+                                            .append("</td>");
+                                } else {
+                                    htmlContent.append("<td align='center'></td>");
+                                }
+
+                                htmlContent.append("</tr>");
+                            } while (rs2.next());
                         }       
                     } catch (Exception e) {
                         System.out.println("Notifikasi : "+e);
@@ -7278,7 +7306,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                 try {
                     rs2=koneksi.prepareStatement(
                             "select data_triase_igdprimer.keluhan_utama,data_triase_igdprimer.kebutuhan_khusus,data_triase_igdprimer.catatan,"+
-                            "data_triase_igdprimer.plan,data_triase_igdprimer.flow,data_triase_igdprimer.tanggaltriase,data_triase_igdprimer.nik,data_triase_igd.tekanan_darah,"+
+                            "data_triase_igdprimer.plan,data_triase_igd.flow,data_triase_igdprimer.tanggaltriase,data_triase_igdprimer.nik,data_triase_igd.tekanan_darah,"+
                             "data_triase_igd.nadi,data_triase_igd.pernapasan,data_triase_igd.suhu,data_triase_igd.saturasi_o2,data_triase_igd.nyeri,"+
                             "data_triase_igd.cara_masuk,data_triase_igd.alat_transportasi,data_triase_igd.alasan_kedatangan,"+
                             "data_triase_igd.keterangan_kedatangan,data_triase_igd.kode_kasus,master_triase_macam_kasus.macam_kasus,pegawai.nama "+
@@ -7318,7 +7346,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                   "</tr>").append(
                                   "<tr class='isi'>").append(
                                       "<td valign='middle'>Tanda Vital</td>").append(
-                                      "<td valign='middle'>Suhu (C) : ").append(rs2.getString("suhu")).append(", Nyeri : ").append(rs2.getString("nyeri")).append(", Tensi : ").append(rs2.getString("tekanan_darah")).append(", Nadi(/menit) : ").append(rs2.getString("nadi")).append(", Saturasi O²(%) : ").append(rs2.getString("saturasi_o2")).append(", Respirasi(/menit) : ").append(rs2.getString("pernapasan")).append(", Flow : ").append(rs2.getString("flow")).append("</td>").append(
+                                      "<td valign='middle'>Suhu (C) : ").append(rs2.getString("suhu")).append(", Nyeri : ").append(rs2.getString("nyeri")).append(", Tensi : ").append(rs2.getString("tekanan_darah")).append(", Nadi(/menit) : ").append(rs2.getString("nadi")).append(", Saturasi O²(%) : ").append(rs2.getString("saturasi_o2")).append(", Respirasi(/menit) : ").append(rs2.getString("pernapasan")).append(", Flow (%) : ").append(rs2.getString("flow")).append("</td>").append(
                                   "</tr>").append(
                                   "<tr class='isi'>").append(
                                       "<td valign='middle'>Kebutuhan Khusus</td>").append(
@@ -7476,7 +7504,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                 try {
                     rs2=koneksi.prepareStatement(
                             "select data_triase_igdsekunder.anamnesa_singkat,data_triase_igdsekunder.catatan,"+
-                            "data_triase_igdsekunder.plan,data_triase_igdsekunder.tanggaltriase,data_triase_igdsekunder.nik,data_triase_igd.tekanan_darah,"+
+                            "data_triase_igdsekunder.plan,data_triase_igd.flow,data_triase_igdsekunder.tanggaltriase,data_triase_igdsekunder.nik,data_triase_igd.tekanan_darah,"+
                             "data_triase_igd.nadi,data_triase_igd.pernapasan,data_triase_igd.suhu,data_triase_igd.saturasi_o2,data_triase_igd.nyeri,"+
                             "data_triase_igd.cara_masuk,data_triase_igd.alat_transportasi,data_triase_igd.alasan_kedatangan,"+
                             "data_triase_igd.keterangan_kedatangan,data_triase_igd.kode_kasus,master_triase_macam_kasus.macam_kasus,pegawai.nama "+
@@ -7516,7 +7544,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                 "</tr>").append(
                                 "<tr class='isi'>").append(
                                     "<td valign='middle'>Tanda Vital</td>").append(
-                                    "<td valign='middle'>Suhu (C) : ").append(rs2.getString("suhu")).append(", Nyeri : ").append(rs2.getString("nyeri")).append(", Tensi : ").append(rs2.getString("tekanan_darah")).append(", Nadi(/menit) : ").append(rs2.getString("nadi")).append(", Saturasi O²(%) : ").append(rs2.getString("saturasi_o2")).append(", Respirasi(/menit) : ").append(rs2.getString("pernapasan")).append("</td>").append(
+                                    "<td valign='middle'>Suhu (C) : ").append(rs2.getString("suhu")).append(", Nyeri : ").append(rs2.getString("nyeri")).append(", Tensi : ").append(rs2.getString("tekanan_darah")).append(", Nadi(/menit) : ").append(rs2.getString("nadi")).append(", Saturasi O²(%) : ").append(rs2.getString("saturasi_o2")).append(", Respirasi(/menit) : ").append(rs2.getString("pernapasan")).append(", Flow (%) : ").append(rs2.getString("flow")).append("</td>").append(
                                 "</tr>"
                         );
 
@@ -13915,8 +13943,8 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                     rs2 = koneksi.prepareStatement(
                             "select penilaian_pre_operasi.tanggal,penilaian_pre_operasi.kd_dokter,penilaian_pre_operasi.ringkasan_klinik,penilaian_pre_operasi.pemeriksaan_fisik,"
                             + "penilaian_pre_operasi.pemeriksaan_diagnostik,penilaian_pre_operasi.diagnosa_pre_operasi,penilaian_pre_operasi.rencana_tindakan_bedah,"
-                            + "penilaian_pre_operasi.hal_hal_yang_perludi_persiapkan,penilaian_pre_operasi.terapi_pre_operasi,dokter.nm_dokter "
-                            + "from penilaian_pre_operasi inner join dokter on penilaian_pre_operasi.kd_dokter=dokter.kd_dokter "
+                            + "penilaian_pre_operasi.hal_hal_yang_perludi_persiapkan,penilaian_pre_operasi.terapi_pre_operasi,penilaian_pre_operasi.estimasi_jam,penilaian_pre_operasi.estimasi_menit,dokter.nm_dokter,pre_operasi_marking.url_image "
+                            + "from penilaian_pre_operasi inner join dokter on penilaian_pre_operasi.kd_dokter=dokter.kd_dokter left join pre_operasi_marking on penilaian_pre_operasi.no_rawat = pre_operasi_marking.no_rawat "
                             + "where penilaian_pre_operasi.no_rawat='" + norawat + "' order by penilaian_pre_operasi.tanggal").executeQuery();
                     if (rs2.next()) {
                         htmlContent.append(
@@ -13934,9 +13962,10 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                             "YANG MELAKUKAN PENGKAJIAN").append(
                                             "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                             "<tr>").append(
-                                            "<td width='33%' border='0'>Tanggal : ").append(rs2.getString("tanggal")).append("</td>").append(
-                                    "<td width='67%' border='0'>Dokter : ").append(rs2.getString("kd_dokter")).append(" ").append(rs2.getString("nm_dokter")).append("</td>").append(
-                                    "</tr>").append(
+                                            "<td width='30%' border='0'>Tanggal : ").append(rs2.getString("tanggal")).append("</td>").append(
+                                            "<td width='45%' border='0'>Dokter : ").append(rs2.getString("kd_dokter")).append(" ").append(rs2.getString("nm_dokter")).append("</td>").append(
+                                            "<td width='25%' border='0'>Estimasi : ").append(rs2.getString("estimasi_jam")).append(" Jam ").append(rs2.getString("estimasi_menit")).append(" Menit</td>").append(
+                                        "</tr>").append(
                                             "</table>").append(
                                             "</td>").append(
                                             "</tr>").append(
@@ -14011,6 +14040,26 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                             "</td>").append(
                                             "</tr>"
                                     );
+                            
+                                    if (rs2.getString("url_image") != null && !rs2.getString("url_image").trim().equals("null") && !rs2.getString("url_image").trim().equals("")) {
+                                        String srcImage = "https://" + koneksiDB.HOSTHYBRIDWEB() + ":" 
+                                        + koneksiDB.PORTWEB() + "/" 
+                                        + koneksiDB.HYBRIDWEB() + "/imagefreehand/" + rs2.getString("url_image");
+                                        htmlContent.append(
+                                            "<tr>").append(
+                                                    "<td valign='top'>").append(
+                                                    "VIII. PRE OPERASI MARKING").append(
+                                                    "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
+                                                    "<tr>").append(
+                                                    "<td width='100%' border='0' align='center'>").append(
+                                                    "<img src='").append(srcImage).append("' width='100%' height='400'>").append(
+                                                    "</td>").append(
+                                                    "</tr>").append(
+                                                    "</table>").append(
+                                                    "</td>").append(
+                                                    "</tr>"
+                                    );
+}
                         } while (rs2.next());
                         htmlContent.append(
                                 "</table>").append(

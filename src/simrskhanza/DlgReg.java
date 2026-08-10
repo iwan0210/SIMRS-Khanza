@@ -19408,7 +19408,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
             
             Robot robot = new Robot();
 
-            Thread.sleep(300);
+            Thread.sleep(1000);
 
             // Username
             copyToClipboard(userFrista);
@@ -19473,7 +19473,7 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
 
             Robot robot = new Robot();
 
-            Thread.sleep(500);
+            Thread.sleep(1000);
 
             // Username
             copyToClipboard(userFrista);

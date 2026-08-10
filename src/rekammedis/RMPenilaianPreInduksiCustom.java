@@ -2175,7 +2175,7 @@ public final class RMPenilaianPreInduksiCustom extends javax.swing.JDialog {
         SifatOp.setSelectedIndex(0);
         klasifikasiASA.setSelectedIndex(0);
         tindakananestesi.setSelectedIndex(0);
-        PascaAnestesi.setSelectedIndex(0);
+        PascaAnestesi.setSelectedIndex(1);
 
         // 6. Checkbox / Variable Khusus (Lab, Penunjang, Monitoring)
         ekg.setSelected(false);
@@ -2289,6 +2289,8 @@ public final class RMPenilaianPreInduksiCustom extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);
         isRawat();
+        
+        getDataFromAnestesi(norwt);
     }
 
     public void isCek() {
@@ -2561,6 +2563,48 @@ public final class RMPenilaianPreInduksiCustom extends javax.swing.JDialog {
             emptTeks();
             TabRawat.setSelectedIndex(1);
             JOptionPane.showMessageDialog(null, "Data berhasil diubah.");
+        }
+    }
+    
+    private void getDataFromAnestesi(String norwt) {
+        try {
+            ps = koneksi.prepareStatement(
+                    "select bb, td, nadi, suhu, pernapasan, laboratorium, penunjang_lain, rencana_anestesi, asa "
+                    + "from penilaian_pre_anestesi where no_rawat = ?"
+            );
+            
+            try {
+                ps.setString(1, norwt);
+                rs = ps.executeQuery();
+                
+                if (rs.next()) {
+                    TD.setText(rs.getString("td"));
+                    Nadi.setText(rs.getString("nadi"));
+                    RR.setText(rs.getString("pernapasan"));
+                    Suhu.setText(rs.getString("suhu"));
+                    Berat.setText(rs.getString("bb"));
+                    if (rs.getString("asa").equals("E")) {
+                        klasifikasiASA.setSelectedItem(rs.getString("asa"));
+                    } else {
+                        klasifikasiASA.setSelectedItem("ASA " +rs.getString("asa"));
+                    }
+                    
+                    tindakananestesi.setSelectedItem(rs.getString("rencana_anestesi"));
+                    tampilkanLab(rs.getString("laboratorium"));
+                    tampilkanPenunjang(rs.getString("penunjang_lain"));
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : " + e);
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : " + e);
         }
     }
 }

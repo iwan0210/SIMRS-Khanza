@@ -1383,9 +1383,11 @@ public final class RMCatatanADIMEGizi extends javax.swing.JDialog {
         TNoRw.setText(norwt);
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);
-        isRawat();              
+        isRawat();
         ChkInput.setSelected(true);
         isForm();
+        autoFillData(norwt);
+        autoFillDataMonev(norwt);
     }
     
     private void isForm(){
@@ -1538,4 +1540,63 @@ public final class RMCatatanADIMEGizi extends javax.swing.JDialog {
         } 
     }
     
+    private void autoFillData(String norwt) {
+        try {
+            ps = koneksi.prepareStatement("select * from asuhan_gizi where no_rawat = ? order by tanggal desc limit 1");
+            
+            try {
+                ps.setString(1, norwt);
+                rs = ps.executeQuery();
+                
+                if (rs.next()) {
+                    String asesmen = "";
+                    asesmen += "BB: "+rs.getString("antropometri_bb")+", TB: "+rs.getString("antropometri_tb")+", IMT: "+rs.getString("antropometri_imt")+"\n";
+                    asesmen += rs.getString("biokimia")+"\n"+rs.getString("fisik_klinis")+"\n";
+                    asesmen += rs.getString("riwayat_personal");
+                    
+                    Asesmen.setText(asesmen);
+                    Diagnosis.setText(rs.getString("diagnosis"));
+                    Intervensi.setText(rs.getString("intervensi_gizi"));
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        }
+    }
+    
+    private void autoFillDataMonev(String norwt) {
+        try {
+            ps = koneksi.prepareStatement("select * from monitoring_asuhan_gizi where no_rawat = ? order by tanggal desc limit 1");
+            
+            try {
+                ps.setString(1, norwt);
+                rs = ps.executeQuery();
+                
+                if (rs.next()) {
+                    Monitoring.setText(rs.getString("monitoring"));
+                    Evaluasi.setText(rs.getString("monitoring"));
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : "+e);
+            } finally{
+                if(rs!=null){
+                    rs.close();
+                }
+                if(ps!=null){
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : "+e);
+        }
+    }
 }

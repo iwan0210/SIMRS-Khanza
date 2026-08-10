@@ -133,6 +133,8 @@ public class DlgJadwalTambahan extends javax.swing.JDialog {
             public void keyReleased(KeyEvent e) {}
         });
         
+        String currentMonth = String.format("%02d", java.time.LocalDate.now().getMonthValue());
+        BlnCari.setSelectedItem(currentMonth);
         
     }
    

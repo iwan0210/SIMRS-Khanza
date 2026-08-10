@@ -56,7 +56,6 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
     private final sekuel Sequel = new sekuel();
     private int index = 0;
     private Point[] arr = new Point[100000];
-    private String tanggal = "", jam = "";
 
     /**
      * Creates new form DlgPemberianObat
@@ -414,38 +413,34 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
                 dir.mkdirs();
             }
             
-            String fileName = "preOperasi_" + TNoRawat.getText().replaceAll("/", "") + "_"+tanggal.replaceAll("-", "")+"_"+jam.replaceAll(":", "")+".png";
+            String fileName = "preOperasi_" + TNoRawat.getText().replaceAll("/", "")+".png";
             File output = new File(dir, fileName);
             
             ImageIO.write(image, "png", output);
 
             uploadImage(fileName, "preoperasi/imagemarking");
             
-            int savedImage = Sequel.cariInteger("select count(no_rawat) from pre_operasi_marking where no_rawat=? and tanggal=? and jam=?",
-                    TNoRawat.getText(), tanggal, jam);
+            int savedImage = Sequel.cariInteger("select count(no_rawat) from pre_operasi_marking where no_rawat=?",TNoRawat.getText());
             
             if (savedImage > 0) {
                 Sequel.mengedittf(
                     "pre_operasi_marking",
-                    "no_rawat=? and tanggal=? and jam=?","url_image=?, posisi=?",
-                    5,
+                    "no_rawat=?","url_image=?, posisi=?",
+                    3,
                     new String[]{
                         "preoperasi/imagemarking/" + fileName,
                         PosisiPasien.getText(),
-                        TNoRawat.getText(),
-                        tanggal, jam
+                        TNoRawat.getText()
                     }
                 );
             } else {
                 Sequel.menyimpantf(
                     "pre_operasi_marking",
-                    "?,?,?,?,?",
+                    "?,?,?",
                     "No.Rawat",
-                    5,
+                    3,
                     new String[]{
                         TNoRawat.getText(),
-                        tanggal,
-                        jam,
                         "preoperasi/imagemarking/" + fileName,
                         PosisiPasien.getText()
                     }
@@ -512,10 +507,7 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
     private void BtnHapusGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusGambarActionPerformed
         try {
             String FileName = Sequel.cariIsi(
-                "select url_image from pre_operasi_marking where no_rawat=? and tanggal=? and jam=?",
-                new String[] {
-                    TNoRawat.getText(),tanggal,jam
-                });
+                "select url_image from pre_operasi_marking where no_rawat=?",TNoRawat.getText());
             
             String url = "https://"
                 + koneksiDB.HOSTHYBRIDWEB() + ":"
@@ -541,9 +533,8 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
                 if ("File berhasil dihapus".equals(responHasilnya)) {
                     Sequel.meghapus(
                         "pre_operasi_marking",
-                        "no_rawat","tanggal","jam",
-                        TNoRawat.getText(),
-                        tanggal,jam
+                        "no_rawat",
+                        TNoRawat.getText()
                     );
                 }
             } else {
@@ -646,23 +637,19 @@ public class DlgMarkingImagePreOperasi extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
 
-    public void setNoRw(String norw, String tanggal, String jam) {
+    public void setNoRw(String norw) {
         TNoRawat.setText(norw);
-        this.tanggal = tanggal;
-        this.jam = jam;
         rbFullBadan.setSelected(true);
         
-        String imageUrl = Sequel.cariIsi("select url_image from pre_operasi_marking where no_rawat = ? and tanggal = ? and jam = ?", new String[] {
-            norw, tanggal, jam
-        });
+        String imageUrl = Sequel.cariIsi("select url_image from pre_operasi_marking where no_rawat = ?", norw);
         
         if (imageUrl.isEmpty()) {
             PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/semua43.png")));
             return;
         }
         
-        PosisiPasien.setText(Sequel.cariIsi("select posisi from pre_operasi_marking where no_rawat = ? and tanggal = ? and jam = ?", new String[] {
-            norw, tanggal, jam
+        PosisiPasien.setText(Sequel.cariIsi("select posisi from pre_operasi_marking where no_rawat = ?", new String[] {
+            norw
         }));
         
         imageAssesment("https://" + koneksiDB.HOSTHYBRIDWEB() + ":" + koneksiDB.PORTWEB() + "/" + koneksiDB.HYBRIDWEB() + "/imagefreehand/" + imageUrl + "");

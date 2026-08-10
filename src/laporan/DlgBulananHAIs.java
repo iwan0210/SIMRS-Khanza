@@ -602,9 +602,9 @@ private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_b
                             "<td valign='middle' align='center'>"+Tinea+"</td>"+
                             "<td valign='middle' align='center'>"+Scabies+"</td>"+
                             "<td valign='middle' align='center'>"+deku+"</td>"+
-                            "<td valign='middle' align='center'>"+sputum+"</td>"+
-                            "<td valign='middle' align='center'>"+darah+"</td>"+
-                            "<td valign='middle' align='center'>"+urine+"</td>"+
+                            "<td valign='middle' align='center'>"+0+"</td>"+
+                            "<td valign='middle' align='center'>"+0+"</td>"+
+                            "<td valign='middle' align='center'>"+0+"</td>"+
                             "<td valign='middle' align='center'>"+ANTIBIOTIK+"</td>"+
                         "</tr>"
                     ); 
@@ -627,9 +627,9 @@ private void btnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_b
                         "<td valign='middle' align='center'>"+jmlTinea+"</td>"+
                         "<td valign='middle' align='center'>"+jmlScabies+"</td>"+
                         "<td valign='middle' align='center'>"+jmldeku+"</td>"+
-                        "<td valign='middle' align='center'>"+jmlsputum+"</td>"+
-                        "<td valign='middle' align='center'>"+jmldarah+"</td>"+
-                        "<td valign='middle' align='center'>"+jmlurine+"</td>"+
+                        "<td valign='middle' align='center'>"+0+"</td>"+
+                        "<td valign='middle' align='center'>"+0+"</td>"+
+                        "<td valign='middle' align='center'>"+0+"</td>"+
                         "<td valign='middle' align='center'>"+jmlANTIBIOTIK+"</td>"+
                     "</tr>"
                 ); 

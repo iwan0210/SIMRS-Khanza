@@ -2689,10 +2689,10 @@ public final class RMLaporanAnestesi extends javax.swing.JDialog {
     }
 
     public void emptTeks() {
-        kdasistanestesi.setText("");
-        nmasistanestesi.setText("");
-        KdDokter.setText("");
-        NmDokter.setText("");
+        kdasistanestesi.setText("1034");
+        nmasistanestesi.setText("Latif Sobirin, S.ST");
+        KdDokter.setText("-");
+        NmDokter.setText("-");
         tgl_mulai.setSelectedIndex(0);
         cmbJam.setSelectedIndex(0);
         cmbMnt.setSelectedIndex(0);
@@ -2994,11 +2994,11 @@ public final class RMLaporanAnestesi extends javax.swing.JDialog {
                 
                 if (rs.next()) {
                     KdDokter.setText(rs.getString("operator1"));
-                    kdasistanestesi.setText(rs.getString("asisten_anestesi"));
+                    //kdasistanestesi.setText(rs.getString("asisten_anestesi"));
                     diagnosa_pre_op.setText(rs.getString("diagnosa_preop"));
                     diagnosa_post_op.setText(rs.getString("diagnosa_preop"));
                     NmDokter.setText(dokter.tampil3(rs.getString("operator1")));
-                    nmasistanestesi.setText(petugas.tampil3(rs.getString("asisten_anestesi")));
+                    //nmasistanestesi.setText(petugas.tampil3(rs.getString("asisten_anestesi")));
                     String tglMulai1[] = rs.getString("tgl_mulai").split(" ");
                     String jamMulai1[] = tglMulai1[1].split(":");
                     Valid.SetTgl(tgl_mulai1, tglMulai1[0]);

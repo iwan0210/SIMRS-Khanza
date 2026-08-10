@@ -951,7 +951,7 @@ public final class RMDaftarTilikKeselamatanOperasi extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Perawatan/Tindakan Rawat Jalan ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Daftar Tilik Keselamatan Operasi ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -1095,7 +1095,7 @@ public final class RMDaftarTilikKeselamatanOperasi extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-04-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1109,7 +1109,7 @@ public final class RMDaftarTilikKeselamatanOperasi extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-04-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2135,7 +2135,7 @@ public final class RMDaftarTilikKeselamatanOperasi extends javax.swing.JDialog {
         jLabel17.setBounds(0, 210, 115, 23);
 
         TanggalSeteril.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalSeteril.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2026" }));
+        TanggalSeteril.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-04-2026" }));
         TanggalSeteril.setDisplayFormat("dd-MM-yyyy");
         TanggalSeteril.setName("TanggalSeteril"); // NOI18N
         TanggalSeteril.setOpaque(false);
@@ -2625,7 +2625,7 @@ public final class RMDaftarTilikKeselamatanOperasi extends javax.swing.JDialog {
         jLabel94.setBounds(250, 50, 150, 23);
 
         TanggalKateter.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalKateter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2026 17:02:34" }));
+        TanggalKateter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-04-2026 17:47:41" }));
         TanggalKateter.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalKateter.setName("TanggalKateter"); // NOI18N
         TanggalKateter.setOpaque(false);
@@ -3027,7 +3027,7 @@ public final class RMDaftarTilikKeselamatanOperasi extends javax.swing.JDialog {
         jLabel25.setBounds(0, 70, 75, 23);
 
         Tanggal.setForeground(new java.awt.Color(50, 70, 50));
-        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "17-04-2026 17:02:35" }));
+        Tanggal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "21-04-2026 17:47:42" }));
         Tanggal.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         Tanggal.setName("Tanggal"); // NOI18N
         Tanggal.setOpaque(false);
@@ -3139,6 +3139,7 @@ public final class RMDaftarTilikKeselamatanOperasi extends javax.swing.JDialog {
         internalFrame1.add(FormInput, java.awt.BorderLayout.PAGE_START);
 
         getContentPane().add(internalFrame1, java.awt.BorderLayout.CENTER);
+        internalFrame1.getAccessibleContext().setAccessibleName("::[ Daftar Tilik Keselamatan Operasi ]::");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -4320,7 +4321,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
 
     public void setNoRm(String norwt, Date tgl1) {
         TNoRw.setText(norwt);
-        TCari.setText("");
+        TCari.setText(norwt);
         DTPCari2.setDate(tgl1);
         isRawat();
         ChkInput.setSelected(true);
