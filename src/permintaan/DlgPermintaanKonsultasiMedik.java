@@ -23,8 +23,6 @@ import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.DocumentEvent;
@@ -244,6 +242,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         BtnAll = new widget.Button();
         jLabel7 = new widget.Label();
         LCount = new widget.Label();
+        BtnSBAR = new widget.Button();
         panelCari = new widget.panelisi();
         R1 = new widget.RadioButton();
         jLabel15 = new widget.Label();
@@ -372,7 +371,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         label1.setBounds(210, 20, 55, 23);
 
         TanggalJawab.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalJawab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-05-2025 15:25:28" }));
+        TanggalJawab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-09-2025 16:50:45" }));
         TanggalJawab.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalJawab.setName("TanggalJawab"); // NOI18N
         TanggalJawab.setOpaque(false);
@@ -663,6 +662,24 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         LCount.setPreferredSize(new java.awt.Dimension(50, 23));
         panelGlass10.add(LCount);
 
+        BtnSBAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/attachment.png"))); // NOI18N
+        BtnSBAR.setMnemonic('T');
+        BtnSBAR.setText("SBAR");
+        BtnSBAR.setToolTipText("Alt+T");
+        BtnSBAR.setName("BtnSBAR"); // NOI18N
+        BtnSBAR.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnSBAR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSBARActionPerformed(evt);
+            }
+        });
+        BtnSBAR.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnSBARKeyPressed(evt);
+            }
+        });
+        panelGlass10.add(BtnSBAR);
+
         jPanel3.add(panelGlass10, java.awt.BorderLayout.CENTER);
 
         panelCari.setName("panelCari"); // NOI18N
@@ -690,7 +707,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         R2.setPreferredSize(new java.awt.Dimension(170, 23));
         panelCari.add(R2);
 
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-05-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-09-2025" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -708,7 +725,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         jLabel25.setPreferredSize(new java.awt.Dimension(30, 23));
         panelCari.add(jLabel25);
 
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-05-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-09-2025" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -802,7 +819,7 @@ public class DlgPermintaanKonsultasiMedik extends javax.swing.JDialog {
         jLabel9.setBounds(415, 40, 90, 23);
 
         TanggalPermintaan.setForeground(new java.awt.Color(50, 70, 50));
-        TanggalPermintaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-05-2025 15:25:26" }));
+        TanggalPermintaan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "22-09-2025 16:50:43" }));
         TanggalPermintaan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TanggalPermintaan.setName("TanggalPermintaan"); // NOI18N
         TanggalPermintaan.setOpaque(false);
@@ -1716,6 +1733,75 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnResepKeyPressed
 
+    private void BtnSBARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSBARActionPerformed
+        if(tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+            TCari.requestFocus();
+            return;
+        }
+        
+        if(tbObat.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null,"Maaf, silahkan pilih data...!!!!");
+            return;
+        }
+        
+        if (tbObat.getValueAt(tbObat.getSelectedRow(), 18).toString().isBlank()) {
+            JOptionPane.showMessageDialog(null,"Belum ada jawaban.");
+            return;
+        }
+        
+        try {
+            ps = koneksi.prepareStatement("select * from penilaian_medis_igd where no_rawat = ?");
+            
+            try {
+                ps.setString(1, tbObat.getValueAt(tbObat.getSelectedRow(), 1).toString());
+                
+                rs = ps.executeQuery();
+                
+                if (rs.next()) {
+                    String[] tanggal = tbObat.getValueAt(tbObat.getSelectedRow(), 16).toString().split(" ");
+                    if (!Sequel.menyimpantf("pemeriksaan_ranap", "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?", "Data", 20, new String[] {
+                        tbObat.getValueAt(tbObat.getSelectedRow(), 1).toString(),tanggal[0],tanggal[1],
+                        rs.getString("suhu"),rs.getString("td"),rs.getString("nadi"),rs.getString("rr"),
+                        rs.getString("tb"),rs.getString("bb"),rs.getString("spo"),rs.getString("gcs"),
+                        rs.getString("kesadaran"),rs.getString("keluhan_utama"),rs.getString("ket_fisik"),
+                        rs.getString("alergi"),rs.getString("diagnosis"),
+                        "advice "+tbObat.getValueAt(tbObat.getSelectedRow(), 13)+" :\n"+tbObat.getValueAt(tbObat.getSelectedRow(), 18),
+                        "","",tbObat.getValueAt(tbObat.getSelectedRow(), 10).toString()
+                    })) {
+                        JOptionPane.showMessageDialog(null,"Gagal Simpan sbar");
+                        return;
+                    }
+                    
+                    if (!Sequel.menyimpantf("checklist_perawatan_ranap", "?,?,?,?,?", "Data", 5, new String[]{
+                        tbObat.getValueAt(tbObat.getSelectedRow(), 1).toString(), tanggal[0],tanggal[1],
+                        "1", "0"
+                    })) {
+                        JOptionPane.showMessageDialog(null,"Gagal Simpan centang TBak");
+                        return;
+                    }
+                    
+                    JOptionPane.showMessageDialog(null,"Sbar Berhasil disimpan");
+                }
+            } catch (Exception e) {
+                System.out.println("Notif : " + e);
+            } finally {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Notif : " + e);
+        }
+    }//GEN-LAST:event_BtnSBARActionPerformed
+
+    private void BtnSBARKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnSBARKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnSBARKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -1749,6 +1835,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private widget.Button BtnPrint;
     private widget.Button BtnResep;
     private widget.Button BtnRiwayatPasien;
+    private widget.Button BtnSBAR;
     private widget.Button BtnSimpan;
     private widget.Button BtnSimpanJawaban;
     private widget.CekBox ChkAccor;

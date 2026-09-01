@@ -167,6 +167,7 @@ import rekammedis.RMSignInSebelumAnastesi;
 import rekammedis.RMSignOutSebelumMenutupLuka;
 import rekammedis.RMSkriningNutrisiAnak;
 import rekammedis.RMSkriningNutrisiDewasa;
+import rekammedis.RMSkriningNutrisiIbuHamil;
 import rekammedis.RMSkriningNutrisiLansia;
 import rekammedis.RMTimeOutSebelumInsisi;
 import rekammedis.RMTransferPasienAntarRuang;
@@ -1400,6 +1401,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
         BtnChecklistKriteriaKeluarICU = new widget.Button();
         BtnMonitoringReaksiTranfusi = new widget.Button();
         BtnSkriningNutrisiDewasa = new widget.Button();
+        BtnSkriningNutrisiIbuHamil = new widget.Button();
         BtnSkriningNutrisiLansia = new widget.Button();
         BtnSkriningNutrisiAnak = new widget.Button();
         BtnSkriningGiziLanjut = new widget.Button();
@@ -2262,7 +2264,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
         ChkTBak.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         ChkTBak.setHorizontalTextPosition(javax.swing.SwingConstants.TRAILING);
         ChkTBak.setName("ChkTBak"); // NOI18N
-        ChkTBak.setText("TBak (Tulisa Baca Konfirmasi)");
+        ChkTBak.setText("TBak (Tulis Baca Konfirmasi)");
         panelGlass12.add(ChkTBak);
         ChkTBak.setBounds(910, 205, 200, 23);
         
@@ -4452,6 +4454,22 @@ public final class DlgRawatInap extends javax.swing.JDialog {
         BtnSkriningNutrisiDewasa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnSkriningNutrisiDewasaActionPerformed(evt);
+            }
+        });
+        
+        BtnSkriningNutrisiIbuHamil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/item.png"))); // NOI18N
+        BtnSkriningNutrisiIbuHamil.setText("Skrining Nutrisi Ibu Hamil dan Nifas");
+        BtnSkriningNutrisiIbuHamil.setFocusPainted(false);
+        BtnSkriningNutrisiIbuHamil.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        BtnSkriningNutrisiIbuHamil.setGlassColor(new java.awt.Color(255, 255, 255));
+        BtnSkriningNutrisiIbuHamil.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnSkriningNutrisiIbuHamil.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        BtnSkriningNutrisiIbuHamil.setName("BtnSkriningNutrisiIbuHamil"); // NOI18N
+        BtnSkriningNutrisiIbuHamil.setPreferredSize(new java.awt.Dimension(190, 23));
+        BtnSkriningNutrisiIbuHamil.setRoundRect(false);
+        BtnSkriningNutrisiIbuHamil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSkriningNutrisiIbuHamilActionPerformed(evt);
             }
         });
 
@@ -7522,6 +7540,24 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             this.setCursor(Cursor.getDefaultCursor());
         }
     }//GEN-LAST:event_BtnSkriningNutrisiDewasaActionPerformed
+    
+    private void BtnSkriningNutrisiIbuHamilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSkriningNutrisiIbuHamilActionPerformed
+        if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            TCari.requestFocus();
+        }else{ 
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            RMSkriningNutrisiIbuHamil form=new RMSkriningNutrisiIbuHamil(null,false);
+            form.isCek();
+            form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+            form.setLocationRelativeTo(internalFrame1);
+            form.setVisible(true);
+            form.emptTeks();
+            form.setNoRm(TNoRw.getText(),DTPCari2.getDate());
+            form.tampil();
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_BtnSkriningNutrisiIbuHamilActionPerformed
 
     private void BtnHasilPemeriksaanUSGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHasilPemeriksaanUSGActionPerformed
         if(TNoRw.getText().trim().equals("")){
@@ -9175,6 +9211,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Button BtnSkriningGiziLanjut;
     private widget.Button BtnSkriningNutrisiAnak;
     private widget.Button BtnSkriningNutrisiDewasa;
+    private widget.Button BtnSkriningNutrisiIbuHamil;
     private widget.Button BtnSkriningNutrisiLansia;
     private widget.Button BtnTimeOutSebelumInsisi;
     private widget.Button BtnTransferAntarRuang;
@@ -9951,8 +9988,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             tinggi=tinggi+24;
         }
         BtnSkriningNutrisiDewasa.setVisible(akses.getskrining_nutrisi_dewasa()); 
+        BtnSkriningNutrisiIbuHamil.setVisible(akses.getskrining_nutrisi_dewasa()); 
         if(akses.getskrining_nutrisi_dewasa()==true){
-            tinggi=tinggi+24;
+            tinggi=tinggi+48;
         }
         BtnSkriningNutrisiLansia.setVisible(akses.getskrining_nutrisi_lansia()); 
         if(akses.getskrining_nutrisi_lansia()==true){
@@ -10370,7 +10408,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                 (TCari.getText().trim().equals("")?"":"and (pemeriksaan_ranap.no_rawat like ? or reg_periksa.no_rkm_medis like ? or pasien.nm_pasien like ? or "+
                 "pemeriksaan_ranap.alergi like ? or pemeriksaan_ranap.keluhan like ? or pemeriksaan_ranap.penilaian like ? or "+
                 "pemeriksaan_ranap.rtl like ? or pemeriksaan_ranap.pemeriksaan like ? or pegawai.nama like ?)")+
-                "order by pemeriksaan_ranap.no_rawat,pemeriksaan_ranap.tgl_perawatan,pemeriksaan_ranap.jam_rawat desc"); 
+                "order by pemeriksaan_ranap.no_rawat desc,pemeriksaan_ranap.tgl_perawatan desc,pemeriksaan_ranap.jam_rawat desc"); 
             try{
                 ps4.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+""));
                 ps4.setString(2,Valid.SetTgl(DTPCari2.getSelectedItem()+""));
@@ -11325,6 +11363,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         FormMenu.add(BtnChecklistKriteriaKeluarPICU);
         FormMenu.add(BtnMonitoringReaksiTranfusi);
         FormMenu.add(BtnSkriningNutrisiDewasa);
+        FormMenu.add(BtnSkriningNutrisiIbuHamil);
         FormMenu.add(BtnSkriningNutrisiLansia);
         FormMenu.add(BtnSkriningNutrisiAnak);
         FormMenu.add(BtnSkriningGiziLanjut);

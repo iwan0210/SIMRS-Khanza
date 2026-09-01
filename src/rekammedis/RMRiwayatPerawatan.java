@@ -16399,6 +16399,104 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                         rs2.close();
                     }
                 }
+                
+                try {
+                    rs2=koneksi.prepareStatement(
+                            "select skrining_nutrisi_ibu_hamil.td,skrining_nutrisi_ibu_hamil.hr,skrining_nutrisi_ibu_hamil.rr,skrining_nutrisi_ibu_hamil.suhu,"+
+                            "skrining_nutrisi_ibu_hamil.bb,skrining_nutrisi_ibu_hamil.tbpb,skrining_nutrisi_ibu_hamil.spo2,skrining_nutrisi_ibu_hamil.alergi,"+
+                            "skrining_nutrisi_ibu_hamil.sg1,skrining_nutrisi_ibu_hamil.nilai1,skrining_nutrisi_ibu_hamil.sg2,skrining_nutrisi_ibu_hamil.nilai2,"+
+                            "skrining_nutrisi_ibu_hamil.sg3,skrining_nutrisi_ibu_hamil.nilai3,skrining_nutrisi_ibu_hamil.sg4,skrining_nutrisi_ibu_hamil.nilai4,"+
+                            "skrining_nutrisi_ibu_hamil.total_hasil,skrining_nutrisi_ibu_hamil.skor_nutrisi,skrining_nutrisi_ibu_hamil.nip,petugas.nama,"+
+                            "skrining_nutrisi_ibu_hamil.tanggal "+
+                            "from skrining_nutrisi_ibu_hamil inner join petugas on skrining_nutrisi_ibu_hamil.nip=petugas.nip "+
+                            "where skrining_nutrisi_ibu_hamil.no_rawat='"+norawat+"'").executeQuery();
+                    if(rs2.next()){
+                        htmlContent.append(
+                          "<tr class='isi'>").append( 
+                            "<td valign='top' width='2%'></td>").append(        
+                            "<td valign='top' width='18%'>Skrining Nutrisi Pasien Ibu Hamil dan Nifas</td>").append(
+                            "<td valign='top' width='1%' align='center'>:</td>").append(
+                            "<td valign='top' width='79%'>").append(
+                              "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"
+                        );
+                        do{
+                            htmlContent.append(
+                                 "<tr>").append(
+                                    "<td valign='top'>").append(
+                                       "YANG MELAKUKAN PENGKAJIAN").append(  
+                                       "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
+                                          "<tr>").append(
+                                              "<td width='30%' border='0'>Tanggal : ").append(rs2.getString("tanggal")).append("</td>").append(
+                                              "<td width='70%' border='0'>Petugas : ").append(rs2.getString("nip")).append(" ").append(rs2.getString("nama")).append("</td>").append(
+                                          "</tr>").append(
+                                       "</table>").append(
+                                    "</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top'>").append(
+                                       "TANDA VITAL").append(  
+                                       "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
+                                          "<tr>").append(
+                                              "<td width='100%'>BB : ").append(rs2.getString("bb")).append(" Kg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TB/PB : ").append(rs2.getString("tbpb")).append(" Cm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TD : ").append(rs2.getString("td")).append(" mmHg&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HR : ").append(rs2.getString("hr")).append(" x/menit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RR : ").append(rs2.getString("rr")).append(" x/menit&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Suhu : ").append(rs2.getString("suhu")).append(" °C&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SpO2 : ").append(rs2.getString("spo2")).append(" %</td>").append(
+                                          "</tr>").append(
+                                          "<tr>").append(
+                                              "<td width='100%'>Alergi : ").append(rs2.getString("alergi")).append(" %</td>").append(
+                                          "</tr>").append(
+                                       "</table>").append(
+                                    "</td>").append(
+                                 "</tr>").append(
+                                 "<tr>").append(
+                                    "<td valign='top'>").append(
+                                       "SKRINING GIZI AWAL DENGAN STRONG-KIDS").append(  
+                                       "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
+                                          "<tr>").append(
+                                              "<td valign='top' width='75%' bgcolor='#FFFAF8' align='center'>Parameter</td>").append(
+                                              "<td valign='top' width='15%' bgcolor='#FFFAF8' align='center'>Pilihan</td>").append(
+                                              "<td valign='top' width='10%' bgcolor='#FFFAF8' align='center'>Skor</td>").append(
+                                          "</tr>").append(
+                                          "<tr>").append(
+                                              "<td valign='top'>1. Apakah asupan makan berkurang ( 50% selama ≥ 5 hari ) karena tidak nafsu makan ?</td>").append(
+                                              "<td valign='top' align='center'>").append(rs2.getString("sg1")).append("</td>").append(
+                                              "<td valign='top' align='center'>").append(rs2.getString("nilai1")).append("</td>").append(
+                                          "</tr>").append(
+                                          "<tr>").append(
+                                              "<td valign='top'>2. Mengalami gangguan metabolisme ( DM, Gangguan fungsi tiroid, Infeksi kronis seperti HIV, lain-lain)</td>").append(
+                                              "<td valign='top' align='center'>").append(rs2.getString("sg2")).append("</td>").append(
+                                              "<td valign='top' align='center'>").append(rs2.getString("nilai2")).append("</td>").append(
+                                          "</tr>").append(
+                                          "<tr>").append(
+                                              "<td valign='top'>3. Pertambahan berat badan kurang atau lebih selama kehamilan</td>").append(
+                                              "<td valign='top' align='center'>").append(rs2.getString("sg3")).append("</td>").append(
+                                              "<td valign='top' align='center'>").append(rs2.getString("nilai3")).append("</td>").append(
+                                          "</tr>").append(
+                                          "<tr>").append(
+                                              "<td valign='top'>4. Nilai Hb < 10 g/dl HTC < 30%</td>").append(
+                                              "<td valign='top' align='center'>").append(rs2.getString("sg4")).append("</td>").append(
+                                              "<td valign='top' align='center'>").append(rs2.getString("nilai4")).append("</td>").append(
+                                          "</tr>").append(
+                                          "<tr>").append(
+                                              "<td valign='top' align='center' colspan='2'>Total Skor</td>").append(
+                                              "<td valign='top' align='center'>").append(rs2.getString("total_hasil")).append("</td>").append(
+                                          "</tr>").append(
+                                       "</table>").append(
+                                       "<br>").append(
+                                       "<i>Hasil Skrining : ").append(rs2.getString("skor_nutrisi")).append("</i>").append(
+                                    "</td>").append(
+                                 "</tr>"
+                            ); 
+                        }while(rs2.next());
+                        htmlContent.append(
+                              "</table>").append(
+                            "</td>").append(
+                          "</tr>");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Notifikasi : "+e);
+                } finally{
+                    if(rs2!=null){
+                        rs2.close();
+                    }
+                }
             }
             
             //menampilkan skrining nutrisi lansia

@@ -202,6 +202,7 @@ import rekammedis.RMSkriningKesehatanPenglihatan;
 import rekammedis.RMSkriningMerokokUsiaSekolahRemaja;
 import rekammedis.RMSkriningNutrisiAnak;
 import rekammedis.RMSkriningNutrisiDewasa;
+import rekammedis.RMSkriningNutrisiIbuHamil;
 import rekammedis.RMSkriningNutrisiLansia;
 import rekammedis.RMSkriningObesitas;
 import rekammedis.RMSkriningPUMA;
@@ -1632,6 +1633,7 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         BtnDokumentasiESWL = new widget.Button();
         BtnCatatanPersalinanan = new widget.Button();
         BtnSkriningNutrisiDewasa = new widget.Button();
+        BtnSkriningNutrisiIbuHamil = new widget.Button();
         BtnSkriningNutrisiLansia = new widget.Button();
         BtnSkriningNutrisiAnak = new widget.Button();
         BtnSkriningGiziLanjut = new widget.Button();
@@ -4993,6 +4995,22 @@ public final class DlgRawatJalan extends javax.swing.JDialog {
         BtnSkriningNutrisiDewasa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnSkriningNutrisiDewasaActionPerformed(evt);
+            }
+        });
+        
+        BtnSkriningNutrisiIbuHamil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/item.png"))); 
+        BtnSkriningNutrisiIbuHamil.setText("Skrining Nutrisi Ibu Hamil dan Nifas");
+        BtnSkriningNutrisiIbuHamil.setFocusPainted(false);
+        BtnSkriningNutrisiIbuHamil.setFont(new java.awt.Font("Tahoma", 0, 11)); 
+        BtnSkriningNutrisiIbuHamil.setGlassColor(new java.awt.Color(255, 255, 255));
+        BtnSkriningNutrisiIbuHamil.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        BtnSkriningNutrisiIbuHamil.setMargin(new java.awt.Insets(1, 1, 1, 1));
+        BtnSkriningNutrisiIbuHamil.setName("BtnSkriningNutrisiIbuHamil"); 
+        BtnSkriningNutrisiIbuHamil.setPreferredSize(new java.awt.Dimension(190, 23));
+        BtnSkriningNutrisiIbuHamil.setRoundRect(false);
+        BtnSkriningNutrisiIbuHamil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSkriningNutrisiIbuHamilActionPerformed(evt);
             }
         });
 
@@ -8624,6 +8642,24 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
             this.setCursor(Cursor.getDefaultCursor());
         }
     }//GEN-LAST:event_BtnSkriningNutrisiDewasaActionPerformed
+    
+    private void BtnSkriningNutrisiIbuHamilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSkriningNutrisiIbuHamilActionPerformed
+        if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            TCari.requestFocus();
+        }else{
+            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            RMSkriningNutrisiIbuHamil form=new RMSkriningNutrisiIbuHamil(null,false);
+            form.isCek();
+            form.setSize(internalFrame1.getWidth(),internalFrame1.getHeight());
+            form.setLocationRelativeTo(internalFrame1);
+            form.setVisible(true);
+            form.emptTeks();
+            form.setNoRm(TNoRw.getText(),DTPCari2.getDate());
+            form.tampil();
+            this.setCursor(Cursor.getDefaultCursor());
+        }
+    }//GEN-LAST:event_BtnSkriningNutrisiIbuHamilActionPerformed
 
     private void BtnSkriningNutrisiLansiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSkriningNutrisiLansiaActionPerformed
         if(TNoRw.getText().trim().equals("")){
@@ -10813,6 +10849,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Button BtnSkriningGiziLanjut;
     private widget.Button BtnSkriningNutrisiAnak;
     private widget.Button BtnSkriningNutrisiDewasa;
+    private widget.Button BtnSkriningNutrisiIbuHamil;
     private widget.Button BtnSkriningNutrisiLansia;
     private widget.Button BtnSuratKontrolBPJS;
     private widget.Button BtnTambahTindakan;
@@ -11580,8 +11617,9 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         }
         
         BtnSkriningNutrisiDewasa.setVisible(akses.getskrining_nutrisi_dewasa()); 
+        BtnSkriningNutrisiIbuHamil.setVisible(akses.getskrining_nutrisi_dewasa()); 
         if(akses.getskrining_nutrisi_dewasa()==true){
-            tinggi=tinggi+24;
+            tinggi=tinggi+48;
         }
         BtnSkriningNutrisiLansia.setVisible(akses.getskrining_nutrisi_lansia()); 
         if(akses.getskrining_nutrisi_lansia()==true){
@@ -14289,6 +14327,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         FormMenu.add(BtnSkriningIndraPendengaran);
         FormMenu.add(BtnSkriningFrailtySyndrome);
         FormMenu.add(BtnSkriningNutrisiDewasa);
+        FormMenu.add(BtnSkriningNutrisiIbuHamil);
         FormMenu.add(BtnSkriningNutrisiLansia);
         FormMenu.add(BtnSkriningNutrisiAnak);
         FormMenu.add(BtnSkriningGiziLanjut);
