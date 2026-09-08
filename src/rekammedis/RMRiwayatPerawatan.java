@@ -148,7 +148,7 @@ public final class RMRiwayatPerawatan extends javax.swing.JDialog {
         LoadHTMLPiutang.setEditorKit(kit);
         LoadHTMLRetensi.setEditorKit(kit);
         StyleSheet styleSheet = kit.getStyleSheet();
-        styleSheet.addRule(".isi td{border-right: 1px solid #e2e7dd;font: 8.5px tahoma;height:12px;border-bottom: 1px solid #e2e7dd;background: #ffffff;color:#323232;}.isi a{text-decoration:none;color:#8b9b95;padding:0 0 0 0px;font-family: Tahoma;font-size: 8.5px;border: white;}img#gambar-radiologi{max-width:100%;}");
+        styleSheet.addRule(".isi td{border-right:1px solid #e2e7dd;font:8.5px tahoma;height:12px;border-bottom:1px solid #e2e7dd;background:transparent;color:#323232;}.isi a{text-decoration:none;color:#8b9b95;padding:0;font-family:Tahoma;font-size:8.5px;border:white;}img#gambar-radiologi{max-width:100%;}");
         Document doc = kit.createDefaultDocument();
         LoadHTMLRiwayatPerawatan.setDocument(doc);
         LoadHTMLRiwayatPerawatan.setEditable(false);
@@ -6660,13 +6660,17 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                 "pemeriksaan_ranap.nadi,pemeriksaan_ranap.respirasi,pemeriksaan_ranap.tinggi, " +
                                 "pemeriksaan_ranap.berat,pemeriksaan_ranap.spo2,pemeriksaan_ranap.gcs,pemeriksaan_ranap.kesadaran,pemeriksaan_ranap.keluhan, " +
                                 "pemeriksaan_ranap.pemeriksaan,pemeriksaan_ranap.alergi,pemeriksaan_ranap.penilaian,pemeriksaan_ranap.rtl,"+
-                                "pemeriksaan_ranap.instruksi,pemeriksaan_ranap.evaluasi,pemeriksaan_ranap.nip,pegawai.nama,pegawai.jbtn,verifikasi_perawatan_ranap.tgl_verif, dokter.nm_dokter "+
+                                "pemeriksaan_ranap.instruksi,pemeriksaan_ranap.evaluasi,pemeriksaan_ranap.nip,pegawai.nama,pegawai.jbtn,verifikasi_perawatan_ranap.tgl_verif, dokter.nm_dokter, "+
+                                "checklist_perawatan_ranap.tbak, checklist_perawatan_ranap.nilai_kritis "+
                                 "from pasien inner join reg_periksa on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                                 "inner join pemeriksaan_ranap on pemeriksaan_ranap.no_rawat=reg_periksa.no_rawat "+
                                 "inner join pegawai on pemeriksaan_ranap.nip=pegawai.nik "+
                                 "left join verifikasi_perawatan_ranap on pemeriksaan_ranap.no_rawat = verifikasi_perawatan_ranap.no_rawat "+
                                 "and pemeriksaan_ranap.tgl_perawatan=verifikasi_perawatan_ranap.tanggal_soap "+
                                 "and pemeriksaan_ranap.jam_rawat=verifikasi_perawatan_ranap.jam_soap "+
+                                "left join checklist_perawatan_ranap on pemeriksaan_ranap.no_rawat = checklist_perawatan_ranap.no_rawat "+
+                                "and pemeriksaan_ranap.tgl_perawatan=checklist_perawatan_ranap.tanggal_soap "+
+                                "and pemeriksaan_ranap.jam_rawat=checklist_perawatan_ranap.jam_soap "+
                                 "left join dokter on verifikasi_perawatan_ranap.kd_dokter = dokter.kd_dokter "+
                                 "where pemeriksaan_ranap.no_rawat=? "+
                                 "order by pemeriksaan_ranap.tgl_perawatan,pemeriksaan_ranap.jam_rawat");
@@ -6686,18 +6690,22 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                             append("<td valign='middle' bgcolor='#FFFFF8' align='center' width='7%'>Verifikasi</td>").
                                         append("</tr>");
                             do{
+                                String bgColor = "1".equals(rs2.getString("tbak"))
+                                        ? "#E0B75F"
+                                        : "#FFFFFF";
+
                                 htmlContent.append("<tr class='isi'>").
-                                        append("<td align='center'>").append(rs2.getString("tgl_perawatan")).append("<br>").append(rs2.getString("jam_rawat")).append("</td>").
-                                        append("<td align='center'>").append(rs2.getString("nip")).append("<br>").append(rs2.getString("nama")).append("</td>").
-                                        append("<td align='left'>").append(rs2.getString("keluhan").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
-                                        append("<td align='left'>").append(rs2.getString("pemeriksaan").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append(rs2.getString("alergi").equals("") ? "" : "<br>Alergi : " + rs2.getString("alergi")).append(rs2.getString("suhu_tubuh").equals("") ? "" : "<br>Suhu(C) : " + rs2.getString("suhu_tubuh")).append(rs2.getString("tensi").equals("") ? "" : "<br>Tensi : " + rs2.getString("tensi")).append(rs2.getString("nadi").equals("") ? "" : "<br>Nadi(/menit) : " + rs2.getString("nadi")).append(rs2.getString("respirasi").equals("") ? "" : "<br>Respirasi(/menit) : " + rs2.getString("respirasi")).append(rs2.getString("tinggi").equals("") ? "" : "<br>Tinggi(Cm) : " + rs2.getString("tinggi")).append(rs2.getString("berat").equals("") ? "" : "<br>Berat(Kg) : " + rs2.getString("berat")).append(rs2.getString("spo2").equals("") ? "" : "<br>SpO2(%) : " + rs2.getString("spo2")).append(rs2.getString("gcs").equals("") ? "" : "<br>GCS(E,V,M) : " + rs2.getString("gcs")).append(rs2.getString("kesadaran").equals("") ? "" : "<br>Kesadaran : " + rs2.getString("kesadaran")).append("</td>").
-                                        append("<td align='left'>").append(rs2.getString("penilaian").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
-                                        append("<td align='left'>").append(rs2.getString("rtl").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
-                                        append("<td align='left'>").append(rs2.getString("instruksi").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
-                                        append("<td align='left'>").append(rs2.getString("evaluasi").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>");
+                                        append("<td bgcolor='").append(bgColor).append("' align='center'>").append(rs2.getString("tgl_perawatan")).append("<br>").append(rs2.getString("jam_rawat")).append("</td>").
+                                        append("<td bgcolor='").append(bgColor).append("' align='center'>").append(rs2.getString("nip")).append("<br>").append(rs2.getString("nama")).append("</td>").
+                                        append("<td bgcolor='").append(bgColor).append("' align='left'>").append(rs2.getString("keluhan").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
+                                        append("<td bgcolor='").append(bgColor).append("' align='left'>").append(rs2.getString("pemeriksaan").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append(rs2.getString("alergi").equals("") ? "" : "<br>Alergi : " + rs2.getString("alergi")).append(rs2.getString("suhu_tubuh").equals("") ? "" : "<br>Suhu(C) : " + rs2.getString("suhu_tubuh")).append(rs2.getString("tensi").equals("") ? "" : "<br>Tensi : " + rs2.getString("tensi")).append(rs2.getString("nadi").equals("") ? "" : "<br>Nadi(/menit) : " + rs2.getString("nadi")).append(rs2.getString("respirasi").equals("") ? "" : "<br>Respirasi(/menit) : " + rs2.getString("respirasi")).append(rs2.getString("tinggi").equals("") ? "" : "<br>Tinggi(Cm) : " + rs2.getString("tinggi")).append(rs2.getString("berat").equals("") ? "" : "<br>Berat(Kg) : " + rs2.getString("berat")).append(rs2.getString("spo2").equals("") ? "" : "<br>SpO2(%) : " + rs2.getString("spo2")).append(rs2.getString("gcs").equals("") ? "" : "<br>GCS(E,V,M) : " + rs2.getString("gcs")).append(rs2.getString("kesadaran").equals("") ? "" : "<br>Kesadaran : " + rs2.getString("kesadaran")).append("</td>").
+                                        append("<td bgcolor='").append(bgColor).append("' align='left'>").append(rs2.getString("penilaian").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
+                                        append("<td bgcolor='").append(bgColor).append("' align='left'>").append(rs2.getString("rtl").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
+                                        append("<td bgcolor='").append(bgColor).append("' align='left'>").append(rs2.getString("instruksi").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>").
+                                        append("<td bgcolor='").append(bgColor).append("' align='left'>").append(rs2.getString("evaluasi").replaceAll("(\r\n|\r|\n|\n\r)", "<br>")).append("</td>");
 
                                 if (rs2.getString("nm_dokter") != null) {
-                                    htmlContent.append("<td align='center'>")
+                                    htmlContent.append("<td bgcolor='").append(bgColor).append("' align='center'>")
                                             .append("<img src='")
                                             .append(String.valueOf(getClass().getResource("/picture/verified.png")))
                                             .append("' width='100' height='100'><br>")
@@ -6706,7 +6714,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                                             .append(rs2.getString("tgl_verif"))
                                             .append("</td>");
                                 } else {
-                                    htmlContent.append("<td align='center'></td>");
+                                    htmlContent.append("<td bgcolor='").append(bgColor).append("' align='center'></td>");
                                 }
 
                                 htmlContent.append("</tr>");
@@ -7187,7 +7195,7 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
         try{
             File g = new File("file.css");            
             BufferedWriter bg = new BufferedWriter(new FileWriter(g));
-            bg.write(".isi td{border-right: 1px solid #e2e7dd;font: 8.5px tahoma;height:12px;border-bottom: 1px solid #e2e7dd;background: #ffffff;color:#323232;}.isi a{text-decoration:none;color:#8b9b95;padding:0 0 0 0px;font-family: Tahoma;font-size: 8.5px;border: white;}");
+            bg.write(".isi td{border-right: 1px solid #e2e7dd;font: 8.5px tahoma;height:12px;border-bottom: 1px solid #e2e7dd;background: #ffffff;color:#323232;}.isi a{text-decoration:none;color:#8b9b95;padding:0 0 0 0px;font-family: Tahoma;font-size: 8.5px;border: white;}.isi.tbak td{background:#FFFDE7;}");
             bg.close();
 
             File f = new File("riwayat.html");            

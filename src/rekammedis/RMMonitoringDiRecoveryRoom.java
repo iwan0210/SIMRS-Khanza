@@ -1273,7 +1273,7 @@ public final class RMMonitoringDiRecoveryRoom extends javax.swing.JDialog {
         if (akses.getkode().equals("Admin Utama")) {
             ganti();
         } else {
-            if (kdanestesi.getText().equals(tbObat.getValueAt(tbObat.getSelectedRow(), 3).toString())) {
+            if (kdanestesi.getText().equals(tbObat.getValueAt(tbObat.getSelectedRow(), 5).toString())) {
                 ganti();
             } else {
                 JOptionPane.showMessageDialog(null, "Hanya bisa diganti oleh dokter yang bersangkutan..!!");
