@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -40,7 +41,6 @@ public class InventoryRingkasanBeriObat extends javax.swing.JDialog {
     private Connection koneksi=koneksiDB.condb();
     private int i=0;
     private double total=0;
-    public  DlgBarang barang=new DlgBarang(null,false);
     private StringBuilder htmlContent;
     private String status="",carabayar="",depo="",jenis="",bar="",tanggal="",order="order by databarang.nama_brng",pilihan="";
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -97,97 +97,8 @@ public class InventoryRingkasanBeriObat extends javax.swing.JDialog {
         nmpenjab.setDocument(new batasInput((byte)70).getKata(nmpenjab));
         kddepo.setDocument(new batasInput((byte)25).getKata(kddepo));
         kdbar.setDocument(new batasInput((byte)15).getKata(kdbar));
-        kdsat.setDocument(new batasInput((byte)3).getKata(kdsat));
+        kdjenis.setDocument(new batasInput((byte)3).getKata(kdjenis));
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));  
-        
-        if(koneksiDB.CARICEPAT().equals("aktif")){
-            TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
-                @Override
-                public void insertUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        runBackground(() ->tampil());
-                    }
-                }
-                @Override
-                public void removeUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        runBackground(() ->tampil());
-                    }
-                }
-                @Override
-                public void changedUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        runBackground(() ->tampil());
-                    }
-                }
-            });
-        }
-        
-        
-        barang.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {}
-            @Override
-            public void windowClosing(WindowEvent e) {}
-            @Override
-            public void windowClosed(WindowEvent e) {
-                if(akses.getform().equals("DlgCariPenjualan")){
-                    if(barang.getTable().getSelectedRow()!= -1){                   
-                        kdbar.setText(barang.getTable().getValueAt(barang.getTable().getSelectedRow(),1).toString());                    
-                        nmbar.setText(barang.getTable().getValueAt(barang.getTable().getSelectedRow(),2).toString());
-                    }   
-                    kdbar.requestFocus();
-                }
-            }
-            @Override
-            public void windowIconified(WindowEvent e) {}
-            @Override
-            public void windowDeiconified(WindowEvent e) {}
-            @Override
-            public void windowActivated(WindowEvent e) {}
-            @Override
-            public void windowDeactivated(WindowEvent e) {}
-        });
-        
-        barang.getTable().addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(akses.getform().equals("DlgCariPenjualan")){
-                    if(e.getKeyCode()==KeyEvent.VK_SPACE){
-                        barang.dispose();
-                    }                
-                }
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-        
-        barang.jenis.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {}
-            @Override
-            public void windowClosing(WindowEvent e) {}
-            @Override
-            public void windowClosed(WindowEvent e) {
-                if(akses.getform().equals("DlgCariPenjualan")){
-                    if(barang.jenis.getTable().getSelectedRow()!= -1){
-                        kdsat.setText(barang.jenis.getTable().getValueAt(barang.jenis.getTable().getSelectedRow(),0).toString());
-                        nmsat.setText(barang.jenis.getTable().getValueAt(barang.jenis.getTable().getSelectedRow(),1).toString());
-                    }                
-                    kdsat.requestFocus();
-                }
-            }
-            @Override
-            public void windowIconified(WindowEvent e) {}
-            @Override
-            public void windowDeiconified(WindowEvent e) {}
-            @Override
-            public void windowActivated(WindowEvent e) {}
-            @Override
-            public void windowDeactivated(WindowEvent e) {}
-        });  
     }    
 
     /** This method is called from within the constructor to
@@ -220,9 +131,9 @@ public class InventoryRingkasanBeriObat extends javax.swing.JDialog {
         nmbar = new widget.TextBox();
         btnBarang = new widget.Button();
         label24 = new widget.Label();
-        kdsat = new widget.TextBox();
+        kdjenis = new widget.TextBox();
         btnSatuan = new widget.Button();
-        nmsat = new widget.TextBox();
+        nmjenis = new widget.TextBox();
         panelisi1 = new widget.panelisi();
         label10 = new widget.Label();
         TCari = new widget.TextBox();
@@ -447,6 +358,11 @@ public class InventoryRingkasanBeriObat extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Ringkasan Beri Obat, Alkes & BHP Medis ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
@@ -498,11 +414,11 @@ public class InventoryRingkasanBeriObat extends javax.swing.JDialog {
         panelisi4.add(label24);
         label24.setBounds(0, 10, 74, 23);
 
-        kdsat.setEditable(false);
-        kdsat.setName("kdsat"); // NOI18N
-        kdsat.setPreferredSize(new java.awt.Dimension(80, 23));
-        panelisi4.add(kdsat);
-        kdsat.setBounds(79, 10, 53, 23);
+        kdjenis.setEditable(false);
+        kdjenis.setName("kdjenis"); // NOI18N
+        kdjenis.setPreferredSize(new java.awt.Dimension(80, 23));
+        panelisi4.add(kdjenis);
+        kdjenis.setBounds(79, 10, 53, 23);
 
         btnSatuan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         btnSatuan.setMnemonic('3');
@@ -517,15 +433,15 @@ public class InventoryRingkasanBeriObat extends javax.swing.JDialog {
         panelisi4.add(btnSatuan);
         btnSatuan.setBounds(255, 10, 28, 23);
 
-        nmsat.setName("nmsat"); // NOI18N
-        nmsat.setPreferredSize(new java.awt.Dimension(80, 23));
-        nmsat.addKeyListener(new java.awt.event.KeyAdapter() {
+        nmjenis.setName("nmjenis"); // NOI18N
+        nmjenis.setPreferredSize(new java.awt.Dimension(80, 23));
+        nmjenis.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                nmsatKeyPressed(evt);
+                nmjenisKeyPressed(evt);
             }
         });
-        panelisi4.add(nmsat);
-        nmsat.setBounds(134, 10, 116, 23);
+        panelisi4.add(nmjenis);
+        nmjenis.setBounds(134, 10, 116, 23);
 
         jPanel1.add(panelisi4, java.awt.BorderLayout.CENTER);
 
@@ -877,6 +793,46 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
 
     private void btnBarangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBarangActionPerformed
         akses.setform("DlgCariPenjualan");
+        DlgBarang barang=new DlgBarang(null,false);
+        barang.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {}
+            @Override
+            public void windowClosing(WindowEvent e) {}
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if(akses.getform().equals("DlgCariPenjualan")){
+                    if(barang.getTable().getSelectedRow()!= -1){                   
+                        kdbar.setText(barang.getTable().getValueAt(barang.getTable().getSelectedRow(),1).toString());                    
+                        nmbar.setText(barang.getTable().getValueAt(barang.getTable().getSelectedRow(),2).toString());
+                    }   
+                    kdbar.requestFocus();
+                }
+            }
+            @Override
+            public void windowIconified(WindowEvent e) {}
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+            @Override
+            public void windowActivated(WindowEvent e) {}
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });
+        
+        barang.getTable().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(akses.getform().equals("DlgCariPenjualan")){
+                    if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                        barang.dispose();
+                    }                
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
         barang.emptTeks();
         barang.isCek();
         barang.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
@@ -886,18 +842,40 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     }//GEN-LAST:event_btnBarangActionPerformed
 
     private void btnSatuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSatuanActionPerformed
-        akses.setform("DlgCariPenjualan");
-        barang.jenis.emptTeks();
-        barang.jenis.isCek();
-        barang.jenis.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
-        barang.jenis.setLocationRelativeTo(internalFrame1);
-        barang.jenis.setAlwaysOnTop(false);
-        barang.jenis.setVisible(true);
+        DlgCariJenis jenis = new DlgCariJenis(null, false);
+        jenis.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {}
+            @Override
+            public void windowClosing(WindowEvent e) {}
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if (jenis.getTable().getSelectedRow() != -1) {
+                    kdjenis.setText(jenis.getTable().getValueAt(jenis.getTable().getSelectedRow(), 0).toString());
+                    nmjenis.setText(jenis.getTable().getValueAt(jenis.getTable().getSelectedRow(), 1).toString());
+                }
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {}
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+            @Override
+            public void windowActivated(WindowEvent e) {}
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });
+        jenis.isCek();
+        jenis.setSize(internalFrame1.getWidth() - 20, internalFrame1.getHeight() - 20);
+        jenis.setLocationRelativeTo(internalFrame1);
+        jenis.setAlwaysOnTop(false);
+        jenis.setVisible(true);
     }//GEN-LAST:event_btnSatuanActionPerformed
 
-    private void nmsatKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nmsatKeyPressed
+    private void nmjenisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nmjenisKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nmsatKeyPressed
+    }//GEN-LAST:event_nmjenisKeyPressed
 
     private void TCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TCariKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
@@ -927,8 +905,8 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
         TCari.setText("");
         kdbar.setText("");
         nmbar.setText("");
-        kdsat.setText("");
-        nmsat.setText("");
+        kdjenis.setText("");
+        nmjenis.setText("");
         kdpenjab.setText("");
         nmpenjab.setText("");
         kddepo.setText("");
@@ -946,194 +924,198 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     }//GEN-LAST:event_BtnAllKeyPressed
 
     private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
-        if(tabMode.getRowCount()==0){
-            JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
-            TCari.requestFocus();
-        }else if(tabMode.getRowCount()!=0){
-            this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            try {            
-                File g = new File("file2.css");            
-                BufferedWriter bg = new BufferedWriter(new FileWriter(g));
-                bg.write(
-                        ".isi td{border-right: 1px solid #e2e7dd;font: 11px tahoma;height:12px;border-bottom: 1px solid #e2e7dd;background: #ffffff;color:#323232;}"+
-                        ".isi2 td{font: 11px tahoma;height:12px;background: #ffffff;color:#323232;}"+                    
-                        ".isi3 td{border-right: 1px solid #e2e7dd;font: 11px tahoma;height:12px;border-top: 1px solid #e2e7dd;background: #ffffff;color:#323232;}"+
-                        ".isi4 td{font: 11px tahoma;height:12px;border-top: 1px solid #e2e7dd;background: #ffffff;color:#323232;}"
-                );
-                bg.close();
+        if(ceksukses==false){
+            if(tabMode.getRowCount()==0){
+                JOptionPane.showMessageDialog(null,"Maaf, data sudah habis. Tidak ada data yang bisa anda print...!!!!");
+                TCari.requestFocus();
+            }else if(tabMode.getRowCount()!=0){
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                try {            
+                    File g = new File("file2.css");            
+                    BufferedWriter bg = new BufferedWriter(new FileWriter(g));
+                    bg.write(
+                            ".isi td{border-right: 1px solid #e2e7dd;font: 11px tahoma;height:12px;border-bottom: 1px solid #e2e7dd;background: #ffffff;color:#323232;}"+
+                            ".isi2 td{font: 11px tahoma;height:12px;background: #ffffff;color:#323232;}"+                    
+                            ".isi3 td{border-right: 1px solid #e2e7dd;font: 11px tahoma;height:12px;border-top: 1px solid #e2e7dd;background: #ffffff;color:#323232;}"+
+                            ".isi4 td{font: 11px tahoma;height:12px;border-top: 1px solid #e2e7dd;background: #ffffff;color:#323232;}"
+                    );
+                    bg.close();
 
-                File f;            
-                BufferedWriter bw; 
+                    File f;            
+                    BufferedWriter bw; 
 
-                pilihan = (String)JOptionPane.showInputDialog(null,"Silahkan pilih laporan..!","Pilihan Cetak",JOptionPane.QUESTION_MESSAGE,null,new Object[]{"Laporan 1 (HTML)","Laporan 2 (WPS)","Laporan 3 (CSV)","Laporan 4 (Jasper)"},"Laporan 1 (HTML)");
-                switch (pilihan) {
-                    case "Laporan 1 (HTML)":
-                            htmlContent = new StringBuilder();
-                            htmlContent.append(                             
-                                "<tr class='isi'>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Kode Barang</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='45%'>Nama Barang</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Satuan</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='15%'>Jenis</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Jumlah</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='15%'>Total</td>"+
-                                "</tr>"
-                            ); 
-                            for(i=0;i<tabMode.getRowCount();i++){  
+                    pilihan = (String)JOptionPane.showInputDialog(null,"Silahkan pilih laporan..!","Pilihan Cetak",JOptionPane.QUESTION_MESSAGE,null,new Object[]{"Laporan 1 (HTML)","Laporan 2 (WPS)","Laporan 3 (CSV)","Laporan 4 (Jasper)"},"Laporan 1 (HTML)");
+                    switch (pilihan) {
+                        case "Laporan 1 (HTML)":
+                                htmlContent = new StringBuilder();
                                 htmlContent.append(                             
                                     "<tr class='isi'>"+
-                                        "<td valign='top'>"+tabMode.getValueAt(i,0)+"</td>"+
-                                        "<td valign='top'>"+tabMode.getValueAt(i,1)+"</td>"+
-                                        "<td valign='top'>"+tabMode.getValueAt(i,2)+"</td>"+
-                                        "<td valign='top'>"+tabMode.getValueAt(i,3)+"</td>"+
-                                        "<td valign='top' align='right'>"+tabMode.getValueAt(i,4)+"</td>"+
-                                        "<td valign='top' align='right'>"+tabMode.getValueAt(i,5)+"</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Kode Barang</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='45%'>Nama Barang</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Satuan</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='15%'>Jenis</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Jumlah</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='15%'>Total</td>"+
                                     "</tr>"
                                 ); 
-                            }            
+                                for(i=0;i<tabMode.getRowCount();i++){  
+                                    htmlContent.append(                             
+                                        "<tr class='isi'>"+
+                                            "<td valign='top'>"+tabMode.getValueAt(i,0)+"</td>"+
+                                            "<td valign='top'>"+tabMode.getValueAt(i,1)+"</td>"+
+                                            "<td valign='top'>"+tabMode.getValueAt(i,2)+"</td>"+
+                                            "<td valign='top'>"+tabMode.getValueAt(i,3)+"</td>"+
+                                            "<td valign='top' align='right'>"+tabMode.getValueAt(i,4)+"</td>"+
+                                            "<td valign='top' align='right'>"+tabMode.getValueAt(i,5)+"</td>"+
+                                        "</tr>"
+                                    ); 
+                                }            
 
-                            f = new File("RingkasanBeriObat.html");            
-                            bw = new BufferedWriter(new FileWriter(f));            
-                            bw.write("<html>"+
-                                        "<head><link href=\"file2.css\" rel=\"stylesheet\" type=\"text/css\" /></head>"+
-                                        "<body>"+
-                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
-                                                "<tr class='isi2'>"+
-                                                    "<td valign='top' align='center'>"+
-                                                        "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
-                                                        akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
-                                                        akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
-                                                        "<font size='2' face='Tahoma'>RINGKASAN PEMBERIAN OBAT/ALKES/BHP PERIODE "+Tgl1.getSelectedItem()+" s.d. "+Tgl2.getSelectedItem()+"<br><br></font>"+        
-                                                    "</td>"+
-                                               "</tr>"+
-                                            "</table>"+
-                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
-                                                htmlContent.toString()+
-                                            "</table>"+
-                                        "</body>"+                   
-                                     "</html>"
-                            );
-                            htmlContent=null;
-                            bw.close();                         
-                            Desktop.getDesktop().browse(f.toURI());
-                        break;
-                    case "Laporan 2 (WPS)":
-                            htmlContent = new StringBuilder();
-                            htmlContent.append(                             
-                                "<tr class='isi'>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Kode Barang</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='45%'>Nama Barang</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Satuan</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='15%'>Jenis</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Jumlah</td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center' width='15%'>Total</td>"+
-                                "</tr>"
-                            ); 
-                            for(i=0;i<tabMode.getRowCount();i++){  
+                                f = new File("RingkasanBeriObat.html");            
+                                bw = new BufferedWriter(new FileWriter(f));            
+                                bw.write("<html>"+
+                                            "<head><link href=\"file2.css\" rel=\"stylesheet\" type=\"text/css\" /></head>"+
+                                            "<body>"+
+                                                "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                                    "<tr class='isi2'>"+
+                                                        "<td valign='top' align='center'>"+
+                                                            "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
+                                                            akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
+                                                            akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
+                                                            "<font size='2' face='Tahoma'>RINGKASAN PEMBERIAN OBAT/ALKES/BHP PERIODE "+Tgl1.getSelectedItem()+" s.d. "+Tgl2.getSelectedItem()+"<br><br></font>"+        
+                                                        "</td>"+
+                                                   "</tr>"+
+                                                "</table>"+
+                                                "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                                    htmlContent.toString()+
+                                                "</table>"+
+                                            "</body>"+                   
+                                         "</html>"
+                                );
+                                htmlContent=null;
+                                bw.close();                         
+                                Desktop.getDesktop().browse(f.toURI());
+                            break;
+                        case "Laporan 2 (WPS)":
+                                htmlContent = new StringBuilder();
                                 htmlContent.append(                             
                                     "<tr class='isi'>"+
-                                        "<td valign='top'>"+tabMode.getValueAt(i,0)+"</td>"+
-                                        "<td valign='top'>"+tabMode.getValueAt(i,1)+"</td>"+
-                                        "<td valign='top'>"+tabMode.getValueAt(i,2)+"</td>"+
-                                        "<td valign='top'>"+tabMode.getValueAt(i,3)+"</td>"+
-                                        "<td valign='top' align='right'>"+tabMode.getValueAt(i,4)+"</td>"+
-                                        "<td valign='top' align='right'>"+tabMode.getValueAt(i,5)+"</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Kode Barang</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='45%'>Nama Barang</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='10%'>Satuan</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='15%'>Jenis</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='5%'>Jumlah</td>"+
+                                        "<td valign='middle' bgcolor='#FFFAFA' align='center' width='15%'>Total</td>"+
                                     "</tr>"
                                 ); 
-                            }            
+                                for(i=0;i<tabMode.getRowCount();i++){  
+                                    htmlContent.append(                             
+                                        "<tr class='isi'>"+
+                                            "<td valign='top'>"+tabMode.getValueAt(i,0)+"</td>"+
+                                            "<td valign='top'>"+tabMode.getValueAt(i,1)+"</td>"+
+                                            "<td valign='top'>"+tabMode.getValueAt(i,2)+"</td>"+
+                                            "<td valign='top'>"+tabMode.getValueAt(i,3)+"</td>"+
+                                            "<td valign='top' align='right'>"+tabMode.getValueAt(i,4)+"</td>"+
+                                            "<td valign='top' align='right'>"+tabMode.getValueAt(i,5)+"</td>"+
+                                        "</tr>"
+                                    ); 
+                                }            
 
-                            f = new File("RingkasanBeriObat.wps");            
-                            bw = new BufferedWriter(new FileWriter(f));            
-                            bw.write("<html>"+
-                                        "<head><link href=\"file2.css\" rel=\"stylesheet\" type=\"text/css\" /></head>"+
-                                        "<body>"+
-                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
-                                                "<tr class='isi2'>"+
-                                                    "<td valign='top' align='center'>"+
-                                                        "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
-                                                        akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
-                                                        akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
-                                                        "<font size='2' face='Tahoma'>RINGKASAN PEMBERIAN OBAT/ALKES/BHP PERIODE "+Tgl1.getSelectedItem()+" s.d. "+Tgl2.getSelectedItem()+"<br><br></font>"+        
-                                                    "</td>"+
-                                               "</tr>"+
-                                            "</table>"+
-                                            "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
-                                                htmlContent.toString()+
-                                            "</table>"+
-                                        "</body>"+                   
-                                     "</html>"
-                            );
-                            htmlContent=null;
-                            bw.close();                         
-                            Desktop.getDesktop().browse(f.toURI());
-                        break;
-                    case "Laporan 3 (CSV)":
-                            //"Kode Barang","Nama Barang","Satuan","Jenis","Jumlah","Total","Kode Sat"
-                            htmlContent = new StringBuilder();
-                            htmlContent.append(                             
-                                "\"Kode Barang\";\"Nama Barang\";\"Satuan\";\"Jenis\";\"Jumlah\";\"Total\"\n"
-                            ); 
-                            for(i=0;i<tabMode.getRowCount();i++){  
+                                f = new File("RingkasanBeriObat.wps");            
+                                bw = new BufferedWriter(new FileWriter(f));            
+                                bw.write("<html>"+
+                                            "<head><link href=\"file2.css\" rel=\"stylesheet\" type=\"text/css\" /></head>"+
+                                            "<body>"+
+                                                "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                                    "<tr class='isi2'>"+
+                                                        "<td valign='top' align='center'>"+
+                                                            "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
+                                                            akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
+                                                            akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
+                                                            "<font size='2' face='Tahoma'>RINGKASAN PEMBERIAN OBAT/ALKES/BHP PERIODE "+Tgl1.getSelectedItem()+" s.d. "+Tgl2.getSelectedItem()+"<br><br></font>"+        
+                                                        "</td>"+
+                                                   "</tr>"+
+                                                "</table>"+
+                                                "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                                    htmlContent.toString()+
+                                                "</table>"+
+                                            "</body>"+                   
+                                         "</html>"
+                                );
+                                htmlContent=null;
+                                bw.close();                         
+                                Desktop.getDesktop().browse(f.toURI());
+                            break;
+                        case "Laporan 3 (CSV)":
+                                //"Kode Barang","Nama Barang","Satuan","Jenis","Jumlah","Total","Kode Sat"
+                                htmlContent = new StringBuilder();
                                 htmlContent.append(                             
-                                    "\""+tabMode.getValueAt(i,0)+"\";\""+tabMode.getValueAt(i,1)+"\";\""+tabMode.getValueAt(i,2)+"\";\""+tabMode.getValueAt(i,3)+"\";\""+tabMode.getValueAt(i,4)+"\";\""+tabMode.getValueAt(i,5)+"\"\n"
+                                    "\"Kode Barang\";\"Nama Barang\";\"Satuan\";\"Jenis\";\"Jumlah\";\"Total\"\n"
                                 ); 
-                            }            
+                                for(i=0;i<tabMode.getRowCount();i++){  
+                                    htmlContent.append(                             
+                                        "\""+tabMode.getValueAt(i,0)+"\";\""+tabMode.getValueAt(i,1)+"\";\""+tabMode.getValueAt(i,2)+"\";\""+tabMode.getValueAt(i,3)+"\";\""+tabMode.getValueAt(i,4)+"\";\""+tabMode.getValueAt(i,5)+"\"\n"
+                                    ); 
+                                }            
 
-                            f = new File("RingkasanBeriObat.csv");            
-                            bw = new BufferedWriter(new FileWriter(f));            
-                            bw.write(htmlContent.toString());
-                            htmlContent=null;
-                            bw.close();                         
-                            Desktop.getDesktop().browse(f.toURI());
-                        break; 
-                    case "Laporan 4 (Jasper)":
-                            Map<String, Object> param = new HashMap<>();                 
-                            param.put("namars",akses.getnamars());
-                            param.put("alamatrs",akses.getalamatrs());
-                            param.put("kotars",akses.getkabupatenrs());
-                            param.put("propinsirs",akses.getpropinsirs());
-                            param.put("kontakrs",akses.getkontakrs());
-                            param.put("emailrs",akses.getemailrs());  
-                            param.put("tanggal1",Valid.SetTgl(Tgl1.getSelectedItem()+""));  
-                            param.put("tanggal2",Valid.SetTgl(Tgl2.getSelectedItem()+""));  
-                            param.put("parameter","%"+TCari.getText().trim()+"%");   
-                            param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
-                            tanggal=" detail_pemberian_obat.tgl_perawatan between '"+Valid.SetTgl(Tgl1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tgl2.getSelectedItem()+"")+"' ";
-                            status="";carabayar="";depo="";jenis="";bar="";
+                                f = new File("RingkasanBeriObat.csv");            
+                                bw = new BufferedWriter(new FileWriter(f));            
+                                bw.write(htmlContent.toString());
+                                htmlContent=null;
+                                bw.close();                         
+                                Desktop.getDesktop().browse(f.toURI());
+                            break; 
+                        case "Laporan 4 (Jasper)":
+                                Map<String, Object> param = new HashMap<>();                 
+                                param.put("namars",akses.getnamars());
+                                param.put("alamatrs",akses.getalamatrs());
+                                param.put("kotars",akses.getkabupatenrs());
+                                param.put("propinsirs",akses.getpropinsirs());
+                                param.put("kontakrs",akses.getkontakrs());
+                                param.put("emailrs",akses.getemailrs());  
+                                param.put("tanggal1",Valid.SetTgl(Tgl1.getSelectedItem()+""));  
+                                param.put("tanggal2",Valid.SetTgl(Tgl2.getSelectedItem()+""));  
+                                param.put("parameter","%"+TCari.getText().trim()+"%");   
+                                param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
+                                tanggal=" detail_pemberian_obat.tgl_perawatan between '"+Valid.SetTgl(Tgl1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(Tgl2.getSelectedItem()+"")+"' ";
+                                status="";carabayar="";depo="";jenis="";bar="";
 
-                            if(!nmpenjab.getText().equals("")){
-                                carabayar=" and penjab.png_jawab='"+nmpenjab.getText()+"' ";
-                            }
-                            if(!Status.getSelectedItem().toString().equals("Semua")){
-                                status=" and detail_pemberian_obat.status='"+Status.getSelectedItem()+"' ";
-                            }
-                            if(!nmdepo.getText().equals("")){
-                                depo=" and bangsal.nm_bangsal='"+nmdepo.getText()+"' ";
-                            }
-                            if(!nmsat.getText().equals("")){
-                                jenis=" and jenis.nama='"+nmsat.getText()+"' ";
-                            }
-                            if(!nmbar.getText().equals("")){
-                                bar=" and databarang.nama_brng='"+nmbar.getText()+"' ";
-                            }
-                            Valid.MyReportqry("rptRingkasanBeriObat.jasper","report","::[ Laporan Ringkasan Pemberian Obat/Alkes/BHP Medis ]::",
-                                    "select detail_pemberian_obat.kode_brng,databarang.nama_brng, databarang.kode_sat,"+
-                                    " kodesatuan.satuan,jenis.nama as namajenis,sum(detail_pemberian_obat.jml) as jumlah,sum(detail_pemberian_obat.total) as total "+
-                                    " from detail_pemberian_obat inner join reg_periksa on detail_pemberian_obat.no_rawat=reg_periksa.no_rawat "+
-                                    " inner join penjab on reg_periksa.kd_pj=penjab.kd_pj "+
-                                    " inner join databarang on detail_pemberian_obat.kode_brng=databarang.kode_brng "+
-                                    " inner join bangsal on detail_pemberian_obat.kd_bangsal=bangsal.kd_bangsal "+
-                                    " inner join jenis on databarang.kdjns=jenis.kdjns "+
-                                    " inner join kodesatuan on databarang.kode_sat=kodesatuan.kode_sat "+
-                                    " where "+tanggal+carabayar+depo+jenis+bar+status+" and "+
-                                    "(detail_pemberian_obat.kode_brng like '%"+TCari.getText()+"%' or databarang.nama_brng like '%"+TCari.getText()+"%' or "+
-                                    "kodesatuan.satuan like '%"+TCari.getText()+"%' or jenis.nama like '%"+TCari.getText()+"%') "+
-                                    " group by detail_pemberian_obat.kode_brng "+order,param); 
-                        break; 
-                }                 
-            } catch (Exception e) {
-            }     
-            this.setCursor(Cursor.getDefaultCursor());
+                                if(!nmpenjab.getText().equals("")){
+                                    carabayar=" and penjab.png_jawab='"+nmpenjab.getText()+"' ";
+                                }
+                                if(!Status.getSelectedItem().toString().equals("Semua")){
+                                    status=" and detail_pemberian_obat.status='"+Status.getSelectedItem()+"' ";
+                                }
+                                if(!nmdepo.getText().equals("")){
+                                    depo=" and bangsal.nm_bangsal='"+nmdepo.getText()+"' ";
+                                }
+                                if(!nmjenis.getText().equals("")){
+                                    jenis=" and jenis.nama='"+nmjenis.getText()+"' ";
+                                }
+                                if(!nmbar.getText().equals("")){
+                                    bar=" and databarang.nama_brng='"+nmbar.getText()+"' ";
+                                }
+                                Valid.MyReportqry("rptRingkasanBeriObat.jasper","report","::[ Laporan Ringkasan Pemberian Obat/Alkes/BHP Medis ]::",
+                                        "select detail_pemberian_obat.kode_brng,databarang.nama_brng, databarang.kode_sat,"+
+                                        " kodesatuan.satuan,jenis.nama as namajenis,sum(detail_pemberian_obat.jml) as jumlah,sum(detail_pemberian_obat.total) as total "+
+                                        " from detail_pemberian_obat inner join reg_periksa on detail_pemberian_obat.no_rawat=reg_periksa.no_rawat "+
+                                        " inner join penjab on reg_periksa.kd_pj=penjab.kd_pj "+
+                                        " inner join databarang on detail_pemberian_obat.kode_brng=databarang.kode_brng "+
+                                        " inner join bangsal on detail_pemberian_obat.kd_bangsal=bangsal.kd_bangsal "+
+                                        " inner join jenis on databarang.kdjns=jenis.kdjns "+
+                                        " inner join kodesatuan on databarang.kode_sat=kodesatuan.kode_sat "+
+                                        " where "+tanggal+carabayar+depo+jenis+bar+status+" and "+
+                                        "(detail_pemberian_obat.kode_brng like '%"+TCari.getText()+"%' or databarang.nama_brng like '%"+TCari.getText()+"%' or "+
+                                        "kodesatuan.satuan like '%"+TCari.getText()+"%' or jenis.nama like '%"+TCari.getText()+"%') "+
+                                        " group by detail_pemberian_obat.kode_brng "+order,param); 
+                            break; 
+                    }                 
+                } catch (Exception e) {
+                }     
+                this.setCursor(Cursor.getDefaultCursor());
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Masih proses menampilkan data, harap tunggu terlebih dahulu...!");
         }
     }//GEN-LAST:event_BtnPrintActionPerformed
 
@@ -1215,6 +1197,31 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
         runBackground(() ->tampil());
     }//GEN-LAST:event_MnJumlahDescActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(koneksiDB.CARICEPAT().equals("aktif")){
+            TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    if(TCari.getText().length()>2){
+                        runBackground(() ->tampil());
+                    }
+                }
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    if(TCari.getText().length()>2){
+                        runBackground(() ->tampil());
+                    }
+                }
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    if(TCari.getText().length()>2){
+                        runBackground(() ->tampil());
+                    }
+                }
+            });
+        }
+    }//GEN-LAST:event_formWindowOpened
+
     /**
     * @param args the command line arguments
     */
@@ -1263,8 +1270,8 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     private javax.swing.JPanel jPanel1;
     private widget.TextBox kdbar;
     private widget.TextBox kddepo;
+    private widget.TextBox kdjenis;
     private widget.TextBox kdpenjab;
-    private widget.TextBox kdsat;
     private widget.Label label10;
     private widget.Label label11;
     private widget.Label label13;
@@ -1275,8 +1282,8 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     private widget.Label label9;
     private widget.TextBox nmbar;
     private widget.TextBox nmdepo;
+    private widget.TextBox nmjenis;
     private widget.TextBox nmpenjab;
-    private widget.TextBox nmsat;
     private widget.panelisi panelisi1;
     private widget.panelisi panelisi3;
     private widget.panelisi panelisi4;
@@ -1297,8 +1304,8 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
         if(!nmdepo.getText().equals("")){
             depo=" and bangsal.nm_bangsal='"+nmdepo.getText()+"' ";
         }
-        if(!nmsat.getText().equals("")){
-            jenis=" and jenis.nama='"+nmsat.getText()+"' ";
+        if(!nmjenis.getText().equals("")){
+            jenis=" and jenis.nama='"+nmjenis.getText()+"' ";
         }
         if(!nmbar.getText().equals("")){
             bar=" and databarang.nama_brng='"+nmbar.getText()+"' ";
@@ -1347,7 +1354,7 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     public void emptTeks() {
         kdbar.setText("");
         nmbar.setText("");
-        kdsat.setText("");
+        kdjenis.setText("");
         kdbar.requestFocus();        
     }   
     
@@ -1357,19 +1364,33 @@ private void KdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TKdKey
     
     private void runBackground(Runnable task) {
         if (ceksukses) return;
+        if (executor.isShutdown() || executor.isTerminated()) return;
+        if (!isDisplayable()) return;
+
         ceksukses = true;
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-
-        executor.submit(() -> {
-            try {
-                task.run();
-            } finally {
-                ceksukses = false;
-                SwingUtilities.invokeLater(() -> {
-                    this.setCursor(Cursor.getDefaultCursor());
-                });
-            }
-        });
+        try {
+            executor.submit(() -> {
+                try {
+                    task.run();
+                } finally {
+                    ceksukses = false;
+                    SwingUtilities.invokeLater(() -> {
+                        if (isDisplayable()) {
+                            setCursor(Cursor.getDefaultCursor());
+                        }
+                    });
+                }
+            });
+        } catch (RejectedExecutionException ex) {
+            ceksukses = false;
+        }
+    }
+    
+    @Override
+    public void dispose() {
+        executor.shutdownNow();
+        super.dispose();
     }
 }

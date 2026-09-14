@@ -341,7 +341,7 @@ public final class ApotekBPJSKunjunganSEP extends javax.swing.JDialog {
     private widget.Table tbKamar;
     // End of variables declaration//GEN-END:variables
 
-    public void tampil(String keyword) {
+    private void tampil(String keyword) {
         try {
             headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

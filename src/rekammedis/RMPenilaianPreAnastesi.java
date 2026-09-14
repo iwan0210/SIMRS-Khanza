@@ -15,6 +15,7 @@ import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedWriter;
@@ -26,8 +27,13 @@ import java.sql.ResultSet;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -49,7 +55,9 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
     private PreparedStatement ps;
     private ResultSet rs;
     private int i=0;
-    private DlgCariDokter dokter=new DlgCariDokter(null,false);
+    private DlgCariDokter dokter;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private volatile boolean ceksukses = false;
     private StringBuilder htmlContent;
     private String finger="";
     private String TANGGALMUNDUR="yes";
@@ -68,7 +76,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
             "Asesmen Fisik Penunjang","Riwayat Penyakit Alergi Obat","Riwayat Penyakit Alergi Lainnya","Riwayat Penyakit Terapi", 
             "Kebiasaan Merokok","Jml.Rokok","Kebiasaan Alkohol","Jml.Alko","Penggunaan Obat","Obat Dikonsumsi","Riwayat Medis Cardiovasculer", 
             "Riwayat Medis Respiratory","Riwayat Medis Endocrine","Riwayat Medis Lainnya","Angka ASA","Mulai Puasa","Rencana Anestesi", 
-            "Rencana Perawatan","Catatan Khusus","Instruksi","Persiapan","tambahan"
+            "Rencana Perawatan","Catatan Khusus"
         }){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -205,52 +213,6 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         RencanaPerawatan.setDocument(new batasInput((byte)40).getKata(RencanaPerawatan));
         CatatanKhusus.setDocument(new batasInput((byte)100).getKata(CatatanKhusus));
         TCari.setDocument(new batasInput((int)100).getKata(TCari));
-        
-        if(koneksiDB.CARICEPAT().equals("aktif")){
-            TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
-                @Override
-                public void insertUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        tampil();
-                    }
-                }
-                @Override
-                public void removeUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        tampil();
-                    }
-                }
-                @Override
-                public void changedUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        tampil();
-                    }
-                }
-            });
-        }
-        
-        dokter.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {}
-            @Override
-            public void windowClosing(WindowEvent e) {}
-            @Override
-            public void windowClosed(WindowEvent e) {
-                if(dokter.getTable().getSelectedRow()!= -1){
-                    KdDokter.setText(dokter.getTable().getValueAt(dokter.getTable().getSelectedRow(),0).toString());
-                    NmDokter.setText(dokter.getTable().getValueAt(dokter.getTable().getSelectedRow(),1).toString());
-                    KdDokter.requestFocus();
-                }
-            }
-            @Override
-            public void windowIconified(WindowEvent e) {}
-            @Override
-            public void windowDeiconified(WindowEvent e) {}
-            @Override
-            public void windowActivated(WindowEvent e) {}
-            @Override
-            public void windowDeactivated(WindowEvent e) {}
-        });
         
         HTMLEditorKit kit = new HTMLEditorKit();
         LoadHTML.setEditable(true);
@@ -411,16 +373,6 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         RencanaPerawatan = new widget.TextBox();
         CatatanKhusus = new widget.TextBox();
         jLabel48 = new widget.Label();
-        jLabel49 = new widget.Label();
-        medikasi = new javax.swing.JCheckBox();
-        informasi = new javax.swing.JCheckBox();
-        tindakan = new javax.swing.JCheckBox();
-        jLabel50 = new widget.Label();
-        hcu = new javax.swing.JCheckBox();
-        transfusi = new javax.swing.JCheckBox();
-        jLabel51 = new widget.Label();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tambahan = new javax.swing.JTextArea();
         internalFrame3 = new widget.InternalFrame();
         Scroll = new widget.ScrollPane();
         tbObat = new widget.Table();
@@ -460,6 +412,11 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pengkajian Pre Anestesi ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
@@ -606,20 +563,17 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         TabRawat.setPreferredSize(new java.awt.Dimension(457, 480));
 
         internalFrame2.setBorder(null);
-        internalFrame2.setMinimumSize(new java.awt.Dimension(100, 100));
         internalFrame2.setName("internalFrame2"); // NOI18N
         internalFrame2.setPreferredSize(new java.awt.Dimension(102, 480));
         internalFrame2.setLayout(new java.awt.BorderLayout(1, 1));
 
-        scrollInput.setMinimumSize(new java.awt.Dimension(100, 100));
         scrollInput.setName("scrollInput"); // NOI18N
         scrollInput.setPreferredSize(new java.awt.Dimension(102, 557));
 
         FormInput.setBackground(new java.awt.Color(255, 255, 255));
         FormInput.setBorder(null);
-        FormInput.setMinimumSize(new java.awt.Dimension(300, 300));
         FormInput.setName("FormInput"); // NOI18N
-        FormInput.setPreferredSize(new java.awt.Dimension(750, 1100));
+        FormInput.setPreferredSize(new java.awt.Dimension(750, 843));
         FormInput.setLayout(null);
 
         TNoRw.setHighlighter(null);
@@ -721,7 +675,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         label11.setBounds(538, 40, 52, 23);
 
         TglAsuhan.setForeground(new java.awt.Color(50, 70, 50));
-        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-07-2025 08:50:42" }));
+        TglAsuhan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026 20:18:00" }));
         TglAsuhan.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglAsuhan.setName("TglAsuhan"); // NOI18N
         TglAsuhan.setOpaque(false);
@@ -740,7 +694,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         label12.setBounds(520, 80, 70, 23);
 
         TglOperasi.setForeground(new java.awt.Color(50, 70, 50));
-        TglOperasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-07-2025 08:50:43" }));
+        TglOperasi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026 20:18:00" }));
         TglOperasi.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglOperasi.setName("TglOperasi"); // NOI18N
         TglOperasi.setOpaque(false);
@@ -1359,7 +1313,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         label13.setBounds(520, 780, 70, 23);
 
         TglPuasa.setForeground(new java.awt.Color(50, 70, 50));
-        TglPuasa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-07-2025 08:50:43" }));
+        TglPuasa.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026 20:18:00" }));
         TglPuasa.setDisplayFormat("dd-MM-yyyy HH:mm:ss");
         TglPuasa.setName("TglPuasa"); // NOI18N
         TglPuasa.setOpaque(false);
@@ -1386,10 +1340,10 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         FormInput.add(jLabel129);
         jLabel129.setBounds(300, 780, 120, 23);
 
-        jLabel47.setText("<html>\nPemeriksaan tambahan  :<br>\nyang diperlukan  \n</html>");
+        jLabel47.setText("Rencana Perawatan :");
         jLabel47.setName("jLabel47"); // NOI18N
         FormInput.add(jLabel47);
-        jLabel47.setBounds(10, 950, 130, 30);
+        jLabel47.setBounds(0, 810, 130, 23);
 
         RencanaPerawatan.setFocusTraversalPolicyProvider(true);
         RencanaPerawatan.setName("RencanaPerawatan"); // NOI18N
@@ -1415,73 +1369,6 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         jLabel48.setName("jLabel48"); // NOI18N
         FormInput.add(jLabel48);
         jLabel48.setBounds(320, 810, 100, 23);
-
-        jLabel49.setText("Rencana Perawatan :");
-        jLabel49.setName("jLabel49"); // NOI18N
-        FormInput.add(jLabel49);
-        jLabel49.setBounds(0, 810, 130, 23);
-
-        medikasi.setBackground(new java.awt.Color(255, 255, 255));
-        medikasi.setForeground(new java.awt.Color(0, 0, 0));
-        medikasi.setText("Pemberian Medikasi ");
-        medikasi.setName("medikasi"); // NOI18N
-        medikasi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                medikasiActionPerformed(evt);
-            }
-        });
-        FormInput.add(medikasi);
-        medikasi.setBounds(140, 880, 150, 20);
-
-        informasi.setBackground(new java.awt.Color(255, 255, 255));
-        informasi.setForeground(new java.awt.Color(0, 0, 0));
-        informasi.setText("Dokumen pemberian informasi tindakan anestesi");
-        informasi.setName("informasi"); // NOI18N
-        FormInput.add(informasi);
-        informasi.setBounds(140, 840, 290, 20);
-
-        tindakan.setBackground(new java.awt.Color(255, 255, 255));
-        tindakan.setForeground(new java.awt.Color(0, 0, 0));
-        tindakan.setText("Persetujuan Tindakan Medis Anestesi");
-        tindakan.setName("tindakan"); // NOI18N
-        FormInput.add(tindakan);
-        tindakan.setBounds(140, 860, 290, 20);
-
-        jLabel50.setText("Instruksi :");
-        jLabel50.setName("jLabel50"); // NOI18N
-        FormInput.add(jLabel50);
-        jLabel50.setBounds(0, 840, 130, 23);
-
-        hcu.setBackground(new java.awt.Color(255, 255, 255));
-        hcu.setForeground(new java.awt.Color(0, 0, 0));
-        hcu.setText("Perawatan HCU Pasca Operasi");
-        hcu.setName("hcu"); // NOI18N
-        FormInput.add(hcu);
-        hcu.setBounds(310, 910, 200, 20);
-
-        transfusi.setBackground(new java.awt.Color(255, 255, 255));
-        transfusi.setForeground(new java.awt.Color(0, 0, 0));
-        transfusi.setText("Persiapan Transfusi darah");
-        transfusi.setName("transfusi"); // NOI18N
-        FormInput.add(transfusi);
-        transfusi.setBounds(140, 910, 170, 20);
-
-        jLabel51.setText("Persiapan Lain-lain :");
-        jLabel51.setName("jLabel51"); // NOI18N
-        FormInput.add(jLabel51);
-        jLabel51.setBounds(0, 910, 130, 23);
-
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setName("jScrollPane1"); // NOI18N
-
-        tambahan.setBackground(new java.awt.Color(255, 255, 255));
-        tambahan.setColumns(20);
-        tambahan.setRows(5);
-        tambahan.setName("tambahan"); // NOI18N
-        jScrollPane1.setViewportView(tambahan);
-
-        FormInput.add(jScrollPane1);
-        jScrollPane1.setBounds(150, 950, 234, 60);
 
         scrollInput.setViewportView(FormInput);
 
@@ -1524,7 +1411,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-07-2025" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1538,7 +1425,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "16-07-2025" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "06-02-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -1914,7 +1801,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
 }//GEN-LAST:event_TCariKeyPressed
 
     private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCariActionPerformed
-        tampil();
+        runBackground(() ->tampil());
 }//GEN-LAST:event_BtnCariActionPerformed
 
     private void BtnCariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnCariKeyPressed
@@ -1927,13 +1814,13 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
 
     private void BtnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAllActionPerformed
         TCari.setText("");
-        tampil();
+        runBackground(() ->tampil());
 }//GEN-LAST:event_BtnAllActionPerformed
 
     private void BtnAllKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnAllKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_SPACE){
             TCari.setText("");
-            tampil();
+            runBackground(() ->tampil());
         }else{
             Valid.pindah(evt, BtnCari, TPasien);
         }
@@ -1969,10 +1856,29 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
 }//GEN-LAST:event_tbObatKeyPressed
 
     private void BtnDokterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDokterActionPerformed
+        if (dokter == null || !dokter.isDisplayable()) {
+            dokter=new DlgCariDokter(null,false);
+            dokter.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            dokter.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    if(dokter.getTable().getSelectedRow()!= -1){        
+                         KdDokter.setText(dokter.getTable().getValueAt(dokter.getTable().getSelectedRow(),0).toString());
+                         NmDokter.setText(dokter.getTable().getValueAt(dokter.getTable().getSelectedRow(),1).toString());
+                    }  
+                    BtnDokter.requestFocus();
+                    dokter=null;
+                }
+            });
+            dokter.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+            dokter.setLocationRelativeTo(internalFrame1);
+        }   
+        if (dokter == null) return;
         dokter.isCek();
-        dokter.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
-        dokter.setLocationRelativeTo(internalFrame1);
-        dokter.setAlwaysOnTop(false);
+        if (dokter.isVisible()) {
+            dokter.toFront();
+            return;
+        }
         dokter.setVisible(true);
     }//GEN-LAST:event_BtnDokterActionPerformed
 
@@ -2009,7 +1915,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
                 "penilaian_pre_anestesi.riwayat_kebiasaan_obat,penilaian_pre_anestesi.riwayat_kebiasaan_ket_obat,penilaian_pre_anestesi.riwayat_medis_cardiovasculer,"+
                 "penilaian_pre_anestesi.riwayat_medis_respiratory,penilaian_pre_anestesi.riwayat_medis_endocrine,penilaian_pre_anestesi.riwayat_medis_lainnya,"+
                 "penilaian_pre_anestesi.asa,DATE_FORMAT(penilaian_pre_anestesi.puasa,'%d-%m-%Y %H:%m:%s') as puasa,penilaian_pre_anestesi.rencana_anestesi,penilaian_pre_anestesi.rencana_perawatan,"+
-                "penilaian_pre_anestesi.catatan_khusus,penilaian_pre_anestesi.instruksi,penilaian_pre_anestesi.persiapan_lain,penilaian_pre_anestesi.pemeriksaan_tambahan,dokter.nm_dokter from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                "penilaian_pre_anestesi.catatan_khusus,dokter.nm_dokter from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                 "inner join penilaian_pre_anestesi on reg_periksa.no_rawat=penilaian_pre_anestesi.no_rawat "+
                 "inner join dokter on penilaian_pre_anestesi.kd_dokter=dokter.kd_dokter where penilaian_pre_anestesi.no_rawat='"+tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()+"' "+
                 "and penilaian_pre_anestesi.tanggal='"+tbObat.getValueAt(tbObat.getSelectedRow(),7).toString()+"'",param);
@@ -2164,9 +2070,30 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         Valid.pindah(evt,RencanaPerawatan,BtnSimpan);
     }//GEN-LAST:event_CatatanKhususKeyPressed
 
-    private void medikasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medikasiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_medikasiActionPerformed
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(koneksiDB.CARICEPAT().equals("aktif")){
+            TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    if(TCari.getText().length()>2){
+                        runBackground(() ->tampil());
+                    }
+                }
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    if(TCari.getText().length()>2){
+                        runBackground(() ->tampil());
+                    }
+                }
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    if(TCari.getText().length()>2){
+                        runBackground(() ->tampil());
+                    }
+                }
+            });
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
     * @param args the command line arguments
@@ -2249,8 +2176,6 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
     private widget.TextBox TglLahir;
     private widget.Tanggal TglOperasi;
     private widget.Tanggal TglPuasa;
-    private javax.swing.JCheckBox hcu;
-    private javax.swing.JCheckBox informasi;
     private widget.InternalFrame internalFrame1;
     private widget.InternalFrame internalFrame2;
     private widget.InternalFrame internalFrame3;
@@ -2302,14 +2227,10 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
     private widget.Label jLabel46;
     private widget.Label jLabel47;
     private widget.Label jLabel48;
-    private widget.Label jLabel49;
-    private widget.Label jLabel50;
-    private widget.Label jLabel51;
     private widget.Label jLabel6;
     private widget.Label jLabel7;
     private widget.Label jLabel8;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
@@ -2324,17 +2245,13 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
     private widget.Label label12;
     private widget.Label label13;
     private widget.Label label14;
-    private javax.swing.JCheckBox medikasi;
     private widget.panelisi panelGlass8;
     private widget.panelisi panelGlass9;
     private widget.ScrollPane scrollInput;
-    private javax.swing.JTextArea tambahan;
     private widget.Table tbObat;
-    private javax.swing.JCheckBox tindakan;
-    private javax.swing.JCheckBox transfusi;
     // End of variables declaration//GEN-END:variables
 
-    public void tampil() {
+    private void tampil() {
         Valid.tabelKosong(tabMode);
         try{
             if(TCari.getText().trim().equals("")){
@@ -2349,8 +2266,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
                         "penilaian_pre_anestesi.riwayat_kebiasaan_alkohol,penilaian_pre_anestesi.riwayat_kebiasaan_ket_alkohol,penilaian_pre_anestesi.riwayat_kebiasaan_obat,"+
                         "penilaian_pre_anestesi.riwayat_kebiasaan_ket_obat,penilaian_pre_anestesi.riwayat_medis_cardiovasculer,penilaian_pre_anestesi.riwayat_medis_respiratory,"+
                         "penilaian_pre_anestesi.riwayat_medis_endocrine,penilaian_pre_anestesi.riwayat_medis_lainnya,penilaian_pre_anestesi.asa,penilaian_pre_anestesi.puasa,"+
-                        "penilaian_pre_anestesi.rencana_anestesi,penilaian_pre_anestesi.rencana_perawatan,penilaian_pre_anestesi.catatan_khusus,dokter.nm_dokter, "+
-                        "penilaian_pre_anestesi.instruksi,penilaian_pre_anestesi.persiapan_lain,penilaian_pre_anestesi.pemeriksaan_tambahan "+
+                        "penilaian_pre_anestesi.rencana_anestesi,penilaian_pre_anestesi.rencana_perawatan,penilaian_pre_anestesi.catatan_khusus,dokter.nm_dokter "+
                         "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                         "inner join penilaian_pre_anestesi on reg_periksa.no_rawat=penilaian_pre_anestesi.no_rawat "+
                         "inner join dokter on penilaian_pre_anestesi.kd_dokter=dokter.kd_dokter where "+
@@ -2367,8 +2283,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
                         "penilaian_pre_anestesi.riwayat_kebiasaan_alkohol,penilaian_pre_anestesi.riwayat_kebiasaan_ket_alkohol,penilaian_pre_anestesi.riwayat_kebiasaan_obat,"+
                         "penilaian_pre_anestesi.riwayat_kebiasaan_ket_obat,penilaian_pre_anestesi.riwayat_medis_cardiovasculer,penilaian_pre_anestesi.riwayat_medis_respiratory,"+
                         "penilaian_pre_anestesi.riwayat_medis_endocrine,penilaian_pre_anestesi.riwayat_medis_lainnya,penilaian_pre_anestesi.asa,penilaian_pre_anestesi.puasa,"+
-                        "penilaian_pre_anestesi.rencana_anestesi,penilaian_pre_anestesi.rencana_perawatan,penilaian_pre_anestesi.catatan_khusus,dokter.nm_dokter,"+
-                        "penilaian_pre_anestesi.instruksi,penilaian_pre_anestesi.persiapan_lain,penilaian_pre_anestesi.pemeriksaan_tambahan "+
+                        "penilaian_pre_anestesi.rencana_anestesi,penilaian_pre_anestesi.rencana_perawatan,penilaian_pre_anestesi.catatan_khusus,dokter.nm_dokter "+
                         "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                         "inner join penilaian_pre_anestesi on reg_periksa.no_rawat=penilaian_pre_anestesi.no_rawat "+
                         "inner join dokter on penilaian_pre_anestesi.kd_dokter=dokter.kd_dokter where "+
@@ -2398,7 +2313,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
                         rs.getString("fisik_obatobatan"),rs.getString("fisik_laborat"),rs.getString("fisik_penunjang"),rs.getString("riwayat_penyakit_alergiobat"),rs.getString("riwayat_penyakit_alergilainnya"),
                         rs.getString("riwayat_penyakit_terapi"),rs.getString("riwayat_kebiasaan_merokok"),rs.getString("riwayat_kebiasaan_ket_merokok"),rs.getString("riwayat_kebiasaan_alkohol"),rs.getString("riwayat_kebiasaan_ket_alkohol"),
                         rs.getString("riwayat_kebiasaan_obat"),rs.getString("riwayat_kebiasaan_ket_obat"),rs.getString("riwayat_medis_cardiovasculer"),rs.getString("riwayat_medis_respiratory"),rs.getString("riwayat_medis_endocrine"),
-                        rs.getString("riwayat_medis_lainnya"),rs.getString("asa"),rs.getString("puasa"),rs.getString("rencana_anestesi"),rs.getString("rencana_perawatan"),rs.getString("catatan_khusus"),rs.getString("instruksi"),rs.getString("persiapan_lain"),rs.getString("pemeriksaan_tambahan")
+                        rs.getString("riwayat_medis_lainnya"),rs.getString("asa"),rs.getString("puasa"),rs.getString("rencana_anestesi"),rs.getString("rencana_perawatan"),rs.getString("catatan_khusus")
                     });
                 }
             } catch (Exception e) {
@@ -2461,54 +2376,6 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         Diagnosa.requestFocus();
     } 
 
-    private void tampilkanInstruksi(String InstruksiValue){
-        medikasi.setSelected(false);
-        informasi.setSelected(false);
-        tindakan.setSelected(false);
-        
-        if(InstruksiValue != null && !InstruksiValue.trim().isEmpty()){
-            String[] InstruksiArray = InstruksiValue.split(",");
-            
-            for(String item:InstruksiArray){
-                String trimmedItem = item.trim();
-                
-                switch (trimmedItem){
-                    case "informasi tindakan anestesi":
-                        informasi.setSelected(true);
-                        break;
-                    case "tindakan medis anestesi":
-                        tindakan.setSelected(true);
-                        break;
-                    case "pemberian medikasi":
-                        medikasi.setSelected(true);
-                        break;
-                }
-            }
-        
-        }
-    }
-    private void tampilkanPersiapanLain(String PersiapanValue){
-        transfusi.setSelected(false);
-        hcu.setSelected(false);
-        
-        if (PersiapanValue != null && !PersiapanValue.trim().isEmpty()){
-            String[] PersiapanArray = PersiapanValue.split(",");
-                    
-            for(String item:PersiapanArray){
-                String trimmedItem = item.trim();
-                
-                switch (trimmedItem){
-                    case "persiapan transfusi darah":
-                        transfusi.setSelected(true);
-                        break;
-                    case "perawatan HCU pasca Operasi":
-                        hcu.setSelected(true);
-                        break;
-                }
-            }
-        }
-    }
-    
     private void getData() {
         if(tbObat.getSelectedRow()!= -1){
             TNoRw.setText(tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()); 
@@ -2516,8 +2383,6 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
             TPasien.setText(tbObat.getValueAt(tbObat.getSelectedRow(),2).toString());
             TglLahir.setText(tbObat.getValueAt(tbObat.getSelectedRow(),3).toString());
             Jk.setText(tbObat.getValueAt(tbObat.getSelectedRow(),4).toString()); 
-            KdDokter.setText(tbObat.getValueAt(tbObat.getSelectedRow(),5).toString());
-            NmDokter.setText(tbObat.getValueAt(tbObat.getSelectedRow(),6).toString());
             Diagnosa.setText(tbObat.getValueAt(tbObat.getSelectedRow(),9).toString());
             RencanaTindakan.setText(tbObat.getValueAt(tbObat.getSelectedRow(),10).toString());
             TB.setText(tbObat.getValueAt(tbObat.getSelectedRow(),11).toString());
@@ -2553,11 +2418,6 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
             RencanaAnestesi.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),42).toString());
             RencanaPerawatan.setText(tbObat.getValueAt(tbObat.getSelectedRow(),43).toString());
             CatatanKhusus.setText(tbObat.getValueAt(tbObat.getSelectedRow(),44).toString());
-            String InstruksiValue = tbObat.getValueAt(tbObat.getSelectedRow(),45).toString();
-            tampilkanInstruksi(InstruksiValue);
-            String PersiapanValue = tbObat.getValueAt(tbObat.getSelectedRow(),46).toString();
-            tampilkanPersiapanLain(PersiapanValue);
-            tambahan.setText(tbObat.getValueAt(tbObat.getSelectedRow(),47).toString());
             Valid.SetTgl2(TglAsuhan,tbObat.getValueAt(tbObat.getSelectedRow(),7).toString());
             Valid.SetTgl2(TglOperasi,tbObat.getValueAt(tbObat.getSelectedRow(),8).toString());
             Valid.SetTgl2(TglPuasa,tbObat.getValueAt(tbObat.getSelectedRow(),41).toString());
@@ -2601,6 +2461,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
         TCari.setText(norwt);
         DTPCari2.setDate(tgl2);    
         isRawat(); 
+        runBackground(() ->tampil());
     }
     
     public void isCek(){
@@ -2612,7 +2473,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
             KdDokter.setEditable(false);
             BtnDokter.setEnabled(false);
             KdDokter.setText(akses.getkode());
-            NmDokter.setText(dokter.tampil3(KdDokter.getText()));
+            NmDokter.setText(Sequel.CariDokter(KdDokter.getText()));
             if(NmDokter.getText().equals("")){
                 KdDokter.setText("");
                 JOptionPane.showMessageDialog(null,"User login bukan Dokter...!!");
@@ -2644,14 +2505,11 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
     }
 
     private void ganti() {
-        String Instruksi = getInstruksiValue();
-        String persiapan = getPersiapanLain();
-       
         if(Sequel.mengedittf("penilaian_pre_anestesi","no_rawat=? and tanggal=?","no_rawat=?,tanggal=?,kd_dokter=?,tanggal_operasi=?,diagnosa=?,rencana_tindakan=?,tb=?,bb=?,td=?,io2=?,nadi=?,"+
                 "pernapasan=?,suhu=?,fisik_cardiovasculer=?,fisik_paru=?,fisik_abdomen=?,fisik_extrimitas=?,fisik_endokrin=?,fisik_ginjal=?,fisik_obatobatan=?,fisik_laborat=?,fisik_penunjang=?,"+
                 "riwayat_penyakit_alergiobat=?,riwayat_penyakit_alergilainnya=?,riwayat_penyakit_terapi=?,riwayat_kebiasaan_merokok=?,riwayat_kebiasaan_ket_merokok=?,riwayat_kebiasaan_alkohol=?,"+
                 "riwayat_kebiasaan_ket_alkohol=?,riwayat_kebiasaan_obat=?,riwayat_kebiasaan_ket_obat=?,riwayat_medis_cardiovasculer=?,riwayat_medis_respiratory=?,riwayat_medis_endocrine=?,"+
-                "riwayat_medis_lainnya=?,asa=?,puasa=?,rencana_anestesi=?,rencana_perawatan=?,catatan_khusus=?,instruksi=?,persiapan_lain=?,pemeriksaan_tambahan=?",45,new String[]{
+                "riwayat_medis_lainnya=?,asa=?,puasa=?,rencana_anestesi=?,rencana_perawatan=?,catatan_khusus=?",42,new String[]{
                 TNoRw.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19),KdDokter.getText(),
                 Valid.SetTgl(TglOperasi.getSelectedItem()+"")+" "+TglOperasi.getSelectedItem().toString().substring(11,19),Diagnosa.getText(),RencanaTindakan.getText(), 
                 TB.getText(),BB.getText(),TD.getText(),IO2.getText(),Nadi.getText(),Pernapasan.getText(),Suhu.getText(),FisikCardio.getText(),FisikParu.getText(),
@@ -2660,7 +2518,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
                 PenyakitKebiasaanJumlahRokok.getText(),PenyakitKebiasaanAlkohol.getSelectedItem().toString(),PenyakitKebiasaanJumlahAlkohol.getText(),
                 PenyakitKebiasaanObat.getSelectedItem().toString(),PenyakitKebiasaanObatDiminum.getText(),MedisCardio.getText(),MedisRespiratory.getText(),MedisEndocrine.getText(),
                 MedisLainnya.getText(),AngkaASA.getSelectedItem().toString(),Valid.SetTgl(TglPuasa.getSelectedItem()+"")+" "+TglPuasa.getSelectedItem().toString().substring(11,19), 
-                RencanaAnestesi.getSelectedItem().toString(),RencanaPerawatan.getText(),CatatanKhusus.getText(),Instruksi,persiapan,tambahan.getText(),tbObat.getValueAt(tbObat.getSelectedRow(),0).toString(),
+                RencanaAnestesi.getSelectedItem().toString(),RencanaPerawatan.getText(),CatatanKhusus.getText(),tbObat.getValueAt(tbObat.getSelectedRow(),0).toString(),
                 tbObat.getValueAt(tbObat.getSelectedRow(),7).toString()
             })==true){
                 tbObat.setValueAt(TNoRw.getText(),tbObat.getSelectedRow(),0);
@@ -2708,48 +2566,13 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
                 tbObat.setValueAt(RencanaAnestesi.getSelectedItem().toString(),tbObat.getSelectedRow(),42);
                 tbObat.setValueAt(RencanaPerawatan.getText(),tbObat.getSelectedRow(),43);
                 tbObat.setValueAt(CatatanKhusus.getText(),tbObat.getSelectedRow(),44);
-                tbObat.setValueAt(Instruksi,tbObat.getSelectedRow(),45);
-                tbObat.setValueAt(persiapan,tbObat.getSelectedRow(),46);
-                tbObat.setValueAt(tambahan.getText(),tbObat.getSelectedRow(),47);
                 emptTeks();
                 TabRawat.setSelectedIndex(1);
         }
     }
 
-    private String getInstruksiValue(){
-        String Instruksi ="";
-        if(informasi.isSelected()){
-            Instruksi += "informasi tindakan anestesi,";
-        }
-        if(tindakan.isSelected()){
-            Instruksi +="tindakan medis anestesi,";
-        }
-        if(medikasi.isSelected()){
-            Instruksi +="pemberian medikasi,";
-        }
-        if(Instruksi.endsWith(",")){
-            Instruksi = Instruksi.substring(0,Instruksi.length() -1);
-        }
-        return Instruksi;
-    }
-    private String getPersiapanLain(){
-        String persiapan ="";
-            if(transfusi.isSelected()){
-                persiapan +="persiapan transfusi darah,";
-            }
-            if(hcu.isSelected()){
-                persiapan +="perawatan HCU pasca Operasi,";
-            }
-             if(persiapan.endsWith(",")){
-            persiapan = persiapan.substring(0,persiapan.length() -1);
-        }
-            return persiapan;
-    }
-    
     private void simpan() {
-        String Instruksi = getInstruksiValue();
-        String persiapan = getPersiapanLain();
-        if(Sequel.menyimpantf("penilaian_pre_anestesi","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat, Tanggal & Jam",43,new String[]{
+        if(Sequel.menyimpantf("penilaian_pre_anestesi","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat, Tanggal & Jam",40,new String[]{
                 TNoRw.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19),KdDokter.getText(),
                 Valid.SetTgl(TglOperasi.getSelectedItem()+"")+" "+TglOperasi.getSelectedItem().toString().substring(11,19),Diagnosa.getText(),RencanaTindakan.getText(), 
                 TB.getText(),BB.getText(),TD.getText(),IO2.getText(),Nadi.getText(),Pernapasan.getText(),Suhu.getText(),FisikCardio.getText(),FisikParu.getText(),
@@ -2758,7 +2581,7 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
                 PenyakitKebiasaanJumlahRokok.getText(),PenyakitKebiasaanAlkohol.getSelectedItem().toString(),PenyakitKebiasaanJumlahAlkohol.getText(),
                 PenyakitKebiasaanObat.getSelectedItem().toString(),PenyakitKebiasaanObatDiminum.getText(),MedisCardio.getText(),MedisRespiratory.getText(),MedisEndocrine.getText(),
                 MedisLainnya.getText(),AngkaASA.getSelectedItem().toString(),Valid.SetTgl(TglPuasa.getSelectedItem()+"")+" "+TglPuasa.getSelectedItem().toString().substring(11,19), 
-                RencanaAnestesi.getSelectedItem().toString(),RencanaPerawatan.getText(),CatatanKhusus.getText(),Instruksi,persiapan,tambahan.getText()
+                RencanaAnestesi.getSelectedItem().toString(),RencanaPerawatan.getText(),CatatanKhusus.getText()
             })==true){
                 tabMode.addRow(new Object[]{
                     TNoRw.getText(),TNoRM.getText(),TPasien.getText(),TglLahir.getText(),Jk.getText(),KdDokter.getText(),NmDokter.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19),
@@ -2767,10 +2590,42 @@ public final class RMPenilaianPreAnastesi extends javax.swing.JDialog {
                     FisikPenunjang.getText(),PenyakitAlergiObat.getText(),PenyakitAlergiLainnya.getText(),PenyakitTerapi.getText(),PenyakitKebiasaanMerokok.getSelectedItem().toString(),PenyakitKebiasaanJumlahRokok.getText(),
                     PenyakitKebiasaanAlkohol.getSelectedItem().toString(),PenyakitKebiasaanJumlahAlkohol.getText(),PenyakitKebiasaanObat.getSelectedItem().toString(),PenyakitKebiasaanObatDiminum.getText(),MedisCardio.getText(),
                     MedisRespiratory.getText(),MedisEndocrine.getText(),MedisLainnya.getText(),AngkaASA.getSelectedItem().toString(),Valid.SetTgl(TglPuasa.getSelectedItem()+"")+" "+TglPuasa.getSelectedItem().toString().substring(11,19), 
-                    RencanaAnestesi.getSelectedItem().toString(),RencanaPerawatan.getText(),CatatanKhusus.getText(),Instruksi,persiapan,tambahan.getText()
+                    RencanaAnestesi.getSelectedItem().toString(),RencanaPerawatan.getText(),CatatanKhusus.getText()
                 });
                 emptTeks();
                 LCount.setText(""+tabMode.getRowCount());
         }
+    }
+    
+    private void runBackground(Runnable task) {
+        if (ceksukses) return;
+        if (executor.isShutdown() || executor.isTerminated()) return;
+        if (!isDisplayable()) return;
+
+        ceksukses = true;
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+        try {
+            executor.submit(() -> {
+                try {
+                    task.run();
+                } finally {
+                    ceksukses = false;
+                    SwingUtilities.invokeLater(() -> {
+                        if (isDisplayable()) {
+                            setCursor(Cursor.getDefaultCursor());
+                        }
+                    });
+                }
+            });
+        } catch (RejectedExecutionException ex) {
+            ceksukses = false;
+        }
+    }
+    
+    @Override
+    public void dispose() {
+        executor.shutdownNow();
+        super.dispose();
     }
 }

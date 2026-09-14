@@ -12,7 +12,7 @@
             "select bukti_penyerahan_resep_obat.photo from bukti_penyerahan_resep_obat where bukti_penyerahan_resep_obat.no_resep='".$noresep."'"
         );
         if($rsquerygambarpersetujuan= mysqli_fetch_array($querygambarpersetujuan)){
-            @$src = 'data: image/jpeg;base64,'.base64_encode(file_get_contents("http://".host()."/webapps/penyerahanresep/".$rsquerygambarpersetujuan["photo"]));
+            @$src = 'data: image/jpeg;base64,'.base64_encode(file_get_contents("http://".$_SERVER['HTTP_HOST']."/webapps/penyerahanresep/".$rsquerygambarpersetujuan["photo"]));
             echo "<div class='row clearfix'>
                         <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
                             <div class='card'>
@@ -102,6 +102,23 @@
                                             <td align='center'>".$rsqueryresepracikan["aturan_pakai"]."</td>
                                         </tr>";
                 $i++;
+            }
+            
+            if($i==0){
+                $queryresepnonracikan = bukaquery(
+                    "select databarang.nama_brng,detailpiutang.aturan_pakai,detailpiutang.jml,kodesatuan.satuan
+                    from detailpiutang inner join bridging_resep_apotek_bpjs on bridging_resep_apotek_bpjs.no_sep_apotek=detailpiutang.nota_piutang  
+                    where bridging_resep_apotek_bpjs.no_resep='$noresep'"
+                );
+                while($rsqueryresepnonracikan= mysqli_fetch_array($queryresepnonracikan)){
+                    echo "                  <tr class='text-dark'>
+                                                <td align='center'>".$i."</td>
+                                                <td align='left'>".$rsqueryresepnonracikan["nama_brng"]."</td>
+                                                <td align='center'>".$rsqueryresepnonracikan["jml"]." ".$rsqueryresepnonracikan["satuan"]."</td>
+                                                <td align='center'>".$rsqueryresepnonracikan["aturan_pakai"]."</td>
+                                            </tr>";
+                    $i++;
+                }
             }
             echo "                  </table>
                                     <br/>

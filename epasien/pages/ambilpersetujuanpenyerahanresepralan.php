@@ -106,6 +106,23 @@
                                     </tr>";
             $i++;
         }
+        
+        if($i==0){
+            $queryresepnonracikan = bukaquery(
+                "select databarang.nama_brng,detailpiutang.aturan_pakai,detailpiutang.jml,kodesatuan.satuan
+                from detailpiutang inner join bridging_resep_apotek_bpjs on bridging_resep_apotek_bpjs.no_sep_apotek=detailpiutang.nota_piutang  
+                where bridging_resep_apotek_bpjs.no_resep='$noresep'"
+            );
+            while($rsqueryresepnonracikan= mysqli_fetch_array($queryresepnonracikan)){
+                echo "                  <tr class='text-dark'>
+                                            <td align='center'>".$i."</td>
+                                            <td align='left'>".$rsqueryresepnonracikan["nama_brng"]."</td>
+                                            <td align='center'>".$rsqueryresepnonracikan["jml"]." ".$rsqueryresepnonracikan["satuan"]."</td>
+                                            <td align='center'>".$rsqueryresepnonracikan["aturan_pakai"]."</td>
+                                        </tr>";
+                $i++;
+            }
+        }
         echo "                  </table>
                                 <form method='POST' onsubmit='return validasiIsi();' enctype=multipart/form-data>
                                     <input type='hidden' name='noresep' value='$noresep'>
@@ -142,9 +159,33 @@
 
             if(file_put_contents($file, $image_base64)){
                 if(file_exists("../webapps/penyerahanresep/pages/upload/".$noresep.".jpeg")){
-                    if(Tambah3("bukti_penyerahan_resep_obat","'".$noresep."','pages/upload/$fileName'")){
-                        Ubah2("resep_obat","tgl_penyerahan=current_date(),jam_penyerahan=current_time() where no_resep='$noresep'");
-                        JSRedirect("index.php?act=PersetujuanPenyerahanResepRalan&hal=Persetujuan");
+                    try{
+                        if(Tambah3("bukti_penyerahan_resep_obat","'".$noresep."','pages/upload/$fileName'")){
+                            Ubah2("resep_obat","tgl_penyerahan=current_date(),jam_penyerahan=current_time() where no_resep='$noresep'");
+                            JSRedirect("index.php?act=PersetujuanPenyerahanResepRalan&hal=Persetujuan");
+                        }    
+                    } catch(mysqli_sql_exception $e) {
+                        if($e->getCode()==1062){
+                            echo "<div class='row clearfix'>
+                                    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+                                       <div class='card'>
+                                           <div class='body'>
+                                               <center>Data bukti pelayanan sudah ada</center>
+                                           </div>
+                                       </div>
+                                    </div>
+                                  </div>";
+                        }else{
+                            echo "<div class='row clearfix'>
+                                    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+                                       <div class='card'>
+                                           <div class='body'>
+                                               <center>Gagal menyimpan</center>
+                                           </div>
+                                       </div>
+                                    </div>
+                                  </div>";
+                        }
                     }
                 }else{
                     echo "<div class='row clearfix'>

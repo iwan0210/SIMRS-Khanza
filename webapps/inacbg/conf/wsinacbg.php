@@ -5,17 +5,17 @@
     require_once('../conf/conf.php');
 
     function getKey() {
-       $keyRS = "a96e99e0082698e25e2477e220c89bbef484ebd4a6eecff293c64c200981f94f";   
+       $keyRS = "8136a1e5c26f16fb2873573b4c33ca0d9f85fbe54918e1939505315d992cf05e";   
        return $keyRS;
     }
 
     function getUrlWS() {
-        $UrlWS = "http://103.182.228.86/E-Klaim/ws.php";
+        $UrlWS = "http://eklaim.bolmongkab.go.id/E-Klaim/ws.php";
         return $UrlWS;
     }
     
     function getKelasRS() {
-        $kelasRS = "CP";
+        $kelasRS = "DP";
         return $kelasRS;
     }
 
@@ -1130,7 +1130,7 @@
                    }';
         $msg= Request($request);
         if($msg['metadata']['message']=="Ok"){
-            //KirimKlaimIndividualKeDC($nomor_sep);
+            KirimKlaimIndividualKeDC($nomor_sep);
         }else{
             echo "\n<br>Respon Final Klaim INACBG : ".$msg['metadata']['message'];
         }
@@ -1195,7 +1195,7 @@
                         }
                    }';
         $msg= Request($request);
-        //echo $msg['metadata']['message']."";
+        echo $msg['metadata']['message']."";
     }
     
     function MenarikDataKlaimPeriode($start_dt,$stop_dt,$jenis_rawat){	

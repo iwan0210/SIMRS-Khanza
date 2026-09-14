@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.RejectedExecutionException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -1060,7 +1061,7 @@ public class DlgPengaturanRekening extends javax.swing.JDialog {
             if(evt.getKeyCode()==KeyEvent.VK_SPACE){
                 akses.setform("DlgPengaturanRekening");
                 rekening.emptTeks();
-                rekening.tampil();
+                rekening.tampil2();
                 rekening.isCek();
                 rekening.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
                 rekening.setLocationRelativeTo(internalFrame1);
@@ -1087,7 +1088,7 @@ public class DlgPengaturanRekening extends javax.swing.JDialog {
             if(evt.getKeyCode()==KeyEvent.VK_SPACE){
                 akses.setform("DlgPengaturanRekeningRalan");
                 rekening.emptTeks();
-                rekening.tampil();
+                rekening.tampil2();
                 rekening.isCek();
                 rekening.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
                 rekening.setLocationRelativeTo(internalFrame1);
@@ -1129,7 +1130,7 @@ public class DlgPengaturanRekening extends javax.swing.JDialog {
             if(evt.getKeyCode()==KeyEvent.VK_SPACE){
                 akses.setform("DlgPengaturanRekeningRanap");
                 rekening.emptTeks();
-                rekening.tampil();
+                rekening.tampil2();
                 rekening.isCek();
                 rekening.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
                 rekening.setLocationRelativeTo(internalFrame1);
@@ -3114,19 +3115,33 @@ public class DlgPengaturanRekening extends javax.swing.JDialog {
     
     private void runBackground(Runnable task) {
         if (ceksukses) return;
+        if (executor.isShutdown() || executor.isTerminated()) return;
+        if (!isDisplayable()) return;
+
         ceksukses = true;
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-
-        executor.submit(() -> {
-            try {
-                task.run();
-            } finally {
-                ceksukses = false;
-                SwingUtilities.invokeLater(() -> {
-                    this.setCursor(Cursor.getDefaultCursor());
-                });
-            }
-        });
+        try {
+            executor.submit(() -> {
+                try {
+                    task.run();
+                } finally {
+                    ceksukses = false;
+                    SwingUtilities.invokeLater(() -> {
+                        if (isDisplayable()) {
+                            setCursor(Cursor.getDefaultCursor());
+                        }
+                    });
+                }
+            });
+        } catch (RejectedExecutionException ex) {
+            ceksukses = false;
+        }
+    }
+    
+    @Override
+    public void dispose() {
+        executor.shutdownNow();
+        super.dispose();
     }
 }

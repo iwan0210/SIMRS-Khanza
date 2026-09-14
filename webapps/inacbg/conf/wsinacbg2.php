@@ -5,17 +5,17 @@
     require_once('../../conf/conf.php');
 
     function getKey() {
-       $keyRS = "470f8c8340a95352c59aed8aa73644821488befe1fb40e3787462765373ed184";   
+       $keyRS = "8136a1e5c26f16fb2873573b4c33ca0d9f85fbe54918e1939505315d992cf05e";   
        return $keyRS;
     }
 
     function getUrlWS() {
-        $UrlWS = "http://36.88.134.131:8204/E-Klaim/ws.php";
+        $UrlWS = "http://eklaim.bolmongkab.go.id/E-Klaim/ws.php";
         return $UrlWS;
     }
     
     function getKelasRS() {
-        $kelasRS = "DS";
+        $kelasRS = "DP";
         return $kelasRS;
     }
 
@@ -324,7 +324,7 @@
             SetProsedurDRG($nomor_sep, $procedure);
             if(GroupingDRG($nomor_sep)=="Ok"){
                 InacBGToDRG($nomor_sep,$diagnosainacbg,$procedureinacbg);
-                GroupingStage1($nomor_sep,$coder_nik);
+                GroupingStage1($nomor_sep,$diagnosainacbg,$coder_nik);
             }
         }
     }
@@ -395,8 +395,8 @@
             SetDiagnosaDRG($nomor_sep, $diagnosa);
             SetProsedurDRG($nomor_sep, $procedure);
             if(GroupingDRG($nomor_sep)=="Ok"){
-                InacBGToDRG($nomor_sep);
-                GroupingStage1($nomor_sep,$coder_nik);
+                InacBGToDRG($nomor_sep,$diagnosa,$procedure);
+                GroupingStage1($nomor_sep,$diagnosa,$coder_nik);
             }
         }
     }
@@ -531,8 +531,8 @@
             SetDiagnosaDRG($nomor_sep, $diagnosa);
             SetProsedurDRG($nomor_sep, $procedure);
             if(GroupingDRG($nomor_sep)=="Ok"){
-                InacBGToDRG($nomor_sep);
-                GroupingStage1($nomor_sep,$coder_nik);
+                InacBGToDRG($nomor_sep,$diagnosa,$procedure);
+                GroupingStage1($nomor_sep,$diagnosa,$coder_nik);
             }
         }
     }
@@ -567,7 +567,7 @@
         echo $msg['metadata']['message']."";
     }
     
-     function GroupingStage1($nomor_sep,$coder_nik){	
+     function GroupingStage1($nomor_sep,$penyakit,$coder_nik){	
         $request ='{
                         "metadata": {
                             "method":"grouper",
@@ -583,6 +583,7 @@
             Hapus2("perkiraan_biaya_ranap", "no_rawat='".$nomor_sep."'");
             $cbg = validangka($msg['response_inacbg']['tariff']);
             InsertData2("perkiraan_biaya_ranap","'$nomor_sep','$penyakit','$cbg'");
+            echo "<meta http-equiv='refresh' content='1;URL=?act=Tampil'>";
         }
     }
     
@@ -673,7 +674,7 @@
         }
     }
     
-    function GroupingStage12($nomor_sep,$coder_nik){	
+    function GroupingStage12($nomor_sep,$penyakit,$coder_nik){	
         $request ='{
                         "metadata": {
                             "method":"grouper",
@@ -695,7 +696,7 @@
         }
     }
     
-    function GroupingStage13($nomor_sep,$coder_nik){	
+    function GroupingStage13($nomor_sep,$penyakit,$coder_nik){	
         $request ='{
                         "metadata": {
                             "method":"grouper",
