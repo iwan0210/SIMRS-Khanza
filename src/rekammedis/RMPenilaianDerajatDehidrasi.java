@@ -2155,7 +2155,7 @@ public final class RMPenilaianDerajatDehidrasi extends javax.swing.JDialog {
             tbObat.setValueAt(NilaiTotal.getText(),tbObat.getSelectedRow(),30);
             tbObat.setValueAt(HasilPenilaian.getText(),tbObat.getSelectedRow(),31);
             tbObat.setValueAt(KdDokter.getText(),tbObat.getSelectedRow(),32);
-            tbObat.setValueAt(NamaDokter.getText(),tbObat.getSelectedRow(),33);
+            tbObat.setValueAt(NmDokter.getText(),tbObat.getSelectedRow(),33);
             emptTeks();
         }
     }
@@ -2206,7 +2206,7 @@ public final class RMPenilaianDerajatDehidrasi extends javax.swing.JDialog {
                 Skala4.getSelectedItem().toString(),Nilai4.getText(),Skala5.getSelectedItem().toString(),Nilai5.getText(),Skala6.getSelectedItem().toString(),Nilai6.getText(),
                 Skala7.getSelectedItem().toString(),Nilai7.getText(),Skala8.getSelectedItem().toString(),Nilai8.getText(),Skala9.getSelectedItem().toString(),Nilai9.getText(),
                 Skala10.getSelectedItem().toString(),Nilai10.getText(),Skala11.getSelectedItem().toString(),Nilai11.getText(),Skala12.getSelectedItem().toString(),Nilai12.getText(),
-                NilaiTotal.getText(),HasilPenilaian.getText(),KdDokter.getText(),NamaDokter.getText()
+                NilaiTotal.getText(),HasilPenilaian.getText(),KdDokter.getText(),NmDokter.getText()
             });
             emptTeks();
             LCount.setText(""+tabMode.getRowCount());

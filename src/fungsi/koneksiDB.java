@@ -1836,4 +1836,24 @@ public class koneksiDB {
         }
         return var;
     }
+    
+    public static String FACEAPIURL() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = prop.getProperty("FACEAPIURL");
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
+    
+    public static String FACEAPITOKEN() {
+        try {
+            prop.loadFromXML(new FileInputStream("setting/database.xml"));
+            var = prop.getProperty("FACEAPITOKEN");
+        } catch (Exception e) {
+            var = "";
+        }
+        return var;
+    }
 }

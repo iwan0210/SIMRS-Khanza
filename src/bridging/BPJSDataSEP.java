@@ -4469,7 +4469,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                         KdKabupaten.setText(response.path("lokasiKejadian").path("kdKab").asText());
                         NmKabupaten.setText(api.tampilKabupaten(response.path("lokasiKejadian").path("kdKab").asText(),KdPropinsi.getText()));
                         KdPropinsi.setText(response.path("lokasiKejadian").path("kdProp").asText());
-                        NmPropinsi.setText(propinsi.tampilKan(response.path("lokasiKejadian").path("kdProp").asText()));
+                        NmPropinsi.setText(api.tampilPropinsi(response.path("lokasiKejadian").path("kdProp").asText()));
                         Keterangan.setText("KLL");
                         Valid.SetTgl(TanggalKKL,response.path("lokasiKejadian").path("tglKejadian").asText());
                     }
@@ -7265,6 +7265,9 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                 return false;
             }
             
+            String nohp = NoTelp.getText();
+            nohp = nohp.length() > 13 ? nohp.substring(0, 13) : nohp;
+            
             try {
                 headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
@@ -7279,7 +7282,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                         + "\"jenispasien\": \"JKN\","
                         + "\"nomorkartu\": \"" + NoKartu.getText() + "\","
                         + "\"nik\": \"" + NIK.getText() + "\","
-                        + "\"nohp\": \"" + NoTelp.getText() + "\","
+                        + "\"nohp\": \"" + nohp + "\","
                         + "\"kodepoli\": \"" + KdPoli.getText() + "\","
                         + "\"namapoli\": \"" + NmPoli.getText() + "\","
                         + "\"pasienbaru\": 0,"
@@ -7338,7 +7341,7 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
                         + "\"jenispasien\": \"JKN\","
                         + "\"nomorkartu\": \"" + NoKartu.getText() + "\","
                         + "\"nik\": \"" + NIK.getText() + "\","
-                        + "\"nohp\": \"" + NoTelp.getText() + "\","
+                        + "\"nohp\": \"" + nohp + "\","
                         + "\"kodepoli\": \"" + KdPoli.getText() + "\","
                         + "\"namapoli\": \"" + NmPoli.getText() + "\","
                         + "\"pasienbaru\": 0,"
@@ -7622,12 +7625,12 @@ public final class BPJSDataSEP extends javax.swing.JDialog {
 
         String tujuan = TujuanKunjungan.getSelectedItem().toString().trim();
         String flag = FlagProsedur.getSelectedItem().toString().trim();
-        String penunjang = Penunjang.getSelectedItem().toString().trim();
+        String penunjang1 = Penunjang.getSelectedItem().toString().trim();
         String asesmen = AsesmenPoli.getSelectedItem().toString().trim();
 
         boolean kosong
                 = flag.isEmpty()
-                && penunjang.isEmpty();
+                && penunjang1.isEmpty();
 
         if ("0. Normal".equals(tujuan)
                 && kosong

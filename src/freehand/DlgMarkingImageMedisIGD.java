@@ -14,14 +14,11 @@ package freehand;
 import fungsi.koneksiDB;
 import fungsi.sekuel;
 import java.awt.event.KeyEvent;
-import java.awt.AWTException;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -55,6 +52,9 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
     private final sekuel Sequel = new sekuel();
     private int index = 0;
     private Point[] arr = new Point[100000];
+    
+    private BufferedImage canvasImage = null;
+    private Graphics2D canvasGraphics = null;
 
     /**
      * Creates new form DlgPemberianObat
@@ -385,14 +385,14 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
             if (!PanelMenggambar.isShowing()) {
                 return;
             }
-            Robot r = new Robot();
             
-            Rectangle capture = new Rectangle(
-                PanelMenggambar.getLocationOnScreen(),
-                PanelMenggambar.getSize()
-            );
+            if (canvasImage == null) {
+                canvasImage = getBackgroundImage();
+            }
             
-            BufferedImage image = r.createScreenCapture(capture);
+            if (canvasImage == null) {
+                return;
+            }
 
             File dir = new File("tmpImageFreehand");
             if (!dir.exists()) {
@@ -402,7 +402,7 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
             String fileName = "medisIGD_" + TNoRawat.getText().replaceAll("/", "")+".png";
             File output = new File(dir, fileName);
             
-            ImageIO.write(image, "png", output);
+            ImageIO.write(canvasImage, "png", output);
 
             uploadImage(fileName, "medisigd/imagemarking");
             
@@ -433,7 +433,7 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
             }
 
             dispose();
-        } catch (AWTException | IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(DlgMarkingImageMedisIGD.class.getName())
                   .log(Level.SEVERE, null, ex);
         }
@@ -460,11 +460,22 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
     private void PanelMenggambarMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelMenggambarMouseDragged
         arr[index] = new Point(evt.getX(), evt.getY());
         index++;
-        Graphics2D g = (Graphics2D) PanelMenggambar.getGraphics();
-        g.setColor(Color.red);
-        g.setStroke(new BasicStroke(4));
-        for (int i = 0; i < index - 1; i++) {
-            g.drawLine(arr[i].x, arr[i].y, arr[i + 1].x, arr[i + 1].y);
+        
+        if (canvasImage == null) {
+            canvasImage = getBackgroundImage();
+            if (canvasImage != null) {
+                canvasGraphics = canvasImage.createGraphics();
+            }
+        }
+        
+        if (canvasGraphics != null) {
+            canvasGraphics.setColor(Color.red);
+            canvasGraphics.setStroke(new BasicStroke(4));
+            
+            for (int i = 0; i < index - 1; i++) {
+                canvasGraphics.drawLine(arr[i].x, arr[i].y, arr[i + 1].x, arr[i + 1].y);
+            }
+            PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(canvasImage));
         }
     }//GEN-LAST:event_PanelMenggambarMouseDragged
 
@@ -474,7 +485,10 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
     }//GEN-LAST:event_PanelMenggambarMouseReleased
 
     private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
-        repaint();
+        canvasImage = null;
+        canvasGraphics = null;
+        index = 0;
+        pilihanGambar();
     }//GEN-LAST:event_BtnHapusActionPerformed
 
     private void BtnHapusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnHapusKeyPressed
@@ -482,10 +496,12 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnHapusKeyPressed
 
     private void btnPerbaruiGambarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPerbaruiGambarActionPerformed
+        canvasImage = null;
         pilihanGambar();
     }//GEN-LAST:event_btnPerbaruiGambarActionPerformed
 
     private void btnPerbaruiGambarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPerbaruiGambarKeyPressed
+        canvasImage = null;
         pilihanGambar();
     }//GEN-LAST:event_btnPerbaruiGambarKeyPressed
 
@@ -527,6 +543,7 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
         } catch (Exception e) {
             System.out.println("Hapus error" + e);
         }
+        canvasImage = null;
         pilihanGambar();
     }//GEN-LAST:event_BtnHapusGambarActionPerformed
 
@@ -535,42 +552,52 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnHapusGambarKeyPressed
 
     private void rbFullBadanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFullBadanActionPerformed
+        canvasImage = null;
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/semua43.png")));
     }//GEN-LAST:event_rbFullBadanActionPerformed
 
     private void rbParuParuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbParuParuActionPerformed
+        canvasImage = null;
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/paruparu.png")));
     }//GEN-LAST:event_rbParuParuActionPerformed
 
     private void rbGenitalPriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbGenitalPriaActionPerformed
+        canvasImage = null;
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/genitalPria.png")));
     }//GEN-LAST:event_rbGenitalPriaActionPerformed
 
     private void rbMamameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMamameActionPerformed
+        canvasImage = null;
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/payudara.png")));
     }//GEN-LAST:event_rbMamameActionPerformed
 
     private void rbGenitalWanitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbGenitalWanitaActionPerformed
+        canvasImage = null;
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/genitalWanita.png")));
     }//GEN-LAST:event_rbGenitalWanitaActionPerformed
 
     private void rbKepalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbKepalaActionPerformed
+        canvasImage = null;
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/kepala.png")));
     }//GEN-LAST:event_rbKepalaActionPerformed
 
     private void rbKakiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbKakiActionPerformed
+        canvasImage = null;
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/telapakKaki.png")));
     }//GEN-LAST:event_rbKakiActionPerformed
 
     private void rbTanganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTanganActionPerformed
+        canvasImage = null;
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/tangan.png")));
     }//GEN-LAST:event_rbTanganActionPerformed
 
     private void rbTubuhPriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTubuhPriaActionPerformed
+        canvasImage = null;
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/tubuhPria.png")));
     }//GEN-LAST:event_rbTubuhPriaActionPerformed
 
     private void rbTubuhWanitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTubuhWanitaActionPerformed
+        canvasImage = null;
         PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/tubuhWanita.png")));
     }//GEN-LAST:event_rbTubuhWanitaActionPerformed
 
@@ -619,6 +646,7 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
 
 
     public void setNoRw(String norw) {
+        canvasImage = null;
         TNoRawat.setText(norw);
         rbFullBadan.setSelected(true);
         
@@ -681,6 +709,7 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
 
     void imageAssesment(String url) {
         try {
+            canvasImage = null;
             BufferedImage img = ImageIO.read(new URL(url.trim()));
             PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(img));
         } catch (IOException ex) {
@@ -711,6 +740,22 @@ public class DlgMarkingImageMedisIGD extends javax.swing.JDialog {
             PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/tubuhWanita.png")));
         } else {
             PanelMenggambar.setBackgroundImage(new javax.swing.ImageIcon(getClass().getResource("/picture/payudara.png")));
+        }
+    }
+    
+    private BufferedImage getBackgroundImage() {
+        try {
+            int w = PanelMenggambar.getWidth();
+            int h = PanelMenggambar.getHeight();
+            if (w <= 0) w = 878;
+            if (h <= 0) h = 556;
+            BufferedImage img = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = img.createGraphics();
+            PanelMenggambar.paint(g2d);
+            g2d.dispose();
+            return img;
+        } catch (Exception e) {
+            return null;
         }
     }
 }

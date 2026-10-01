@@ -1802,6 +1802,7 @@ public class frmUtama extends javax.swing.JFrame {
         BtnToolReg = new widget.ButtonBig();
         btnToolIGD = new widget.ButtonBig();
         jSeparator5 = new javax.swing.JSeparator();
+		jSeparator6 = new javax.swing.JSeparator();
         btnToolLab = new widget.ButtonBig();
         btnToolRad = new widget.ButtonBig();
         BtnToolJualObat = new widget.ButtonBig();
@@ -14723,11 +14724,12 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private void BtnToolKamnapIntensifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnToolKamnapIntensifActionPerformed
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        kasirralan.kamarinapintensif.isCek();
-        kasirralan.kamarinapintensif.emptTeks();  
-        kasirralan.kamarinapintensif.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
-        kasirralan.kamarinapintensif.setLocationRelativeTo(PanelUtama);
-        kasirralan.kamarinapintensif.setVisible(true);
+        DlgKamarInapIntensif kamarinap=new DlgKamarInapIntensif(null,false);
+        kamarinap.isCek();
+        kamarinap.emptTeks();  
+        kamarinap.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
+        kamarinap.setLocationRelativeTo(PanelUtama);
+        kamarinap.setVisible(true);
         DlgHome.dispose();
         this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_BtnToolKamnapIntensifActionPerformed
@@ -24389,6 +24391,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+	private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;

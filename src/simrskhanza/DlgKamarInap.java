@@ -703,6 +703,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnHapusDataSalah = new javax.swing.JMenuItem();
         jSeparator14 = new javax.swing.JPopupMenu.Separator();
         MnUpdateHari = new javax.swing.JMenuItem();
+        MnUpdateDiagnosa = new javax.swing.JMenuItem();
         MnPerkiraanBiaya = new javax.swing.JMenuItem();
         MnUrut = new javax.swing.JMenu();
         MnUrutNoRawatDesc = new javax.swing.JMenuItem();
@@ -4325,6 +4326,22 @@ public class DlgKamarInap extends javax.swing.JDialog {
             }
         });
         jPopupMenu1.add(MnUpdateHari);
+        
+        MnUpdateDiagnosa.setBackground(new java.awt.Color(255, 255, 254));
+        MnUpdateDiagnosa.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnUpdateDiagnosa.setForeground(new java.awt.Color(50, 50, 50));
+        MnUpdateDiagnosa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnUpdateDiagnosa.setText("Update Diagnosa Awal");
+        MnUpdateDiagnosa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnUpdateDiagnosa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnUpdateDiagnosa.setName("MnUpdateDiagnosa"); // NOI18N
+        MnUpdateDiagnosa.setPreferredSize(new java.awt.Dimension(200, 26));
+        MnUpdateDiagnosa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnUpdateDiagnosaActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(MnUpdateDiagnosa);
 
         MnPerkiraanBiaya.setBackground(new java.awt.Color(255, 255, 254));
         MnPerkiraanBiaya.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -8530,6 +8547,33 @@ public class DlgKamarInap extends javax.swing.JDialog {
             updateHari();
         }
     }//GEN-LAST:event_MnUpdateHariActionPerformed
+    
+    private void MnUpdateDiagnosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnUpdateDiagnosaActionPerformed
+        if (tabMode.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+            TCari.requestFocus();
+            return;
+        } 
+        
+        if (tbKamIn.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(null,"Silahkan Pilih Data...!!!!");
+            TCari.requestFocus();
+            return;
+        }
+        
+        if (tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 0).toString().equals("")) {
+            return;
+        }
+        
+        String diagnosaMasuk = Sequel.cariIsi("SELECT CASE WHEN CHAR_LENGTH(x.clean) > 100 THEN CONCAT(LEFT(x.clean,97),'...') ELSE x.clean END AS diagnosis_ringkas FROM (SELECT REPLACE(REPLACE(REPLACE(REPLACE(TRIM(diagnosis),'\\r\\n',', '),'\\n',', '),', ,',', '),',  , ',', ') AS clean FROM penilaian_medis_igd WHERE no_rawat = ?) x",tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 0).toString());
+        if (!diagnosaMasuk.trim().isBlank()) {
+            Sequel.mengedit("kamar_inap", "no_rawat=?", "diagnosa_awal=?", 2, new String[] {
+                diagnosaMasuk, tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 0).toString()
+            });
+            
+            tampil();
+        }
+    }//GEN-LAST:event_MnUpdateDiagnosaActionPerformed
 
     private void btnDiagnosaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnosaActionPerformed
         if(norawat.getText().trim().equals("")){
@@ -13737,7 +13781,6 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else if(R3.isSelected()==true){
                     form.setNoRm(norawat.getText(),DTPCari4.getDate());
                 }
-                form.tampil();
                 this.setCursor(Cursor.getDefaultCursor());
             }
         }
@@ -13814,7 +13857,6 @@ public class DlgKamarInap extends javax.swing.JDialog {
                 }else if(R3.isSelected()==true){
                     form.setNoRm(norawat.getText(),DTPCari4.getDate());
                 }
-                form.tampil();
                 this.setCursor(Cursor.getDefaultCursor());
             }
         }
@@ -20721,6 +20763,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
     private javax.swing.JMenuItem MnTransferAntarRuang;
     private javax.swing.JMenuItem MnUjiFungsiKFR;
     private javax.swing.JMenuItem MnUpdateHari;
+    private javax.swing.JMenuItem MnUpdateDiagnosa;
     private javax.swing.JMenu MnUrut;
     private javax.swing.JMenuItem MnUrutKamarAsc;
     private javax.swing.JMenuItem MnUrutKamarDesc;
@@ -21326,6 +21369,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnStatusPulangPaksa.setEnabled(akses.getkamar_inap());
         MnStatusMin.setEnabled(akses.getkamar_inap());
         MnUpdateHari.setEnabled(akses.getkamar_inap());
+        MnUpdateDiagnosa.setEnabled(akses.getkamar_inap());
         MnPermintaanStokObatPasien.setEnabled(akses.getpermintaan_stok_obat_pasien());
         MnPerkiraanBiaya.setEnabled(akses.getkamar_inap());
         MnDiagnosa.setEnabled(akses.getdiagnosa_pasien());

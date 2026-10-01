@@ -101,106 +101,7 @@ public final class ApotekBPJSMapingObat extends javax.swing.JDialog {
 
         kdobat.setDocument(new batasInput((byte)5).getKata(kdobat)); 
         KdObatBPJS.setDocument(new batasInput((byte)15).getKata(KdObatBPJS)); 
-        TCari.setDocument(new batasInput((byte)100).getKata(TCari));                  
-        
-        if(koneksiDB.CARICEPAT().equals("aktif")){
-            TCari.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
-                @Override
-                public void insertUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        tampil();
-                    }
-                }
-                @Override
-                public void removeUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        tampil();
-                    }
-                }
-                @Override
-                public void changedUpdate(DocumentEvent e) {
-                    if(TCari.getText().length()>2){
-                        tampil();
-                    }
-                }
-            });
-        }  
-        
-        barang.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {}
-            @Override
-            public void windowClosing(WindowEvent e) {}
-            @Override
-            public void windowClosed(WindowEvent e) {
-                if(barang.getTable().getSelectedRow()!= -1){                    
-                    kdobat.setText(barang.getTable().getValueAt(barang.getTable().getSelectedRow(),1).toString());
-                    TObat.setText(barang.getTable().getValueAt(barang.getTable().getSelectedRow(),2).toString());
-                }
-                kdobat.requestFocus();
-            }
-            @Override
-            public void windowIconified(WindowEvent e) {}
-            @Override
-            public void windowDeiconified(WindowEvent e) {}
-            @Override
-            public void windowActivated(WindowEvent e) {}
-            @Override
-            public void windowDeactivated(WindowEvent e) {}
-        }); 
-        
-        barang.getTable().addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode()==KeyEvent.VK_SPACE){
-                    barang.dispose();
-                }
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
-        
-        barangbpjs.addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {}
-            @Override
-            public void windowClosing(WindowEvent e) {}
-            @Override
-            public void windowClosed(WindowEvent e) {
-                if(barangbpjs.getTable().getSelectedRow()!= -1){                   
-                    KdObatBPJS.setText(barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),0).toString());
-                    NmObatBPJS.setText(barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),1).toString());
-                    prb=barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),2).toString().equals("True") ? "1" : "0";
-                    kronis=barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),3).toString().equals("True") ? "1" : "0";
-                    kemo=barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),4).toString().equals("True") ? "1" : "0";
-                    generik=barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),7).toString();
-                    KdObatBPJS.requestFocus();
-                }                  
-            }
-            @Override
-            public void windowIconified(WindowEvent e) {}
-            @Override
-            public void windowDeiconified(WindowEvent e) {}
-            @Override
-            public void windowActivated(WindowEvent e) {}
-            @Override
-            public void windowDeactivated(WindowEvent e) {}
-        });
-        
-        barangbpjs.getTable().addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {}
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode()==KeyEvent.VK_SPACE){
-                    barangbpjs.dispose();
-                }
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });  
+        TCari.setDocument(new batasInput((byte)100).getKata(TCari));
 
     }
 
@@ -758,6 +659,10 @@ private void btnPoliBPJSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 if(barangbpjs.getTable().getSelectedRow()!= -1){                   
                     KdObatBPJS.setText(barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),0).toString());
                     NmObatBPJS.setText(barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),1).toString());
+                    prb=barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),2).toString().equals("True") ? "1" : "0";
+                    kronis=barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),3).toString().equals("True") ? "1" : "0";
+                    kemo=barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),4).toString().equals("True") ? "1" : "0";
+                    generik=barangbpjs.getTable().getValueAt(barangbpjs.getTable().getSelectedRow(),7).toString();
                     KdObatBPJS.requestFocus();
                 }   
                 barangbpjs=null;

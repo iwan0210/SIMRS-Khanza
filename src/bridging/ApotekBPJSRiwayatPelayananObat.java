@@ -149,7 +149,6 @@ public final class ApotekBPJSRiwayatPelayananObat extends javax.swing.JDialog {
         jLabel16 = new widget.Label();
         NoKartu = new widget.TextBox();
         BtnCari = new widget.Button();
-        jLabel17 = new widget.Label();
         BtnKeluar = new widget.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -162,9 +161,9 @@ public final class ApotekBPJSRiwayatPelayananObat extends javax.swing.JDialog {
                 formWindowOpened(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
-        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Riwayat Pelayanan Obat Pasien Apotek BPJS ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
-
+        internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Riwayat Pelayanan Obat Apotek BPJS ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
@@ -179,7 +178,7 @@ public final class ApotekBPJSRiwayatPelayananObat extends javax.swing.JDialog {
 
         panelGlass6.setName("panelGlass6"); // NOI18N
         panelGlass6.setPreferredSize(new java.awt.Dimension(44, 54));
-        panelGlass6.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+        panelGlass6.setLayout(new java.awt.FlowLayout(0, 5, 9));
 
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("Tanggal");
@@ -188,7 +187,7 @@ public final class ApotekBPJSRiwayatPelayananObat extends javax.swing.JDialog {
         panelGlass6.add(jLabel22);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "19-02-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-09-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -202,7 +201,7 @@ public final class ApotekBPJSRiwayatPelayananObat extends javax.swing.JDialog {
         panelGlass6.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "19-02-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "15-09-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -223,7 +222,6 @@ public final class ApotekBPJSRiwayatPelayananObat extends javax.swing.JDialog {
         });
         panelGlass6.add(NoKartu);
 
-
         BtnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/accept.png"))); // NOI18N
         BtnCari.setMnemonic('6');
         BtnCari.setToolTipText("Alt+6");
@@ -241,16 +239,11 @@ public final class ApotekBPJSRiwayatPelayananObat extends javax.swing.JDialog {
         });
         panelGlass6.add(BtnCari);
 
-        jLabel17.setName("jLabel17"); // NOI18N
-        jLabel17.setPreferredSize(new java.awt.Dimension(30, 23));
-        panelGlass6.add(jLabel17);
-
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
         BtnKeluar.setMnemonic('K');
-        BtnKeluar.setText("Keluar");
         BtnKeluar.setToolTipText("Alt+K");
         BtnKeluar.setName("BtnKeluar"); // NOI18N
-        BtnKeluar.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnKeluar.setPreferredSize(new java.awt.Dimension(28, 23));
         BtnKeluar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnKeluarActionPerformed(evt);
@@ -364,7 +357,6 @@ public final class ApotekBPJSRiwayatPelayananObat extends javax.swing.JDialog {
     private widget.ScrollPane Scroll;
     private widget.InternalFrame internalFrame1;
     private widget.Label jLabel16;
-    private widget.Label jLabel17;
     private widget.Label jLabel21;
     private widget.Label jLabel22;
     private widget.panelisi panelGlass6;
@@ -390,11 +382,11 @@ public final class ApotekBPJSRiwayatPelayananObat extends javax.swing.JDialog {
             if (nameNode.path("code").asText().equals("200")) {
                 Valid.tabelKosong(tabMode);
                 response = mapper.readTree(api.Decrypt(root.path("response").asText(), utc));
-                responsedetail = response.path("list");
-                if (responsedetail.path("history").isArray()) {
-                    for (JsonNode list : responsedetail.path("history")) {
+                responselist = response.path("list");
+                if (responselist.path("history").isArray()) {
+                    for (JsonNode list : responselist.path("history")) {
                         tabMode.addRow(new Object[]{
-                            responsedetail.path("nokartu").asText(),responsedetail.path("namapeserta").asText(),responsedetail.path("tgllhr").asText(),
+                            responselist.path("nokartu").asText(),responselist.path("namapeserta").asText(),responselist.path("tgllhr").asText(),
                             list.path("nosjp").asText(),list.path("tglpelayanan").asText(),list.path("noresep").asText(),list.path("kodeobat").asText(),
                             list.path("namaobat").asText(),list.path("jmlobat").asText()
                         });

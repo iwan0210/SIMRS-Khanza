@@ -2586,7 +2586,6 @@ public final class RMPenilaianAwalMedisRanapKandungan extends javax.swing.JDialo
             });
         }
     }//GEN-LAST:event_formWindowOpened
->>>>>>> 67ddae1c66a38f096d591db69a5fbda088ed74ce
 
     /**
     * @param args the command line arguments

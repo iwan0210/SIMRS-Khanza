@@ -23,6 +23,7 @@ import bridging.BPJSDataSEP;
 import bridging.BPJSProgramPRB;
 import bridging.BPJSSPRI;
 import bridging.BPJSSuratKontrol;
+import bridging.BPJSFRISTA;
 import bridging.CoronaPasien;
 import surat.SuratKontrol;
 import bridging.InhealthDataSJP;
@@ -304,7 +305,6 @@ import surat.SuratPermintaanPerlindunganDariKekerasan;
 import surat.SuratPermintaanSecondOpinion;
 import surat.SuratPermohonanPrivasi;
 import surat.SuratSerahTerimaBarangAnggotaTubuh;
->>>>>>> 67ddae1c66a38f096d591db69a5fbda088ed74ce
 /**
  *
  * @author dosen
@@ -332,7 +332,6 @@ public final class DlgReg extends javax.swing.JDialog {
     private String nosisrute="",aktifkanparsial="no",BASENOREG="",TANGGALMUNDUR="yes",
             URUTNOREG="",status="Baru",order="reg_periksa.tgl_registrasi,reg_periksa.jam_reg desc",alamatperujuk="-",aktifjadwal="",IPPRINTERTRACER="",umur="0",sttsumur="Th",terbitsep="",
             validasiregistrasi="No",validasicatatan="No",norawatdipilih="",normdipilih="", urlFrista="", urlFinger="", userFrista="", passFrista="";
-            norawatdipilih="",normdipilih="";
     private SimpleDateFormat dateformat = new SimpleDateFormat("yyyy/MM/dd");
     private char ESC = 27;
     // ganti kertas
@@ -14715,7 +14714,12 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         }
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        openFrista(noka);
+        //openFrista(noka);
+        BPJSFRISTA frista = new BPJSFRISTA(null, false);
+        frista.setNoRm(TNoRM.getText());
+        frista.setSize(internalFrame1.getWidth() - 20, internalFrame1.getHeight() - 20);
+        frista.setLocationRelativeTo(internalFrame1);
+        frista.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
     }
     

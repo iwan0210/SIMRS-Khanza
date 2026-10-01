@@ -7962,6 +7962,10 @@ private void MnDataRalanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             TCari.requestFocus();
         }else{
             if(tbKasirRalan.getSelectedRow()!= -1){
+                if (!TNoRw.getText().equals(tbKasirRalan.getValueAt(tbKasirRalan.getSelectedRow(), 11).toString())) {
+                    JOptionPane.showMessageDialog(null,"Pasien yang diklik belum terpilih, silahkan klik lagi...");
+                    return;
+                }
                 if(Sequel.cariInteger("select count(kamar_inap.no_rawat) from kamar_inap where kamar_inap.no_rawat=?",TNoRw.getText())>0){
                     JOptionPane.showMessageDialog(null,"Maaf, Pasien sudah masuk Kamar Inap. Gunakan billing Ranap..!!!");
                 }else {

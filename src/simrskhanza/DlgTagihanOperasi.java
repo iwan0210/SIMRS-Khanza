@@ -409,6 +409,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
                 formWindowOpened(evt);
             }
         });
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         internalFrame1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Tagihan Operasi ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
         internalFrame1.setName("internalFrame1"); // NOI18N
@@ -428,7 +429,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         panelisi5.setBorder(null);
         panelisi5.setName("panelisi5"); // NOI18N
         panelisi5.setPreferredSize(new java.awt.Dimension(100, 43));
-        panelisi5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 4, 9));
+        panelisi5.setLayout(new java.awt.FlowLayout(0, 4, 9));
 
         label10.setText("Key Word :");
         label10.setName("label10"); // NOI18N
@@ -524,7 +525,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         panelisi4.setBorder(null);
         panelisi4.setName("panelisi4"); // NOI18N
         panelisi4.setPreferredSize(new java.awt.Dimension(100, 43));
-        panelisi4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 4, 9));
+        panelisi4.setLayout(new java.awt.FlowLayout(0, 4, 9));
 
         label9.setText("Key Word :");
         label9.setName("label9"); // NOI18N
@@ -615,7 +616,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
 
         panelisi1.setName("panelisi1"); // NOI18N
         panelisi1.setPreferredSize(new java.awt.Dimension(100, 56));
-        panelisi1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+        panelisi1.setLayout(new java.awt.FlowLayout(0, 5, 9));
 
         BtnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
         BtnSimpan.setMnemonic('S');
@@ -793,17 +794,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         jLabel4.setText("Jenis Anasthesi :");
         jLabel4.setName("jLabel4"); // NOI18N
         FormInput.add(jLabel4);
-        jLabel4.setBounds(249, 40, 90, 23);
-
-        jenis.setHighlighter(null);
-        jenis.setName("jenis"); // NOI18N
-        jenis.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jenisKeyPressed(evt);
-            }
-        });
-        FormInput.add(jenis);
-        jenis.setBounds(342, 40, 92, 23);
+        jLabel4.setBounds(810, 50, 90, 23);
 
         label17.setText("Ast. Operator 1 :");
         label17.setName("label17"); // NOI18N
@@ -1224,7 +1215,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
             }
         });
         FormInput.add(Kategori);
-        Kategori.setBounds(84, 40, 152, 23);
+        Kategori.setBounds(880, 80, 152, 23);
 
         btnBidan2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         btnBidan2.setMnemonic('2');
@@ -1680,7 +1671,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         FormInput.add(DikirimPA);
         DikirimPA.setBounds(900, 110, 130, 23);
 
-        scrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPane2.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         scrollPane2.setName("scrollPane2"); // NOI18N
 
         Laporan.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -1711,7 +1702,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         FormInput.add(btnTemplate);
         btnTemplate.setBounds(370, 430, 28, 23);
 
-        scrollPane3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPane3.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         scrollPane3.setName("scrollPane3"); // NOI18N
 
         PreOp.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -1766,7 +1757,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
             }
         });
         FormInput.add(Penyulit);
-        Penyulit.setBounds(1020, 80, 122, 23);
+        Penyulit.setBounds(1050, 80, 122, 23);
 
         Komplikasi.setHighlighter(null);
         Komplikasi.setName("Komplikasi"); // NOI18N
@@ -1799,7 +1790,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         FormInput.add(jLabel13);
         jLabel13.setBounds(1250, 110, 30, 23);
 
-        scrollPane4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPane4.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         scrollPane4.setName("scrollPane4"); // NOI18N
 
         PostOp.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -1816,7 +1807,7 @@ public class DlgTagihanOperasi extends javax.swing.JDialog {
         FormInput.add(jLabel14);
         jLabel14.setBounds(1050, 110, 100, 23);
 
-        scrollPane5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPane5.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         scrollPane5.setName("scrollPane5"); // NOI18N
 
         MacamOperasi.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -3015,8 +3006,6 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }else if(jml==0){
             JOptionPane.showMessageDialog(null,"Maaf, silahkan pilih operasi...!!!!");
             TCari.requestFocus();
-        }else if(tgl.getSelectedItem().toString().equals(tgl2.getSelectedItem().toString())){
-            JOptionPane.showMessageDialog(rootPane,"Kamu operasi apa bersin..? Cepat sekali...!!");
         }else{            
             if(Sequel.cariRegistrasi(TNoRw.getText())>0){
                 JOptionPane.showMessageDialog(rootPane,"Data billing sudah terverifikasi, data tidak boleh dihapus.\nSilahkan hubungi bagian kasir/keuangan ..!!");

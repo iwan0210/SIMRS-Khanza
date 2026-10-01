@@ -1612,6 +1612,7 @@ public final class RMCatatanADIMEGizi extends javax.swing.JDialog {
         } catch (Exception e) {
             System.out.println("Notif : "+e);
         }
+    }
 
     private void runBackground(Runnable task) {
         if (ceksukses) return;

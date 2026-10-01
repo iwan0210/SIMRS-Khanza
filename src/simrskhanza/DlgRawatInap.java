@@ -174,7 +174,6 @@ import rekammedis.RMSkriningNutrisiIbuHamil;
 import rekammedis.RMSkriningNutrisiLansia;
 import rekammedis.RMTimeOutSebelumInsisi;
 import rekammedis.RMTransferPasienAntarRuang;
-import widget.CekBox;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
@@ -216,6 +215,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         initRawatInap();
+        initWindowPemeriksaan();
 
         this.setLocation(8,1);
         setSize(885,674);
@@ -2087,7 +2087,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
         Jabatan.setHighlighter(null);
         Jabatan.setName("Jabatan"); // NOI18N
         panelGlass12.add(Jabatan);
-        Jabatan.setBounds(193, 40, 209, 23);
+        Jabatan.setBounds(193, 40, 178, 23);
 
         jLabel54.setText("Profesi / Jabatan / Departemen :");
         jLabel54.setName("jLabel54"); // NOI18N
@@ -2194,7 +2194,7 @@ public final class DlgRawatInap extends javax.swing.JDialog {
             }
         });
         panelGlass12.add(Btn5Soap);
-        Btn5Soap.setBounds(405, 40, 28, 23);
+        Btn5Soap.setBounds(374, 40, 28, 23);
 
         jLabel7.setText("Suhu (°C) :");
         jLabel7.setName("jLabel7"); // NOI18N
@@ -5285,30 +5285,43 @@ public final class DlgRawatInap extends javax.swing.JDialog {
             TNoRw.requestFocus();
             return;
         }
-        if (tbPemeriksaan.getSelectedRow() < 0) {
-            JOptionPane.showMessageDialog(null, "Maaf, Pilih Data Terlebih Dahulu...!!!!");
-            TNoRw.requestFocus();
-            return;
-        }
+        
         String NmDokter = Sequel.cariIsi("Select nm_dokter from dokter where kd_dokter = ?", akses.getkode());
         if (NmDokter.isBlank()) {
             JOptionPane.showMessageDialog(null, "Maaf, User Bukan Dokter...!!!!");
             return;
         }
         
-        if (tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(), 25).toString().equals("SUDAH")) {
-            JOptionPane.showMessageDialog(null, "Sudah Terverifikasi");
+        boolean adaCentang = false;
+        
+        for (int j = 0; j < tbPemeriksaan.getRowCount(); j++) {
+            if (tbPemeriksaan.getValueAt(j, 0).toString().equals("true")) {
+                adaCentang = true;
+                
+                if (verifikasiPemeriksaan(j)) {
+                    tbPemeriksaan.setValueAt(false, j, 0);
+                }
+            }
+        }
+        
+        if (adaCentang) {
+            tampilPemeriksaan();
+            JOptionPane.showMessageDialog(null, "Data berhasil diverifikasi", "Informasi", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         
-        String waktuSekarang = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
-        if (Sequel.menyimpantf("verifikasi_perawatan_ranap", "?,?,?,?,?", "Data", 5, new String[]{
-            tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(), 1).toString(), tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(), 4).toString(), tbPemeriksaan.getValueAt(tbPemeriksaan.getSelectedRow(), 5).toString(),
-            waktuSekarang, akses.getkode()
-        }) == true) {
-            tampilPemeriksaan();
-            JOptionPane.showMessageDialog(null, "Data berhasil diverifikasi", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        if (tbPemeriksaan.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(null, "Maaf, Pilih Data Terlebih Dahulu...!!!!");
+            TNoRw.requestFocus();
+            return;
         }
+        
+        if (!verifikasiPemeriksaan(tbPemeriksaan.getSelectedRow())) {
+            return;
+        }
+        
+        tampilPemeriksaan();
+        JOptionPane.showMessageDialog(null, "Data berhasil diverifikasi", "Informasi", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void BtnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAllActionPerformed
@@ -9148,7 +9161,10 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     }
     
     private void MnCopySOAPActionPerformed(java.awt.event.ActionEvent evt) {
-        copypastesoapranap.SetCatatanPasien(TKeluhan.getText(),TPemeriksaan.getText(),TPenilaian.getText(),TindakLanjut.getText(),TInstruksi.getText(),TEvaluasi.getText());
+        //copypastesoapranap.SetCatatanPasien(TKeluhan.getText(),TPemeriksaan.getText(),TPenilaian.getText(),TindakLanjut.getText(),TInstruksi.getText(),TEvaluasi.getText());
+        for(i=0;i<tbPemeriksaan.getRowCount();i++){
+            tbPemeriksaan.setValueAt(true,i,0);
+        }
     }
     
     private void MnPasteSOAPActionPerformed(java.awt.event.ActionEvent evt) {
@@ -9617,6 +9633,24 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     private widget.Table tbRawatDrPr;
     private widget.Table tbRawatPr;
     private widget.TextBox TanggalRegistrasi;
+    private widget.Button BtnTampilPemeriksaan;
+    private widget.InternalFrame internalFrame9;
+    private javax.swing.JDialog WindowPemeriksaan;
+    private widget.panelisi panelGlass5;
+    private widget.panelisi panelGlass6;
+    private widget.Button BtnCloseIn;
+    private widget.ScrollPane ScrollSubjek;
+    private widget.ScrollPane ScrollObjek;
+    private widget.ScrollPane ScrollAsesmen;
+    private widget.ScrollPane ScrollPlan;
+    private widget.ScrollPane ScrollInstruksi;
+    private widget.ScrollPane ScrollEvaluasi;
+    private widget.TextArea Subjek;
+    private widget.TextArea Objek;
+    private widget.TextArea Asesmen;
+    private widget.TextArea Plan;
+    private widget.TextArea Instruksi;
+    private widget.TextArea Evaluasi;
     // End of variables declaration//GEN-END:variables
     private widget.Button BtnSkorBromagePascaAnestesi,BtnPenilaianPreInduksi,BtnHasilPemeriksaanUSGUrologi,BtnHasilPemeriksaanUSGGynecologi,BtnHasilPemeriksaanEKG,BtnHasilPemeriksaanUSGNeonatus,BtnHasilEndoskopiFaringLaring,BtnHasilEndoskopiHidung,BtnHasilEndoskopiTelinga,
                           BtnAwalKeperawatanNeonatus,BtnPenilaianPasienImunitasRendah,BtnCatatanKeseimbanganCairan,BtnCatatanObservasiCHBP,BtnCatatanObservasiInduksiPersalinan,BtnPermintaanKonsultasiMedik,BtnAwalKeperawatanBayiAnak,BtnCatatanObservasiRestrainNonfarmakologi,
@@ -11595,7 +11629,7 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         MnCopySOAP.setFont(new java.awt.Font("Tahoma", 0, 11));
         MnCopySOAP.setForeground(new java.awt.Color(50, 50, 50));
         MnCopySOAP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); 
-        MnCopySOAP.setText("Copy SOAPIE");
+        MnCopySOAP.setText("Pilih Semua");
         MnCopySOAP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MnCopySOAP.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnCopySOAP.setName("MnCopySOAP");
@@ -12748,5 +12782,204 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
     public void dispose() {
         executor.shutdownNow();
         super.dispose();
+    }
+    
+    private void initWindowPemeriksaan() {
+        BtnTampilPemeriksaan = new widget.Button();
+        WindowPemeriksaan = new javax.swing.JDialog();
+        internalFrame9 = new widget.InternalFrame();
+        panelGlass5 = new widget.panelisi();
+        panelGlass6 = new widget.panelisi();
+        BtnCloseIn = new widget.Button();
+        ScrollSubjek = new widget.ScrollPane();
+        ScrollObjek = new widget.ScrollPane();
+        ScrollAsesmen = new widget.ScrollPane();
+        ScrollPlan = new widget.ScrollPane();
+        ScrollInstruksi = new widget.ScrollPane();
+        ScrollEvaluasi = new widget.ScrollPane();
+        Subjek =  new widget.TextArea();
+        Objek =  new widget.TextArea();
+        Asesmen =  new widget.TextArea();
+        Plan =  new widget.TextArea();
+        Instruksi =  new widget.TextArea();
+        Evaluasi =  new widget.TextArea();
+        
+        BtnTampilPemeriksaan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); 
+        BtnTampilPemeriksaan.setMnemonic('4');
+        BtnTampilPemeriksaan.setToolTipText("ALt+4");
+        BtnTampilPemeriksaan.setName("BtnTampilPemeriksaan"); 
+        BtnTampilPemeriksaan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTampilPemeriksaanActionPerformed(evt);
+            }
+        });
+        panelGlass12.add(BtnTampilPemeriksaan);
+        BtnTampilPemeriksaan.setBounds(405, 40, 28, 23);
+        
+        WindowPemeriksaan.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        WindowPemeriksaan.setName("WindowPemeriksaan");
+        WindowPemeriksaan.setUndecorated(true);
+        WindowPemeriksaan.setResizable(false);
+        WindowPemeriksaan.getContentPane().setLayout(new java.awt.BorderLayout(1, 1));
+        
+        internalFrame9.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Laporan Operasi ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        internalFrame9.setName("internalFrame9"); // NOI18N
+        internalFrame9.setLayout(new java.awt.BorderLayout(1, 1));
+        
+        panelGlass5.setName("panelGlass5"); // NOI18N
+        panelGlass5.setPreferredSize(new java.awt.Dimension(55, 55));
+        panelGlass5.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+        
+        BtnCloseIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/cross.png"))); // NOI18N
+        BtnCloseIn.setMnemonic('U');
+        BtnCloseIn.setText("Tutup");
+        BtnCloseIn.setToolTipText("Alt+U");
+        BtnCloseIn.setName("BtnCloseIn"); // NOI18N
+        BtnCloseIn.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnCloseIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCloseInActionPerformed(evt);
+            }
+        });
+        panelGlass5.add(BtnCloseIn);
+        
+        internalFrame9.add(panelGlass5, java.awt.BorderLayout.PAGE_END);
+        
+        panelGlass6.setName("panelGlass6"); // NOI18N
+        panelGlass6.setLayout(new java.awt.GridLayout(2, 3, 5, 5));
+        
+        ScrollSubjek.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Subjek :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        ScrollSubjek.setName("ScrollSubjek"); // NOI18N
+        
+        Subjek.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                // 1. Garis luar (Border utama)
+                new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true),
+                // 2. Jarak/padding dalam (Atas, Kiri, Bawah, Kanan)
+                javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+        Subjek.setColumns(20);
+        Subjek.setRows(5);
+        Subjek.setName("Subjek"); // NOI18N
+        ScrollSubjek.setViewportView(Subjek);
+        
+        panelGlass6.add(ScrollSubjek);
+        
+        ScrollObjek.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Objek :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        ScrollObjek.setName("ScrollObjek"); // NOI18N
+        
+        Objek.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                // 1. Garis luar (Border utama)
+                new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true),
+                // 2. Jarak/padding dalam (Atas, Kiri, Bawah, Kanan)
+                javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+        Objek.setColumns(20);
+        Objek.setRows(5);
+        Objek.setName("Objek"); // NOI18N
+        ScrollObjek.setViewportView(Objek);
+        
+        panelGlass6.add(ScrollObjek);
+        
+        ScrollAsesmen.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Asesmen :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        ScrollAsesmen.setName("ScrollAsesmen"); // NOI18N
+        
+        Asesmen.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                // 1. Garis luar (Border utama)
+                new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true),
+                // 2. Jarak/padding dalam (Atas, Kiri, Bawah, Kanan)
+                javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+        Asesmen.setColumns(20);
+        Asesmen.setRows(5);
+        Asesmen.setName("Asesmen"); // NOI18N
+        ScrollAsesmen.setViewportView(Asesmen);
+        
+        panelGlass6.add(ScrollAsesmen);
+        
+        ScrollPlan.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Plan :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        ScrollPlan.setName("ScrollPlan"); // NOI18N
+        
+        Plan.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                // 1. Garis luar (Border utama)
+                new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true),
+                // 2. Jarak/padding dalam (Atas, Kiri, Bawah, Kanan)
+                javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+        Plan.setColumns(20);
+        Plan.setRows(5);
+        Plan.setName("Plan"); // NOI18N
+        ScrollPlan.setViewportView(Plan);
+        
+        panelGlass6.add(ScrollPlan);
+        
+        ScrollInstruksi.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Instruksi :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        ScrollInstruksi.setName("ScrollInstruksi"); // NOI18N
+        
+        Instruksi.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                // 1. Garis luar (Border utama)
+                new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true),
+                // 2. Jarak/padding dalam (Atas, Kiri, Bawah, Kanan)
+                javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+        Instruksi.setColumns(20);
+        Instruksi.setRows(5);
+        Instruksi.setName("Instruksi"); // NOI18N
+        ScrollInstruksi.setViewportView(Instruksi);
+        
+        panelGlass6.add(ScrollInstruksi);
+        
+        ScrollEvaluasi.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "Evaluasi :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        ScrollEvaluasi.setName("ScrollEvaluasi"); // NOI18N
+        
+        Evaluasi.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                // 1. Garis luar (Border utama)
+                new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true),
+                // 2. Jarak/padding dalam (Atas, Kiri, Bawah, Kanan)
+                javax.swing.BorderFactory.createEmptyBorder(5, 8, 5, 8)
+        ));
+        Evaluasi.setColumns(20);
+        Evaluasi.setRows(5);
+        Evaluasi.setName("Evaluasi"); // NOI18N
+        ScrollEvaluasi.setViewportView(Evaluasi);
+        
+        panelGlass6.add(ScrollEvaluasi);
+        
+        internalFrame9.add(panelGlass6, java.awt.BorderLayout.CENTER);
+        
+        WindowPemeriksaan.getContentPane().add(internalFrame9, java.awt.BorderLayout.CENTER);
+    }
+    
+    private void BtnTampilPemeriksaanActionPerformed(java.awt.event.ActionEvent evt) {
+        Subjek.setText(TKeluhan.getText().trim());
+        Objek.setText(TPemeriksaan.getText().trim());
+        Asesmen.setText(TPenilaian.getText().trim());
+        Plan.setText(TindakLanjut.getText().trim());
+        Instruksi.setText(TInstruksi.getText().trim());
+        Evaluasi.setText(TEvaluasi.getText().trim());
+        WindowPemeriksaan.setSize(internalFrame1.getWidth() - 20, internalFrame1.getHeight() - 20);
+        WindowPemeriksaan.setLocationRelativeTo(internalFrame1);
+        WindowPemeriksaan.setVisible(true);
+    }
+    
+    private void BtnCloseInActionPerformed(java.awt.event.ActionEvent evt) {
+        TKeluhan.setText(Subjek.getText().trim());
+        TPemeriksaan.setText(Objek.getText().trim());
+        TPenilaian.setText(Asesmen.getText().trim());
+        TindakLanjut.setText(Plan.getText().trim());
+        TInstruksi.setText(Instruksi.getText().trim());
+        TEvaluasi.setText(Evaluasi.getText().trim());
+        WindowPemeriksaan.dispose();
+    }
+    
+    private boolean verifikasiPemeriksaan(int index) {
+        if (tbPemeriksaan.getValueAt(index, 25).toString().equals("SUDAH")) {
+            return true;
+        }
+        
+        String waktuSekarang = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
+        return Sequel.menyimpantf("verifikasi_perawatan_ranap", "?,?,?,?,?", "Data", 5, new String[]{
+            tbPemeriksaan.getValueAt(index, 1).toString(), tbPemeriksaan.getValueAt(index, 4).toString(), tbPemeriksaan.getValueAt(index, 5).toString(),
+            waktuSekarang, akses.getkode()
+        });
     }
 }

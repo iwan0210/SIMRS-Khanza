@@ -1412,23 +1412,29 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             TCari.requestFocus();
         }else{
             if(tbObat.getSelectedRow()!= -1){
-                if(akses.getkode().equals("Admin Utama")){
-                    NoPermintaanJawaban.setText(NoPermintaan.getText());
-                    WindowInput.setAlwaysOnTop(false);
-                    WindowInput.setVisible(true);
-                    JawabanDiagnosaKerja.requestFocus();
-                    JawabanDiagnosaKerja.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
-                }else{
-                    if(!dokter.tampil3(akses.getkode()).equals("")){
-                        NoPermintaanJawaban.setText(NoPermintaan.getText());
-                        WindowInput.setAlwaysOnTop(false);
-                        WindowInput.setVisible(true);
-                        JawabanDiagnosaKerja.requestFocus();
-                        JawabanDiagnosaKerja.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
-                    }else{
-                        JOptionPane.showMessageDialog(null,"Maaf, hanya bisa dijawab oleh dokter yang dikonsuli...!!!!");
-                    }
-                }
+//                if(akses.getkode().equals("Admin Utama")){
+//                    NoPermintaanJawaban.setText(NoPermintaan.getText());
+//                    WindowInput.setAlwaysOnTop(false);
+//                    WindowInput.setVisible(true);
+//                    JawabanDiagnosaKerja.requestFocus();
+//                    JawabanDiagnosaKerja.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
+//                }else{
+//                    if(!dokter.tampil3(akses.getkode()).equals("")){
+//                        NoPermintaanJawaban.setText(NoPermintaan.getText());
+//                        WindowInput.setAlwaysOnTop(false);
+//                        WindowInput.setVisible(true);
+//                        JawabanDiagnosaKerja.requestFocus();
+//                        JawabanDiagnosaKerja.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
+//                    }else{
+//                        JOptionPane.showMessageDialog(null,"Maaf, hanya bisa dijawab oleh dokter yang dikonsuli...!!!!");
+//                    }
+//                }
+                
+                NoPermintaanJawaban.setText(NoPermintaan.getText());
+                WindowInput.setAlwaysOnTop(false);
+                WindowInput.setVisible(true);
+                JawabanDiagnosaKerja.requestFocus();
+                JawabanDiagnosaKerja.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
             }else{
                 JOptionPane.showMessageDialog(null,"Maaf, silahkan pilih data...!!!!");
             }

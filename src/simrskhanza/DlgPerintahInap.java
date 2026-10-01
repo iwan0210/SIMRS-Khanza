@@ -1243,7 +1243,7 @@ public final class DlgPerintahInap extends javax.swing.JDialog {
             form.setVisible(true);
             form.emptTeks();
             form.setNoRm(TNoRw.getText(),TNoRM.getText(),TPasien.getText());
-            form.tampil();
+            form.tampil2();
             this.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_BtnKonsulActionPerformed
 

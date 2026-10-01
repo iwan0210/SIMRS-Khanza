@@ -1303,6 +1303,8 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
             return;
         }
         
+        String noRawat = tbObat.getValueAt(tbObat.getSelectedRow(),0).toString();
+        
         int count = Sequel.cariInteger("select count(no_rawat) from pre_operasi_marking where no_rawat=?", tbObat.getValueAt(tbObat.getSelectedRow(), 0).toString());
         
         if (count < 1) {
@@ -1325,7 +1327,8 @@ public final class RMPenilaianPreOperasi extends javax.swing.JDialog {
             "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,pre_operasi_marking.url_image,pre_operasi_marking.posisi, penilaian_pre_operasi.tanggal "+
             "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
             "inner join pre_operasi_marking on reg_periksa.no_rawat=pre_operasi_marking.no_rawat "+
-            "inner join penilaian_pre_operasi on reg_periksa.no_rawat=penilaian_pre_operasi.no_rawat",param);
+            "inner join penilaian_pre_operasi on reg_periksa.no_rawat=penilaian_pre_operasi.no_rawat"+
+            "where no_rawat='"+noRawat+"'",param);
     }//GEN-LAST:event_MnCetakMarkingPreOperasiActionPerformed
 
     private void BtnMarkingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMarkingActionPerformed

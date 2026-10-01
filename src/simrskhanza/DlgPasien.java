@@ -7035,7 +7035,7 @@ private void KabupatenMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
             Sequel.mengedit4("pasien_corona","no_rkm_medis=?","no_rkm_medis=?",2,new String[]{
                 NoRmTujuan.getText(),TNo.getText()
             });
-            Sequel.mengedit4("pasien_meninggal","no_rkm_medis=?","no_rkm_medis=?",2,new String
+            Sequel.mengedit4("pasien_meninggal","no_rkm_medis=?","no_rkm_medis=?",2,new String[]{
                 NoRmTujuan.getText(),TNo.getText()
             });
             Sequel.mengedit4("pasien_polri","no_rkm_medis=?","no_rkm_medis=?",2,new String[]{
