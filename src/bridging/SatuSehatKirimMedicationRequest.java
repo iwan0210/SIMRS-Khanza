@@ -6,6 +6,7 @@ package bridging;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fungsi.AturanPakaiParser;
 import fungsi.WarnaTable;
 import fungsi.batasInput;
 import fungsi.koneksiDB;
@@ -625,24 +626,23 @@ public final class SatuSehatKirimMedicationRequest extends javax.swing.JDialog {
                     idpasien=cekViaSatuSehat.tampilIDPasien(tbObat.getValueAt(i,5).toString());
                     iddokter=cekViaSatuSehat.tampilIDParktisi(tbObat.getValueAt(i,7).toString());
                     arrSplit = tbObat.getValueAt(i,24).toString().toLowerCase().split("x");
+                    String aturanPakai = tbObat.getValueAt(i,24).toString().toLowerCase();
+                    String[] hasilParse = AturanPakaiParser.parseAturanPakai(aturanPakai);
                     signa1="1";
-                    try {
-                        if(!arrSplit[0].replaceAll("[^0-9.]+", "").equals("")){
-                            signa1=arrSplit[0].replaceAll("[^0-9.]+", "");
-                        }
-                    } catch (Exception e) {
-                        signa1="1";
-                    }
                     signa2="1";
-                    try {
-                        if(!arrSplit[1].replaceAll("[^0-9.]+", "").equals("")){
-                            signa2=arrSplit[1].replaceAll("[^0-9.]+", "");
+                    if (hasilParse != null) {
+                        if (hasilParse.length >= 2) {
+                            signa1 = hasilParse[0]; // Frekuensi (misal: 3)
+                            signa2 = hasilParse[1]; // Dosis per minum (misal: 1, 0,5, atau 1/2)
+                        } else if (hasilParse.length == 1) {
+                            signa1 = hasilParse[0];
                         }
-                    } catch (Exception e) {
-                        signa2="1";
-                    } 
-                    if(tbObat.getValueAt(i,27).toString().equals("")){
-                        try{
+                    }
+                    
+                    System.out.println("Signa 1 : "+ signa1);
+                    System.out.println("Signa 2 : "+ signa2);
+                    if (tbObat.getValueAt(i, 27).toString().equals("")) {
+                        try {
                             headers = new HttpHeaders();
                             headers.setContentType(MediaType.APPLICATION_JSON);
                             headers.add("Authorization", "Bearer "+api.TokenSatuSehat());
@@ -885,22 +885,18 @@ public final class SatuSehatKirimMedicationRequest extends javax.swing.JDialog {
                     idpasien=cekViaSatuSehat.tampilIDPasien(tbObat.getValueAt(i,5).toString());
                     iddokter=cekViaSatuSehat.tampilIDParktisi(tbObat.getValueAt(i,7).toString());
                     arrSplit = tbObat.getValueAt(i,24).toString().toLowerCase().split("x");
+                    String aturanPakai = tbObat.getValueAt(i,24).toString().toLowerCase();
+                    String[] hasilParse = AturanPakaiParser.parseAturanPakai(aturanPakai);
                     signa1="1";
-                    try {
-                        if(!arrSplit[0].replaceAll("[^0-9.]+", "").equals("")){
-                            signa1=arrSplit[0].replaceAll("[^0-9.]+", "");
-                        }
-                    } catch (Exception e) {
-                        signa1="1";
-                    }
                     signa2="1";
-                    try {
-                        if(!arrSplit[1].replaceAll("[^0-9.]+", "").equals("")){
-                            signa2=arrSplit[1].replaceAll("[^0-9.]+", "");
+                    if (hasilParse != null) {
+                        if (hasilParse.length >= 2) {
+                            signa1 = hasilParse[0]; // Frekuensi (misal: 3)
+                            signa2 = hasilParse[1]; // Dosis per minum (misal: 1, 0,5, atau 1/2)
+                        } else if (hasilParse.length == 1) {
+                            signa1 = hasilParse[0];
                         }
-                    } catch (Exception e) {
-                        signa2="1";
-                    } 
+                    }
                     if(tbObat.getValueAt(i,27).toString().equals("")){
                         try{
                             headers = new HttpHeaders();

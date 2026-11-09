@@ -201,6 +201,31 @@ public final class DlgPeriksaRadiologi extends javax.swing.JDialog {
         } catch (Exception ex) {            
             aktifkanparsial="no";
         }
+        
+        try {
+            psset_tarif=koneksi.prepareStatement("select set_tarif.cara_bayar_radiologi,set_tarif.kelas_radiologi from set_tarif");
+            try {
+                rsset_tarif=psset_tarif.executeQuery();
+                if(rsset_tarif.next()){
+                    cara_bayar_radiologi=rsset_tarif.getString("cara_bayar_radiologi");
+                    kelas_radiologi=rsset_tarif.getString("kelas_radiologi");
+                }else{
+                    cara_bayar_radiologi="Yes";
+                    kelas_radiologi="Yes";
+                }
+            } catch (Exception e) {
+                System.out.println("Notifikasi : "+e);
+            } finally{
+                if(rsset_tarif!=null){
+                    rsset_tarif.close();
+                }
+                if(psset_tarif!=null){
+                    psset_tarif.close();
+                }
+            }  
+        } catch (Exception e) {
+            System.out.println(e);
+        } 
     }
 
     /** This method is called from within the constructor to
@@ -912,6 +937,7 @@ private void BtnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     DlgCariPeriksaRadiologi form=new DlgCariPeriksaRadiologi(null,false);
     form.setPasien(TNoRw.getText());
     form.setSize(this.getWidth(),this.getHeight());
+    form.tampil2();
     form.setLocationRelativeTo(this);
     form.setVisible(true);
     this.setCursor(Cursor.getDefaultCursor());
@@ -937,31 +963,6 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         if(akuntindakanradiologi.getSuspen_Piutang_Radiologi_Ralan().equals("")||akuntindakanradiologi.getSuspen_Piutang_Radiologi_Ranap().equals("")){
             akuntindakanradiologi.SetAkunTindakanRadiologi();
         }
-        
-        try {
-            psset_tarif=koneksi.prepareStatement("select set_tarif.cara_bayar_radiologi,set_tarif.kelas_radiologi from set_tarif");
-            try {
-                rsset_tarif=psset_tarif.executeQuery();
-                if(rsset_tarif.next()){
-                    cara_bayar_radiologi=rsset_tarif.getString("cara_bayar_radiologi");
-                    kelas_radiologi=rsset_tarif.getString("kelas_radiologi");
-                }else{
-                    cara_bayar_radiologi="Yes";
-                    kelas_radiologi="Yes";
-                }
-            } catch (Exception e) {
-                System.out.println("Notifikasi : "+e);
-            } finally{
-                if(rsset_tarif!=null){
-                    rsset_tarif.close();
-                }
-                if(psset_tarif!=null){
-                    psset_tarif.close();
-                }
-            }  
-        } catch (Exception e) {
-            System.out.println(e);
-        } 
         
         try {
             pssetpj=koneksi.prepareStatement("select set_pjlab.kd_dokterrad from set_pjlab");
@@ -1591,7 +1592,7 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     // End of variables declaration//GEN-END:variables
     
     
-    private void tampil() {     
+    private void tampil() {   
         try{
             jml=0;
             for(i=0;i<tbPemeriksaan.getRowCount();i++){
@@ -1741,7 +1742,7 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                     }
                     rs=pspemeriksaan.executeQuery();
                 }
-                while(rs.next()){                
+                while(rs.next()){   
                     tabMode.addRow(new Object[]{false,rs.getString(1),rs.getString(2),rs.getDouble(3),rs.getDouble(4),rs.getDouble(5),rs.getDouble(6),rs.getDouble(7),rs.getDouble(8),rs.getDouble(9),rs.getDouble(10),"","","","","","","",""});
                 }
             } catch (Exception e) {
@@ -2024,7 +2025,7 @@ private void ChkJlnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         NmPerujuk.setText(namaperujuk);
     }
     
-    public void tampil(String order) {         
+    public void tampil(String order) {     
         try{
             pspemeriksaan=koneksi.prepareStatement(
                     "select jns_perawatan_radiologi.kd_jenis_prw,jns_perawatan_radiologi.nm_perawatan,jns_perawatan_radiologi.total_byr,"+

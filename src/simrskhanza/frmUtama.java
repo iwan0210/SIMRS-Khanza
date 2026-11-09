@@ -918,7 +918,7 @@ import rekammedis.MasterRencanaKeperawatanNeonatus;
 import rekammedis.MasterRencanaKeperawatanPsikiatri;
 import rekammedis.MasterTemplateHasilRadiologi;
 import rekammedis.MasterTemplateInformasiEdukasi;
-import rekammedis.MasterTemplateLaporanOperasi;
+import rekammedis.MasterTemplateLaporanOperasiCustom;
 import rekammedis.MasterTemplatePemeriksaanDokter;
 import rekammedis.RMTriaseIGD;
 import rekammedis.MasterTriaseMacamKasus;
@@ -1247,6 +1247,10 @@ public class frmUtama extends javax.swing.JFrame {
     private int jmlmenu=0,grid=0,tinggi=0,i=0,menuawal=0;
     private String coder_nik="",pilihpage="",judulform="",tampilkantni=Sequel.cariIsi("select set_tni_polri.tampilkan_tni_polri from set_tni_polri"),
             AKTIFKANTRACKSQL=koneksiDB.AKTIFKANTRACKSQL();
+    
+    private int failedAttempts = 0;
+    private long lockUntilTime = 0;
+    private final int MAX_ATTEMPTS = 3;
     
     private frmUtama() {
         super();
@@ -8457,6 +8461,17 @@ public class frmUtama extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnLogActionPerformed
 
     private void BtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLoginActionPerformed
+        // 1. Cek apakah sedang dalam masa blokir (Time Lock)
+        long currentTime = System.currentTimeMillis();
+        if (currentTime < lockUntilTime) {
+            long secondsLeft = (lockUntilTime - currentTime) / 1000;
+            JOptionPane.showMessageDialog(null,
+                    "Terlalu banyak percobaan gagal.\nSilakan coba lagi dalam " + secondsLeft + " detik.",
+                    "Akun Dikunci Sementara",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         if(edAdmin.getText().trim().equals("")){
             Valid.textKosong(edAdmin,"ID User");
         }else if(edPwd.getText().trim().equals("")){
@@ -8468,7 +8483,10 @@ public class frmUtama extends javax.swing.JFrame {
                 cacherawatinap.reset();
                 cacheregistrasi.reset();
                 akses.setData(edAdmin.getText(),edPwd.getText());        
-                if(akses.getjml1()>=1){    
+                if(akses.getjml1()>=1) {
+                    // --- LOGIN ADMIN UTAMA BERHASIL ---
+                    failedAttempts = 0; // Reset counter
+                    lockUntilTime = 0;
                     BtnMenu.setEnabled(true);
                     BtnToolReg.setEnabled(true);
                     BtnToolKamnap.setEnabled(true);
@@ -8500,7 +8518,10 @@ public class frmUtama extends javax.swing.JFrame {
                     if(AKTIFKANTRACKSQL.equals("yes")){
                         Sequel.menyimpan("tracker","'Admin Utama',current_date(),current_time()","Login");
                     }
-                }else if(akses.getjml2()>=1){  
+                }else if(akses.getjml2() >= 1) {
+                    // --- LOGIN PEGAWAI BERHASIL ---
+                    failedAttempts = 0; // Reset counter
+                    lockUntilTime = 0;
                     BtnMenu.setEnabled(true);
                     DlgLogin.dispose();
                     BtnLog.setText("Log Out");
@@ -8554,8 +8575,27 @@ public class frmUtama extends javax.swing.JFrame {
                     if(AKTIFKANTRACKSQL.equals("yes")){
                         Sequel.menyimpan("tracker","'"+edAdmin.getText()+"',current_date(),current_time()","Login");
                     }
-                }else if((akses.getjml1()==0)&&(akses.getjml2()==0)){
-                    JOptionPane.showMessageDialog(null,"Maaf, Gagal login. ID User atau password ada yang salah ...!");
+                }else if((akses.getjml1() == 0) && (akses.getjml2() == 0)) {
+                    //JOptionPane.showMessageDialog(null,"Maaf, Gagal login. ID User atau password ada yang salah ...!");
+                    // --- LOGIN GAGAL (USER / PASSWORD SALAH) ---
+                    failedAttempts++;
+                    int sisaKesempatan = MAX_ATTEMPTS - failedAttempts;
+
+                    if (failedAttempts >= MAX_ATTEMPTS) {
+                        // Blokir selama 30 detik (30000 milidetik)
+                        lockUntilTime = System.currentTimeMillis() + (30 * 1000);
+                        JOptionPane.showMessageDialog(null,
+                                "Anda telah salah memasukkan password sebanyak " + MAX_ATTEMPTS + " kali.\n"
+                                + "Tombol login dikunci sementara selama 30 detik.",
+                                "Akses Diblokir Sementara",
+                                JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null,
+                                "Maaf, Gagal login. ID User atau password ada yang salah ...!\n"
+                                + "Sisa kesempatan mencoba: " + sisaKesempatan + " kali.",
+                                "Peringatan",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
                     BtnToolReg.setEnabled(false);
                     BtnToolKamnap.setEnabled(false);
                     BtnToolKamnapIntensif.setEnabled(false);
@@ -20622,7 +20662,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
     private void btnMasterTemplateLaporanOperasiActionPerformed(java.awt.event.ActionEvent evt) {
         isTutup();
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        MasterTemplateLaporanOperasi form=new MasterTemplateLaporanOperasi(this,false);
+        MasterTemplateLaporanOperasiCustom form=new MasterTemplateLaporanOperasiCustom(this,false);
         form.isCek();
         form.emptTeks();
         form.setTampil();

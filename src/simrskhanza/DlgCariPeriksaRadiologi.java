@@ -2764,6 +2764,11 @@ private void tbDokterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
         }
     }
     
+    public void tampil2() {
+        statushasil="";
+        runBackground(() -> tampil());
+    }
+    
     private void runBackground(Runnable task) {
         if (ceksukses) return;
         if (executor.isShutdown() || executor.isTerminated()) return;

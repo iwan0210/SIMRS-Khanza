@@ -23,6 +23,7 @@ import bridging.BPJSDataSEP;
 import bridging.BPJSProgramPRB;
 import bridging.BPJSSPRI;
 import bridging.BPJSSuratKontrol;
+import bridging.BPJSFingerprint;
 import bridging.BPJSFRISTA;
 import bridging.CoronaPasien;
 import surat.SuratKontrol;
@@ -14756,7 +14757,12 @@ private void MnLaporanRekapKunjunganBulananPoliActionPerformed(java.awt.event.Ac
         }
         
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-        openFinger(noka);
+        //openFinger(noka);
+        BPJSFingerprint form = new BPJSFingerprint(null, false);
+        form.setNoRm(TNoRM.getText());
+        form.setSize(internalFrame1.getWidth() - 20, internalFrame1.getHeight() - 20);
+        form.setLocationRelativeTo(internalFrame1);
+        form.setVisible(true);
         this.setCursor(Cursor.getDefaultCursor());
     }
 

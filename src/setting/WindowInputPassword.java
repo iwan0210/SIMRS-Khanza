@@ -137,22 +137,51 @@ public class WindowInputPassword extends javax.swing.JDialog {
     }//GEN-LAST:event_BtnClosePassKeyPressed
 
     private void BtnSimpanPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanPassActionPerformed
-        if(PassLama.getText().trim().equals("")){
-            Valid.textKosong(PassLama,"Password Lama");
-        }else if(Passbaru1.getText().trim().equals("")){
-            Valid.textKosong(Passbaru1,"Password Baru");
-        }else if(PassBaru2.getText().trim().equals("")){
-            Valid.textKosong(PassBaru2,"Password Baru");
-        }else if(!password.trim().equals(PassLama.getText())){
-            JOptionPane.showMessageDialog(null,"Maaf, Password lama salah...!!!");
-            PassLama.requestFocus();
-        }else if(!Passbaru1.getText().trim().equals(PassBaru2.getText())){
-            JOptionPane.showMessageDialog(null,"Maaf, Password Baru 1 dan Password Baru 2 tidak sesuai...!!!");
-            PassBaru2.requestFocus();
-        }else{
-            Sequel.queryu("update user set password=AES_ENCRYPT('"+PassBaru2.getText()+"','windi')  where id_user=AES_ENCRYPT('"+user+"','nur')");
-            dispose();
+        if (PassLama.getText().trim().isEmpty()) {
+            Valid.textKosong(PassLama, "Password Lama");
+            return;
         }
+
+        if (Passbaru1.getText().trim().isEmpty()) {
+            Valid.textKosong(Passbaru1, "Password Baru");
+            return;
+        }
+
+        if (PassBaru2.getText().trim().isEmpty()) {
+            Valid.textKosong(PassBaru2, "Password Baru");
+            return;
+        }
+
+        if (!password.trim().equals(PassLama.getText())) {
+            JOptionPane.showMessageDialog(null, "Maaf, Password lama salah...!!!");
+            PassLama.requestFocus();
+            return;
+        }
+        
+        String passwordBaru = Passbaru1.getText().trim();
+        String regexKompleksitas = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!_.,?()*\\-]).{8,}$";
+
+        if (!passwordBaru.matches(regexKompleksitas)) {
+            JOptionPane.showMessageDialog(null,
+                    "Maaf, Password Baru harus memenuhi kriteria:\n"
+                    + "- Minimal 8 karakter\n"
+                    + "- Memuat kombinasi huruf besar dan huruf kecil\n"
+                    + "- Memuat angka\n"
+                    + "- Memuat karakter khusus (contoh: *, #, $, !, &, dll)"
+            );
+            Passbaru1.requestFocus();
+            return;
+        }
+
+        if (!Passbaru1.getText().trim().equals(PassBaru2.getText())) {
+            JOptionPane.showMessageDialog(null, "Maaf, Password Baru 1 dan Password Baru 2 tidak sesuai...!!!");
+            PassBaru2.requestFocus();
+            return;
+        }
+
+        // Blok eksekusi utama jika semua validasi lolos
+        Sequel.queryu("update user set password=AES_ENCRYPT('" + PassBaru2.getText() + "','windi') where id_user=AES_ENCRYPT('" + user + "','nur')");
+        dispose();
     }//GEN-LAST:event_BtnSimpanPassActionPerformed
 
     private void BtnSimpanPassKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnSimpanPassKeyPressed

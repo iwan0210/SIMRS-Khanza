@@ -2707,7 +2707,8 @@ private void tbRadiologiRalanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRS
                     "if(permintaan_radiologi.jam_permintaan='00:00:00','',permintaan_radiologi.jam_permintaan) as jam_permintaan,reg_periksa.kd_pj,penjab.png_jawab,"+
                     "if(permintaan_radiologi.tgl_sampel='0000-00-00','',permintaan_radiologi.tgl_sampel) as tgl_sampel,if(permintaan_radiologi.jam_sampel='00:00:00','',permintaan_radiologi.jam_sampel) as jam_sampel,"+
                     "permintaan_radiologi.tgl_hasil,if(permintaan_radiologi.jam_hasil='00:00:00','',permintaan_radiologi.jam_hasil) as jam_hasil,"+
-                    "permintaan_radiologi.dokter_perujuk,dokter.nm_dokter,concat(ifnull(ki_last.kd_kamar,''),' ',ifnull(bangsal.nm_bangsal,'Ranap Gabung')) as nm_bangsal,permintaan_radiologi.informasi_tambahan,permintaan_radiologi.diagnosa_klinis "+
+                    "permintaan_radiologi.dokter_perujuk,dokter.nm_dokter,concat(ifnull(ki_last.kd_kamar,''),' ',ifnull(bangsal.nm_bangsal,'Ranap Gabung')) as nm_bangsal,permintaan_radiologi.informasi_tambahan,permintaan_radiologi.diagnosa_klinis, "+
+                    "concat(reg_periksa.umurdaftar,' ',reg_periksa.sttsumur)as umur, concat_ws(', ', pasien.alamat, kelurahan.nm_kel, kecamatan.nm_kec, kabupaten.nm_kab, propinsi.nm_prop) as alamat "+
                     "from permintaan_radiologi inner join reg_periksa on permintaan_radiologi.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                     "inner join dokter on permintaan_radiologi.dokter_perujuk=dokter.kd_dokter "+
@@ -2731,7 +2732,8 @@ private void tbRadiologiRalanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRS
                     "if(permintaan_radiologi.jam_permintaan='00:00:00','',permintaan_radiologi.jam_permintaan) as jam_permintaan,reg_periksa.kd_pj,penjab.png_jawab,"+
                     "if(permintaan_radiologi.tgl_sampel='0000-00-00','',permintaan_radiologi.tgl_sampel) as tgl_sampel,if(permintaan_radiologi.jam_sampel='00:00:00','',permintaan_radiologi.jam_sampel) as jam_sampel,"+
                     "permintaan_radiologi.tgl_hasil,if(permintaan_radiologi.jam_hasil='00:00:00','',permintaan_radiologi.jam_hasil) as jam_hasil,"+
-                    "permintaan_radiologi.dokter_perujuk,dokter.nm_dokter,concat(ifnull(ki_last.kd_kamar,''),' ',ifnull(bangsal.nm_bangsal,'Ranap Gabung')) as nm_bangsal,permintaan_radiologi.informasi_tambahan,permintaan_radiologi.diagnosa_klinis "+
+                    "permintaan_radiologi.dokter_perujuk,dokter.nm_dokter,concat(ifnull(ki_last.kd_kamar,''),' ',ifnull(bangsal.nm_bangsal,'Ranap Gabung')) as nm_bangsal,permintaan_radiologi.informasi_tambahan,permintaan_radiologi.diagnosa_klinis, "+
+                    "concat(reg_periksa.umurdaftar,' ',reg_periksa.sttsumur)as umur, concat_ws(', ', pasien.alamat, kelurahan.nm_kel, kecamatan.nm_kec, kabupaten.nm_kab, propinsi.nm_prop) as alamat "+
                     "from permintaan_radiologi inner join reg_periksa on permintaan_radiologi.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                     "inner join dokter on permintaan_radiologi.dokter_perujuk=dokter.kd_dokter "+
@@ -2829,7 +2831,8 @@ private void tbRadiologiRalanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRS
                         "if(permintaan_radiologi.jam_permintaan='00:00:00','',permintaan_radiologi.jam_permintaan) as jam_permintaan,permintaan_radiologi.tgl_sampel,"+
                         "if(permintaan_radiologi.jam_sampel='00:00:00','',permintaan_radiologi.jam_sampel) as jam_sampel,permintaan_radiologi.tgl_hasil,"+
                         "if(permintaan_radiologi.jam_hasil='00:00:00','',permintaan_radiologi.jam_hasil) as jam_hasil,"+
-                        "permintaan_radiologi.dokter_perujuk,dokter.nm_dokter,concat(ifnull(ki_last.kd_kamar,''),' ',ifnull(bangsal.nm_bangsal,'Ranap Gabung')) as nm_bangsal,permintaan_radiologi.informasi_tambahan,permintaan_radiologi.diagnosa_klinis "+
+                        "permintaan_radiologi.dokter_perujuk,dokter.nm_dokter,concat(ifnull(ki_last.kd_kamar,''),' ',ifnull(bangsal.nm_bangsal,'Ranap Gabung')) as nm_bangsal,permintaan_radiologi.informasi_tambahan,permintaan_radiologi.diagnosa_klinis, "+
+                        "concat(reg_periksa.umurdaftar,' ',reg_periksa.sttsumur)as umur, concat_ws(', ', pasien.alamat, kelurahan.nm_kel, kecamatan.nm_kec, kabupaten.nm_kab, propinsi.nm_prop) as alamat "+
                         "from permintaan_radiologi "+
                         "inner join reg_periksa on permintaan_radiologi.no_rawat=reg_periksa.no_rawat "+
                         "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
@@ -2862,7 +2865,8 @@ private void tbRadiologiRalanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRS
                         "if(permintaan_radiologi.jam_permintaan='00:00:00','',permintaan_radiologi.jam_permintaan) as jam_permintaan,permintaan_radiologi.tgl_sampel,"+
                         "if(permintaan_radiologi.jam_sampel='00:00:00','',permintaan_radiologi.jam_sampel) as jam_sampel,permintaan_radiologi.tgl_hasil,"+
                         "if(permintaan_radiologi.jam_hasil='00:00:00','',permintaan_radiologi.jam_hasil) as jam_hasil,"+
-                        "permintaan_radiologi.dokter_perujuk,dokter.nm_dokter,concat(ifnull(ki_last.kd_kamar,''),' ',ifnull(bangsal.nm_bangsal,'Ranap Gabung')) as nm_bangsal,permintaan_radiologi.informasi_tambahan,permintaan_radiologi.diagnosa_klinis "+
+                        "permintaan_radiologi.dokter_perujuk,dokter.nm_dokter,concat(ifnull(ki_last.kd_kamar,''),' ',ifnull(bangsal.nm_bangsal,'Ranap Gabung')) as nm_bangsal,permintaan_radiologi.informasi_tambahan,permintaan_radiologi.diagnosa_klinis, "+
+                        "concat(reg_periksa.umurdaftar,' ',reg_periksa.sttsumur)as umur, concat_ws(', ', pasien.alamat, kelurahan.nm_kel, kecamatan.nm_kec, kabupaten.nm_kab, propinsi.nm_prop) as alamat "+
                         "from permintaan_radiologi "+
                         "inner join reg_periksa on permintaan_radiologi.no_rawat=reg_periksa.no_rawat "+
                         "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+

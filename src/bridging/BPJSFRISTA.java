@@ -605,6 +605,7 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
                 HttpEntity<Map<String, String>> nodeEntity = new HttpEntity<>(nodeBody, nodeHeaders);
                 
                 // Eksekusi POST ke Node.js menggunakan getRest()
+                System.out.println("Mulai proses decrypt wajah ke "+nodeUrl);
                 ResponseEntity<Map> nodeResponse = getRest().exchange(nodeUrl, HttpMethod.POST, nodeEntity, Map.class);
 
                 if (nodeResponse.getStatusCode() != HttpStatus.OK || nodeResponse.getBody() == null) {
@@ -670,7 +671,7 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
                 });
             } catch (IOException | RuntimeException | KeyManagementException | NoSuchAlgorithmException e) {
                 SwingUtilities.invokeLater(() -> {
-                    JOptionPane.showMessageDialog(this, "Gagal proses verifikasi:\n" + e.getMessage() + "\nPastikan server Node.js aktif di port 3000.");
+                    JOptionPane.showMessageDialog(this, "Gagal proses verifikasi:\n" + e.getMessage() + "\nPastikan server face-api berjalan.");
                     LblStatusLogin.setText("Status: Error Ekstraksi/Koneksi");
                     LblStatusLogin.setForeground(new Color(204, 0, 0));
                 });
@@ -869,7 +870,7 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
                 // Ambil gambar saat tombol diklik
                 capturedImage = webcam.getImage();
 
-                if (capturedImage != null) {
+                if (capturedImage != null && !accessToken.isBlank()) {
                     // Tampilkan hasil foto ke JLabel preview (LblPreview)
                     Image scaledImage = capturedImage.getScaledInstance(LblPreview.getWidth(), LblPreview.getHeight(), Image.SCALE_SMOOTH);
                     LblPreview.setIcon(new ImageIcon(scaledImage));
@@ -941,7 +942,7 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
 
                                         // Update UI secara instan (Real-time)
                                         SwingUtilities.invokeLater(() -> {
-                                            if (faceDetected) {
+                                            if (faceDetected && !accessToken.isBlank()) {
                                                 LblStatusWajah.setText("Status: Wajah Terdeteksi ✓");
                                                 LblStatusWajah.setForeground(new Color(0, 153, 0));
                                                 BtnCapture.setEnabled(true);

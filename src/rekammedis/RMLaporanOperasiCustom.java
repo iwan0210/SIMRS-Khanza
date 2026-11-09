@@ -1586,7 +1586,7 @@ public final class RMLaporanOperasiCustom extends javax.swing.JDialog {
         panelGlass9.add(jLabel19);
 
         DTPCari1.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "19-05-2026" }));
+        DTPCari1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-07-2026" }));
         DTPCari1.setDisplayFormat("dd-MM-yyyy");
         DTPCari1.setName("DTPCari1"); // NOI18N
         DTPCari1.setOpaque(false);
@@ -1600,7 +1600,7 @@ public final class RMLaporanOperasiCustom extends javax.swing.JDialog {
         panelGlass9.add(jLabel21);
 
         DTPCari2.setForeground(new java.awt.Color(50, 70, 50));
-        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "19-05-2026" }));
+        DTPCari2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "09-07-2026" }));
         DTPCari2.setDisplayFormat("dd-MM-yyyy");
         DTPCari2.setName("DTPCari2"); // NOI18N
         DTPCari2.setOpaque(false);
@@ -2275,7 +2275,7 @@ public final class RMLaporanOperasiCustom extends javax.swing.JDialog {
     }//GEN-LAST:event_KomplikasiActionPerformed
 
     private void btnTemplateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTemplateActionPerformed
-        MasterCariTemplateLaporanOperasi template = new MasterCariTemplateLaporanOperasi(null, false);
+        MasterCariTemplateLaporanOperasiCustom template = new MasterCariTemplateLaporanOperasiCustom(null, false);
         template.addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent e) {
@@ -2288,11 +2288,13 @@ public final class RMLaporanOperasiCustom extends javax.swing.JDialog {
             @Override
             public void windowClosed(WindowEvent e) {
                 if (template.getTable().getSelectedRow() != -1) {
-                    PreOp.setText(template.getTable().getValueAt(template.getTable().getSelectedRow(), 2).toString());
-                    PostOp.setText(template.getTable().getValueAt(template.getTable().getSelectedRow(), 3).toString());
-                    Jaringan.setText(template.getTable().getValueAt(template.getTable().getSelectedRow(), 4).toString());
-                    DikirimPA.setSelectedItem(template.getTable().getValueAt(template.getTable().getSelectedRow(), 5).toString());
-                    Laporan.setText(template.getTable().getValueAt(template.getTable().getSelectedRow(), 6).toString());
+                    Jaringan.setText(template.getTable().getValueAt(template.getTable().getSelectedRow(), 2).toString());
+                    DikirimPA.setSelectedItem(template.getTable().getValueAt(template.getTable().getSelectedRow(), 3).toString());
+                    PreOp.setText(template.getTable().getValueAt(template.getTable().getSelectedRow(), 4).toString());
+                    PostOp.setText(template.getTable().getValueAt(template.getTable().getSelectedRow(), 5).toString());
+                    MacamOperasi.setText(template.getTable().getValueAt(template.getTable().getSelectedRow(), 6).toString());
+                    InstruksiPascaOP.setText(template.getTable().getValueAt(template.getTable().getSelectedRow(), 7).toString());
+                    Laporan.setText(template.getTable().getValueAt(template.getTable().getSelectedRow(), 8).toString());
                     Laporan.requestFocus();
                 }
             }

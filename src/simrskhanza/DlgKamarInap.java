@@ -279,8 +279,9 @@ public class DlgKamarInap extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         initKamarInap();
+        initGantiKamar();
         tabMode=new DefaultTableModel(null,new Object[]{
-            "No.Rawat","Nomer RM","Nama Pasien","Alamat Pasien","Penanggung Jawab","Hubungan P.J.","Jenis Bayar","Kamar","Tarif Kamar",
+            "No.Rawat","Nomer RM","Nama Pasien","Alamat Pasien","Penanggung Jawab","Hubungan P.J.","Jenis Bayar","Kamar","Kelas",
             "Diagnosa Awal","Diagnosa Akhir","Tgl.Masuk","Jam Masuk","Tgl.Keluar","Jam Keluar",
             "Ttl.Biaya","Stts.Pulang","Lama","Dokter P.J.","Kamar","Status Bayar","Agama","J.K","Status"
             }){
@@ -492,7 +493,9 @@ public class DlgKamarInap extends javax.swing.JDialog {
         CmbTgl = new widget.ComboBox();
         jLabel24 = new widget.Label();
         cmbStatus = new widget.ComboBox();
+        cmbKelas = new widget.ComboBox();
         jLabel26 = new widget.Label();
+        lblKelas = new widget.Label();
         btnDiagnosa = new widget.Button();
         TOut = new widget.TextBox();
         TIn = new widget.TextBox();
@@ -1193,12 +1196,22 @@ public class DlgKamarInap extends javax.swing.JDialog {
         cmbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sehat", "Rujuk", "APS", "+", "Meninggal", "Sembuh", "Membaik", "Pulang Paksa", "-", "Pindah Kamar", "Status Belum Lengkap", "Atas Persetujuan Dokter", "Atas Permintaan Sendiri", "Isoman", "Lain-lain" }));
         cmbStatus.setName("cmbStatus"); // NOI18N
         internalFrame2.add(cmbStatus);
-        cmbStatus.setBounds(418, 175, 240, 23);
+        cmbStatus.setBounds(478, 175, 180, 23);
 
         jLabel26.setText("Status Pulang/Keluar :");
         jLabel26.setName("jLabel26"); // NOI18N
         internalFrame2.add(jLabel26);
-        jLabel26.setBounds(275, 175, 140, 23);
+        jLabel26.setBounds(328, 175, 140, 23);
+        
+        lblKelas.setText("Kelas :");
+        lblKelas.setName("lblKelas");
+        internalFrame2.add(lblKelas);
+        lblKelas.setBounds(185, 175, 35, 23);
+        
+        cmbKelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Kelas 3", "Kelas 2", "Kelas 1", "VIP"}));
+        cmbKelas.setName("cmbKelas");
+        internalFrame2.add(cmbKelas);
+        cmbKelas.setBounds(225, 175, 100, 23);
 
         btnDiagnosa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png"))); // NOI18N
         btnDiagnosa.setMnemonic('3');
@@ -4775,8 +4788,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel35.setBounds(304, 85, 67, 23);
 
         buttonGroup2.add(Rganti3);
-        Rganti3.setSelected(true);
-        Rganti3.setText("3. Kamar Inap sebelumnya distatuskan pindah, lama inap dihitung dan pasien dimasukkan Ke Kamar inap yang baru");
+        //Rganti3.setSelected(true);
+        Rganti3.setText("3. PINDAH KAMAR (DIHITUNG 2 KAMAR)");
         Rganti3.setName("Rganti3"); // NOI18N
         internalFrame3.add(Rganti3);
         Rganti3.setBounds(75, 176, 620, 20);
@@ -4787,7 +4800,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
         jLabel33.setBounds(0, 115, 72, 23);
 
         buttonGroup2.add(Rganti2);
-        Rganti2.setText("2. Kamar Inap sebelumnya diganti kamarnya dengan Kamar Inap terbaru dan harga kamar menyesuaikan harga baru");
+        Rganti2.setSelected(true);
+        Rganti2.setText("2. PINDAH TITIP KAMAR");
         Rganti2.setName("Rganti2"); // NOI18N
         internalFrame3.add(Rganti2);
         Rganti2.setBounds(75, 159, 620, 20);
@@ -5810,6 +5824,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         WindowPindahKamar.dispose();
         WindowRanapGabung.dispose();
         WindowCaraBayar.dispose();
+        WindowGantiKamar.dispose();
         dispose();
     }//GEN-LAST:event_BtnKeluarActionPerformed
 
@@ -6044,7 +6059,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                     cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem()+"','0000-00-00','00:00:00','"+TJmlHari.getText()+"','"+
                                     ttlbiaya.getText()+"','-'","No.Rawat")==true){
                                 Sequel.mengedit("reg_periksa","no_rawat='"+norawat.getText()+"'","status_lanjut='Ranap'");
-                                Sequel.mengedit("kamar","kd_kamar='"+kdkamar.getText()+"'","status='ISI'");                
+                                Sequel.mengedit("kamar","kd_kamar='"+kdkamar.getText()+"'","status='ISI'");         
+                                Sequel.menyimpan("kamar_inap_kelas", "'"+norawat.getText()+"','"+cmbKelas.getSelectedItem()+"'");
                                 emptTeks();  
                                 tampil(); 
                             }   
@@ -6407,6 +6423,9 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     if(akses.getdpjp_ranap()==true){
                         MnDPJPActionPerformed(null);
                     }
+                } else if(i==7) {
+                    WindowGantiKamar.setLocationRelativeTo(internalFrame1);
+                    WindowGantiKamar.setVisible(true);
                 }
             }
         }
@@ -20836,6 +20855,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
     private widget.ComboBox cmbMntpindah;
     private widget.ComboBox cmbStatus;
     private widget.ComboBox cmbStatusBayar;
+    private widget.ComboBox cmbKelas;
     private widget.TextBox diagnosaakhir;
     private widget.TextBox diagnosaawal;
     private widget.InternalFrame internalFrame1;
@@ -20882,6 +20902,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
     private widget.Label jLabel5;
     private widget.Label jLabel6;
     private widget.Label jLabel7;
+    private widget.Label lblKelas;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu.Separator jSeparator12;
     private javax.swing.JPopupMenu.Separator jSeparator13;
@@ -20922,6 +20943,14 @@ public class DlgKamarInap extends javax.swing.JDialog {
     private widget.Table tbKamIn;
     private widget.TextBox ttlbiaya;
     private widget.TextBox ttlbiayapindah;
+    private javax.swing.JDialog WindowGantiKamar;
+    private widget.InternalFrame frameGantiKamar;
+    private widget.TextBox KodeKamar;
+    private widget.TextBox NamaKamar;
+    private widget.TextBox TarifKamar;
+    private widget.Button PilihKamar;
+    private widget.Button SimpanKamar;
+    private widget.Button CloseKamar;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JMenuItem MnSkorBromagePascaAnestesi,MnPenilaianPreInduksi,MnHasilPemeriksaanUSGUrologi,MnHasilPemeriksaanUSGGynecologi,MnHasilPemeriksaanEKG,MnBelumTerbitSEP,MnSudahTerbitSEP,MnHasilPemeriksaanUSGNeonatus,MnHasilEndoskopiFaringLaring,
                                   MnHasilEndoskopiHidung,MnHasilEndoskopiTelinga,MnPenilaianAwalKeperawatanRanapNeonatus,MnPenilaianPasienImunitasRendah,MnCatatanKeseimbanganCairan,MnCatatanObservasiCHBP,MnCatatanObservasiInduksiPersalinan,MnPermintaanKonsultasiMedik,
@@ -20974,10 +21003,11 @@ public class DlgKamarInap extends javax.swing.JDialog {
                            "penjab.png_jawab,concat(kamar_inap.kd_kamar,' ',bangsal.nm_bangsal) as kamar,kamar_inap.trf_kamar,kamar_inap.diagnosa_awal,kamar_inap.diagnosa_akhir," +
                            "kamar_inap.tgl_masuk,kamar_inap.jam_masuk,if(kamar_inap.tgl_keluar='0000-00-00','',kamar_inap.tgl_keluar) as tgl_keluar,if(kamar_inap.jam_keluar='00:00:00','',kamar_inap.jam_keluar) as jam_keluar,"+
                            "kamar_inap.ttl_biaya,kamar_inap.stts_pulang,kamar_inap.lama,dokter.nm_dokter,kamar_inap.kd_kamar,reg_periksa.kd_pj,concat(reg_periksa.umurdaftar,' ',reg_periksa.sttsumur)as umur,reg_periksa.status_bayar, "+
-                           "pasien.agama, pasien.jk, reg_periksa.stts_daftar from kamar_inap inner join reg_periksa on kamar_inap.no_rawat=reg_periksa.no_rawat inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                           "pasien.agama, pasien.jk, reg_periksa.stts_daftar, kamar_inap_kelas.kelas from kamar_inap inner join reg_periksa on kamar_inap.no_rawat=reg_periksa.no_rawat inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                            "inner join kamar on kamar_inap.kd_kamar=kamar.kd_kamar inner join bangsal on kamar.kd_bangsal=bangsal.kd_bangsal inner join kelurahan on pasien.kd_kel=kelurahan.kd_kel "+
                            "inner join kecamatan on pasien.kd_kec=kecamatan.kd_kec inner join kabupaten on pasien.kd_kab=kabupaten.kd_kab inner join dokter on reg_periksa.kd_dokter=dokter.kd_dokter "+
                            "inner join penjab on reg_periksa.kd_pj=penjab.kd_pj "+
+                           "left join kamar_inap_kelas on kamar_inap.no_rawat = kamar_inap_kelas.no_rawat "+
                            (namadokter.equals("")?"where "+key+" "+order:"inner join dpjp_ranap on dpjp_ranap.no_rawat=reg_periksa.no_rawat where dpjp_ranap.kd_dokter='"+namadokter+"' and "+key+" "+order));
                         try {
                             rs=ps.executeQuery();
@@ -20987,7 +21017,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
                                 publish(new Object[]{
                                     rs.getString("no_rawat"),rs.getString("no_rkm_medis"),rs.getString("nm_pasien")+" ("+rs.getString("umur")+")",
                                     rs.getString("alamat"),rs.getString("p_jawab"),rs.getString("hubunganpj"),rs.getString("png_jawab"),
-                                    rs.getString("kamar"),Valid.SetAngka(rs.getDouble("trf_kamar")),rs.getString("diagnosa_awal"),
+                                    rs.getString("kamar"),rs.getString("kelas"),rs.getString("diagnosa_awal"),
                                     rs.getString("diagnosa_akhir"),rs.getString("tgl_masuk"),rs.getString("jam_masuk"),rs.getString("tgl_keluar"),
                                     rs.getString("jam_keluar"),Valid.SetAngka(rs.getDouble("ttl_biaya")),rs.getString("stts_pulang"),
                                     rs.getString("lama"),rs.getString("nm_dokter"),rs.getString("kd_kamar"),rs.getString("status_bayar"),rs.getString("agama"),rs.getString("jk"),rs.getString("stts_daftar")
@@ -21263,6 +21293,8 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     CmbTahun.setSelectedItem(now.substring(0,4));
                     CmbBln.setSelectedItem(now.substring(5,7));
                     CmbTgl.setSelectedItem(now.substring(8,10));
+                    lblKelas.setVisible(false);
+                    cmbKelas.setVisible(false);
                 }else{
                     norawat.setEditable(true);
                     kdkamar.setEditable(true);
@@ -21285,7 +21317,9 @@ public class DlgKamarInap extends javax.swing.JDialog {
                     btnKamar.setEnabled(true);   
                     CmbTahun.setSelectedItem(now.substring(0,4));
                     CmbBln.setSelectedItem(now.substring(5,7));
-                    CmbTgl.setSelectedItem(now.substring(8,10));          
+                    CmbTgl.setSelectedItem(now.substring(8,10));
+                    lblKelas.setVisible(true);
+                    cmbKelas.setVisible(true);
                 }
             } catch (Exception e) {
                 System.out.println("Notifikasi : "+e);
@@ -21765,7 +21799,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnPulangSEPAPD.setFont(new java.awt.Font("Tahoma", 0, 11)); 
         MnPulangSEPAPD.setForeground(new java.awt.Color(50, 50, 50));
         MnPulangSEPAPD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png")));
-        MnPulangSEPAPD.setText("Update Pulang SEP Pertetujuan Dokter");
+        MnPulangSEPAPD.setText("Update Pulang SEP Persetujuan Dokter");
         MnPulangSEPAPD.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         MnPulangSEPAPD.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         MnPulangSEPAPD.setName("MnPulangSEPAPD"); 
@@ -22654,5 +22688,159 @@ public class DlgKamarInap extends javax.swing.JDialog {
         MnSuratPersetujuan.add(MnSuratPermintaanSecondOpinion);
         MnSuratPersetujuan.add(MnSuratPenolakanResusitasi);
         MnSuratPersetujuan.add(MnPengajuanCutiPerawatanPasien);
+    }
+    
+    private void initGantiKamar() {
+        WindowGantiKamar = new javax.swing.JDialog();
+        frameGantiKamar = new widget.InternalFrame();
+        KodeKamar = new widget.TextBox();
+        NamaKamar = new widget.TextBox();
+        TarifKamar = new widget.TextBox();
+        PilihKamar = new widget.Button();
+        SimpanKamar = new widget.Button();
+        CloseKamar = new widget.Button();
+        
+        WindowGantiKamar.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        WindowGantiKamar.setName("WindowGantiKamar");
+        WindowGantiKamar.setUndecorated(true);
+        WindowGantiKamar.setResizable(false);
+        WindowGantiKamar.setSize(550,60);
+        
+        frameGantiKamar.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Pindah Titip Kamar ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        frameGantiKamar.setName("frameGantiKamar");
+        frameGantiKamar.setPreferredSize(new java.awt.Dimension(40, 60));
+        frameGantiKamar.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 8));
+        
+        KodeKamar.setEditable(false);
+        KodeKamar.setHighlighter(null);
+        KodeKamar.setName("Kodekamar");
+        KodeKamar.setPreferredSize(new java.awt.Dimension(75, 24));
+        frameGantiKamar.add(KodeKamar);
+        
+        NamaKamar.setEditable(false);
+        NamaKamar.setHighlighter(null);
+        NamaKamar.setName("NamaKamar");
+        NamaKamar.setPreferredSize(new java.awt.Dimension(180, 24));
+        frameGantiKamar.add(NamaKamar);
+        
+        TarifKamar.setEditable(false);
+        TarifKamar.setHighlighter(null);
+        TarifKamar.setName("TarifKamar");
+        TarifKamar.setPreferredSize(new java.awt.Dimension(85, 24));
+        frameGantiKamar.add(TarifKamar);
+        
+        PilihKamar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/190.png")));
+        PilihKamar.setName("PilihKamar");
+        PilihKamar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PilihKamarActionPerformed(evt);
+            }
+        });
+        frameGantiKamar.add(PilihKamar);
+        
+        SimpanKamar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png")));
+        SimpanKamar.setName("SimpanKamar");
+        SimpanKamar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SimpanKamarActionPerformed(evt);
+            }
+        });
+        frameGantiKamar.add(SimpanKamar);
+        
+        CloseKamar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/cross.png")));
+        CloseKamar.setName("CloseKamar");
+        CloseKamar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CloseKamarActionPerformed(evt);
+            }
+        });
+        frameGantiKamar.add(CloseKamar);
+        
+        WindowGantiKamar.getContentPane().add(frameGantiKamar, java.awt.BorderLayout.CENTER);
+    }
+    
+    private void SimpanKamarActionPerformed(java.awt.event.ActionEvent evt) {
+        if (KodeKamar.getText().trim().isBlank()) {
+            return;
+        }
+        
+        if(R3.isSelected()==false){
+            JOptionPane.showMessageDialog(rootPane,"Tampilkan data yang sudah pulang");
+            return;
+        }
+
+        int lamaInap = Integer.parseInt(tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 17).toString());
+        int biaya = Integer.parseInt(TarifKamar.getText());
+        int totalBiaya = lamaInap * biaya;
+
+        if (Sequel.mengedittf(
+                "kamar_inap",
+                "no_rawat=? and tgl_masuk = ? and jam_masuk = ?",
+                "kd_kamar = ?, trf_kamar = ?, ttl_biaya = ?", 6, new String[]{
+                    KodeKamar.getText(), String.valueOf(biaya), String.valueOf(totalBiaya),
+                    tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 0).toString(),
+                    tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 11).toString(),
+                    tbKamIn.getValueAt(tbKamIn.getSelectedRow(), 12).toString(),
+                })) {
+            tbKamIn.setValueAt(KodeKamar.getText() +" "+ NamaKamar.getText(), tbKamIn.getSelectedRow(), 7);
+            DecimalFormat df = new DecimalFormat("#,###");
+            String formattedBiaya = df.format(totalBiaya);
+            tbKamIn.setValueAt(formattedBiaya, tbKamIn.getSelectedRow(), 15);
+            CloseKamarActionPerformed(null);
+        }
+    }
+
+    private void PilihKamarActionPerformed(java.awt.event.ActionEvent evt) {
+        DlgKamar kamar = new DlgKamar(null, false);
+        kamar.addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {}
+            @Override
+            public void windowClosing(WindowEvent e) {}
+            @Override
+            public void windowClosed(WindowEvent e) {
+                if(kamar.getTable().getSelectedRow()!= -1){                   
+                    KodeKamar.setText(kamar.getTable().getValueAt(kamar.getTable().getSelectedRow(), 1).toString());
+                    NamaKamar.setText(kamar.getTable().getValueAt(kamar.getTable().getSelectedRow(), 3).toString());
+                    TarifKamar.setText(kamar.getTable().getValueAt(kamar.getTable().getSelectedRow(), 5).toString().replace(".0", ""));
+                }                  
+            }
+            @Override
+            public void windowIconified(WindowEvent e) {}
+            @Override
+            public void windowDeiconified(WindowEvent e) {}
+            @Override
+            public void windowActivated(WindowEvent e) {}
+            @Override
+            public void windowDeactivated(WindowEvent e) {}
+        });
+        
+        kamar.getTable().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode()==KeyEvent.VK_SPACE){
+                    kamar.dispose();
+                }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+        
+        kamar.load();
+        kamar.isCek();
+        kamar.emptTeks();
+        kamar.tampil2();
+        kamar.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+        kamar.setLocationRelativeTo(internalFrame1);
+        kamar.setVisible(true);
+    }
+    
+    private void CloseKamarActionPerformed(java.awt.event.ActionEvent evt) {
+        KodeKamar.setText("");
+        NamaKamar.setText("");
+        TarifKamar.setText("");
+        WindowGantiKamar.dispose();
     }
 }

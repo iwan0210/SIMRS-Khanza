@@ -22,15 +22,21 @@
         <group>
             <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/fungsi/sekuel.java</file>
             <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/frmUtama.java</file>
-            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgCariTagihanOperasi.java</file>
-            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMDataResumePasienRanap.java</file>
-            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/fungsi/koneksiDB.java</file>
+            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/MobileJKNReferensiPendaftaran.java</file>
+            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/permintaan/DlgCariPermintaanRadiologi.java</file>
+            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/RMLaporanOperasiCustom.java</file>
+            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgKasirRalan.java</file>
             <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgIGD.java</file>
             <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/BPJSDataSEP.java</file>
             <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgRawatInap.java</file>
-            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/BPJSFRISTA.java</file>
+            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/MasterTemplateLaporanOperasiCustom.java</file>
+            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/fungsi/validasi.java</file>
             <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgTagihanOperasi.java</file>
+            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgPeriksaRadiologi.java</file>
             <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgKamarInap.java</file>
+            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/bridging/BPJSFingerprint.java</file>
+            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/inventory/DlgDaftarPermintaanResep.java</file>
+            <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/rekammedis/MasterCariTemplateLaporanOperasiCustom.java</file>
             <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgReg.java</file>
             <file>file:/home/iwan/Documents/Khanza%20Edit/11.02.2024/SIMRS-Khanza/src/simrskhanza/DlgRawatJalan.java</file>
         </group>

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fungsi.ApiOrthanc;
 import fungsi.ApiSatuSehat;
+import fungsi.AturanPakaiParser;
 import fungsi.SatuSehatCekNIK;
 import fungsi.koneksiDB;
 import fungsi.sekuel;
@@ -3754,22 +3755,18 @@ public class frmUtama extends javax.swing.JFrame {
                             idpasien=cekViaSatuSehat.tampilIDPasien(rs.getString("no_ktp"));
                             idpraktisi=cekViaSatuSehat.tampilIDParktisi(rs.getString("ktppraktisi"));
                             arrSplit = rs.getString("aturan_pakai").toLowerCase().split("x");
-                            signa1="1";
-                            try {
-                                if(!arrSplit[0].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa1=arrSplit[0].replaceAll("[^0-9.]+", "");
+                            String aturanPakai = rs.getString("aturan_pakai").toLowerCase();
+                            String[] hasilParse = AturanPakaiParser.parseAturanPakai(aturanPakai);
+                            signa1 = "1";
+                            signa2 = "1";
+                            if (hasilParse != null) {
+                                if (hasilParse.length >= 2) {
+                                    signa1 = hasilParse[0]; // Frekuensi (misal: 3)
+                                    signa2 = hasilParse[1]; // Dosis per minum (misal: 1, 0,5, atau 1/2)
+                                } else if (hasilParse.length == 1) {
+                                    signa1 = hasilParse[0];
                                 }
-                            } catch (Exception e) {
-                                signa1="1";
                             }
-                            signa2="1";
-                            try {
-                                if(!arrSplit[1].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa2=arrSplit[1].replaceAll("[^0-9.]+", "");
-                                }
-                            } catch (Exception e) {
-                                signa2="1";
-                            } 
                             try{
                                 headers = new HttpHeaders();
                                 headers.setContentType(MediaType.APPLICATION_JSON);
@@ -3918,22 +3915,18 @@ public class frmUtama extends javax.swing.JFrame {
                             idpasien=cekViaSatuSehat.tampilIDPasien(rs.getString("no_ktp"));
                             idpraktisi=cekViaSatuSehat.tampilIDParktisi(rs.getString("ktppraktisi"));
                             arrSplit = rs.getString("aturan_pakai").toLowerCase().split("x");
-                            signa1="1";
-                            try {
-                                if(!arrSplit[0].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa1=arrSplit[0].replaceAll("[^0-9.]+", "");
+                            String aturanPakai = rs.getString("aturan_pakai").toLowerCase();
+                            String[] hasilParse = AturanPakaiParser.parseAturanPakai(aturanPakai);
+                            signa1 = "1";
+                            signa2 = "1";
+                            if (hasilParse != null) {
+                                if (hasilParse.length >= 2) {
+                                    signa1 = hasilParse[0]; // Frekuensi (misal: 3)
+                                    signa2 = hasilParse[1]; // Dosis per minum (misal: 1, 0,5, atau 1/2)
+                                } else if (hasilParse.length == 1) {
+                                    signa1 = hasilParse[0];
                                 }
-                            } catch (Exception e) {
-                                signa1="1";
                             }
-                            signa2="1";
-                            try {
-                                if(!arrSplit[1].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa2=arrSplit[1].replaceAll("[^0-9.]+", "");
-                                }
-                            } catch (Exception e) {
-                                signa2="1";
-                            } 
                             try{
                                 headers = new HttpHeaders();
                                 headers.setContentType(MediaType.APPLICATION_JSON);
@@ -4084,22 +4077,18 @@ public class frmUtama extends javax.swing.JFrame {
                             idpasien=cekViaSatuSehat.tampilIDPasien(rs.getString("no_ktp"));
                             idpraktisi=cekViaSatuSehat.tampilIDParktisi(rs.getString("ktppraktisi"));
                             arrSplit = rs.getString("aturan_pakai").toLowerCase().split("x");
-                            signa1="1";
-                            try {
-                                if(!arrSplit[0].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa1=arrSplit[0].replaceAll("[^0-9.]+", "");
+                            String aturanPakai = rs.getString("aturan_pakai").toLowerCase();
+                            String[] hasilParse = AturanPakaiParser.parseAturanPakai(aturanPakai);
+                            signa1 = "1";
+                            signa2 = "1";
+                            if (hasilParse != null) {
+                                if (hasilParse.length >= 2) {
+                                    signa1 = hasilParse[0]; // Frekuensi (misal: 3)
+                                    signa2 = hasilParse[1]; // Dosis per minum (misal: 1, 0,5, atau 1/2)
+                                } else if (hasilParse.length == 1) {
+                                    signa1 = hasilParse[0];
                                 }
-                            } catch (Exception e) {
-                                signa1="1";
                             }
-                            signa2="1";
-                            try {
-                                if(!arrSplit[1].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa2=arrSplit[1].replaceAll("[^0-9.]+", "");
-                                }
-                            } catch (Exception e) {
-                                signa2="1";
-                            } 
                             try{
                                 headers = new HttpHeaders();
                                 headers.setContentType(MediaType.APPLICATION_JSON);
@@ -4250,22 +4239,18 @@ public class frmUtama extends javax.swing.JFrame {
                             idpasien=cekViaSatuSehat.tampilIDPasien(rs.getString("no_ktp"));
                             idpraktisi=cekViaSatuSehat.tampilIDParktisi(rs.getString("ktppraktisi"));
                             arrSplit = rs.getString("aturan_pakai").toLowerCase().split("x");
-                            signa1="1";
-                            try {
-                                if(!arrSplit[0].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa1=arrSplit[0].replaceAll("[^0-9.]+", "");
+                            String aturanPakai = rs.getString("aturan_pakai").toLowerCase();
+                            String[] hasilParse = AturanPakaiParser.parseAturanPakai(aturanPakai);
+                            signa1 = "1";
+                            signa2 = "1";
+                            if (hasilParse != null) {
+                                if (hasilParse.length >= 2) {
+                                    signa1 = hasilParse[0]; // Frekuensi (misal: 3)
+                                    signa2 = hasilParse[1]; // Dosis per minum (misal: 1, 0,5, atau 1/2)
+                                } else if (hasilParse.length == 1) {
+                                    signa1 = hasilParse[0];
                                 }
-                            } catch (Exception e) {
-                                signa1="1";
                             }
-                            signa2="1";
-                            try {
-                                if(!arrSplit[1].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa2=arrSplit[1].replaceAll("[^0-9.]+", "");
-                                }
-                            } catch (Exception e) {
-                                signa2="1";
-                            } 
                             try{
                                 headers = new HttpHeaders();
                                 headers.setContentType(MediaType.APPLICATION_JSON);
@@ -7630,22 +7615,18 @@ public class frmUtama extends javax.swing.JFrame {
                         try {
                             idpasien=cekViaSatuSehat.tampilIDPasien(rs.getString("no_ktp"));
                             arrSplit = rs.getString("aturan_pakai").toLowerCase().split("x");
-                            signa1="1";
-                            try {
-                                if(!arrSplit[0].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa1=arrSplit[0].replaceAll("[^0-9.]+", "");
+                            String aturanPakai = rs.getString("aturan_pakai").toLowerCase();
+                            String[] hasilParse = AturanPakaiParser.parseAturanPakai(aturanPakai);
+                            signa1 = "1";
+                            signa2 = "1";
+                            if (hasilParse != null) {
+                                if (hasilParse.length >= 2) {
+                                    signa1 = hasilParse[0]; // Frekuensi (misal: 3)
+                                    signa2 = hasilParse[1]; // Dosis per minum (misal: 1, 0,5, atau 1/2)
+                                } else if (hasilParse.length == 1) {
+                                    signa1 = hasilParse[0];
                                 }
-                            } catch (Exception e) {
-                                signa1="1";
                             }
-                            signa2="1";
-                            try {
-                                if(!arrSplit[1].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa2=arrSplit[1].replaceAll("[^0-9.]+", "");
-                                }
-                            } catch (Exception e) {
-                                signa2="1";
-                            } 
                             try{
                                 headers = new HttpHeaders();
                                 headers.setContentType(MediaType.APPLICATION_JSON);
@@ -7773,22 +7754,18 @@ public class frmUtama extends javax.swing.JFrame {
                         try {
                             idpasien=cekViaSatuSehat.tampilIDPasien(rs.getString("no_ktp"));
                             arrSplit = rs.getString("aturan_pakai").toLowerCase().split("x");
-                            signa1="1";
-                            try {
-                                if(!arrSplit[0].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa1=arrSplit[0].replaceAll("[^0-9.]+", "");
+                            String aturanPakai = rs.getString("aturan_pakai").toLowerCase();
+                            String[] hasilParse = AturanPakaiParser.parseAturanPakai(aturanPakai);
+                            signa1 = "1";
+                            signa2 = "1";
+                            if (hasilParse != null) {
+                                if (hasilParse.length >= 2) {
+                                    signa1 = hasilParse[0]; // Frekuensi (misal: 3)
+                                    signa2 = hasilParse[1]; // Dosis per minum (misal: 1, 0,5, atau 1/2)
+                                } else if (hasilParse.length == 1) {
+                                    signa1 = hasilParse[0];
                                 }
-                            } catch (Exception e) {
-                                signa1="1";
                             }
-                            signa2="1";
-                            try {
-                                if(!arrSplit[1].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa2=arrSplit[1].replaceAll("[^0-9.]+", "");
-                                }
-                            } catch (Exception e) {
-                                signa2="1";
-                            } 
                             try{
                                 headers = new HttpHeaders();
                                 headers.setContentType(MediaType.APPLICATION_JSON);
@@ -7918,22 +7895,18 @@ public class frmUtama extends javax.swing.JFrame {
                         try {
                             idpasien=cekViaSatuSehat.tampilIDPasien(rs.getString("no_ktp"));
                             arrSplit = rs.getString("aturan_pakai").toLowerCase().split("x");
-                            signa1="1";
-                            try {
-                                if(!arrSplit[0].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa1=arrSplit[0].replaceAll("[^0-9.]+", "");
+                            String aturanPakai = rs.getString("aturan_pakai").toLowerCase();
+                            String[] hasilParse = AturanPakaiParser.parseAturanPakai(aturanPakai);
+                            signa1 = "1";
+                            signa2 = "1";
+                            if (hasilParse != null) {
+                                if (hasilParse.length >= 2) {
+                                    signa1 = hasilParse[0]; // Frekuensi (misal: 3)
+                                    signa2 = hasilParse[1]; // Dosis per minum (misal: 1, 0,5, atau 1/2)
+                                } else if (hasilParse.length == 1) {
+                                    signa1 = hasilParse[0];
                                 }
-                            } catch (Exception e) {
-                                signa1="1";
                             }
-                            signa2="1";
-                            try {
-                                if(!arrSplit[1].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa2=arrSplit[1].replaceAll("[^0-9.]+", "");
-                                }
-                            } catch (Exception e) {
-                                signa2="1";
-                            } 
                             try{
                                 headers = new HttpHeaders();
                                 headers.setContentType(MediaType.APPLICATION_JSON);
@@ -8063,22 +8036,18 @@ public class frmUtama extends javax.swing.JFrame {
                         try {
                             idpasien=cekViaSatuSehat.tampilIDPasien(rs.getString("no_ktp"));
                             arrSplit = rs.getString("aturan_pakai").toLowerCase().split("x");
-                            signa1="1";
-                            try {
-                                if(!arrSplit[0].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa1=arrSplit[0].replaceAll("[^0-9.]+", "");
+                            String aturanPakai = rs.getString("aturan_pakai").toLowerCase();
+                            String[] hasilParse = AturanPakaiParser.parseAturanPakai(aturanPakai);
+                            signa1 = "1";
+                            signa2 = "1";
+                            if (hasilParse != null) {
+                                if (hasilParse.length >= 2) {
+                                    signa1 = hasilParse[0]; // Frekuensi (misal: 3)
+                                    signa2 = hasilParse[1]; // Dosis per minum (misal: 1, 0,5, atau 1/2)
+                                } else if (hasilParse.length == 1) {
+                                    signa1 = hasilParse[0];
                                 }
-                            } catch (Exception e) {
-                                signa1="1";
                             }
-                            signa2="1";
-                            try {
-                                if(!arrSplit[1].replaceAll("[^0-9.]+", "").equals("")){
-                                    signa2=arrSplit[1].replaceAll("[^0-9.]+", "");
-                                }
-                            } catch (Exception e) {
-                                signa2="1";
-                            } 
                             try{
                                 headers = new HttpHeaders();
                                 headers.setContentType(MediaType.APPLICATION_JSON);

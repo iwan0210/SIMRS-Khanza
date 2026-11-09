@@ -11,6 +11,7 @@
  */
 package simrskhanza;
 
+import bridging.BPJSFingerprint;
 import rekammedis.RMRiwayatPerawatan;
 import surat.SuratKontrol;
 import keuangan.DlgCariPerawatanRanap;
@@ -12959,6 +12960,11 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
         WindowPemeriksaan.setSize(internalFrame1.getWidth() - 20, internalFrame1.getHeight() - 20);
         WindowPemeriksaan.setLocationRelativeTo(internalFrame1);
         WindowPemeriksaan.setVisible(true);
+//        BPJSFingerprint form = new BPJSFingerprint(null, false);
+//        form.setNoRm(TNoRM.getText());
+//        form.setSize(internalFrame1.getWidth() - 20, internalFrame1.getHeight() - 20);
+//        form.setLocationRelativeTo(internalFrame1);
+//        form.setVisible(true);
     }
     
     private void BtnCloseInActionPerformed(java.awt.event.ActionEvent evt) {

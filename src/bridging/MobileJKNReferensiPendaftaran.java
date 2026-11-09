@@ -33,6 +33,14 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.RestClientException;
 
 /**
  *
@@ -48,6 +56,14 @@ public final class MobileJKNReferensiPendaftaran extends javax.swing.JDialog {
     private int i=0;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private volatile boolean ceksukses = false;
+    
+    private String requestJson, URL = "", utc = "", link = "";
+    private ApiMobileJKN api=new ApiMobileJKN();
+    private HttpHeaders headers;
+    private HttpEntity requestEntity;
+    private ObjectMapper mapper= new ObjectMapper();
+    private JsonNode root;
+    private JsonNode nameNode;
 
     /** Creates new form DlgJnsPerawatanRalan
      * @param parent
@@ -106,6 +122,12 @@ public final class MobileJKNReferensiPendaftaran extends javax.swing.JDialog {
         tbJnsPerawatan.setDefaultRenderer(Object.class, new WarnaTable());
 
         TCari.setDocument(new batasInput((byte)100).getKata(TCari));
+        
+        try {
+            link=koneksiDB.URLAPIMOBILEJKN();
+        } catch (Exception e) {
+            System.out.println("E : "+e);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -127,6 +149,7 @@ public final class MobileJKNReferensiPendaftaran extends javax.swing.JDialog {
         BtnCheckin = new widget.Button();
         BtnBelum = new widget.Button();
         BtnBatal = new widget.Button();
+        BtnKirimBatal = new widget.Button();
         BtnPrint = new widget.Button();
         BtnKeluar = new widget.Button();
         panelGlass10 = new widget.panelisi();
@@ -234,6 +257,24 @@ public final class MobileJKNReferensiPendaftaran extends javax.swing.JDialog {
             }
         });
         panelGlass8.add(BtnBatal);
+
+        BtnKirimBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/34.png"))); // NOI18N
+        BtnKirimBatal.setMnemonic('H');
+        BtnKirimBatal.setText("Kirim Batal");
+        BtnKirimBatal.setToolTipText("Alt+H");
+        BtnKirimBatal.setName("BtnKirimBatal"); // NOI18N
+        BtnKirimBatal.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnKirimBatal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnKirimBatalActionPerformed(evt);
+            }
+        });
+        BtnKirimBatal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BtnKirimBatalKeyPressed(evt);
+            }
+        });
+        panelGlass8.add(BtnKirimBatal);
 
         BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
         BtnPrint.setMnemonic('T');
@@ -537,6 +578,65 @@ public final class MobileJKNReferensiPendaftaran extends javax.swing.JDialog {
         }  
     }//GEN-LAST:event_formWindowOpened
 
+    private void BtnKirimBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKirimBatalActionPerformed
+        if(tbJnsPerawatan.getSelectedRow() < 0){
+            JOptionPane.showMessageDialog(null,"Silahkan pilih dulu datanya..!!");
+            return;
+        }
+        
+        if (!tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(), 12).toString().equals("Batal")) {
+            JOptionPane.showMessageDialog(null,"Hanya bisa dilakukan pada data Batal..!!");
+            return;
+        }
+        
+        try {
+            headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.add("x-cons-id", koneksiDB.CONSIDAPIMOBILEJKN());
+            utc = String.valueOf(api.GetUTCdatetimeAsString());
+            headers.add("x-timestamp", utc);
+            headers.add("x-signature", api.getHmac(utc));
+            headers.add("user_key", koneksiDB.USERKEYAPIMOBILEJKN());
+            requestJson = "{"
+                    + "\"kodebooking\": \"" + tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(), 14) + "\","
+                    + "\"keterangan\": \"Batal\""
+                    + "}";
+            requestEntity = new HttpEntity(requestJson, headers);
+            URL = link + "/antrean/batal";
+            System.out.println("URL : " + URL);
+            //System.out.println(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+            root = mapper.readTree(api.getRest().exchange(URL, HttpMethod.POST, requestEntity, String.class).getBody());
+            nameNode = root.path("metadata");
+            Sequel.mengedit3("referensi_mobilejkn_bpjs_batal", "no_rkm_medis = ? and no_rawat_batal = ? and nomorreferensi = ? and nobooking = ?", "statuskirim = ?", 5, new String[] {
+                "Sudah", tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(), 1).toString(), tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(), 0).toString(),
+                tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(), 11).toString(), tbJnsPerawatan.getValueAt(tbJnsPerawatan.getSelectedRow(), 14).toString()
+            });
+            JOptionPane.showMessageDialog(null,"Respon : " + nameNode.path("code").asText()+" "+nameNode.path("message").asText());
+        } catch (HttpStatusCodeException ex) {
+            try {
+                root = mapper.readTree(ex.getResponseBodyAsString());
+                nameNode = root.path("metadata");
+                JOptionPane.showMessageDialog(null, "Respon : " + nameNode.path("code").asText() + " " + nameNode.path("message").asText());
+            } catch (Exception parseEx) {
+                // Fallback jika ternyata body error dari server bukan format JSON
+                System.out.println("HTTP Error (" + ex.getStatusCode() + ") Bridging : " + ex.getResponseBodyAsString());
+                JOptionPane.showMessageDialog(null, "HTTP Error " + ex.getStatusCode().value() + "\nRespon : " + ex.getResponseBodyAsString());
+            }
+        } catch (RestClientException ex) {
+            // Penanganan error koneksi / network / timeout
+            System.out.println("RestClient Exception Bridging : " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Koneksi Gagal / Timeout : " + ex.getMessage());
+
+        } catch (Exception ex) {
+            System.out.println("Notifikasi Bridging : " + ex);
+            JOptionPane.showMessageDialog(null, "Notifikasi Bridging : " + ex);
+        }
+    }//GEN-LAST:event_BtnKirimBatalActionPerformed
+
+    private void BtnKirimBatalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnKirimBatalKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BtnKirimBatalKeyPressed
+
     /**
     * @param args the command line arguments
     */
@@ -560,6 +660,7 @@ public final class MobileJKNReferensiPendaftaran extends javax.swing.JDialog {
     private widget.Button BtnCari;
     private widget.Button BtnCheckin;
     private widget.Button BtnKeluar;
+    private widget.Button BtnKirimBatal;
     private widget.Button BtnPrint;
     private widget.Tanggal DTPCari1;
     private widget.Tanggal DTPCari2;

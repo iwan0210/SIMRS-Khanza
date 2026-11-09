@@ -10,22 +10,20 @@
  */
 package bridging;
 
-import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamEvent;
-import com.github.sarxos.webcam.WebcamException;
-import com.github.sarxos.webcam.WebcamListener;
-import com.github.sarxos.webcam.WebcamPanel;
-import com.github.sarxos.webcam.ds.buildin.WebcamDefaultDriver;
+import com.digitalpersona.uareu.Engine.EnrollmentCallback;
+import com.digitalpersona.uareu.Engine.PreEnrollmentFmd;
+import com.digitalpersona.uareu.Fid;
+import com.digitalpersona.uareu.Fmd;
+import com.digitalpersona.uareu.Reader;
+import com.digitalpersona.uareu.ReaderCollection;
+import com.digitalpersona.uareu.UareUException;
+import com.digitalpersona.uareu.UareUGlobal;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fungsi.koneksiDB;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.HeadlessException;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -34,7 +32,9 @@ import java.security.cert.X509Certificate;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Base64;
+import static java.util.Collections.singletonList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,19 +45,10 @@ import javax.imageio.ImageIO;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.bytedeco.javacpp.Loader;
-
-import org.bytedeco.opencv.opencv_core.Mat;
-import org.bytedeco.opencv.opencv_core.RectVector;
-import org.bytedeco.opencv.opencv_objdetect.CascadeClassifier;
-import static org.bytedeco.opencv.global.opencv_imgproc.*;
-import org.bytedeco.javacv.Java2DFrameConverter;
-import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -65,33 +56,39 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
 /**
  *
  * @author perpustakaan
  */
-public final class BPJSFRISTA extends javax.swing.JDialog {
+public final class BPJSFingerprint extends javax.swing.JDialog {
 
     private final Connection koneksi = koneksiDB.condb();
     private PreparedStatement ps;
     private ResultSet rs;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private volatile boolean ceksukses = false;
+    private final Object lock = new Object();
 
-    private Webcam webcam = null;
-    private WebcamPanel webcamPanel = null;
-    private BufferedImage capturedImage = null;
-    
-    private final String BASE_URL = "https://frista.bpjs-kesehatan.go.id/frista-api";
-    private String accessToken = "", FACEAPIURL = "", FACEAPITOKEN = "";
-    
+    private String accessToken = "";
+    private final String BASE_URL = "https://fp.bpjs-kesehatan.go.id/finger-rest";
+
+    private volatile boolean isScanning = false;
+    private volatile boolean isVerifying = true;
+    private boolean isRecreating = false;
+
+    private final List<Map<String, Object>> globalFingerList = new ArrayList<>();
+    private boolean isKananDiscan = false;
+    private boolean isKiriDiscan = false;
+
+    private Reader reader = null;
+
     private SSLContext sslContext;
     private SSLSocketFactory sslFactory;
     private Scheme scheme;
     private HttpComponentsClientHttpRequestFactory factory;
-
-    private CascadeClassifier faceDetector;
 
     /**
      * Creates new form DlgRujuk
@@ -99,27 +96,13 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public BPJSFRISTA(java.awt.Frame parent, boolean modal) {
+    public BPJSFingerprint(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
-        BtnVerifikasi.setEnabled(false);
-        BtnCapture.setEnabled(false);
+        BtnTampilRegistrasi.setEnabled(false);
 
-        loadDaftarKamera();
-        initAutoFaceDetection();
-        
-        try {
-            FACEAPIURL=koneksiDB.FACEAPIURL();
-        } catch (Exception e) {
-            FACEAPIURL="yes";
-        }
-        
-        try {
-            FACEAPITOKEN=koneksiDB.FACEAPITOKEN();
-        } catch (Exception e) {
-            FACEAPITOKEN="yes";
-        }
+        initScanner();
     }
 
     /**
@@ -131,27 +114,149 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        WindowRegistrasi = new javax.swing.JDialog();
+        internalFrame2 = new widget.InternalFrame();
+        panelGlass3 = new widget.panelisi();
+        BtnCloseIn = new widget.Button();
+        panelGlass7 = new widget.panelisi();
+        CmbPilihJari = new widget.ComboBox();
+        BtnMulaiRekam = new javax.swing.JButton();
+        LblIndikatorKanan = new widget.Label();
+        LblIndikatorKiri = new widget.Label();
+        LblStatusReg = new widget.Label();
+        BtnKirimBpjs = new javax.swing.JButton();
+        panelKotakScan1 = new javax.swing.JPanel();
+        panelKotakScan2 = new javax.swing.JPanel();
+        panelKotakScan3 = new javax.swing.JPanel();
+        panelKotakScan4 = new javax.swing.JPanel();
         internalFrame1 = new widget.InternalFrame();
-        panelGlass8 = new widget.panelisi();
-        BtnSimpan = new widget.Button();
-        BtnBatal = new widget.Button();
-        BtnHapus = new widget.Button();
-        BtnEdit = new widget.Button();
-        BtnPrint = new widget.Button();
-        jLabel7 = new widget.Label();
-        LCount = new widget.Label();
+        panelGlass1 = new widget.panelisi();
         BtnKeluar = new widget.Button();
-        panelGlass9 = new widget.panelisi();
-        PanelKamera = new widget.Panel();
-        BtnCapture = new javax.swing.JButton();
-        CmbKamera = new widget.ComboBox();
-        BtnVerifikasi = new javax.swing.JButton();
+        panelGlass2 = new widget.panelisi();
         LblPreview = new widget.Label();
-        LblStatusWajah = new widget.Label();
         LblStatusLogin = new widget.Label();
         NmPasien = new widget.TextBox();
         NoRM = new widget.TextBox();
         NoKTP = new widget.TextBox();
+        LblStatusScanner = new widget.Label();
+        BtnTampilRegistrasi = new javax.swing.JButton();
+
+        WindowRegistrasi.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        WindowRegistrasi.setName("WindowRegistrasi"); // NOI18N
+        WindowRegistrasi.setUndecorated(true);
+        WindowRegistrasi.setResizable(false);
+        WindowRegistrasi.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                WindowRegistrasiWindowClosed(evt);
+            }
+        });
+        WindowRegistrasi.getContentPane().setLayout(new java.awt.BorderLayout(1, 1));
+
+        internalFrame2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 245, 235)), "::[ Registrasi Fingerprint BPJS Kesehatan ]::", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(50, 50, 50))); // NOI18N
+        internalFrame2.setName("internalFrame2"); // NOI18N
+        internalFrame2.setLayout(new java.awt.BorderLayout(1, 1));
+
+        panelGlass3.setName("panelGlass3"); // NOI18N
+        panelGlass3.setPreferredSize(new java.awt.Dimension(55, 55));
+        panelGlass3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
+
+        BtnCloseIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/cross.png"))); // NOI18N
+        BtnCloseIn.setMnemonic('U');
+        BtnCloseIn.setText("Tutup");
+        BtnCloseIn.setToolTipText("Alt+U");
+        BtnCloseIn.setName("BtnCloseIn"); // NOI18N
+        BtnCloseIn.setPreferredSize(new java.awt.Dimension(100, 30));
+        BtnCloseIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCloseInActionPerformed(evt);
+            }
+        });
+        panelGlass3.add(BtnCloseIn);
+
+        internalFrame2.add(panelGlass3, java.awt.BorderLayout.PAGE_END);
+
+        panelGlass7.setName("panelGlass7"); // NOI18N
+        panelGlass7.setPreferredSize(new java.awt.Dimension(650, 55));
+        panelGlass7.setLayout(null);
+
+        CmbPilihJari.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Jari Kanan", "Jari Kiri" }));
+        CmbPilihJari.setName("CmbPilihJari"); // NOI18N
+        CmbPilihJari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CmbPilihJariKeyPressed(evt);
+            }
+        });
+        panelGlass7.add(CmbPilihJari);
+        CmbPilihJari.setBounds(20, 20, 130, 23);
+
+        BtnMulaiRekam.setText("Mulai");
+        BtnMulaiRekam.setName("BtnMulaiRekam"); // NOI18N
+        BtnMulaiRekam.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnMulaiRekamActionPerformed(evt);
+            }
+        });
+        panelGlass7.add(BtnMulaiRekam);
+        BtnMulaiRekam.setBounds(170, 20, 130, 23);
+
+        LblIndikatorKanan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LblIndikatorKanan.setText("Jari Kanan: [ Belum Discan ]");
+        LblIndikatorKanan.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        LblIndikatorKanan.setName("LblIndikatorKanan"); // NOI18N
+        LblIndikatorKanan.setPreferredSize(new java.awt.Dimension(60, 23));
+        panelGlass7.add(LblIndikatorKanan);
+        LblIndikatorKanan.setBounds(20, 130, 310, 30);
+
+        LblIndikatorKiri.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LblIndikatorKiri.setText("Jari Kiri : [ Belum Discan ]");
+        LblIndikatorKiri.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        LblIndikatorKiri.setName("LblIndikatorKiri"); // NOI18N
+        LblIndikatorKiri.setPreferredSize(new java.awt.Dimension(60, 23));
+        panelGlass7.add(LblIndikatorKiri);
+        LblIndikatorKiri.setBounds(20, 160, 310, 30);
+
+        LblStatusReg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LblStatusReg.setText("[ Status ]");
+        LblStatusReg.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        LblStatusReg.setName("LblStatusReg"); // NOI18N
+        LblStatusReg.setPreferredSize(new java.awt.Dimension(60, 23));
+        panelGlass7.add(LblStatusReg);
+        LblStatusReg.setBounds(420, 20, 350, 30);
+
+        BtnKirimBpjs.setText("Kirim");
+        BtnKirimBpjs.setName("BtnKirimBpjs"); // NOI18N
+        BtnKirimBpjs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnKirimBpjsActionPerformed(evt);
+            }
+        });
+        panelGlass7.add(BtnKirimBpjs);
+        BtnKirimBpjs.setBounds(510, 80, 170, 60);
+
+        panelKotakScan1.setBackground(new java.awt.Color(200, 200, 200));
+        panelKotakScan1.setForeground(new java.awt.Color(200, 200, 200));
+        panelKotakScan1.setName("panelKotakScan1"); // NOI18N
+        panelGlass7.add(panelKotakScan1);
+        panelKotakScan1.setBounds(20, 70, 30, 30);
+
+        panelKotakScan2.setBackground(new java.awt.Color(200, 200, 200));
+        panelKotakScan2.setName("panelKotakScan2"); // NOI18N
+        panelGlass7.add(panelKotakScan2);
+        panelKotakScan2.setBounds(60, 70, 30, 30);
+
+        panelKotakScan3.setBackground(new java.awt.Color(200, 200, 200));
+        panelKotakScan3.setName("panelKotakScan3"); // NOI18N
+        panelGlass7.add(panelKotakScan3);
+        panelKotakScan3.setBounds(100, 70, 30, 30);
+
+        panelKotakScan4.setBackground(new java.awt.Color(200, 200, 200));
+        panelKotakScan4.setName("panelKotakScan4"); // NOI18N
+        panelGlass7.add(panelKotakScan4);
+        panelKotakScan4.setBounds(140, 70, 30, 30);
+
+        internalFrame2.add(panelGlass7, java.awt.BorderLayout.CENTER);
+
+        WindowRegistrasi.getContentPane().add(internalFrame2, java.awt.BorderLayout.CENTER);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -170,110 +275,9 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
         internalFrame1.setName("internalFrame1"); // NOI18N
         internalFrame1.setLayout(new java.awt.BorderLayout(1, 1));
 
-        panelGlass8.setName("panelGlass8"); // NOI18N
-        panelGlass8.setPreferredSize(new java.awt.Dimension(44, 44));
-        panelGlass8.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
-
-        BtnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/save-16x16.png"))); // NOI18N
-        BtnSimpan.setMnemonic('S');
-        BtnSimpan.setText("Simpan");
-        BtnSimpan.setToolTipText("Alt+S");
-        BtnSimpan.setName("BtnSimpan"); // NOI18N
-        BtnSimpan.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnSimpan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnSimpanActionPerformed(evt);
-            }
-        });
-        BtnSimpan.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnSimpanKeyPressed(evt);
-            }
-        });
-        panelGlass8.add(BtnSimpan);
-
-        BtnBatal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/Cancel-2-16x16.png"))); // NOI18N
-        BtnBatal.setMnemonic('B');
-        BtnBatal.setText("Baru");
-        BtnBatal.setToolTipText("Alt+B");
-        BtnBatal.setName("BtnBatal"); // NOI18N
-        BtnBatal.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnBatal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBatalActionPerformed(evt);
-            }
-        });
-        BtnBatal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnBatalKeyPressed(evt);
-            }
-        });
-        panelGlass8.add(BtnBatal);
-
-        BtnHapus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/stop_f2.png"))); // NOI18N
-        BtnHapus.setMnemonic('H');
-        BtnHapus.setText("Hapus");
-        BtnHapus.setToolTipText("Alt+H");
-        BtnHapus.setName("BtnHapus"); // NOI18N
-        BtnHapus.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnHapus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnHapusActionPerformed(evt);
-            }
-        });
-        BtnHapus.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnHapusKeyPressed(evt);
-            }
-        });
-        panelGlass8.add(BtnHapus);
-
-        BtnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/inventaris.png"))); // NOI18N
-        BtnEdit.setMnemonic('G');
-        BtnEdit.setText("Ganti");
-        BtnEdit.setToolTipText("Alt+G");
-        BtnEdit.setName("BtnEdit"); // NOI18N
-        BtnEdit.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEditActionPerformed(evt);
-            }
-        });
-        BtnEdit.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnEditKeyPressed(evt);
-            }
-        });
-        panelGlass8.add(BtnEdit);
-
-        BtnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/b_print.png"))); // NOI18N
-        BtnPrint.setMnemonic('T');
-        BtnPrint.setText("Cetak");
-        BtnPrint.setToolTipText("Alt+T");
-        BtnPrint.setName("BtnPrint"); // NOI18N
-        BtnPrint.setPreferredSize(new java.awt.Dimension(100, 30));
-        BtnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnPrintActionPerformed(evt);
-            }
-        });
-        BtnPrint.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                BtnPrintKeyPressed(evt);
-            }
-        });
-        panelGlass8.add(BtnPrint);
-
-        jLabel7.setText("Record :");
-        jLabel7.setName("jLabel7"); // NOI18N
-        jLabel7.setPreferredSize(new java.awt.Dimension(80, 23));
-        panelGlass8.add(jLabel7);
-
-        LCount.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        LCount.setText("0");
-        LCount.setName("LCount"); // NOI18N
-        LCount.setPreferredSize(new java.awt.Dimension(70, 23));
-        panelGlass8.add(LCount);
+        panelGlass1.setName("panelGlass1"); // NOI18N
+        panelGlass1.setPreferredSize(new java.awt.Dimension(44, 44));
+        panelGlass1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 9));
 
         BtnKeluar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/exit.png"))); // NOI18N
         BtnKeluar.setMnemonic('K');
@@ -291,81 +295,28 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
                 BtnKeluarKeyPressed(evt);
             }
         });
-        panelGlass8.add(BtnKeluar);
+        panelGlass1.add(BtnKeluar);
 
-        internalFrame1.add(panelGlass8, java.awt.BorderLayout.PAGE_END);
-        panelGlass8.getAccessibleContext().setAccessibleParent(internalFrame1);
+        internalFrame1.add(panelGlass1, java.awt.BorderLayout.PAGE_END);
+        panelGlass1.getAccessibleContext().setAccessibleParent(internalFrame1);
 
-        panelGlass9.setName("panelGlass9"); // NOI18N
-        panelGlass9.setPreferredSize(new java.awt.Dimension(44, 44));
-        panelGlass9.setLayout(null);
-
-        PanelKamera.setBackground(java.awt.Color.gray);
-        PanelKamera.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        PanelKamera.setForeground(java.awt.Color.gray);
-        PanelKamera.setName("PanelKamera"); // NOI18N
-        PanelKamera.setLayout(new java.awt.BorderLayout());
-        panelGlass9.add(PanelKamera);
-        PanelKamera.setBounds(10, 10, 560, 315);
-
-        BtnCapture.setText("Ambil Foto");
-        BtnCapture.setName("BtnCapture"); // NOI18N
-        BtnCapture.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCaptureActionPerformed(evt);
-            }
-        });
-        panelGlass9.add(BtnCapture);
-        BtnCapture.setBounds(710, 210, 180, 60);
-
-        CmbKamera.setName("CmbKamera"); // NOI18N
-        CmbKamera.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                CmbKameraItemStateChanged(evt);
-            }
-        });
-        CmbKamera.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CmbKameraActionPerformed(evt);
-            }
-        });
-        CmbKamera.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                CmbKameraKeyPressed(evt);
-            }
-        });
-        panelGlass9.add(CmbKamera);
-        CmbKamera.setBounds(670, 160, 270, 23);
-
-        BtnVerifikasi.setText("Verifikasi");
-        BtnVerifikasi.setName("BtnVerifikasi"); // NOI18N
-        BtnVerifikasi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnVerifikasiActionPerformed(evt);
-            }
-        });
-        panelGlass9.add(BtnVerifikasi);
-        BtnVerifikasi.setBounds(710, 290, 180, 60);
+        panelGlass2.setName("panelGlass2"); // NOI18N
+        panelGlass2.setPreferredSize(new java.awt.Dimension(44, 44));
+        panelGlass2.setLayout(null);
 
         LblPreview.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LblPreview.setName("LblPreview"); // NOI18N
         LblPreview.setPreferredSize(new java.awt.Dimension(60, 23));
-        panelGlass9.add(LblPreview);
+        panelGlass2.add(LblPreview);
         LblPreview.setBounds(10, 330, 560, 315);
-
-        LblStatusWajah.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LblStatusWajah.setText("Status Wajah");
-        LblStatusWajah.setName("LblStatusWajah"); // NOI18N
-        LblStatusWajah.setPreferredSize(new java.awt.Dimension(60, 23));
-        panelGlass9.add(LblStatusWajah);
-        LblStatusWajah.setBounds(580, 370, 450, 30);
 
         LblStatusLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LblStatusLogin.setText("Login");
+        LblStatusLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         LblStatusLogin.setName("LblStatusLogin"); // NOI18N
         LblStatusLogin.setPreferredSize(new java.awt.Dimension(60, 23));
-        panelGlass9.add(LblStatusLogin);
-        LblStatusLogin.setBounds(580, 100, 450, 30);
+        panelGlass2.add(LblStatusLogin);
+        LblStatusLogin.setBounds(10, 110, 370, 30);
 
         NmPasien.setEditable(false);
         NmPasien.setName("NmPasien"); // NOI18N
@@ -375,8 +326,8 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
                 NmPasienKeyPressed(evt);
             }
         });
-        panelGlass9.add(NmPasien);
-        NmPasien.setBounds(590, 50, 360, 23);
+        panelGlass2.add(NmPasien);
+        NmPasien.setBounds(20, 60, 360, 23);
 
         NoRM.setEditable(false);
         NoRM.setName("NoRM"); // NOI18N
@@ -386,8 +337,8 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
                 NoRMKeyPressed(evt);
             }
         });
-        panelGlass9.add(NoRM);
-        NoRM.setBounds(590, 10, 120, 23);
+        panelGlass2.add(NoRM);
+        NoRM.setBounds(20, 20, 120, 23);
 
         NoKTP.setEditable(false);
         NoKTP.setName("NoKTP"); // NOI18N
@@ -397,49 +348,34 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
                 NoKTPKeyPressed(evt);
             }
         });
-        panelGlass9.add(NoKTP);
-        NoKTP.setBounds(720, 10, 230, 23);
+        panelGlass2.add(NoKTP);
+        NoKTP.setBounds(150, 20, 230, 23);
 
-        internalFrame1.add(panelGlass9, java.awt.BorderLayout.CENTER);
-        panelGlass9.getAccessibleContext().setAccessibleParent(internalFrame1);
+        LblStatusScanner.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LblStatusScanner.setText("Login");
+        LblStatusScanner.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        LblStatusScanner.setName("LblStatusScanner"); // NOI18N
+        LblStatusScanner.setPreferredSize(new java.awt.Dimension(60, 23));
+        panelGlass2.add(LblStatusScanner);
+        LblStatusScanner.setBounds(430, 20, 380, 30);
+
+        BtnTampilRegistrasi.setText("Form Registrasi");
+        BtnTampilRegistrasi.setName("BtnTampilRegistrasi"); // NOI18N
+        BtnTampilRegistrasi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTampilRegistrasiActionPerformed(evt);
+            }
+        });
+        panelGlass2.add(BtnTampilRegistrasi);
+        BtnTampilRegistrasi.setBounds(530, 110, 180, 60);
+
+        internalFrame1.add(panelGlass2, java.awt.BorderLayout.CENTER);
+        panelGlass2.getAccessibleContext().setAccessibleParent(internalFrame1);
 
         getContentPane().add(internalFrame1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BtnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSimpanActionPerformed
-
-}//GEN-LAST:event_BtnSimpanActionPerformed
-
-    private void BtnSimpanKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnSimpanKeyPressed
-
-}//GEN-LAST:event_BtnSimpanKeyPressed
-
-    private void BtnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBatalActionPerformed
-
-}//GEN-LAST:event_BtnBatalActionPerformed
-
-    private void BtnBatalKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnBatalKeyPressed
-
-}//GEN-LAST:event_BtnBatalKeyPressed
-
-    private void BtnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHapusActionPerformed
-
-
-}//GEN-LAST:event_BtnHapusActionPerformed
-
-    private void BtnHapusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnHapusKeyPressed
-
-}//GEN-LAST:event_BtnHapusKeyPressed
-
-    private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
-
-}//GEN-LAST:event_BtnEditActionPerformed
-
-    private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnEditKeyPressed
-
-}//GEN-LAST:event_BtnEditKeyPressed
 
     private void BtnKeluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKeluarActionPerformed
         dispose();
@@ -449,14 +385,6 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
 
 }//GEN-LAST:event_BtnKeluarKeyPressed
 
-    private void BtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrintActionPerformed
-
-}//GEN-LAST:event_BtnPrintActionPerformed
-
-    private void BtnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnPrintKeyPressed
-
-}//GEN-LAST:event_BtnPrintKeyPressed
-
     private void BtnDokter6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDokter6ActionPerformed
 
     }//GEN-LAST:event_BtnDokter6ActionPerformed
@@ -465,7 +393,6 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
         LblStatusLogin.setText("Status: Menghubungkan ke Server FRISTA (Login)...");
         runBackground(() -> {
             try {
-                
                 String username = "";
                 String password = "";
 
@@ -490,38 +417,56 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
 
                 if (username.isEmpty() || password.isEmpty()) {
                     SwingUtilities.invokeLater(() -> {
-                        LblStatusLogin.setText("Status: Kredensial FRISTA belum tersedia.");
+                        LblStatusLogin.setText("Status: Kredensial Fingerprint belum tersedia.");
                         JOptionPane.showMessageDialog(
                                 this,
-                                "Username atau password FRISTA belum tersedia di database."
+                                "Username atau password Fingerprint belum tersedia di database."
                         );
                         dispose();
                     });
                     return;
                 }
 
-                String url = BASE_URL + "/user/login/rs";
+                String url = BASE_URL + "/v2/user/login";
                 Map<String, String> requestBody = new java.util.HashMap<>();
-                requestBody.put("username", username); // Ganti dengan kode RS/username Anda
-                requestBody.put("password", password); // Ganti dengan password Anda
-                requestBody.put("version", "3.0.2");
+                requestBody.put("username", username);
+                requestBody.put("password", password);
 
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.APPLICATION_JSON);
                 headers.add("Accept", "application/json");
-                headers.add("Host", "anjungan.rsaugm.id");
 
                 HttpEntity entity = new HttpEntity(requestBody, headers);
+                System.out.println("URL : " + url);
                 ResponseEntity<Map> response = getRest().exchange(url, HttpMethod.POST, entity, Map.class);
 
                 if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
                     Map body = response.getBody();
-                    if (Boolean.TRUE.equals(body.get("status")) && body.containsKey("token")) {
-                        accessToken = body.get("token").toString();
-                        LblStatusLogin.setText("Status: Login FRISTA Berhasil! Token didapatkan.");
+
+                    Map metaData = (Map) body.get("metaData");
+                    int code = metaData != null && metaData.get("code") != null
+                            ? Integer.parseInt(metaData.get("code").toString()) : 500;
+
+                    if (code == 200 && body.containsKey("response")) {
+                        Map respObj = (Map) body.get("response");
+
+                        if (respObj != null && respObj.containsKey("tokenLogin")) {
+                            accessToken = respObj.get("tokenLogin").toString();
+
+                            SwingUtilities.invokeLater(() -> {
+                                LblStatusLogin.setText("Status: Login FRISTA Berhasil! Token didapatkan.");
+                                LblStatusLogin.setForeground(new Color(0, 150, 0));
+
+                                startAutoVerifyLoop();
+                            });
+                        } else {
+                            String msg = metaData.containsKey("message") ? metaData.get("message").toString() : "Token login tidak ditemukan.";
+                            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(this, "FRISTA: " + msg));
+                        }
                     } else {
-                        String msg = body.containsKey("message") ? body.get("message").toString() : "Login gagal.";
-                        JOptionPane.showMessageDialog(this, "FRISTA: " + msg);
+                        String msg = metaData != null && metaData.containsKey("message")
+                                ? metaData.get("message").toString() : "Login gagal.";
+                        SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(this, "FRISTA: " + msg));
                     }
                 }
             } catch (Exception e) {
@@ -535,149 +480,14 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
         });
     }//GEN-LAST:event_formWindowOpened
 
-    private void BtnCaptureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCaptureActionPerformed
-        prosesCaptureFoto();
-    }//GEN-LAST:event_BtnCaptureActionPerformed
-
-    private void CmbKameraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CmbKameraItemStateChanged
-
-    }//GEN-LAST:event_CmbKameraItemStateChanged
-
-    private void CmbKameraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CmbKameraKeyPressed
-
-    }//GEN-LAST:event_CmbKameraKeyPressed
-
-    private void CmbKameraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CmbKameraActionPerformed
-        int selectedIndex = CmbKamera.getSelectedIndex();
-        if (selectedIndex >= 0) {
-            startWebcam(selectedIndex);
-        }
-    }//GEN-LAST:event_CmbKameraActionPerformed
-
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        tutupKamera();
+        isScanning = false;
+        isVerifying = true;
+        synchronized (lock) {
+            lock.notifyAll();
+        }
+        tutupScanner();
     }//GEN-LAST:event_formWindowClosed
-
-    private void BtnVerifikasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerifikasiActionPerformed
-        if (capturedImage == null) {
-            JOptionPane.showMessageDialog(this, "Silakan ambil foto wajah terlebih dahulu!");
-            return;
-        }
-        
-        if (accessToken.isBlank()) {
-            JOptionPane.showMessageDialog(this, "Silakan Login terlebih dahulu");
-            return;
-        }
-
-        String idPeserta = NoKTP.getText().trim();
-        if (idPeserta.isEmpty() && idPeserta.equals("-")) {
-            JOptionPane.showMessageDialog(this, "Nomor KTP / BPJS masih kosong!");
-            NoKTP.requestFocus();
-            return;
-        }
-
-        if (idPeserta.length() != 16) {
-            JOptionPane.showMessageDialog(this, "Format ID harus 16 digit (NIK)!");
-            NoKTP.requestFocus();
-            return;
-        }
-
-        LblStatusLogin.setText("Status: Mengirim & Memverifikasi Wajah ke BPJS...");
-
-        runBackground(() -> {
-            try {
-                // 1. Konversi BufferedImage 'capturedImage' menjadi Base64 untuk dikirim ke Node.js
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                ImageIO.write(capturedImage, "jpg", baos);
-                String base64Image = Base64.getEncoder().encodeToString(baos.toByteArray());
-                
-                // 2. Siapkan Request ke Microservice Node.js lokal
-                String nodeUrl = FACEAPIURL + "/api/face/descriptor";
-                
-                Map<String, String> nodeBody = new HashMap<>();
-                nodeBody.put("image", base64Image);
-                
-                HttpHeaders nodeHeaders = new HttpHeaders();
-                nodeHeaders.setContentType(MediaType.APPLICATION_JSON);
-                nodeHeaders.add("Accept", "application/json");
-                nodeHeaders.add("X-API-Token", FACEAPITOKEN);
-                
-                HttpEntity<Map<String, String>> nodeEntity = new HttpEntity<>(nodeBody, nodeHeaders);
-                
-                // Eksekusi POST ke Node.js menggunakan getRest()
-                ResponseEntity<Map> nodeResponse = getRest().exchange(nodeUrl, HttpMethod.POST, nodeEntity, Map.class);
-
-                if (nodeResponse.getStatusCode() != HttpStatus.OK || nodeResponse.getBody() == null) {
-                    throw new RuntimeException("Gagal mendeteksi atau mengekstrak wajah melalui microservice.");
-                }
-                
-                Map nodeResBody = nodeResponse.getBody();
-                List<Double> rawDescriptor = (List<Double>) nodeResBody.get("descriptor");
-
-                if (rawDescriptor == null || rawDescriptor.size() != 128) {
-                    throw new RuntimeException("Format descriptor 128-element dari microservice tidak valid.");
-                }
-
-                // Konversi List<Double> ke float[]
-                float[] encodingArray = new float[128];
-                for (int i = 0; i < 128; i++) {
-                    encodingArray[i] = rawDescriptor.get(i).floatValue();
-                }
-                
-                // 3. Kirim hasil encoding ke endpoint verifikasi BPJS FRISTA (/face/match2)
-                String verifyUrl = BASE_URL + "/face/match2";
-
-                Map<String, Object> verifyBody = new HashMap<>();
-                verifyBody.put("id", idPeserta);
-                verifyBody.put("encoding", encodingArray);
-
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_JSON);
-                headers.add("Accept", "application/json");
-                headers.add("Host", "anjungan.rsaugm.id");
-                
-                if (accessToken != null && !accessToken.isEmpty()) {
-                    headers.set("Authorization", "Bearer " + accessToken);
-                }
-
-                HttpEntity<Map<String, Object>> verifyEntity = new HttpEntity<>(verifyBody, headers);
-
-                ResponseEntity<Map> verifyResponse = getRest().exchange(verifyUrl, HttpMethod.POST, verifyEntity, Map.class);
-
-                System.out.println("HTTP Status Code : " + verifyResponse.getStatusCode());
-                System.out.println("Response Body    : " + verifyResponse.getBody());
-
-                // Tanggapi hasil verifikasi di thread utama Swing
-                SwingUtilities.invokeLater(() -> {
-                    if (verifyResponse.getStatusCode() == HttpStatus.OK && verifyResponse.getBody() != null) {
-                        Map resBody = verifyResponse.getBody();
-                        boolean isSuccess = Boolean.TRUE.equals(resBody.get("status"));
-                        String serverMessage = resBody.containsKey("message") ? resBody.get("message").toString() : "";
-
-                        if (isSuccess) {
-                            JOptionPane.showMessageDialog(this, "Verifikasi Wajah Berhasil!\n" + serverMessage);
-                            LblStatusLogin.setText("Status: Verifikasi Berhasil");
-                            LblStatusLogin.setForeground(new Color(0, 150, 0));
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Verifikasi Gagal: " + serverMessage);
-                            LblStatusLogin.setText("Status: Verifikasi Gagal (" + serverMessage + ")");
-                            LblStatusLogin.setForeground(new Color(204, 0, 0));
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Terjadi kesalahan pada respons server BPJS.");
-                        LblStatusLogin.setText("Status: Error Respons BPJS");
-                    }
-                });
-            } catch (IOException | RuntimeException | KeyManagementException | NoSuchAlgorithmException e) {
-                SwingUtilities.invokeLater(() -> {
-                    JOptionPane.showMessageDialog(this, "Gagal proses verifikasi:\n" + e.getMessage() + "\nPastikan server Node.js aktif di port 3000.");
-                    LblStatusLogin.setText("Status: Error Ekstraksi/Koneksi");
-                    LblStatusLogin.setForeground(new Color(204, 0, 0));
-                });
-                e.printStackTrace();
-            }
-        });
-    }//GEN-LAST:event_BtnVerifikasiActionPerformed
 
     private void NmPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NmPasienKeyPressed
 
@@ -691,12 +501,334 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_NoKTPKeyPressed
 
+    private void BtnTampilRegistrasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTampilRegistrasiActionPerformed
+        isVerifying = false; // Jeda verifikasi otomatis
+        globalFingerList.clear();
+        isKananDiscan = false;
+        isKiriDiscan = false;
+        LblIndikatorKanan.setText("Jari Kanan: [ Belum Discan ]");
+        LblIndikatorKanan.setForeground(Color.BLACK);
+        LblIndikatorKiri.setText("Jari Kiri: [ Belum Discan ]");
+        LblIndikatorKiri.setForeground(Color.BLACK);
+        BtnKirimBpjs.setEnabled(false);
+
+        WindowRegistrasi.setSize(internalFrame1.getWidth() - 20, internalFrame1.getHeight() - 20);
+        WindowRegistrasi.setLocationRelativeTo(internalFrame1);
+        WindowRegistrasi.setVisible(true);
+
+        // Setelah dialog ditutup, aktifkan kembali verifikasi
+        isVerifying = true;
+        synchronized (lock) {
+            lock.notifyAll();
+        }
+        BtnTampilRegistrasi.setEnabled(false);
+    }//GEN-LAST:event_BtnTampilRegistrasiActionPerformed
+
+    private void BtnCloseInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCloseInActionPerformed
+        WindowRegistrasi.dispose();
+    }//GEN-LAST:event_BtnCloseInActionPerformed
+
+    private void CmbPilihJariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CmbPilihJariKeyPressed
+
+    }//GEN-LAST:event_CmbPilihJariKeyPressed
+
+    private void BtnMulaiRekamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnMulaiRekamActionPerformed
+
+        if (reader == null) {
+            JOptionPane.showMessageDialog(WindowRegistrasi, "Reader sidik jari tidak aktif!");
+            return;
+        }
+
+        if (BtnMulaiRekam.getText().equals("Batal")) {
+            isRecreating = false;
+            BtnMulaiRekam.setText("Mulai Rekam Jari");
+            LblStatusReg.setText("Status: Perekaman dibatalkan.");
+            return;
+        }
+
+        // Matikan total verifikasi background saat rekam dimulai
+        isVerifying = false;
+
+        // Batalkan paksa capture yang sedang berjalan di background
+        try {
+            if (reader != null) {
+                reader.CancelCapture();
+            }
+        } catch (Exception e) {
+
+        }
+
+        int indexPilihan = CmbPilihJari.getSelectedIndex();
+        int fingerIndex = (indexPilihan == 0) ? 1 : 6;
+        String namaJari = (indexPilihan == 0) ? "Telunjuk Kanan" : "Telunjuk Kiri";
+
+        isRecreating = true;
+        BtnMulaiRekam.setText("Batal");
+
+        // Reset warna kotak menjadi abu-abu
+        panelKotakScan1.setBackground(new java.awt.Color(200, 200, 200));
+        panelKotakScan2.setBackground(new java.awt.Color(200, 200, 200));
+        panelKotakScan3.setBackground(new java.awt.Color(200, 200, 200));
+        panelKotakScan4.setBackground(new java.awt.Color(200, 200, 200));
+
+        new Thread(() -> {
+            try {
+                Thread.sleep(500);
+
+                List<Fmd> fmdList = new java.util.ArrayList<>();
+                Fid lastCapturedFid = null;
+
+                for (int i = 1; i <= 4; i++) {
+                    if (!isRecreating) {
+                        break;
+                    }
+
+                    final int scanKe = i;
+
+                    SwingUtilities.invokeLater(() -> {
+                        LblStatusReg.setText("Status: Silakan letakkan " + namaJari + " (Scan ke-" + scanKe + " dari 4)...");
+                        LblStatusReg.setForeground(new Color(0, 51, 153));
+                    });
+
+                    isVerifying = false;
+
+                    Reader.CaptureResult cap = reader.Capture(
+                            Fid.Format.ANSI_381_2004,
+                            Reader.ImageProcessing.IMG_PROC_DEFAULT,
+                            reader.GetCapabilities().resolutions[0],
+                            -1
+                    );
+
+                    if (!isRecreating) {
+                        break;
+                    }
+
+                    if (cap == null || cap.image == null || cap.quality != Reader.CaptureQuality.GOOD) {
+                        throw new RuntimeException("Scan ke-" + scanKe + " dibatalkan atau kualitas kurang baik.");
+                    }
+
+                    lastCapturedFid = cap.image;
+
+                    // 1. Ekstrak per scan menggunakan DP_PRE_REG_FEATURES (Pre-Registration)
+                    Fmd fmd = UareUGlobal.GetEngine().CreateFmd(cap.image, Fmd.Format.DP_PRE_REG_FEATURES);
+                    fmdList.add(fmd);
+
+                    SwingUtilities.invokeLater(() -> {
+                        switch (scanKe) {
+                            case 1:
+                                panelKotakScan1.setBackground(new java.awt.Color(0, 153, 0));
+                                break;
+                            case 2:
+                                panelKotakScan2.setBackground(new java.awt.Color(0, 153, 0));
+                                break;
+                            case 3:
+                                panelKotakScan3.setBackground(new java.awt.Color(0, 153, 0));
+                                break;
+                            case 4:
+                                panelKotakScan4.setBackground(new java.awt.Color(0, 153, 0));
+                                break;
+                        }
+                    });
+                }
+
+                if (!isRecreating) {
+                    return;
+                }
+
+                // 2. GABUNGKAN 4 SAMPEL MENJADI DP_REG_FEATURES MENGGUNAKAN ENROLLMENT CALLBACK4
+                EnrollmentCallback callback = new EnrollmentCallback() {
+                    private int index = 0;
+
+                    @Override
+                    public PreEnrollmentFmd GetFmd(Fmd.Format format) {
+
+                        PreEnrollmentFmd prefmd = new PreEnrollmentFmd();
+
+                        if (index < fmdList.size()) {
+                            prefmd.fmd = fmdList.get(index++);
+                            return prefmd;
+                        }
+
+                        return null;
+                    }
+
+                };
+
+                // Menghasilkan 1 template final berformat DP_REG_FEATURES
+                Fmd enrollmentFmd = UareUGlobal.GetEngine().CreateEnrollmentFmd(
+                        Fmd.Format.DP_REG_FEATURES,
+                        callback
+                );
+
+                // 3. ENCODE KE BASE64 (Otomatis menghasilkan awalan APi... / AP...)
+                String minutiae = Base64.getEncoder().encodeToString(enrollmentFmd.getData());
+                minutiae = minutiae.replace('-', '+').replace('_', '/');
+
+                String imageStr = convertFidToBase64Png(lastCapturedFid);
+
+                globalFingerList.removeIf(f -> ((Integer) f.get("index")) == fingerIndex);
+                Map<String, Object> fingerData = new HashMap<>();
+                fingerData.put("finger", minutiae);
+                fingerData.put("index", fingerIndex);
+                fingerData.put("imgStr", imageStr);
+                globalFingerList.add(fingerData);
+
+                SwingUtilities.invokeLater(() -> {
+                    BtnMulaiRekam.setText("Mulai Rekam Jari");
+                    isRecreating = false;
+
+                    if (fingerIndex == 1) {
+                        isKananDiscan = true;
+                        LblIndikatorKanan.setText("Jari Kanan: [ Sudah 4x Scan ✓ ]");
+                        LblIndikatorKanan.setForeground(new Color(0, 153, 0));
+                    } else {
+                        isKiriDiscan = true;
+                        LblIndikatorKiri.setText("Jari Kiri: [ Sudah 4x Scan ✓ ]");
+                        LblIndikatorKiri.setForeground(new Color(0, 153, 0));
+                    }
+
+                    panelKotakScan1.setBackground(new java.awt.Color(200, 200, 200));
+                    panelKotakScan2.setBackground(new java.awt.Color(200, 200, 200));
+                    panelKotakScan3.setBackground(new java.awt.Color(200, 200, 200));
+                    panelKotakScan4.setBackground(new java.awt.Color(200, 200, 200));
+
+                    LblStatusReg.setText("Status: Sukses merekam " + namaJari + ".");
+                    LblStatusReg.setForeground(new Color(0, 153, 0));
+
+                    JOptionPane.showMessageDialog(WindowRegistrasi, "Sukses merekam dan menggabungkan 4 sampel " + namaJari + "!");
+
+                    if (isKananDiscan && isKiriDiscan) {
+                        BtnKirimBpjs.setEnabled(true);
+                        LblStatusReg.setText("Status: 2 Jari lengkap! Siap dikirim ke BPJS.");
+                        JOptionPane.showMessageDialog(WindowRegistrasi, "2 Jari lengkap! Silakan klik 'Kirim ke API BPJS'.");
+                    } else {
+                        CmbPilihJari.setSelectedIndex(indexPilihan == 0 ? 1 : 0);
+                    }
+                });
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                SwingUtilities.invokeLater(() -> {
+                    BtnMulaiRekam.setText("Mulai Rekam Jari");
+                    isRecreating = false;
+                    LblStatusReg.setText("Status: Gagal merekam.");
+                    if (isRecreating) {
+                        JOptionPane.showMessageDialog(WindowRegistrasi, "Gagal merekam: " + ex.getMessage());
+                    }
+                });
+            } finally {
+                // Di sini kita HAPUS pemanggilan isVerifying = true, 
+                // biarkan verifikasi tetap false selama form registrasi masih terbuka.
+            }
+        }).start();
+    }//GEN-LAST:event_BtnMulaiRekamActionPerformed
+
+    private void BtnKirimBpjsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnKirimBpjsActionPerformed
+        if (globalFingerList == null || globalFingerList.isEmpty()) {
+            JOptionPane.showMessageDialog(WindowRegistrasi, "Belum ada data sidik jari yang direkam!");
+            return;
+        }
+
+        String noKaPst = NoKTP.getText().trim();
+        if (noKaPst.isEmpty()) {
+            JOptionPane.showMessageDialog(WindowRegistrasi, "Nomor Kartu Peserta (nokapst) belum diisi!");
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(
+                WindowRegistrasi,
+                "Kirim data registrasi sidik jari ke server BPJS Kesehatan?",
+                "Konfirmasi Kirim BPJS",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        WindowRegistrasi.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        LblStatusReg.setText("Status: Mengirim data registrasi ke server BPJS...");
+        LblStatusReg.setForeground(new Color(0, 51, 153)); // Biru
+        BtnCloseIn.setEnabled(false);
+
+        runBackground(() -> {
+            try {
+
+                // URL Endpoint pendaftaran jari BPJS (sesuaikan dengan environment bridging Anda)
+                String url = BASE_URL + "/v1/finger/addpeserta"; // Sesuaikan endpoint jika ada path khusus registrasi
+
+                // Susun payload sesuai format JSON yang Anda tentukan
+                Map<String, Object> requestBody = new HashMap<>();
+                requestBody.put("nokapst", noKaPst);
+                requestBody.put("finger", globalFingerList);
+
+                // Header dan Signature BPJS (Sesuaikan dengan helper bridging VClaim/Pcare project Anda)
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                headers.add("token", accessToken);
+
+                HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
+
+                ResponseEntity<String> response = getRest().exchange(
+                        url,
+                        HttpMethod.POST,
+                        entity,
+                        String.class
+                );
+
+                String responseBody = response.getBody();
+                System.out.println("Response : " + responseBody);
+
+                SwingUtilities.invokeLater(() -> {
+                    WindowRegistrasi.setCursor(Cursor.getDefaultCursor());
+                    LblStatusReg.setText("Status: Berhasil dikirim ke BPJS!");
+                    LblStatusReg.setForeground(new Color(0, 153, 0)); // Hijau
+                    JOptionPane.showMessageDialog(WindowRegistrasi, "Berhasil mengirim registrasi ke BPJS!");
+
+                    // Tutup window registrasi (ini akan otomatis memicu windowClosed listener untuk menghidupkan kembali auto-verify loop)
+                    WindowRegistrasi.dispose();
+                });
+
+            } catch (HttpStatusCodeException e) {
+                String errorBody = e.getResponseBodyAsString();
+                SwingUtilities.invokeLater(() -> {
+                    WindowRegistrasi.setCursor(Cursor.getDefaultCursor());
+                    BtnCloseIn.setEnabled(true);
+                    LblStatusReg.setText("Status: Gagal mengirim ke BPJS.");
+                    LblStatusReg.setForeground(new Color(204, 0, 0)); // Merah
+                    JOptionPane.showMessageDialog(
+                            WindowRegistrasi,
+                            "Gagal mengirim ke BPJS (HTTP " + e.getStatusCode() + "):\n" + errorBody
+                    );
+
+                });
+                System.out.println("HTTP Error Response : " + errorBody);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                SwingUtilities.invokeLater(() -> {
+                    WindowRegistrasi.setCursor(Cursor.getDefaultCursor());
+                    BtnCloseIn.setEnabled(true);
+                    LblStatusReg.setText("Status: Gagal mengirim ke BPJS.");
+                    LblStatusReg.setForeground(new Color(204, 0, 0)); // Merah
+                    JOptionPane.showMessageDialog(WindowRegistrasi, "Gagal mengirim ke BPJS: " + ex.getMessage());
+                });
+            }
+        });
+    }//GEN-LAST:event_BtnKirimBpjsActionPerformed
+
+    private void WindowRegistrasiWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_WindowRegistrasiWindowClosed
+        isVerifying = true;
+        synchronized (lock) {
+            lock.notifyAll(); // Membangunkan thread verifikasi yang sedang menunggu
+        }
+    }//GEN-LAST:event_WindowRegistrasiWindowClosed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            BPJSFRISTA dialog = new BPJSFRISTA(new javax.swing.JFrame(), true);
+            BPJSFingerprint dialog = new BPJSFingerprint(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -708,39 +840,43 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private widget.Button BtnBatal;
-    private javax.swing.JButton BtnCapture;
-    private widget.Button BtnEdit;
-    private widget.Button BtnHapus;
+    private widget.Button BtnCloseIn;
     private widget.Button BtnKeluar;
-    private widget.Button BtnPrint;
-    private widget.Button BtnSimpan;
-    private javax.swing.JButton BtnVerifikasi;
-    private widget.ComboBox CmbKamera;
-    private widget.Label LCount;
+    private javax.swing.JButton BtnKirimBpjs;
+    private javax.swing.JButton BtnMulaiRekam;
+    private javax.swing.JButton BtnTampilRegistrasi;
+    private widget.ComboBox CmbPilihJari;
+    private widget.Label LblIndikatorKanan;
+    private widget.Label LblIndikatorKiri;
     private widget.Label LblPreview;
     private widget.Label LblStatusLogin;
-    private widget.Label LblStatusWajah;
+    private widget.Label LblStatusReg;
+    private widget.Label LblStatusScanner;
     private widget.TextBox NmPasien;
     private widget.TextBox NoKTP;
     private widget.TextBox NoRM;
-    private widget.Panel PanelKamera;
+    private javax.swing.JDialog WindowRegistrasi;
     private widget.InternalFrame internalFrame1;
-    private widget.Label jLabel7;
-    private widget.panelisi panelGlass8;
-    private widget.panelisi panelGlass9;
+    private widget.InternalFrame internalFrame2;
+    private widget.panelisi panelGlass1;
+    private widget.panelisi panelGlass2;
+    private widget.panelisi panelGlass3;
+    private widget.panelisi panelGlass7;
+    private javax.swing.JPanel panelKotakScan1;
+    private javax.swing.JPanel panelKotakScan2;
+    private javax.swing.JPanel panelKotakScan3;
+    private javax.swing.JPanel panelKotakScan4;
     // End of variables declaration//GEN-END:variables
-
 
     public void setNoRm(String norm) {
         try {
-            ps = koneksi.prepareStatement("select no_rkm_medis, nm_pasien, no_ktp from pasien where no_rkm_medis = ?");
+            ps = koneksi.prepareStatement("select no_rkm_medis, nm_pasien, no_peserta from pasien where no_rkm_medis = ?");
             try {
                 ps.setString(1, norm);
-                rs=ps.executeQuery();
+                rs = ps.executeQuery();
                 if (rs.next()) {
                     NoRM.setText(rs.getString("no_rkm_medis"));
-                    NoKTP.setText(rs.getString("no_ktp"));
+                    NoKTP.setText(rs.getString("no_peserta"));
                     NmPasien.setText(rs.getString("nm_pasien"));
                 }
             } catch (Exception e) {
@@ -756,8 +892,6 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
         } catch (Exception e) {
             System.out.println("Notifikasi : " + e);
         }
-        
-
     }
 
     private void runBackground(Runnable task) {
@@ -794,212 +928,245 @@ public final class BPJSFRISTA extends javax.swing.JDialog {
 
     @Override
     public void dispose() {
+        isScanning = false;
+        isVerifying = true;
+        synchronized (lock) {
+            lock.notifyAll();
+        }
+        tutupScanner();
         executor.shutdownNow();
         super.dispose();
     }
 
-    private void loadDaftarKamera() {
-        try {
-            Webcam.setDriver(new WebcamDefaultDriver());
-            List<Webcam> webcams = Webcam.getWebcams();
-            if (webcams != null && !webcams.isEmpty()) {
-                CmbKamera.removeAllItems();
-                for (Webcam cam : webcams) {
-                    CmbKamera.addItem(cam.getName());
-                }
-
-                startWebcam(0);
-            } else {
-                JOptionPane.showMessageDialog(this, "Tidak ada kamera yang terdeteksi!");
-            }
-        } catch (WebcamException | HeadlessException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Gagal Inisialisasi Kamera: " + e.getMessage());
-        }
-    }
-
-    private void startWebcam(int index) {
-        tutupKamera();
-
-        List<Webcam> webcams = Webcam.getWebcams();
-        if (webcams != null && index >= 0 && index < webcams.size()) {
-            webcam = webcams.get(index);
-
-            try {
-                webcam.setViewSize(com.github.sarxos.webcam.WebcamResolution.HD.getSize());
-            } catch (Exception e) {
-                // Jika kamera tidak mendukung HD, otomatis turunkan ke VGA (640x480)
-                webcam.setViewSize(com.github.sarxos.webcam.WebcamResolution.VGA.getSize());
-            }
-
-            webcamPanel = new WebcamPanel(webcam);
-            webcamPanel.setFPSDisplayed(true);
-            webcamPanel.setMirrored(true);
-            webcamPanel.setImageSizeDisplayed(false);
-
-            // Masukkan ke PanelKamera yang dibuat di .form
-            PanelKamera.removeAll();
-            PanelKamera.setLayout(new BorderLayout());
-            PanelKamera.add(webcamPanel, BorderLayout.CENTER);
-            PanelKamera.validate();
-            PanelKamera.repaint();
-
-            // Jalankan thread video
-            Thread t = new Thread(() -> {
-                webcamPanel.start();
-            });
-            t.setDaemon(true);
-            t.start();
-            
-            initAutoFaceDetection();
-        }
-    }
-
-    private void tutupKamera() {
-        if (webcamPanel != null) {
-            webcamPanel.stop();
-        }
-        if (webcam != null && webcam.isOpen()) {
-            webcam.close();
-        }
-    }
-
-    private void prosesCaptureFoto() {
-        try {
-            if (webcam != null && webcam.isOpen()) {
-                // Ambil gambar saat tombol diklik
-                capturedImage = webcam.getImage();
-
-                if (capturedImage != null) {
-                    // Tampilkan hasil foto ke JLabel preview (LblPreview)
-                    Image scaledImage = capturedImage.getScaledInstance(LblPreview.getWidth(), LblPreview.getHeight(), Image.SCALE_SMOOTH);
-                    LblPreview.setIcon(new ImageIcon(scaledImage));
-
-                    // Aktifkan tombol verifikasi karena foto sudah tersedia
-                    BtnVerifikasi.setEnabled(true);
-                    JOptionPane.showMessageDialog(this, "Foto berhasil diambil! Silakan klik 'Verifikasi Wajah'.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Kamera belum aktif!");
-            }
-        } catch (HeadlessException e) {
-            JOptionPane.showMessageDialog(this, "Gagal mengambil foto: " + e.getMessage());
-        }
-    }
-
-    private void initAutoFaceDetection() {
-        try {
-            String baseDir = System.getProperty("user.dir");
-            String cascadePath = baseDir + File.separator + "models" + File.separator + "haarcascade_frontalface_alt.xml";
-            
-            Loader.load(org.bytedeco.opencv.global.opencv_core.class);
-
-            faceDetector = new CascadeClassifier(cascadePath);
-            if (faceDetector.empty()) {
-                System.err.println("Peringatan: File model Haarcascade tidak ditemukan. Deteksi otomatis dinonaktifkan.");
-                BtnCapture.setEnabled(true);
-                return;
-            }
-
-            // Pastikan webcam sudah siap
-            if (webcam != null) {
-                // Hapus listener lama jika ada untuk mencegah duplikasi event
-                for (WebcamListener l : webcam.getWebcamListeners()) {
-                    webcam.removeWebcamListener(l);
-                }
-
-                // Tambahkan Listener real-time bawaan library webcam
-                webcam.addWebcamListener(new WebcamListener() {
-                    private long lastCheckTime = 0;
-
-                    @Override
-                    public void webcamImageObtained(WebcamEvent we) {
-                        // Batasi interval pengecekan (misal: minimal 300ms sekali) agar CPU tidak 100% 
-                        // dan benar-benar sinkron dengan laju frame kamera.
-                        long currentTime = System.currentTimeMillis();
-                        if (currentTime - lastCheckTime < 300) {
-                            return;
-                        }
-                        lastCheckTime = currentTime;
-
-                        try {
-                            BufferedImage currentFrame = we.getImage();
-                            if (currentFrame != null) {
-                                Java2DFrameConverter java2dConverter = new Java2DFrameConverter();
-                                OpenCVFrameConverter.ToMat openCvConverter = new OpenCVFrameConverter.ToMat();
-
-                                org.bytedeco.javacv.Frame jvFrame = java2dConverter.convert(currentFrame);
-                                if (jvFrame != null) {
-                                    Mat frameMat = openCvConverter.convert(jvFrame);
-                                    if (frameMat != null && !frameMat.empty()) {
-                                        Mat grayMat = new Mat();
-                                        cvtColor(frameMat, grayMat, COLOR_BGR2GRAY);
-
-                                        RectVector faces = new RectVector();
-                                        faceDetector.detectMultiScale(grayMat, faces);
-
-                                        final boolean faceDetected = (faces.size() > 0);
-
-                                        // Update UI secara instan (Real-time)
-                                        SwingUtilities.invokeLater(() -> {
-                                            if (faceDetected) {
-                                                LblStatusWajah.setText("Status: Wajah Terdeteksi ✓");
-                                                LblStatusWajah.setForeground(new Color(0, 153, 0));
-                                                BtnCapture.setEnabled(true);
-                                            } else {
-                                                LblStatusWajah.setText("Status: Mencari Wajah...");
-                                                LblStatusWajah.setForeground(new Color(204, 0, 0));
-                                                BtnCapture.setEnabled(false);
-                                            }
-                                        });
-
-                                        // Bersihkan memori native OpenCV
-                                        faces.close();
-                                        grayMat.close();
-                                        frameMat.close();
-                                    }
-                                }
-                            }
-                        } catch (Exception e) {
-                            // Mencegah crash pada event listener
-                        }
-                    }
-
-                    @Override
-                    public void webcamOpen(WebcamEvent we) {
-                    }
-
-                    @Override
-                    public void webcamClosed(WebcamEvent we) {
-                    }
-
-                    @Override
-                    public void webcamDisposed(WebcamEvent we) {
-                    }
-                });
-            }
-
-        } catch (Exception e) {
-            BtnCapture.setEnabled(true);
-        }
-    }
-    
     public RestTemplate getRest() throws NoSuchAlgorithmException, KeyManagementException {
         sslContext = SSLContext.getInstance("SSL");
-        TrustManager[] trustManagers= {
+        TrustManager[] trustManagers = {
             new X509TrustManager() {
                 @Override
-                public X509Certificate[] getAcceptedIssuers() {return null;}
+                public X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+
                 @Override
-                public void checkServerTrusted(X509Certificate[] arg0, String arg1)throws CertificateException {}
+                public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                }
+
                 @Override
-                public void checkClientTrusted(X509Certificate[] arg0, String arg1)throws CertificateException {}
+                public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
+                }
             }
         };
-        sslContext.init(null,trustManagers , new SecureRandom());
-        sslFactory=new SSLSocketFactory(sslContext,SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-        scheme=new Scheme("https",443,sslFactory);
-        factory=new HttpComponentsClientHttpRequestFactory();
+        sslContext.init(null, trustManagers, new SecureRandom());
+        sslFactory = new SSLSocketFactory(sslContext, SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+        scheme = new Scheme("https", 443, sslFactory);
+        factory = new HttpComponentsClientHttpRequestFactory();
         factory.getHttpClient().getConnectionManager().getSchemeRegistry().register(scheme);
         return new RestTemplate(factory);
+    }
+
+    private void initScanner() {
+        try {
+            ReaderCollection readers = UareUGlobal.GetReaderCollection();
+            readers.GetReaders();
+            if (!readers.isEmpty()) {
+                reader = readers.get(0);
+                try {
+                    reader.Open(Reader.Priority.COOPERATIVE);
+                } catch (UareUException e) {
+                    reader.Close();
+                    reader.Open(Reader.Priority.COOPERATIVE);
+                }
+
+                Reader.Description desc = reader.GetDescription();
+                LblStatusScanner.setText("Status Scanner: Siap (" + desc.name + ")");
+                LblStatusScanner.setForeground(new Color(0, 150, 0));
+            } else {
+                LblStatusScanner.setText("Status Scanner: Perangkat tidak ditemukan!");
+            }
+        } catch (UareUException e) {
+            LblStatusScanner.setText("Status Scanner Error: " + e.getMessage());
+        }
+    }
+
+    private void startAutoVerifyLoop() {
+        isScanning = true;
+        executor.submit(() -> {
+            while (isScanning && reader != null) {
+                try {
+                    // Cek status verifikasi (apakah sedang dijeda untuk registrasi)
+                    synchronized (lock) {
+                        while (!isVerifying && isScanning) {
+                            lock.wait();
+                        }
+                    }
+
+                    if (!isScanning || reader == null) {
+                        break;
+                    }
+
+                    Reader.CaptureResult cap_result = reader.Capture(
+                            Fid.Format.ANSI_381_2004,
+                            Reader.ImageProcessing.IMG_PROC_DEFAULT,
+                            reader.GetCapabilities().resolutions[0],
+                            -1
+                    );
+
+                    if (cap_result != null) {
+
+                        if (cap_result.image != null && cap_result.quality == Reader.CaptureQuality.GOOD) {
+
+                            Fmd fmd = UareUGlobal.GetEngine().CreateFmd(cap_result.image, Fmd.Format.DP_VER_FEATURES);
+
+                            String base64Minutiae = Base64.getEncoder().encodeToString(fmd.getData());
+
+                            System.out.println("Sidik jari terdeteksi : " + base64Minutiae);
+
+                            LblStatusScanner.setText("Status Scanner: Mengirim ke verifikasi BPJS..");
+                            eksekusiVerifikasiBpjs(base64Minutiae);
+                        }
+                    }
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                } catch (UareUException e) {
+                }
+            }
+        });
+    }
+
+    private void eksekusiVerifikasiBpjs(String base64Minutiae) {
+        String nikPeserta = NoKTP.getText().trim();
+        if (nikPeserta.isEmpty() || nikPeserta.length() != 13) {
+            return;
+        }
+
+        try {
+            String verifyUrl = BASE_URL + "/v1/finger/verify";
+            Map<String, Object> verifyBody = new HashMap<>();
+            verifyBody.put("keyword", nikPeserta);
+            verifyBody.put("jnsFilter", "psnoka");
+            verifyBody.put("finger", base64Minutiae);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(singletonList(MediaType.APPLICATION_JSON));
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Connection", "keep-alive");
+            headers.add("token", accessToken);
+
+            System.out.println("URL : " + verifyUrl);
+            System.out.println("base64 : " + base64Minutiae);
+            HttpEntity<Map<String, Object>> verifyEntity = new HttpEntity<>(verifyBody, headers);
+            ResponseEntity<Map> verifyResponse = getRest().exchange(verifyUrl, HttpMethod.POST, verifyEntity, Map.class);
+            System.out.println("response : " + verifyResponse.getBody());
+
+            // Jalur khusus jika server mengembalikan HTTP 200 (Code 200 Sukses)
+            if (verifyResponse.getStatusCode() == HttpStatus.OK && verifyResponse.getBody() != null) {
+                Map resBody = verifyResponse.getBody();
+                Map metaData = (Map) resBody.get("metaData");
+                int code = metaData != null && metaData.get("code") != null
+                        ? Integer.parseInt(metaData.get("code").toString()) : 200;
+
+                if (code == 200) {
+                    SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(this, "Verifikasi Sidik Jari Berhasil!");
+                        LblStatusScanner.setText("Status Scanner: Verifikasi Berhasil ✓");
+                        LblStatusScanner.setForeground(new Color(0, 153, 0));
+                    });
+                }
+            }
+        } catch (HttpStatusCodeException e) {
+            // MENANGKAP SEMUA RESPON ERROR (TERMASUK HTTP 400 UNTUK CODE 2, CODE 3, DLL)
+            String errorBody = e.getResponseBodyAsString();
+            System.out.println("HTTP Error Response : " + errorBody);
+
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                Map<String, Object> errMap = mapper.readValue(errorBody, Map.class);
+                Map<String, Object> metaData = (Map<String, Object>) errMap.get("metaData");
+
+                if (metaData != null && metaData.get("code") != null) {
+                    int code = Integer.parseInt(metaData.get("code").toString());
+                    String message = metaData.get("message") != null ? metaData.get("message").toString() : "Verifikasi gagal";
+
+                    if (code == 2) {
+                        // Code 2: Peserta belum terdaftar fingerprint
+                        SwingUtilities.invokeLater(() -> {
+                            LblStatusScanner.setText("[INFO] Peserta belum terdaftar fingerprint (Code 2)");
+                            LblStatusScanner.setForeground(new Color(204, 0, 0));
+                            triggerBelumTerdaftar();
+                        });
+                        return;
+                    } else {
+                        // Code lain (misal Code 3: "Sidik jari tidak di kenal", dll)
+                        SwingUtilities.invokeLater(() -> {
+                            JOptionPane.showMessageDialog(this, "Gagal Verifikasi: " + message);
+                            LblStatusScanner.setText("Status Scanner: " + message);
+                            LblStatusScanner.setForeground(new Color(204, 0, 0));
+                        });
+                        return;
+                    }
+                }
+            } catch (Exception parseEx) {
+                parseEx.printStackTrace();
+            }
+
+            // Fallback jika body error bukan format JSON standar BPJS
+            SwingUtilities.invokeLater(() -> {
+                JOptionPane.showMessageDialog(this, "Gagal Verifikasi (HTTP " + e.getStatusCode() + ")");
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            SwingUtilities.invokeLater(() -> {
+                JOptionPane.showMessageDialog(this, "Terjadi kesalahan koneksi/sistem saat verifikasi.");
+            });
+        }
+    }
+
+    private void triggerBelumTerdaftar() {
+        SwingUtilities.invokeLater(() -> {
+            LblStatusScanner.setText("Status Scanner: Peserta belum terdaftar sidik jari!");
+            LblStatusScanner.setForeground(new Color(204, 0, 0));
+            BtnTampilRegistrasi.setEnabled(true);
+        });
+    }
+
+    private void tutupScanner() {
+        if (reader != null) {
+            try {
+                reader.Close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private String convertFidToBase64Png(Fid fid) {
+        if (fid == null || fid.getViews() == null || fid.getViews().length == 0) {
+            return "";
+        }
+
+        try {
+            Fid.Fiv view = fid.getViews()[0];
+            int width = view.getWidth();
+            int height = view.getHeight();
+            byte[] rawPixels = view.getData();
+
+            // 1. Buat BufferedImage grayscale dari raw byte DigitalPersona
+            BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+            bufferedImage.getRaster().setDataElements(0, 0, width, height, rawPixels);
+
+            // 2. Simpan ke memory stream sebagai file PNG
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", baos);
+            baos.flush();
+            byte[] pngBytes = baos.toByteArray();
+            baos.close();
+
+            // 3. Encode ke Base64 (otomatis diawali iVBOR...)
+            return Base64.getEncoder().encodeToString(pngBytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
     }
 }

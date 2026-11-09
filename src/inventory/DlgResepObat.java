@@ -1832,7 +1832,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }//GEN-LAST:event_tbResepKeyReleased
 
-    private void ppLembarObat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppLembarObat1ActionPerformed
+        private void ppLembarObat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppLembarObat1ActionPerformed
         if(tabMode.getRowCount()==0){
              JOptionPane.showMessageDialog(null,"Maaf, data sudah habis...!!!!");
              TNoRw.requestFocus();
@@ -1957,6 +1957,11 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             param.put("norm",TNoRm.getText());
             param.put("tgllahir", Sequel.cariIsi("SELECT tgl_lahir from pasien where no_rkm_medis = ?", TNoRm.getText()));
             param.put("peresep",NmDokter.getText());
+            String ruang = Sequel.cariIsi("select kd_kamar from kamar_inap where no_rawat=?", TNoRw.getText());
+            if (ruang.isBlank()) {
+                ruang = "Rawat Jalan";
+            }
+            param.put("ruang", ruang);
             param.put("noresep",NoResep.getText());
             param.put("status", Sequel.cariIsi("select status from resep_obat where no_resep = ?", NoResep.getText()));
             param.put("berat", Sequel.cariIsi("select berat from bb_resep where no_resep = ?", NoResep.getText()));
@@ -1964,8 +1969,7 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",KdDokter.getText());
             param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+NmDokter.getText()+"\nID "+(finger.equals("")?KdDokter.getText():finger)+"\n"+DTPBeri.getSelectedItem());  
             param.put("jam",cmbJam.getSelectedItem()+":"+cmbMnt.getSelectedItem()+":"+cmbDtk.getSelectedItem());
-            param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
-            
+            param.put("logo",Sequel.cariGambar("select setting.logo from setting"));
             Valid.MyReportqry("rptLembarObat2.jasper","report","::[ Lembar Pemberian Obat ]::","select * from temporary_resep where temporary_resep.temp37='"+akses.getalamatip()+"' order by temporary_resep.no",param);
             this.setCursor(Cursor.getDefaultCursor());
         }
